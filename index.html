@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>Portfolio - Archel Taneka Sutanto</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -13,313 +12,830 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,900,900i" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Folio - v4.0.1
-  * Template URL: https://bootstrapmade.com/folio-bootstrap-portfolio-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="index-page">
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-between">
+  <header id="header" class="header dark-background d-flex flex-column">
+    <i class="header-toggle d-xl-none bi bi-list"></i>
 
-      <a href="index.html" class="logo"><img src="" alt="" class="img-fluid"></a>
-      <!-- Uncomment below if you prefer to use an text logo -->
-      <!-- <h1 class="logo"><a href="index.html">Folio</a></h1> -->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link  scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
+    <div class="profile-img">
+      <img src="assets/img/1000009477.jpg" alt="" class="img-fluid rounded-circle">
     </div>
-  </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <div id="hero" class="home">
+    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
+      <h1 class="sitename">Archel Taneka Sutanto</h1>
+    </a>
 
-    <div class="container">
-      <div class="hero-content">
-        <h1>I'm <span class="typed" data-typed-items="Archel Taneka, AI Enthusiast, Developer"></span></h1>
-        <p>Artificial Intelligence Enthusiast, App Developer</p>
+    <div class="social-links text-center">
+      <a href="https://www.instagram.com/archeltaneka/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/archel-taneka-sutanto/" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+    </div>
 
-        <ul class="list-unstyled list-social">
-          <li><a href="mailto:archeltaneka@gmail.com" target='_blank'><i class="bi bi-envelope"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/archel-taneka-sutanto/" target='_blank'><i class="bi bi-linkedin"></i></a></li>
-          <li><a href="https://github.com/archeltaneka" target='_blank'><i class="bi bi-github"></i></a></li>
-        </ul>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
+        <li><a href="#about"><i class="bi bi-person navicon"></i>About</a></li>
+        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i>Resume</a></li>
+    
+        <!-- Projects Dropdown -->
+        <li class="dropdown">
+          <a href="#portfolio"><span>Projects</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            <!-- Machine Learning Sub-dropdown -->
+            <li class="dropdown">
+              <a href="#"><span>Machine Learning</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="portfolio-details-chest.html" data-bs-toggle="tooltip" title="Common Chest Disease Classification">Chest Disease Classifier</a></li>
+                <li><a href="portfolio-details-table-tennis.html" data-bs-toggle="tooltip" title="Table Tennis Analytics">Table Tennis Analysis</a></li>
+                <li><a href="portfolio-details-face-mask-detector.html" data-bs-toggle="tooltip" title="Face Mask Detection">Face Mask Detector</a></li>
+                <li><a href="portfolio-details-pokemon-battle.html" data-bs-toggle="tooltip" title="Pokemon Battle Prediction">Pokemon Battle Prediction</a></li>
+              </ul>
+            </li>
+    
+            <!-- Data Visualization Sub-dropdown -->
+            <li class="dropdown">
+              <a href="#"><span>Data Visualization</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="#" data-bs-toggle="tooltip" title="Melbourne Air Quality - Pedestrian Activity">Air Quality & Activity</a></li>
+              </ul>
+            </li>
+    
+            <!-- NLP Sub-dropdown -->
+            <li class="dropdown">
+              <a href="#"><span>NLP</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="#">Personal Assistant</a></li>
+              </ul>
+            </li>
+    
+            <!-- EDA Sub-dropdown -->
+            <li class="dropdown">
+              <a href="#"><span>Exploratory Data Analysis</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="#">Pokemon Battle Analysis</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- End Projects Dropdown -->
+    
+        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="assets/img/bg.jpg" alt="" data-aos="fade-in" class="">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <h2>Archel Taneka Sutanto</h2>
+        <p>I'm <span class="typed" data-typed-items="Data Scientist, Master's Student, ML Enthusiast, Python Developer">Data Scientist</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
-    </div>
-  </div><!-- End Hero -->
 
-  <main id="main">
+    </section><!-- /Hero Section -->
 
-    <!-- ======= About Section ======= -->
-    <div id="about" class="paddsection">
-      <div class="container">
-        <div class="row justify-content-between">
+    <!-- About Section -->
+    <section id="about" class="about section">
 
-          <div class="col-lg-4 ">
-            <div class="div-img-bg">
-              <div class="about-img">
-                <img src="assets/img/me.jpg" class="img-responsive" alt="me">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About Me</h2>
+        <p>Hi, I'm Archel! I'm a passionate Data Science student with a strong foundation in statistics, programming, and machine learning.</p>
+        <p>I love turning complex data into meaningful insights.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="assets/img/1000009477.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-8 content">
+            <h2>Master's of Data Science @ Monash University</h2>
+            <p class="fst-italic py-3">
+              I'm currently pursuing my Master of Data Science at Monash University, where I've developed strong skills in Python, R, SQL, and machine learning.
+              I'm passionate about using data to solve real-world problems and have worked on several projects involving predictive modeling, natural language processing, and data visualization.
+              Outside of university, I enjoy contributing to open-source projects and participating in Kaggle competitions.
+            </p>
+            <div class="row">
+              <div class="col-lg-6">
+                <ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>3 May 1998</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>27</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+61 432 829 828</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Location:</strong> <span>Melbourne, VIC, Australia</span></li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Master of Data Science</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Major:</strong> <span>Data Science</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>University:</strong> <span>Monash University</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>archeltaneka@gmail.com</span></li>
+                </ul>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-lg-7">
-            <div class="about-descr">
+      </div>
 
-              <p class="p-heading">BSc. with Artificial Intelligence from The University of Nottingham, UK with a First-class degree and Bachelor of Computer Science (Sarjana Komputer) from BINUS International University, Jakarta</p>
-              <p class="separator">Taking the Computer Science major with Artificial Intelligence stream, I have worked on several exciting machine learning projects in computer vision, NLP, and data science.</p>
+    </section><!-- /About Section -->
 
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-bar-chart"></i>
+              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1.5" class="purecounter"></span>
+              <p><strong>Projects</strong> <span>Data Analysis & ML Projects</span></p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-trophy-fill"></i>
+              <span data-purecounter-start="0" data-purecounter-end="26" data-purecounter-duration="1.5" class="purecounter"></span>
+              <p><strong>Courses and Certificates</strong> <span>Taken both in and outside my degree</span></p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-code-slash"></i>
+              <span data-purecounter-start="0" data-purecounter-end="25000" data-purecounter-duration="1.5" class="purecounter"></span>
+              <p><strong>Lines of Code</strong> <span>Python, R, SQL, and more</span></p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item">
+              <i class="bi bi-tools"></i>
+              <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1.5" class="purecounter"></span>
+              <p><strong>Tools Learned</strong> <span>Numpy, Pandas, Scikit-learn, Tableau, etc.</span></p>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Skills</h2>
+        <p>Technical and analytical skills I’ve developed during my academic journey and personal projects.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row skills-content skills-animation">
+
+          <div class="col-lg-6">
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-filetype-py me-2"></i><span>Python</span> <i class="val">95%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-r me-2"></i><span>R Programming</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-database me-2"></i><span>SQL</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-cpu me-2"></i><span>Pandas / NumPy</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-cpu me-2"></i><span>Scikit-learn / ML</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>
 
           </div>
-        </div>
-      </div>
-    </div><!-- End About Section -->
 
-    <!-- ======= Portfolio Section ======= -->
-    <div id="portfolio" class="paddsection">
+          <div class="col-lg-6">
 
-      <div class="container">
-        <div class="section-title text-center">
-          <h2>My Portfolio</h2>
+            <div class="progress">
+              <span class="skill"><i class="bi bi-bar-chart me-2"></i><span>Data Visualization</span> <i class="val">80%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-graph-up-arrow me-2"></i><span>Tableau / Power BI</span> <i class="val">75%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-git me-2"></i><span>Git / GitHub</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-journal-code me-2"></i><span>Jupyter Notebook</span> <i class="val">90%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="progress">
+              <span class="skill"><i class="bi bi-bar-chart-line me-2"></i><span>Statistics & EDA</span> <i class="val">85%</i></span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
+
+        <!-- Soft Skills -->
+        <div class="mt-4">
+          <h4>Soft Skills</h4>
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <span class="badge bg-primary"><i class="bi bi-lightbulb me-1"></i>Problem Solving</span>
+            <span class="badge bg-success"><i class="bi bi-search me-1"></i>Analytical Thinking</span>
+            <span class="badge bg-info"><i class="bi bi-chat-left-text me-1"></i>Communication</span>
+            <span class="badge bg-warning text-dark"><i class="bi bi-people me-1"></i>Collaboration</span>
+            <span class="badge bg-danger"><i class="bi bi-brain me-1"></i>Critical Thinking</span>
+            <span class="badge bg-secondary"><i class="bi bi-megaphone me-1"></i>Presentation</span>
+          </div>
+        </div>
+
       </div>
+
+    </section><!-- /Skills Section -->
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Resume</h2>
+      </div><!-- End Section Title -->
 
       <div class="container">
 
         <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">Computer Vision</li>
-              <li data-filter=".filter-card">NLP</li>
-              <li data-filter=".filter-web">Data Science</li>
-            </ul>
-          </div>
-        </div>
 
-        <div class="row portfolio-container">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">Sumary</h3>
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/chest-xray-detection.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Chest X-ray Detection & Localization</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/chest-xray-detection.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Detecting & locating chest diseases through x-rays with deep learning algorithms."><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/common-chest-x-ray-classification" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+            <div class="resume-item pb-0">
+              <h4>Archel Taneka Sutanto</h4>
+              <p><em>Passionate about leveraging data to solve problems strategically, I bring hands-on expertise in
+                statistical analysis, machine learning experiments, and model deployment to drive business growth.
+                With a methodical approach and a deep understanding of business operations, I have improved ML
+                products and boosted profits. Eager to contribute to your mission of adopting data-driven models, I
+                aim to deliver impactful insights while expanding my skills within a reputable program that values
+                innovation and analytical excellence.</em></p>
+              <ul>
+                <li>(61) 432-829-828</li>
+                <li>archeltaneka@gmail.com</li>
+              </ul>
+            </div><!-- Edn Resume Item -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/table-tennis-analytics.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Table Tennis Analytics</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/table-tennis-analytics.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Analysing a table tennis game with YOLO and computer vision algorithms"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/table-tennis-analytics" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+            <h3 class="resume-title">Education</h3>
+            <div class="resume-item">
+              <h4>Master of Data Science</h4>
+              <h5>JUL 2024 - PRESENT</h5>
+              <p><em>Monash University, Clayton VIC, AU</em></p>
+              <p>Master's by coursework</p>
+              <p>Courses completed: Introduction to Databases (FIT9132)</p>
+            </div><!-- Edn Resume Item -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/lyric-generator.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lyric Generator</h4>
-              <p>NLP</p>
-              <a href="assets/img/portfolio/lyric-generator.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Scrape available lyrics on the website and generate new lyrics using LSTM"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/izone-lyric-generator" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+            <div class="resume-item">
+              <h4>Bachelor of Science (Hons.)</h4>
+              <h5>SEP 2019 - SEP 2020</h5>
+              <p><em>University of Nottingham, Nottingham, UK</em></p>
+              <p>Part of the double degree program with Bina Nusantara University. Majored in Computer Science with AI with first class degree.</p>
+              <p>Dissertation title: "Common Chest X-ray Classification and Localisation with Deep Learning".</p>
+              <p>Supervisor: Dr. Chao Chen</p>
+            </div><!-- Edn Resume Item -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/face-mask-detection.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Face Mask Detection</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/face-mask-detection.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Detect whether people are wearing face masks through a camera/webcam with deep neural networks"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/face-mask-detection" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
+            <div class="resume-item">
+              <h4>Bachelor of Science</h4>
+              <h5>SEP 2016 - SEP 2020</h5>
+              <p><em>Bina Nusantara University International, Jakarta, ID</em></p>
+              <p>Majored in Computer Science.</p>
+              <p>GPA: 3.74</p>
+              <p>High Distinction</p>
+            </div><!-- Edn Resume Item -->
+
           </div>
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/video-face-recognition.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Video Face Recognition</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/video-face-recognition.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Detect and recognize the faces of people in a video"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/video-face-recognition" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="resume-title">Professional Experience</h3>
+            <div class="resume-item">
+              <h4>Associate Data Scientist</h4>
+              <h5>OCT 2022 - JUL 2024</h5>
+              <p><em>PT. Global Tiket Network, Jakarta, ID </em></p>
+              <p>Founded in 2011, tiket.com is one of Indonesia’s biggest OTA (Online Traveling Agency)
+                companies. Working with the team of over 20 data scientists and machine learning engineers; my
+                role required data analysis, data visualisation, machine learning model experiment & development,
+                and model statistical test across all new and existing projects.</p>
+              <ul>
+                <li>Improved the accuracy of image quality prediction model by 10%. The model was
+                  an “in-house” development model that utilises OpenCV's image processing and
+                  manipulation techniques.</li>
+                <li>Developed a payment recommendation model that contributes to CVR uplift by
+                  4.8%, GBV by 94B IDR (+4.7% from the previous model), and margin by 4.7B IDR. </li>
+                <li>Developed a Catboost-based initial room grouping/merging model with ~90%
+                  precision and recall.</li>
+                <li>Developed hotel recommendation model to incorporate POI (point of interest) and
+                  nearby geolocation data with a contribution of 8B IDR GBV and 1.1B IDR in 2023
+                  through feature engineering with SQL on BigQuery.</li>
+                <li>Reduced overall cost of the RPA (robotic process automation) bot by 150M IDR and
+                  operational cost by 165M IDR annually by developing flight-related email parsing
+                  (reschedule and cancellation). The model itself was essentially trained using Keras
+                  and Tensorflow.</li>
+                <li>Created dashboards for model diagnosing and monitoring using Tableau and
+                  Google Looker Studio which include quantitative measures such as GBV, CVR,
+                  margin, model accuracy, etc.</li>
+              </ul>
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/generating-faces.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Generating Faces</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/generating-faces.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Generate new artificial faces with GANs (Generative Adversarial Network)"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/udacity-deep-learning-project-4-generating-faces" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+            </div><!-- Edn Resume Item -->
+            
+            <h3 class="resume-title">Voluntary Experience</h3>
+              <div class="resume-item">
+                <h4>Graduation Ambassador</h4>
+                <h5>OCT 2024 - OCT 2024</h5>
+                <p><em>Monash University, Melbourne, AU </em></p>
+                <p>With a team of 6-7 people, the Post Ceremony Check-in Ambassador volunteers assist with check-
+                  in for Monash graduates and guests and guide them into the Post Ceremony Function space.</p>
+                <ul>
+                  <li>Assisted over 100 guests and graduates with the check-in process, ensured all details
+                    were accurately recorded.</li>
+                  <li>Directed graduates and guests by providing clear instruction and support.</li>
+                  <li>Played a key-role in coordinating the flow of guests, helping to maintain order and
+                    timeliness during the event.</li>
+                  <li>Addressed and resolved issues related to check-in or guest inquiries.</li>
+                  <li>Effectively communicated both team members and attendees to ensure seamless
+                    transitions between different stages of events.</li>
+                </ul>
+              </div><!-- Edn Resume Item -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/dog-breed-detection.jpeg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Dog Breeds Detection</h4>
-              <p>Computer Vision</p>
-              <a href="assets/img/portfolio/dog-breed-detection.jpeg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Detect and recognize different dog breeds"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/udacity-deep-learning-project-2-dog-detection" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/sentiment-analysis.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Sentiment Analysis</h4>
-              <p>NLP</p>
-              <a href="assets/img/portfolio/sentiment-analysis.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Interpret, classify user reviews with deep RNNs, and deploy it on AWS (Amazon Sagemaker)"><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/udacity-deep-learning-project-6-deploying-sentiment-analysis" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/titanic-kaggle.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Titanic - Machine Learning from Disaster</h4>
-              <p>Data Science</p>
-              <a href="assets/img/portfolio/titanic-kaggle.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="The infamous machine learning competition on Kaggle. I analysed and built a machine learning model to predict passengers' survivability (ranked top 3%)."><i class="bx bx-plus"></i></a>
-              <a href="https://github.com/archeltaneka/data-science-starter/tree/master/titanic" target='_blank' class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
           </div>
 
         </div>
+      
+        <a href="assets/pdf/Resume - Archel Sutanto.pdf" class="btn btn-primary mt-4" download>Download My Resume</a>
 
       </div>
+    
+    </section><!-- /Resume Section -->
 
-    </div><!-- End Portfolio Section -->
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section light-background">
 
-    <!-- ======= Contact Section ======= -->
-    <div id="contact" class="paddsection">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Portfolio</h2>
+        <p>Explore my data science and machine learning projects below.</p>
+      </div><!-- End Section Title -->
+
       <div class="container">
-        <div class="contact-block1">
-          <div class="row">
 
-            <div class="col-lg-6">
-              <div class="contact-contact">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-                <h2 class="mb-30">GOT ANY QUESTIONS?</h2>
+          <!-- Portfolio Filters -->
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-machine-learning">Machine Learning</li>
+            <li data-filter=".filter-data-visualization">Data Visualization</li>
+            <li data-filter=".filter-nlp">NLP</li>
+            <li data-filter=".filter-exploratory-data-analysis">EDA</li>
+          </ul><!-- End Portfolio Filters -->
 
-                <ul class="contact-details">
-                  <li><span>Bandung, Indonesia</span></li>
-                  <li><span>+62 81221154133</span></li>
-                  <li><span>archeltaneka@gmail.com</span></li>
-                </ul>
+          <!-- Portfolio Items -->
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
+            <!-- Machine Learning Projects -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-machine-learning">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/ml-chest-disease.jpg" class="img-fluid" alt="Chest Disease Classification">
+                <div class="portfolio-info">
+                  <h4>Chest Disease Classifier</h4>
+                  <p>Classifying chest X-rays using CNNs</p>
+                  <a href="assets/img/portfolio/ml-chest-disease.jpg" title="Chest Disease Classifier" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details-chest.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
               </div>
             </div>
 
-            <div class="col-lg-6">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                <div class="row gy-3">
-
-                  <div class="col-lg-6">
-                    <div class="form-group contact-block1">
-                      <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <textarea class="form-control" name="message" placeholder="Message" required></textarea>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-                  </div>
-
-                  <div class="mt-0">
-                    <input type="submit" class="btn btn-defeault btn-send" value="Send message">
-                  </div>
-
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-machine-learning">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/ml-table-tennis.jpg" class="img-fluid" alt="Table Tennis Analytics">
+                <div class="portfolio-info">
+                  <h4>Table Tennis Analysis</h4>
+                  <p>Predicting player performance using match data</p>
+                  <a href="assets/img/portfolio/ml-table-tennis.jpg" title="Table Tennis Analysis" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details-table-tennis.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-machine-learning">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/ml-face-mask.jpg" class="img-fluid" alt="Face Mask Detection">
+                <div class="portfolio-info">
+                  <h4>Face Mask Detector</h4>
+                  <p>Using computer vision to detect face masks</p>
+                  <a href="assets/img/portfolio/ml-face-mask.jpg" title="Face Mask Detection" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details-face-mask-detector.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-machine-learning">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/ml-pokemon.jpg" class="img-fluid" alt="Pokemon Battle Prediction">
+                <div class="portfolio-info">
+                  <h4>Pokemon Battle Prediction</h4>
+                  <p>Win probability prediction using historical battle data</p>
+                  <a href="assets/img/portfolio/ml-pokemon.jpg" title="Pokemon Battle Prediction" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details-face-mask-detector.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Visualization Projects -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-data-visualization">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/dataviz-air-quality.jpg" class="img-fluid" alt="Air Quality & Activity">
+                <div class="portfolio-info">
+                  <h4>Air Quality & Activity</h4>
+                  <p>Visualizing pedestrian activity vs air quality in Melbourne</p>
+                  <a href="assets/img/portfolio/dataviz-air-quality.jpg" title="Air Quality & Activity" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- NLP Projects -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-nlp">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/nlp-personal-assistant.jpg" class="img-fluid" alt="Personal Assistant">
+                <div class="portfolio-info">
+                  <h4>Personal Assistant</h4>
+                  <p>NLP-based assistant that responds to voice commands</p>
+                  <a href="assets/img/portfolio/nlp-personal-assistant.jpg" title="Personal Assistant" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- EDA Projects -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-exploratory-data-analysis">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/eda-pokemon-battle.jpg" class="img-fluid" alt="Pokemon Battle Analysis">
+                <div class="portfolio-info">
+                  <h4>Pokemon Battle Analysis</h4>
+                  <p>Exploring factors influencing win/loss in battles</p>
+                  <a href="assets/img/portfolio/eda-pokemon-battle.jpg" title="Pokemon Battle Analysis" data-gallery="portfolio-gallery-books" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- End Portfolio Container -->
+
         </div>
       </div>
-    </div><!-- End Contact Section -->
+    </section><!-- /Portfolio Section -->
 
-  </main><!-- End #main -->
+    <!-- Services Section -->
+    <section id="services" class="services section">
 
-  <!-- ======= Footer ======= -->
-  <div id="footer" class="text-center">
-    <div class="container">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Looking For...</h2>
+        <p>Summer internships or any internships starting November 2025 in</p>
+      </div><!-- End Section Title -->
 
-      <p>&copy; Copyrights Folio. All rights reserved.</p>
+      <div class="container">
 
-      <div class="credits">
-        <!--
-        All the links in the footer should remain intact.
-        You can delete the links only if you purchased the pro version.
-        Licensing information: https://bootstrapmade.com/license/
-        Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Folio
-      -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        <div class="row gy-4">
+
+          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+            <div>
+              <h4 class="title"><a href="service-details.html" class="stretched-link">Data Science</a></h4>
+              <p class="description">Extract meaning from and interpret data, devise and utilize algorithms and models to mine big-data stores; perform data and error analysis to improve models; clean and validate data for uniformity and accuracy.</p>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+            <div>
+              <h4 class="title"><a href="service-details.html" class="stretched-link">Data Analyst</a></h4>
+              <p class="description">Performing exploratory data analysis, identifying patterns, and deriving insights from structured and unstructured data.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+            <div>
+              <h4 class="title"><a href="service-details.html" class="stretched-link">Machine Learning Engineer</a></h4>
+              <p class="description">Building predictive models using supervised and unsupervised techniques including regression, classification, clustering, and deep learning.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
       </div>
 
-    </div>
-  </div><!-- End Footer -->
+    </section><!-- /Services Section -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Feedback</h2>
+        <p>What my professors and peers say about my work</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 40
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 1
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <!-- Testimonial 1 -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>During the final project, Archel developed a real working prototype of the prediction model of Pokemon battle prediction. He was able to clearly implement, explain feature selection, and hyperparameter tuning when presenting — even caught his classmates attention to follow along.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/professor-1.jpg" class="testimonial-img" alt="">
+                <h3>Dr. Joo Chang (Chris) Jun</h3>
+                <h4>Lecturer, FIT5145 Foundationals of Data Science</h4>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Archel presented his findings from the Melbourne air quality dataset with clarity and insight. His visualizations were clean, and he made sure to explain the real-world implications of the trends he uncovered — exactly what we expect from future data scientists.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/professor-2.jpg" class="testimonial-img" alt="">
+                <h3>Dr. Michael Niemann</h3>
+                <h4>Lecturer, FIT5147 Data Exploration & Visualization</h4>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>I worked with John on a Kaggle competition for class, and I was really impressed by how quickly he could explore data and identify meaningful patterns. He also helped me understand how to interpret confusion matrices more effectively.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/classmate-1.jpg" class="testimonial-img" alt="">
+                <h3>Chen Huiying</h3>
+                <h4>Classmate, MSc Data Science</h4>
+              </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Archel submitted one of the most thorough reports I've seen this semester. His code was well-documented, and his explanations around the code structure were thoughtful and backed by evidence.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/professor-3.jpg" class="testimonial-img" alt="">
+                <h3>Dr. Trang Vu</h3>
+                <h4>Chief Examiner, FIT9136 Algorithms and Programming Foundations in Python</h4>
+              </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Archel is always curious and asks great questions during lectures. He's not just looking for answers — he wants to understand why things work the way they do, which makes him a strong analytical thinker.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/mentor-1.jpg" class="testimonial-img" alt="">
+                <h3>Levin Kuhlmann</h3>
+                <h4>Associate Professor, FIT5197 Statistical Data Modelling</h4>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-5">
+
+            <div class="info-wrap">
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h3>Address</h3>
+                  <p>206 Clayton Road, Clayton, Melbourne VIC 3168</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-telephone flex-shrink-0"></i>
+                <div>
+                  <h3>Call Me/Send Me a Message</h3>
+                  <p>+61 432 829 828</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h3>Email Me</h3>
+                  <p>info@example.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <label for="name-field" class="pb-2">Your Name</label>
+                  <input type="text" name="name" id="name-field" class="form-control" required="">
+                </div>
+
+                <div class="col-md-6">
+                  <label for="email-field" class="pb-2">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email-field" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <label for="subject-field" class="pb-2">Subject</label>
+                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <label for="message-field" class="pb-2">Message</label>
+                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
 
-  <!-- Template Main JS File -->
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
