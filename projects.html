@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archel Taneka Sutanto - Data Science Portfolio</title>
-    <meta name="description" content="Data Science student and ML enthusiast showcasing projects in machine learning, computer vision, and data visualization.">
+    <title>Projects - Archel Taneka Sutanto</title>
+    <meta name="description" content="Explore data science and machine learning projects by Archel Taneka Sutanto, including work in ML, computer vision, NLP, and data visualization.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,10 +13,6 @@
     
     <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
-    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,33 +38,6 @@
     </script>
     
     <style>
-        /* Custom Styles */
-        .hero-bg {
-            background: linear-gradient(135deg, #faf9f7 0%, #ffffff 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('resources/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1;
-            z-index: 1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
         .navbar {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
@@ -87,54 +56,6 @@
         .project-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .skill-bar {
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #7c9885, #059669);
-            border-radius: 4px;
-            transition: width 1s ease;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #7c9885, #059669);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(124, 152, 133, 0.3);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #7c9885;
-            border: 2px solid #7c9885;
-            padding: 10px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .btn-secondary:hover {
-            background: #7c9885;
-            color: white;
-            transform: translateY(-2px);
         }
         
         .filter-btn {
@@ -156,60 +77,27 @@
             color: white;
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
+        .search-input {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
-            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #7c9885;
+            box-shadow: 0 0 0 3px rgba(124, 152, 133, 0.1);
+        }
+        
+        .tech-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 500;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .notification-success {
-            background: #059669;
-        }
-        
-        .notification-error {
-            background: #dc2626;
-        }
-        
-        .notification-info {
-            background: #7c9885;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-left: 2rem;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            background: #7c9885;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px #7c9885;
-        }
-        
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 1.5rem;
-            width: 2px;
-            height: calc(100% - 1rem);
-            background: #e5e7eb;
-        }
-        
-        .timeline-item:last-child::after {
-            display: none;
         }
         
         .hamburger {
@@ -255,17 +143,24 @@
             display: none;
         }
         
-        .dark-mode {
-            background: #1a1a1a;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-stats {
+            background: linear-gradient(135deg, #7c9885, #059669);
             color: white;
-        }
-        
-        .dark-mode .navbar {
-            background: rgba(26, 26, 26, 0.95);
-        }
-        
-        .dark-mode .navbar.scrolled {
-            background: rgba(26, 26, 26, 0.95);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -275,13 +170,13 @@
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="font-playfair font-bold text-xl text-charcoal">
-                    Archel Taneka Sutanto
+                    <a href="index.html">Archel Taneka Sutanto</a>
                 </div>
                 
                 <div class="nav-links hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
+                    <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
                     <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
-                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="projects.html" class="nav-link text-sage font-medium">Projects</a>
                     <a href="contact.html" class="nav-link text-charcoal hover:text-sage transition-colors">Contact</a>
                 </div>
                 
@@ -294,9 +189,9 @@
             
             <div class="mobile-menu">
                 <div class="flex flex-col space-y-4 py-4">
-                    <a href="#home" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
+                    <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
                     <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
-                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="projects.html" class="nav-link text-sage font-medium">Projects</a>
                     <a href="contact.html" class="nav-link text-charcoal hover:text-sage transition-colors">Contact</a>
                 </div>
             </div>
@@ -304,147 +199,61 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-bg flex items-center">
-        <div class="hero-content max-w-6xl mx-auto px-6 py-20">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div class="space-y-4">
-                        <h1 class="font-playfair text-5xl md:text-6xl font-bold text-charcoal leading-tight">
-                            Hi, I'm <span class="hero-title text-sage"></span>
-                        </h1>
-                        <p class="text-xl text-warm-gray leading-relaxed">
-                            Master's Data Science student at Monash University with a passion for turning complex data into meaningful insights through machine learning and statistical analysis.
-                        </p>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <a href="projects.html" class="btn-primary">View My Work</a>
-                        <a href="contact.html" class="btn-secondary">Get In Touch</a>
-                    </div>
-                    
-                    <div class="flex items-center space-x-6 text-sm text-warm-gray">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-2 h-2 bg-sage rounded-full"></div>
-                            <span>Available for internships from Nov 2025</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-center">
-                    <div class="relative">
-                        <img src="assets/img/profile.jpg" alt="Archel Taneka Sutanto" 
-                             class="w-80 h-80 object-cover rounded-2xl shadow-2xl">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="py-20 bg-soft-cream">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-4">Technical Skills</h2>
-                <p class="text-xl text-warm-gray max-w-2xl mx-auto">
-                    Comprehensive skill set developed through academic coursework, personal projects, and industry experience.
+    <section class="pt-24 pb-16 bg-gradient-to-br from-soft-cream to-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="fade-in">
+                <h1 class="font-playfair text-5xl font-bold text-charcoal mb-6">My Projects</h1>
+                <p class="text-xl text-warm-gray max-w-3xl mx-auto mb-8">
+                    Explore my data science and machine learning projects, from academic research to industry applications 
+                    that have delivered measurable business impact and solved real-world problems.
                 </p>
-            </div>
-            
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6 fade-in">
-                    <div class="grid gap-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">Python</span>
-                                <span class="text-sm text-warm-gray">95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="95"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">Pandas / NumPy</span>
-                                <span class="text-sm text-warm-gray">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">Jupyter Notebook</span>
-                                <span class="text-sm text-warm-gray">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">SQL</span>
-                                <span class="text-sm text-warm-gray">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">Scikit-learn / ML</span>
-                                <span class="text-sm text-warm-gray">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-charcoal">Git / GitHub</span>
-                                <span class="text-sm text-warm-gray">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
-                <div class="fade-in">
-                    <div id="skills-chart" style="width: 100%; height: 400px;"></div>
+                <!-- Project Stats -->
+                <div class="flex flex-wrap justify-center gap-6 mb-8">
+                    <div class="project-stats">
+                        <span class="font-bold">8+</span> Projects Completed
+                    </div>
+                    <div class="project-stats">
+                        <span class="font-bold">5</span> Different Technologies
+                    </div>
+                    <div class="project-stats">
+                        <span class="font-bold">150M+</span> IDR Business Impact
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Featured Projects -->
+    <!-- Search and Filter Section -->
+    <section class="py-8 bg-white border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                <!-- Search Bar -->
+                <div class="w-full lg:w-auto">
+                    <input type="text" id="project-search" class="search-input" 
+                           placeholder="Search projects by name or technology...">
+                </div>
+                
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-3">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
+                    <button class="filter-btn" data-filter="computer-vision">Computer Vision</button>
+                    <button class="filter-btn" data-filter="nlp">NLP</button>
+                    <button class="filter-btn" data-filter="data-viz">Data Visualization</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
     <section class="py-20">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-4">Featured Projects</h2>
-                <p class="text-xl text-warm-gray max-w-2xl mx-auto">
-                    Explore my data science and machine learning projects with real-world applications and measurable impact.
-                </p>
-            </div>
-            
-            <!-- Project Filters -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
-                <button class="filter-btn" data-filter="computer-vision">Computer Vision</button>
-                <button class="filter-btn" data-filter="nlp">NLP</button>
-                <button class="filter-btn" data-filter="data-viz">Data Visualization</button>
-            </div>
-            
-            <!-- Project Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                
                 <!-- Pokemon Battle Prediction -->
-                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" data-categories="machine-learning">
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" 
+                     data-categories="machine-learning" data-project="pokemon-battle-prediction">
                     <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                         <img src="assets/img/portfolio/pokemon-battle-1.png" 
                              alt="Pokemon Battle Prediction" class="w-full h-full object-cover">
@@ -470,7 +279,8 @@
                 </div>
                 
                 <!-- Table Tennis Analytics -->
-                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" data-categories="computer-vision,machine-learning">
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" 
+                     data-categories="computer-vision,machine-learning" data-project="table-tennis-analytics">
                     <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
                         <img src="assets/img/portfolio/table-tennis-3.png" 
                              alt="Table Tennis Analytics" class="w-full h-full object-cover">
@@ -497,7 +307,8 @@
                 </div>
                 
                 <!-- Chest Disease Classification -->
-                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" data-categories="machine-learning,computer-vision">
+                <div class="project-card bg-white rounded-xl shadow-lg overflow-hidden" 
+                     data-categories="machine-learning,computer-vision" data-project="chest-disease-classification">
                     <div class="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
                         <img src="https://kimi-web-img.moonshot.cn/img/chartexpo.com/cc078f1e6b2e737f00db9ff60eaffe8d3d876fe1.jpg" 
                              alt="Chest Disease Classification" class="w-full h-full object-cover">
@@ -609,115 +420,26 @@
                 </div>
             </div>
             
-            <div class="text-center mt-12 fade-in">
-                <a href="projects.html" class="btn-primary">View All Projects</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Timeline -->
-    <section class="py-20 bg-soft-cream">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-4">Academic & Professional Journey</h2>
-                <p class="text-xl text-warm-gray max-w-2xl mx-auto">
-                    My path through education and industry experience in data science and machine learning.
-                </p>
-            </div>
-            
-            <div class="max-w-4xl mx-auto">
-                <div class="space-y-8">
-                    <div class="timeline-item fade-in">
-                        <div class="bg-white rounded-lg p-6 shadow-lg">
-                            <div class="flex flex-wrap items-center justify-between mb-3">
-                                <h3 class="font-playfair text-xl font-bold text-charcoal">Master of Data Science</h3>
-                                <span class="text-sage font-medium">Jul 2024 - Present</span>
-                            </div>
-                            <p class="text-warm-gray mb-3">Monash University - Melbourne, Australia</p>
-                            <ul class="text-warm-gray space-y-2">
-                                <li>• Pursuing Master's by coursework in Data Science</li>
-                                <li>• Completed: Introduction to Databases (FIT9132)</li>
-                                <li>• Focus on statistical modeling, machine learning, and data visualization</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item fade-in">
-                        <div class="bg-white rounded-lg p-6 shadow-lg">
-                            <div class="flex flex-wrap items-center justify-between mb-3">
-                                <h3 class="font-playfair text-xl font-bold text-charcoal">Associate Data Scientist</h3>
-                                <span class="text-sage font-medium">Oct 2022 - Jul 2024</span>
-                            </div>
-                            <p class="text-warm-gray mb-3">tiket.com - Jakarta, Indonesia</p>
-                            <ul class="text-warm-gray space-y-2">
-                                <li>• Improved image quality prediction model accuracy by 10%</li>
-                                <li>• Developed payment recommendation model contributing 94B IDR GBV</li>
-                                <li>• Reduced RPA costs by 150M IDR annually through email parsing automation</li>
-                                <li>• Created monitoring dashboards using Tableau and Google Looker Studio</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item fade-in">
-                        <div class="bg-white rounded-lg p-6 shadow-lg">
-                            <div class="flex flex-wrap items-center justify-between mb-3">
-                                <h3 class="font-playfair text-xl font-bold text-charcoal">Junior Data Scientist</h3>
-                                <span class="text-sage font-medium">May 2021 - Oct 2022</span>
-                            </div>
-                            <p class="text-warm-gray mb-3">Sayurbox - Jakarta, Indonesia</p>
-                            <ul class="text-warm-gray space-y-2">
-                                <li>• Increased prediction accuracy for weekly demand forecasting by 15% for over 1,500 SKUs</li>
-                                <li>• Automated workforce scheduling process (picker-checker), reducing 75% labor planning time</li>
-                                <li>• Decreased idle time by 20% and increased daily delivery capacity by 12% by implementing dynamic route assignments algorithm</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item fade-in">
-                        <div class="bg-white rounded-lg p-6 shadow-lg">
-                            <div class="flex flex-wrap items-center justify-between mb-3">
-                                <h3 class="font-playfair text-xl font-bold text-charcoal">Bachelor of Science (Hons.)</h3>
-                                <span class="text-sage font-medium">Sep 2019 - Sep 2020</span>
-                            </div>
-                            <p class="text-warm-gray mb-3">University of Nottingham - Nottingham, UK</p>
-                            <ul class="text-warm-gray space-y-2">
-                                <li>• Computer Science with AI, First Class Degree</li>
-                                <li>• Dissertation: "Common Chest X-ray Classification and Localisation with Deep Learning"</li>
-                                <li>• Part of double degree program with Bina Nusantara University</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item fade-in">
-                        <div class="bg-white rounded-lg p-6 shadow-lg">
-                            <div class="flex flex-wrap items-center justify-between mb-3">
-                                <h3 class="font-playfair text-xl font-bold text-charcoal">Bachelor of Science</h3>
-                                <span class="text-sage font-medium">Sep 2016 - Oct 2020</span>
-                            </div>
-                            <p class="text-warm-gray mb-3">Bina Nusantara International University - Jakarta, ID</p>
-                            <ul class="text-warm-gray space-y-2">
-                                <li>• Major: Computer Science</li>
-                                <li>• GPA: 3.74</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <!-- No Results Message -->
+            <div id="no-results" class="text-center py-16 hidden">
+                <div class="text-warm-gray text-lg mb-4">No projects found matching your criteria.</div>
+                <p class="text-warm-gray">Try adjusting your search terms or filters.</p>
             </div>
         </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="py-20">
+    <section class="py-20 bg-soft-cream">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div class="fade-in">
-                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-6">Let's Work Together</h2>
+                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-6">Interested in Collaborating?</h2>
                 <p class="text-xl text-warm-gray mb-8 max-w-2xl mx-auto">
-                    I'm currently seeking summer internships or full-time opportunities starting November 2025. 
-                    If you're looking for a passionate data scientist with real-world experience, let's connect.
+                    I'm always open to discussing new opportunities and interesting projects. 
+                    If you have a challenging data science problem, let's talk about how we can solve it together.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="contact.html" class="btn-primary">Get In Touch</a>
-                    <a href="resources/resume.pdf" class="btn-secondary" target="_blank">Download Resume</a>
+                    <a href="resources/resume.pdf" class="btn-secondary" target="_blank">View Resume</a>
                 </div>
             </div>
         </div>
@@ -757,7 +479,46 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="assets/js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>

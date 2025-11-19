@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Archel Taneka Sutanto</title>
+    <meta name="description" content="Get in touch with Archel Taneka Sutanto for data science opportunities, collaborations, or just to connect.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': '#7c9885',
+                        'charcoal': '#1a1a1a',
+                        'warm-gray': '#6b7280',
+                        'soft-cream': '#faf9f7',
+                        'muted-blue': '#64748b'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .navbar {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #7c9885;
+            box-shadow: 0 0 0 3px rgba(124, 152, 133, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #dc2626;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .error-message {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 0.25rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #7c9885, #059669);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 152, 133, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .contact-info-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #374151;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+        }
+        
+        .social-link:hover {
+            background: #7c9885;
+            color: white;
+            transform: translateX(4px);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #1a1a1a;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                padding: 1rem;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .notification-success {
+            background: #059669;
+        }
+        
+        .notification-error {
+            background: #dc2626;
+        }
+        
+        .notification-info {
+            background: #7c9885;
+        }
+        
+        .availability-badge {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .availability-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-charcoal">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-white/80">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="font-playfair font-bold text-xl text-charcoal">
+                    <a href="index.html">Archel Taneka Sutanto</a>
+                </div>
+                
+                <div class="nav-links hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
+                    <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
+                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="contact.html" class="nav-link text-sage font-medium">Contact</a>
+                </div>
+                
+                <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="mobile-menu">
+                <div class="flex flex-col space-y-4 py-4">
+                    <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
+                    <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
+                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="contact.html" class="nav-link text-sage font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-soft-cream to-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="fade-in">
+                <h1 class="font-playfair text-5xl font-bold text-charcoal mb-6">Let's Connect</h1>
+                <p class="text-xl text-warm-gray max-w-3xl mx-auto mb-8">
+                    I'm currently seeking summer internships or full-time opportunities starting November 2025. 
+                    If you have an interesting project or opportunity, I'd love to hear from you.
+                </p>
+                
+                <div class="availability-badge mb-8">
+                    Available for opportunities from November 2025
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="fade-in">
+                    <div class="contact-form p-8">
+                        <h2 class="font-playfair text-3xl font-bold text-charcoal mb-6">Send Me a Message</h2>
+                        <p class="text-warm-gray mb-8">
+                            Whether you have a project in mind, want to collaborate, or just want to connect, 
+                            feel free to reach out. I typically respond within 24 hours.
+                        </p>
+                        
+                        <form id="contact-form" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" id="name" name="name" class="form-input" required>
+                                    <div class="error-message"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                    <div class="error-message"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <input type="text" id="subject" name="subject" class="form-input" required 
+                                       placeholder="What's this about?">
+                                <div class="error-message"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company" class="form-label">Company/Organization</label>
+                                <input type="text" id="company" name="company" class="form-input" 
+                                       placeholder="Where are you from? (Optional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea id="message" name="message" class="form-input form-textarea" required 
+                                          placeholder="Tell me about your project, opportunity, or just say hello!"></textarea>
+                                <div class="error-message"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="opportunity-type" class="form-label">Opportunity Type</label>
+                                <select id="opportunity-type" name="opportunity-type" class="form-input">
+                                    <option value="">Select opportunity type (Optional)</option>
+                                    <option value="internship">Internship</option>
+                                    <option value="full-time">Full-time Position</option>
+                                    <option value="freelance">Freelance Project</option>
+                                    <option value="collaboration">Research Collaboration</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary w-full">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="fade-in">
+                    <div class="contact-info-card">
+                        <h2 class="font-playfair text-3xl font-bold text-charcoal mb-6">Get in Touch</h2>
+                        <p class="text-warm-gray mb-8">
+                            Prefer to reach out directly? Here are the best ways to connect with me.
+                        </p>
+                        
+                        <!-- Contact Details -->
+                        <div class="space-y-6 mb-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-sage/10 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Email</h3>
+                                    <p class="text-warm-gray">archeltaneka@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-sage/10 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Location</h3>
+                                    <p class="text-warm-gray">Melbourne, VIC, Australia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-sage/10 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Phone</h3>
+                                    <p class="text-warm-gray">+61 432 829 828</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-sage/10 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-charcoal">Response Time</h3>
+                                    <p class="text-warm-gray">Within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div>
+                            <h3 class="font-semibold text-charcoal mb-4">Connect With Me</h3>
+                            <div class="space-y-3">
+                                <a href="https://linkedin.com/in/archeltaneka" class="social-link">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>LinkedIn Profile</span>
+                                </a>
+                                
+                                <a href="https://github.com/archeltaneka" class="social-link">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"/>
+                                    </svg>
+                                    <span>GitHub Profile</span>
+                                </a>
+                                
+                                <a href="mailto:archeltaneka@gmail.com" class="social-link">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                    </svg>
+                                    <span>Direct Email</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-soft-cream">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="font-playfair text-4xl font-bold text-charcoal mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-warm-gray">
+                    Common questions about my availability and interests.
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
+                    <h3 class="font-playfair text-xl font-bold text-charcoal mb-3">When are you available to start?</h3>
+                    <p class="text-warm-gray leading-relaxed">
+                        I'm available for internships or full-time positions starting November 2025. I'm currently completing 
+                        my Master's degree at Monash University and will be available for immediate start after graduation.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
+                    <h3 class="font-playfair text-xl font-bold text-charcoal mb-3">What type of roles are you interested in?</h3>
+                    <p class="text-warm-gray leading-relaxed">
+                        I'm particularly interested in data science, machine learning engineering, and data analyst roles. 
+                        I enjoy working on projects that involve predictive modeling, natural language processing, and 
+                        data visualization with real-world business impact.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
+                    <h3 class="font-playfair text-xl font-bold text-charcoal mb-3">Do you have industry experience?</h3>
+                    <p class="text-warm-gray leading-relaxed">
+                        Yes, I worked as an Associate Data Scientist at tiket.com (one of Indonesia's largest online travel agencies) 
+                        for nearly 2 years, where I developed and deployed machine learning models that contributed to significant 
+                        business improvements and cost savings.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
+                    <h3 class="font-playfair text-xl font-bold text-charcoal mb-3">What technologies do you work with?</h3>
+                    <p class="text-warm-gray leading-relaxed">
+                        I primarily work with Python, R, and SQL for data analysis and modeling. I'm proficient with libraries 
+                        like Pandas, NumPy, Scikit-learn, TensorFlow, and OpenCV. I also have experience with visualization tools 
+                        like Tableau, Power BI, and various Python visualization libraries.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="mb-6">
+                <h3 class="font-playfair text-2xl font-bold mb-2">Archel Taneka Sutanto</h3>
+                <p class="text-gray-400">Data Science Student & ML Enthusiast</p>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="mailto:archeltaneka@gmail.com" class="text-gray-400 hover:text-sage transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/archeltaneka" class="text-gray-400 hover:text-sage transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/archeltaneka" class="text-gray-400 hover:text-sage transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="text-gray-400 text-sm">
+                <p>© 2025 Archel Taneka Sutanto. All rights reserved.</p>
+                <p class="mt-2">Built with modern web technologies and a passion for clean design.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
