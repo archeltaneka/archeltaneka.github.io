@@ -500,9 +500,9 @@
                 ],
                 info: [
                     { label: 'Project Type', value: 'Personal' },
-                    { label: 'Duration', value: '3 weeks' },
+                    { label: 'Duration', value: '3 months' },
                     { label: 'Team Size', value: 'Individual' },
-                    { label: 'Completion Date', value: 'February 2021' }
+                    { label: 'Completion Date', value: 'March 2021' }
                 ]
             },
             'chest-disease-classification': {
@@ -510,48 +510,187 @@
                 description: 'Developed a system to classify 10 common chest diseases from X-ray images using deep learning techniques to aid in medical diagnosis.',
                 image: 'assets/img/portfolio/chest-1.jpg',
                 tags: ['Machine Learning', 'Computer Vision', 'Deep learning'],
-                github: 'https://github.com/archeltaneka/common-chest-xray-classification',
+                github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
                 metrics: [
-                    { label: 'CVR Uplift', value: '+4.8%', description: 'Conversion rate improvement' },
-                    { label: 'GBV Impact', value: '94B IDR', description: 'Gross booking value' },
-                    { label: 'Margin Impact', value: '4.7B IDR', description: 'Additional margin' },
-                    { label: 'Model Accuracy', value: '92%', description: 'Recommendation precision' }
+                    { label: 'Dataset Size', value: '+100,000 (~42GB)', description: 'Images' },
+                    { label: 'Dataset Variance', value: 'Over 30,000', description: 'Patients' },
+                    { label: 'F1 Score', value: '~80%', description: 'On Test set' }
                 ],
                 overview: `
-                    <p>This high-impact project developed a payment method recommendation system that significantly improved conversion rates and revenue for tiket.com, one of Indonesia's largest online travel agencies.</p>
+                    <p>Classifying 10 common chest diseases (Atelectasis, Consolidation, Infiltration, Pneumothorax, Edema, Emphysema, Fibrosis, Effusion, Pneumonia, Pleural Thickening, Cardiomegaly, Nodule, Mass and Hernia)</p>
                     
-                    <p>The system analyzes user behavior, transaction history, and contextual factors to recommend the most suitable payment methods, improving both user experience and business metrics.</p>
+                    <p>The system analyzes X-ray images using deep CNN networks to identify pattern for each disease and localize them by drawing heatmap indicating where the diseases exist.</p>
                 `,
                 implementation: `
                     <p><strong>Feature Engineering:</strong></p>
-                    <p>Created comprehensive features from user behavior data, transaction history, device information, and contextual factors. Applied advanced feature selection techniques to identify the most predictive variables.</p>
+                    <p>Increased dataset variability by generating over 10,000+ augmented images, which contributed to reducing overfitting and improving the CNN's generalization capabilities across diverse chest radiograph inputs.</p>
                     
                     <p><strong>Model Architecture:</strong></p>
-                    <p>Built a CatBoost-based recommendation model with custom loss functions optimized for conversion rate improvement. Implemented A/B testing framework for model evaluation and deployment.</p>
+                    <p>Developed a convolutional neural network model that achieved an 80% F1 score in classifying chest X-ray images across 10 disease categories, significantly improving diagnostic precision for respiratory conditions.</p>
                     
-                    <p><strong>Real-time Inference:</strong></p>
-                    <p>Developed a low-latency inference pipeline capable of making recommendations in real-time during the booking process. Integrated with existing booking flow with minimal performance impact.</p>
+                    <p><strong>Localization:</strong></p>
+                    <p>Implemented the Grad-CAM (Gradient Class Activation Maps) algorithm to identify the diseases location on the X-ray images.</p>
                 `,
                 results: `
-                    <p>The model achieved remarkable business impact with a 4.8% improvement in conversion rate and 94B IDR uplift in gross booking value. The margin impact of 4.7B IDR demonstrated clear ROI for the project.</p>
+                    <p>The model achieved approximately 80% F1 score in the test set.</p>
                     
-                    <p>The recommendation system now serves millions of users monthly and has become a critical component of the booking platform's user experience optimization strategy.</p>
+                    <p>Received the "First-class" mark for my individual dissertation unit.</p>
                 `,
                 technologies: [
-                    { name: 'CatBoost', level: 'Advanced' },
-                    { name: 'SQL', level: 'Advanced' },
-                    { name: 'BigQuery', level: 'Advanced' },
-                    { name: 'Python', level: 'Advanced' },
-                    { name: 'Pandas', level: 'Advanced' },
-                    { name: 'Apache Airflow', level: 'Intermediate' },
-                    { name: 'Docker', level: 'Intermediate' }
+                    { name: 'Pandas' },
+                    { name: 'Numpy' },
+                    { name: 'Tensorflow' },
+                    { name: 'Keras' },
+                    { name: 'OpenCV' }
                 ],
                 info: [
-                    { label: 'Project Type', value: 'Industry Project' },
-                    { label: 'Company', value: 'tiket.com' },
-                    { label: 'Duration', value: '6 months' },
-                    { label: 'Team Size', value: '5 members' },
-                    { label: 'Completion Date', value: 'March 2024' }
+                    { label: 'Project Type', value: 'Academic (Dissertation)' },
+                    { label: 'Duration', value: '3 months' },
+                    { label: 'Team Size', value: 'Individual' },
+                    { label: 'Completion Date', value: 'April 2020' }
+                ]
+            },
+            'air-quality-visualization': {
+                title: 'Melbourne Air Quality & Pedestrian Analysis',
+                description: 'Developed a dashboard-style visualization using HTML, CSS, and D3.js as part of the final project of my "Data Exploration and Visualization" unit.',
+                image: 'assets/img/portfolio/air-quality-visualization-3.jpg',
+                tags: ['Data Visualization', 'HTML', 'CSS', 'D3.js'],
+                github: 'portfolio-air-quality-visualization/dvp.html',
+                metrics: [
+                    { label: 'Dataset Size', value: '+700,000', description: 'Records' },
+                    { label: 'Historical Data', value: '1+', description: 'Years' },
+                    { label: 'Reduce', value: '40%', description: 'Data inconsistency issues' }
+                ],
+                overview: `
+                    <p>Identify seasonal trends in air quality, particularly harmful pollutants</p>
+                    
+                    <p>Explore the correlation between pollutant levels and daily pedestrian counts.</p>
+                `,
+                implementation: `
+                    <p><strong>Pollutant Seasonal Trends:</strong></p>
+                    <p>Shows individual plots for five different pollutants (CO, NO2, O3, PM2.5, PM10). Each plot shows the trend in 2022.</p>
+                    
+                    <p><strong>Pedestrian Traffic:</strong></p>
+                    <p>Shows the number of pedestrians at a certain location along with the air quality (pollutant levels) at that period of time.</p>
+                `,
+                results: `
+                    <p>This visualization can be utilized by policymakers and health professionals with actionable insights into mitigating health risks caused by poor air quality.</p>
+                `,
+                technologies: [
+                    { name: 'HTML' },
+                    { name: 'CSS' },
+                    { name: 'Javascript' },
+                    { name: 'D3.js' },
+                ],
+                info: [
+                    { label: 'Project Type', value: 'Academic' },
+                    { label: 'Duration', value: '1 month' },
+                    { label: 'Team Size', value: 'Individual' },
+                    { label: 'Completion Date', value: 'June 2025' }
+                ]
+            },
+            'stock-performance-prediction': {
+                title: 'Monash Stock Performance Prediction',
+                description: 'Developed a regression and classification model to predicty both montly stock relative performance and excess return value using ensemble learning techniques.',
+                image: 'https://cdn.pixabay.com/photo/2016/11/23/14/37/blur-1853262_1280.jpg',
+                tags: ['Machine Learning', 'Regression', 'Classification', 'Ensemble Learning'],
+                github: 'https://github.com/archeltaneka/monash_stock_performance_prediction',
+                metrics: [
+                    { label: 'Kaggle', value: '6th', description: 'Final rank' },
+                    { label: 'F1-score', value: '0.8545', description: 'Classification metric on test set' },
+                    { label: 'RMSE', value: '0.042', description: 'Regression metric on test set' }
+                ],
+                overview: `
+                    <p>This project consists of exploratory data analysis (EDA) and machine learning skills by building predictive models for monthly stock relative performance.</p>
+
+                    <p>Predict whether US stocks are likely to outperform or underperform the US Monash Index benchmark and the excess return value.</p>                    
+                `,
+                implementation: `
+                    <p><strong>EDA:</strong></p>
+                    <p>Perform initial data analysis such as the class labels distribution, feature correlation, and some statistical tests.</p>
+                    
+                    <p><strong>Feature Engineering:</strong></p>
+                    <p>In a time series problem, the labels are only available until certain period of time. If the model had access to them during training, it would be "peeking" into the future. To solve this, we create proxy features that rely only on information available at or before the prediction month.</p>
+
+                    <p><strong>Data Split:</strong></p>
+                    Group and sort the data by their respective unique stock identifier and date to avoid data leakage, then apply rolling/expanding split for time series data.
+
+                    <p><strong>Model Experiment:</strong></p>
+                    Utilized model pipelines in Scikit-learn for faster and more reusability model experiments.
+                    
+                    <p><strong>Ensemble Learning:</strong></p>
+                    Ensemble all model variants to train a stronger model using the ensemble training techniques.
+
+                `,
+                results: `
+                    <p>Placed 6th at the Kaggle private leaderboard.</p>
+
+                    <p>Received a mark of 22.5 out of 25 (HD).</p>
+
+                    <p>Achieved 85% F1 score and 0.04 RMSE on the test set.</p>
+                `,
+                technologies: [
+                    { name: 'Python' },
+                    { name: 'Numpy' },
+                    { name: 'Pandas' },
+                    { name: 'Scikit-learn' },
+                    { name: 'XGBoost' },
+                    { name: 'Catboost' },
+                ],
+                info: [
+                    { label: 'Project Type', value: 'Academic' },
+                    { label: 'Duration', value: '2 weeks' },
+                    { label: 'Team Size', value: 'Individual' },
+                    { label: 'Completion Date', value: 'September 2025' }
+                ]
+            },
+            'slot-filling-intent-detection': {
+                title: 'Slot Filling and Intent Detection for Airline Queries',
+                description: 'Developed a regression and classification model to predicty both montly stock relative performance and excess return value using ensemble learning techniques.',
+                image: 'assets/img/portfolio/slot-filling-intent-detection.png',
+                tags: ['Machine Learning', 'Deep Learning', 'CRF (Conditional Random Fields)', 'Transformers'],
+                github: 'https://github.com/archeltaneka/monash_stock_performance_prediction',
+                metrics: [
+                    { label: 'Intent Accuruacy', value: '97%', description: 'On test set' },
+                    { label: 'Slot F1-score', value: '0.819', description: 'On test set' },
+                    { label: 'Entity(intent) F1-score', value: '0.951', description: 'On test set' }
+                ],
+                overview: `
+                    <p>This project implements and compares different approaches for Slot Filling and Intent Detection, two fundamental tasks in Natural Language Understanding (NLU) for conversational AI systems.</p>
+
+                    <p>The first is developed using a Conditional Random Fields (CRF) approach, one of the traditional sequence labeling techniques. The second model, I implemented some Deep Learning approaches such BiLSTM, BiLSTM+Attention, BiLSTM-CRF, and BERT fine-tuning</p>                    
+                `,
+                implementation: `
+                    <p><strong>EDA:</strong></p>
+                    <p>Perform initial data analysis such as the class/tag labels distribution, feature correlation, and some statistical tests.</p>
+                    
+                    <p><strong>Feature Engineering:</strong></p>
+                    <p>Create additional token-level features for slot-filling task and TF-IDF features for intent detection task.</p>
+
+                    <p><strong>Data Split:</strong></p>
+                    Group the data by the word sequence to ensure that identical utterances never appear in both the training and validation sets. This prevents the model from "peeking" into similar data during training, thereby providing a more realistic evaluation of its generalization performance.
+                    
+                    <p><strong>Deep Learning:</strong></p>
+                    Trained sophisticated deep learning models for NLP such as BILSTM, attention, and BERT to predict both slot filling and intent detection tasks.
+
+                `,
+                results: `
+                    <p>Received a mark of 22 out of 25 (HD).</p>
+
+                    <p>Achieved 97% intent accuracy prediction, 0.819 F1-score on slot filling and 0.951 F1-score on intent detection.</p>
+                `,
+                technologies: [
+                    { name: 'Python' },
+                    { name: 'Numpy' },
+                    { name: 'Scikit-learn' },
+                    { name: 'Transformers' },
+                    { name: 'PyTorch' },
+                ],
+                info: [
+                    { label: 'Project Type', value: 'Academic' },
+                    { label: 'Duration', value: '2 weeks' },
+                    { label: 'Team Size', value: 'Individual' },
+                    { label: 'Completion Date', value: 'October 2025' }
                 ]
             }
         };
