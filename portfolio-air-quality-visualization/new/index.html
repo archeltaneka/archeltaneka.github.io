@@ -18,14 +18,14 @@
     <button id="nav-project" class="nav-btn active">Project Overview</button>
     <button id="nav-pollutants" class="nav-btn">Pollutant Trends</button>
     <button id="nav-interaction" class="nav-btn">Pedestrian Impact</button>
-    <a href="../old/dvp.html" class="nav-link" target="_blank">📜 Old Version</a>
   </div>
 
   <!-- Project Description Section -->
   <div id="project-info" class="section visible">
     <h1>Air Quality Check A Day, Keeps The Pollution Away</h1>
-    <p>This project is the improved version of the old version which you can also view it from the navigation pane.</p>
-    <br>
+    <p id="description">This is the 2nd version of the project. The first version of this project (which I
+      used as my submission for my FIT5147 - Data Exploration and Visualization unit) can be found by clicking the
+      page icon at the bottom-right corner.
     <p id="description">Air pollution is a growing concern in Australia, contributing to chronic respiratory diseases
       and even deaths. Personally, I've noticed how poor air quality affects my endurance and energy during outdoor
       activities like running. This made me wonder: How does air quality influence daily life, particularly pedestrian
@@ -336,11 +336,11 @@
           </div>
 
           <div class="date-filters">
-            <div class="date-input">
+            <div class="date-picker">
               <label for="start-date-filter">Start Date:</label>
               <input type="date" id="start-date-filter" min="2022-01-01" max="2022-12-31">
             </div>
-            <div class="date-input">
+            <div class="date-picker">
               <label for="end-date-filter">End Date:</label>
               <input type="date" id="end-date-filter" min="2022-01-01" max="2022-12-31">
             </div>
@@ -348,10 +348,16 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="js/main.js"></script>
+  <!-- Floating link to old version -->
+  <a href="../old/dvp.html" target="_blank" id="old-version-link" title="View Old Version">
+    📜
+  </a>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

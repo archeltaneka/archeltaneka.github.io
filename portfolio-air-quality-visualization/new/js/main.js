@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mapRadarContainer.style.display = 'block';
         navInteraction.classList.add('active');
         currentSection = 'interaction';
-        if (!mapData) loadMapData();
+        if (!mapData) loadData();
         break;
     }
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load air quality data
   async function loadData() {
     try {
-      const response = await fetch("../data/air_quality/air_quality_final.csv");
+      const response = await fetch("../data/air_quality_aggregated.csv");
       const csvData = await response.text();
       data = d3.csvParse(csvData, d => ({
         datetime_AEST: new Date(d.datetime_AEST),
@@ -99,12 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       console.error("Error loading air quality data:", error);
     }
-  }
 
-  // Load pedestrian count data
-  async function loadMapData() {
     try {
-      const response = await fetch("../data/pedestrian/pedestrian_count_final.csv");
+      const response = await fetch("../data/pedestrian_count_full.csv");
       const csvData = await response.text();
       mapData = d3.csvParse(csvData, d => ({
         datetime_AEST: new Date(d.datetime_AEST),
@@ -135,8 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
       startDateFilter.value = formatDate(minDate);
       endDateFilter.value = formatDate(maxDate);
 
-      // Create density chart
-      createDensityChart();
     } catch (error) {
       console.error("Error loading pedestrian data:", error);
     }
@@ -144,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize map
   function initializeMap() {
-    const map = L.map("map").setView([-37.8136, 144.9631], 14); // Melbourne CBD
+    const map = L.map("map").setView([-37.8136, 144.9631], 13); // Melbourne CBD
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 18,
@@ -179,126 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         );
     });
-  }
-
-  // Create density chart
-  function createDensityChart() {
-    const container = d3.select("#density-chart");
-    container.selectAll("*").remove();
-
-    const margin = { top: 20, right: 30, bottom: 60, left: 80 };
-    const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
-
-    const svg = container.append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    // Aggregate data by location and time
-    const aggregatedData = d3.groups(mapData, d => d.area_name)
-      .map(([area, values]) => {
-        const avgPedestrians = d3.mean(values, d => d.pedestrian_count);
-        const avgPollutants = {
-          CO: d3.mean(values, d => d.CO),
-          NO2: d3.mean(values, d => d.NO2),
-          O3: d3.mean(values, d => d.O3),
-          "PM2.5": d3.mean(values, d => d["PM2.5"]),
-          PM10: d3.mean(values, d => d.PM10)
-        };
-
-        // Use PM2.5 as representative pollutant
-        return {
-          area,
-          avgPedestrians,
-          avgPollutant: avgPollutants["PM2.5"]
-        };
-      })
-      .filter(d => !isNaN(d.avgPollutant) && d.avgPollutant > 0);
-
-    // Create scales
-    const xScale = d3.scaleLinear()
-      .domain([0, d3.max(aggregatedData, d => d.avgPedestrians)])
-      .nice()
-      .range([0, width]);
-
-    const yScale = d3.scaleLinear()
-      .domain([0, d3.max(aggregatedData, d => d.avgPollutant)])
-      .nice()
-      .range([height, 0]);
-
-    // Add axes
-    svg.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(xScale).tickFormat(d => Math.round(d)))
-      .append("text")
-      .attr("x", width / 2)
-      .attr("y", 40)
-      .attr("fill", "#283618")
-      .style("text-anchor", "middle")
-      .style("font-weight", "bold")
-      .text("Average Pedestrian Count");
-
-    svg.append("g")
-      .call(d3.axisLeft(yScale).tickFormat(d => d.toFixed(1)))
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -60)
-      .attr("x", -height / 2)
-      .attr("fill", "#283618")
-      .style("text-anchor", "middle")
-      .style("font-weight", "bold")
-      .text("PM₂.₅ Concentration (μg/m³)");
-
-    // Add scatter plot
-    svg.selectAll("circle")
-      .data(aggregatedData)
-      .enter().append("circle")
-      .attr("cx", d => xScale(d.avgPedestrians))
-      .attr("cy", d => yScale(d.avgPollutant))
-      .attr("r", 6)
-      .attr("fill", "#606c38")
-      .attr("opacity", 0.7)
-      .attr("stroke", "#283618")
-      .attr("stroke-width", 1)
-      .on("mouseover", function (event, d) {
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("r", 8)
-          .attr("fill", "#dda15e");
-
-        tooltip.transition().duration(200).style("opacity", 0.9);
-        tooltip.html(`
-          <strong>${d.area}</strong><br/>
-          Avg Pedestrians: ${Math.round(d.avgPedestrians)}<br/>
-          PM₂.₅: ${d.avgPollutant.toFixed(2)} μg/m³
-        `)
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY - 28) + "px");
-      })
-      .on("mouseout", function () {
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .attr("r", 6)
-          .attr("fill", "#606c38");
-
-        tooltip.transition().duration(500).style("opacity", 0);
-      });
-
-    // Add trend line
-    const trendData = d3.regressionLinear()(aggregatedData.map(d => [d.avgPedestrians, d.avgPollutant]));
-
-    svg.append("line")
-      .attr("x1", xScale(trendData[0][0]))
-      .attr("y1", yScale(trendData[0][1]))
-      .attr("x2", xScale(trendData[1][0]))
-      .attr("y2", yScale(trendData[1][1]))
-      .attr("stroke", "#d7191c")
-      .attr("stroke-width", 2)
-      .attr("stroke-dasharray", "5,5");
   }
 
   // Render bar plots based on the selected granularity and date range
@@ -601,17 +476,18 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("y1", 0)
         .attr("x2", x)
         .attr("y2", y)
-        .attr("stroke", "#bc6c25")
-        .attr("stroke-width", 1);
+        .attr("stroke", "#e0ddcbff") // Modern gray
+        .attr("stroke-width", 2);
 
       // Add axis label
       svg.append("text")
-        .attr("x", x * 1.1)
-        .attr("y", y * 1.1)
+        .attr("x", x * 1.15)
+        .attr("y", y * 1.15)
         .attr("text-anchor", x > 0 ? "start" : "end")
         .attr("dominant-baseline", "middle")
-        .style("font-size", "12px")
-        .style("font-weight", "bold")
+        .style("font-size", "13px")
+        .style("font-weight", "700")
+        .style("fill", "#2c5282") // Primary blue
         .text(d.axis);
     });
 
@@ -624,29 +500,51 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("cy", 0)
         .attr("r", radiusLevel)
         .attr("fill", "none")
-        .attr("stroke", "#bc6c25")
-        .attr("stroke-dasharray", "2,2")
-        .attr("opacity", 0.5);
+        .attr("stroke", "#000307ff") // Light border color
+        .attr("stroke-dasharray", "3,3")
+        .attr("stroke-width", 1)
+        .attr("opacity", 0.6);
 
       // Add value labels
       svg.append("text")
         .attr("x", 5)
         .attr("y", -radiusLevel)
-        .style("font-size", "10px")
+        .style("font-size", "11px")
+        .style("fill", "#718096") // Text muted color
+        .style("font-weight", "600")
         .text((maxValue * level / levels).toFixed(1));
     }
 
     // Draw radar chart polygon
     const line = d3.lineRadial()
-      .angle(d => angleScale(d.axis))
+      .angle(d => angleScale(d.axis) + Math.PI / 2)
       .radius(d => valueScale(d.value))
       .curve(d3.curveLinearClosed);
+
+    // Add gradient definition for the fill
+    const gradient = svg.append("defs")
+      .append("linearGradient")
+      .attr("id", "radarGradient")
+      .attr("x1", "0%")
+      .attr("y1", "0%")
+      .attr("x2", "100%")
+      .attr("y2", "100%");
+
+    gradient.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", "#4299e1") // Primary light blue
+      .attr("stop-opacity", 0.3);
+
+    gradient.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", "#38b2ac") // Accent teal
+      .attr("stop-opacity", 0.3);
 
     svg.append("path")
       .datum(radarData)
       .attr("d", line)
-      .attr("fill", "rgba(96, 108, 56, 0.3)")
-      .attr("stroke", "#606c38")
+      .attr("fill", "url(#radarGradient)")
+      .attr("stroke", "#2c5282") // Primary blue
       .attr("stroke-width", 3);
 
     // Add points for each pollutant
@@ -657,23 +555,24 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("class", "radar-point")
       .attr("cx", d => Math.cos(angleScale(d.axis)) * valueScale(d.value))
       .attr("cy", d => Math.sin(angleScale(d.axis)) * valueScale(d.value))
-      .attr("r", 5)
-      .attr("fill", "#283618")
+      .attr("r", 6)
+      .attr("fill", "#2c5282") // Primary blue
       .attr("stroke", "white")
-      .attr("stroke-width", 2)
+      .attr("stroke-width", 3)
+      .style("cursor", "pointer")
       .on("mouseover", function (event, d) {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", 7)
-          .attr("fill", "#dda15e");
+          .attr("r", 9)
+          .attr("fill", "#38b2ac"); // Accent teal on hover
 
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip.html(`
-          <strong>${d.axis}</strong><br/>
-          Concentration: ${d.value.toFixed(3)}<br/>
-          Max Value: ${maxValue.toFixed(3)}
-        `)
+                <strong style="color: #2c5282;">${d.axis}</strong><br/>
+                <span style="color: #4a5568;">Concentration: <strong>${d.value.toFixed(3)}</strong></span><br/>
+                <span style="color: #718096; font-size: 0.9em;">Max: ${maxValue.toFixed(3)}</span>
+            `)
           .style("left", (event.pageX + 10) + "px")
           .style("top", (event.pageY - 28) + "px");
       })
@@ -681,8 +580,8 @@ document.addEventListener("DOMContentLoaded", function () {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr("r", 5)
-          .attr("fill", "#283618");
+          .attr("r", 6)
+          .attr("fill", "#2c5282");
 
         tooltip.transition().duration(500).style("opacity", 0);
       });
@@ -690,11 +589,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add title
     svg.append("text")
       .attr("x", 0)
-      .attr("y", -radius - 30)
+      .attr("y", -radius - 100)
       .attr("text-anchor", "middle")
-      .style("font-size", "18px")
-      .style("font-weight", "bold")
+      .style("font-size", "20px")
+      .style("font-weight", "800")
       .style("letter-spacing", "0.5px")
+      .style("fill", "#1a365d") // Primary dark
       .text("POLLUTANT LEVELS");
   }
 
