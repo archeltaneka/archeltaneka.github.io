@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let isMapVisible = false;
   let data = null;
   let mapData = null;
-  let pollutantData = null; 
+  let pollutantData = null;
   let sliderInterval = null;
 
   const tooltip = d3.select("body").append("div")
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Load air quality data
   async function loadData() {
-    const response = await fetch("files/data/air_quality_aggregated.csv");
+    const response = await fetch("../data/air_quality_aggregated.csv");
     const csvData = await response.text();
     data = d3.csvParse(csvData, d => ({
       datetime_AEST: new Date(d.datetime_AEST),
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Load pedestrian count data
   async function loadMapData() {
-    const response = await fetch("files/data/pedestrian_count_full.csv");
+    const response = await fetch("../data/pedestrian_count_full.csv");
     const csvData = await response.text();
     mapData = d3.csvParse(csvData, d => ({
       datetime_AEST: new Date(d.datetime_AEST),
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize map
   function initializeMap() {
     const map = L.map("map").setView([-37.8136, 144.9631], 14); // Set it in the middle of Melbourne CBD
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",  {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>  contributors',
       maxZoom: 18,
     }).addTo(map);
@@ -218,10 +218,10 @@ document.addEventListener("DOMContentLoaded", function () {
         granularity === "daily"
           ? [0, 1, 2, 3, 4, 5, 6]
           : granularity === "hourly"
-          ? Array.from({ length: 24 }, (_, i) => i) 
-          : granularity === "monthly"
-          ? Array.from({ length: 12 }, (_, i) => i) 
-          : data.map(d => timeFormat(d.key))
+            ? Array.from({ length: 24 }, (_, i) => i)
+            : granularity === "monthly"
+              ? Array.from({ length: 12 }, (_, i) => i)
+              : data.map(d => timeFormat(d.key))
       )
       .range([0, width])
       .padding(0.2);
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (granularity === "daily") {
             return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d];
           } else if (granularity === "hourly") {
-            return d.toString(); 
+            return d.toString();
           } else if (granularity === "monthly") {
             return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d];
           } else {
@@ -272,9 +272,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("width", xScale.bandwidth())
       .attr("height", 0) // Initial height is 0
       .attr("fill", d => colorScale(d[pollutant]));
-      
+
     // Add transition for animation
-    bars.transition() 
+    bars.transition()
       .duration(800)
       .delay((d, i) => i * 50) // Delay each bar's animation slightly
       .attr("y", d => yScale(d[pollutant])) // Animate to the correct height
@@ -296,10 +296,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const hoveredKey = granularity === "daily"
         ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.key] // Map numeric key to day name
         : granularity === "hourly"
-        ? d.key.toString().padStart(2, "0")
-        : granularity === "monthly"
-        ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.key] // Map numeric key to month name
-        : timeFormat(d.key);
+          ? d.key.toString().padStart(2, "0")
+          : granularity === "monthly"
+            ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.key] // Map numeric key to month name
+            : timeFormat(d.key);
 
       // Highlight corresponding bars across all plots
       d3.selectAll(".plot rect, .plot-centered rect")
@@ -309,10 +309,10 @@ document.addEventListener("DOMContentLoaded", function () {
           const key = granularity === "daily"
             ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][rectD.key]
             : granularity === "hourly"
-            ? rectD.key.toString().padStart(2, "0")
-            : granularity === "monthly"
-            ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][rectD.key]
-            : timeFormat(rectD.key);
+              ? rectD.key.toString().padStart(2, "0")
+              : granularity === "monthly"
+                ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][rectD.key]
+                : timeFormat(rectD.key);
           return key === hoveredKey;
         })
         .style("opacity", 1); // Highlight matching bars
@@ -322,10 +322,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const key = granularity === "daily"
           ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][x.key]
           : granularity === "hourly"
-          ? x.key.toString().padStart(2, "0")
-          : granularity === "monthly"
-          ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][x.key]
-          : timeFormat(x.key);
+            ? x.key.toString().padStart(2, "0")
+            : granularity === "monthly"
+              ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][x.key]
+              : timeFormat(x.key);
         return key === hoveredKey;
       });
       if (hoveredData) {
@@ -384,31 +384,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Define the radar chart dimensions
     const radius = Math.min(width, height) / 2.4;
-  
+
     // Define the data format for the radar chart
     const pollutants = ["CO", "NO2", "O3", "PM2.5", "PM10"];
     const radarData = pollutants.map(pollutant => ({
       axis: pollutant,
       value: data[pollutant] || 0 // Use 0 if no data is available
     }));
-  
+
     // Create scale for radar chart axes
     const angleScale = d3.scalePoint()
       .domain(pollutants)
       .range([0, 2.5 * Math.PI])
       .padding(1); // Add padding to avoid overlap
-  
+
     // Create scale for radar chart values
     const valueScale = d3.scaleLinear()
       .domain([0, d3.max(radarData, d => d.value)])
       .range([0, radius]);
-  
+
     // Draw radar chart axes
     pollutants.forEach((pollutant, i) => {
       const angle = angleScale(pollutant);
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
-  
+
       // Draw axis line
       svg.append("line")
         .attr("x1", 0)
@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("x2", x)
         .attr("y2", y)
         .attr("stroke", "#bc6c25");
-  
+
       // Add axis label
       svg.append("text")
         .attr("x", x > 0 ? x + 10 : x - 10) // Adjust position based on angle
@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("text-anchor", x > 0 ? "start" : "end")
         .text(pollutant);
     });
-  
+
     // Draw radar chart grid lines
     for (let level = 1; level <= 5; level++) {
       const radiusLevel = (radius / 5) * level;
@@ -436,19 +436,19 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("stroke", "#bc6c25")
         .attr("stroke-dasharray", "2");
     }
-  
+
     // Draw radar chart polygon
     const line = d3.lineRadial()
       .angle(d => angleScale(d.axis) + Math.PI / 2) // Use angleScale for angles
       .radius(d => valueScale(d.value)); // Use valueScale for radius
-  
+
     svg.append("path")
       .datum(radarData)
       .attr("d", line) // Draw the polygon
       .attr("fill", "rgba(96, 108, 56, 0.5)")
       .attr("stroke", "#bc6c25")
       .attr("stroke-width", 2);
-  
+
     // Add points for each pollutant
     svg.selectAll(".radar-point")
       .data(radarData)
@@ -555,14 +555,14 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Map is not initialized!");
       return;
     }
-  
+
     // Clear existing layers from the map
     map.eachLayer(layer => {
       if (!(layer instanceof L.TileLayer)) {
         map.removeLayer(layer);
       }
     });
-  
+
     // Filter data for the selected date and hour
     const filteredData = mapData.filter(d => {
       return (
@@ -570,10 +570,10 @@ document.addEventListener("DOMContentLoaded", function () {
         d.datetime_AEST.getHours() === selectedDate.getHours()
       );
     });
-  
+
     // Re-render the map with filtered data
     addSymbolsToMap(map, filteredData);
-  
+
     // Compute average pollutant levels for the radar chart
     pollutantData = data.filter(d => {
       return (
@@ -581,7 +581,7 @@ document.addEventListener("DOMContentLoaded", function () {
         d.datetime_AEST.getHours() === selectedDate.getHours()
       );
     });
-  
+
     const aggregatedData = {
       CO: d3.mean(pollutantData, d => d.CO),
       NO2: d3.mean(pollutantData, d => d.NO2),
@@ -589,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "PM2.5": d3.mean(pollutantData, d => d["PM2.5"]),
       PM10: d3.mean(pollutantData, d => d.PM10)
     };
-  
+
     // Update the radar chart
     drawRadarChart(aggregatedData);
   }
@@ -662,7 +662,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Next button
   function nextSlider() {
-    const currentValue = +slider.value; 
+    const currentValue = +slider.value;
     const max = +slider.max;
     const oneHourInMs = 3600000; // 1 hour in milliseconds
 
@@ -675,7 +675,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Prev button
   function prevSlider() {
-    const currentValue = +slider.value; 
+    const currentValue = +slider.value;
     const min = +slider.min;
     const oneHourInMs = 3600000; // 1 hour in milliseconds
 

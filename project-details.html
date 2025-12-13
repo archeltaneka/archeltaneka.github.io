@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Details - Archel Taneka Sutanto</title>
-    <meta name="description" content="Detailed view of data science and machine learning projects by Archel Taneka Sutanto.">
-    
+    <meta name="description"
+        content="Detailed view of data science and machine learning projects by Archel Taneka Sutanto.">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,31 +41,31 @@
             }
         }
     </script>
-    
+
     <style>
         .navbar {
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-        
+
         .navbar.scrolled {
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .project-hero {
             background: linear-gradient(135deg, #faf9f7 0%, #ffffff 100%);
             position: relative;
             overflow: hidden;
         }
-        
+
         .tech-tag {
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 500;
         }
-        
+
         .metric-card {
             background: white;
             border-radius: 12px;
@@ -69,7 +73,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border-left: 4px solid #7c9885;
         }
-        
+
         .code-block {
             background: #1a1a1a;
             color: #e5e7eb;
@@ -80,7 +84,7 @@
             line-height: 1.6;
             overflow-x: auto;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #7c9885, #059669);
             color: white;
@@ -91,12 +95,12 @@
             transition: all 0.3s ease;
             font-weight: 500;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(124, 152, 133, 0.3);
         }
-        
+
         .btn-secondary {
             background: white;
             color: #7c9885;
@@ -108,19 +112,19 @@
             transition: all 0.3s ease;
             font-weight: 500;
         }
-        
+
         .btn-secondary:hover {
             background: #7c9885;
             color: white;
             transform: translateY(-2px);
         }
-        
+
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
         }
-        
+
         .hamburger span {
             width: 25px;
             height: 3px;
@@ -128,16 +132,16 @@
             margin: 3px 0;
             transition: 0.3s;
         }
-        
+
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
             }
-            
+
             .nav-links {
                 display: none;
             }
-            
+
             .mobile-menu {
                 display: none;
                 position: absolute;
@@ -148,60 +152,66 @@
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
                 padding: 1rem;
             }
-            
+
             .mobile-menu.active {
                 display: block;
             }
         }
-        
+
         .mobile-menu {
             display: none;
         }
-        
+
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s ease;
         }
-        
+
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .loading-skeleton {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
-        
+
         @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
-        
+
         .breadcrumb {
             display: flex;
             align-items: center;
             gap: 8px;
             margin-bottom: 2rem;
         }
-        
+
         .breadcrumb a {
             color: #7c9885;
             text-decoration: none;
             font-weight: 500;
         }
-        
+
         .breadcrumb a:hover {
             text-decoration: underline;
         }
-        
+
         .breadcrumb .separator {
             color: #6b7280;
         }
     </style>
 </head>
+
 <body class="font-inter bg-white text-charcoal">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-white/80">
@@ -210,26 +220,28 @@
                 <div class="font-playfair font-bold text-xl text-charcoal">
                     <a href="index.html">Archel Taneka Sutanto</a>
                 </div>
-                
+
                 <div class="nav-links hidden md:flex items-center space-x-8">
                     <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
                     <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
-                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="projects.html"
+                        class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
                     <a href="contact.html" class="nav-link text-charcoal hover:text-sage transition-colors">Contact</a>
                 </div>
-                
+
                 <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </div>
-            
+
             <div class="mobile-menu">
                 <div class="flex flex-col space-y-4 py-4">
                     <a href="index.html" class="nav-link text-charcoal hover:text-sage transition-colors">Home</a>
                     <a href="about.html" class="nav-link text-charcoal hover:text-sage transition-colors">About</a>
-                    <a href="projects.html" class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
+                    <a href="projects.html"
+                        class="nav-link text-charcoal hover:text-sage transition-colors">Projects</a>
                     <a href="contact.html" class="nav-link text-charcoal hover:text-sage transition-colors">Contact</a>
                 </div>
             </div>
@@ -258,7 +270,7 @@
                 <div class="loading-skeleton w-64 h-6 mx-auto mb-8 rounded"></div>
                 <div class="loading-skeleton w-96 h-4 mx-auto rounded"></div>
             </div>
-            
+
             <!-- Project Content -->
             <div id="project-content" class="hidden">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -278,7 +290,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="fade-in">
                         <img id="project-image" src="" alt="" class="w-full h-96 object-cover rounded-2xl shadow-2xl">
                     </div>
@@ -308,14 +320,14 @@
                             <!-- Dynamic overview content -->
                         </div>
                     </div>
-                    
+
                     <div class="fade-in mt-12">
                         <h2 class="font-playfair text-3xl font-bold text-charcoal mb-6">Technical Implementation</h2>
                         <div id="project-implementation" class="prose prose-lg text-warm-gray leading-relaxed">
                             <!-- Dynamic implementation content -->
                         </div>
                     </div>
-                    
+
                     <div class="fade-in mt-12">
                         <h2 class="font-playfair text-3xl font-bold text-charcoal mb-6">Results & Impact</h2>
                         <div id="project-results" class="prose prose-lg text-warm-gray leading-relaxed">
@@ -323,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Sidebar -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24 space-y-6">
@@ -334,7 +346,7 @@
                                 <!-- Dynamic technologies will be inserted here -->
                             </div>
                         </div>
-                        
+
                         <!-- Project Info -->
                         <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
                             <h3 class="font-playfair text-xl font-bold text-charcoal mb-4">Project Info</h3>
@@ -342,7 +354,7 @@
                                 <!-- Dynamic project info will be inserted here -->
                             </div>
                         </div>
-                        
+
                         <!-- Quick Links -->
                         <div class="bg-white rounded-xl p-6 shadow-lg fade-in">
                             <h3 class="font-playfair text-xl font-bold text-charcoal mb-4">Quick Links</h3>
@@ -353,7 +365,8 @@
                                 <a href="contact.html" class="block text-sage hover:text-charcoal transition-colors">
                                     Get in Touch
                                 </a>
-                                <a href="resources/resume.pdf" class="block text-sage hover:text-charcoal transition-colors" target="_blank">
+                                <a href="resources/resume.pdf"
+                                    class="block text-sage hover:text-charcoal transition-colors" target="_blank">
                                     View Resume
                                 </a>
                             </div>
@@ -370,7 +383,7 @@
             <div class="fade-in">
                 <h2 class="font-playfair text-4xl font-bold mb-6">Like What You See?</h2>
                 <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    If you're interested in collaborating or have a similar project in mind, 
+                    If you're interested in collaborating or have a similar project in mind,
                     let's discuss how we can work together to bring your ideas to life.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
@@ -388,26 +401,29 @@
                 <h3 class="font-playfair text-2xl font-bold mb-2">Archel Taneka Sutanto</h3>
                 <p class="text-gray-400">Data Science Student & ML Enthusiast</p>
             </div>
-            
+
             <div class="flex justify-center space-x-6 mb-6">
                 <a href="mailto:archeltaneka@gmail.com" class="text-gray-400 hover:text-sage transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                     </svg>
                 </a>
                 <a href="https://github.com/archeltaneka" class="text-gray-400 hover:text-sage transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"/>
+                        <path
+                            d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" />
                     </svg>
                 </a>
                 <a href="https://linkedin.com/in/archeltaneka" class="text-gray-400 hover:text-sage transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd"
+                            d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
+                            clip-rule="evenodd" />
                     </svg>
                 </a>
             </div>
-            
+
             <div class="text-gray-400 text-sm">
                 <p>© 2025 Archel Taneka Sutanto. All rights reserved.</p>
                 <p class="mt-2">Built with modern web technologies and a passion for clean design.</p>
@@ -494,7 +510,7 @@
                                     `,
                 technologies: [
                     { name: 'Python' },
-                    { name: 'OpenCV'},
+                    { name: 'OpenCV' },
                     { name: 'Keras' },
                     { name: 'NumPy' },
                 ],
@@ -555,7 +571,7 @@
                 description: 'Developed a dashboard-style visualization using HTML, CSS, and D3.js as part of the final project of my "Data Exploration and Visualization" unit.',
                 image: 'assets/img/portfolio/air-quality-visualization-3.jpg',
                 tags: ['Data Visualization', 'HTML', 'CSS', 'D3.js'],
-                github: 'portfolio-air-quality-visualization/dvp.html',
+                github: 'portfolio-air-quality-visualization/new/index.html',
                 metrics: [
                     { label: 'Dataset Size', value: '+700,000', description: 'Records' },
                     { label: 'Historical Data', value: '1+', description: 'Years' },
@@ -705,26 +721,26 @@
         function loadProjectData() {
             const projectId = getProjectIdFromUrl();
             const project = projectData[projectId];
-            
+
             if (!project) {
                 // Handle missing project
                 window.location.href = 'projects.html';
                 return;
             }
-            
+
             // Hide loading state
             document.getElementById('loading-state').classList.add('hidden');
             document.getElementById('project-content').classList.remove('hidden');
-            
+
             // Update breadcrumb
             document.getElementById('breadcrumb-project').textContent = project.title;
-            
+
             // Update hero section
             document.getElementById('project-title').textContent = project.title;
             document.getElementById('project-description').textContent = project.description;
             document.getElementById('project-image').src = project.image;
             document.getElementById('project-image').alt = project.title;
-            
+
             // Update tags
             const tagsContainer = document.getElementById('project-tags');
             tagsContainer.innerHTML = '';
@@ -734,10 +750,10 @@
                 tagElement.textContent = tag;
                 tagsContainer.appendChild(tagElement);
             });
-            
+
             // Update links
             document.getElementById('project-github').href = project.github;
-            
+
             // Update metrics
             const metricsContainer = document.getElementById('project-metrics');
             metricsContainer.innerHTML = '';
@@ -751,12 +767,12 @@
                 `;
                 metricsContainer.appendChild(metricElement);
             });
-            
+
             // Update content sections
             document.getElementById('project-overview').innerHTML = project.overview;
             document.getElementById('project-implementation').innerHTML = project.implementation;
             document.getElementById('project-results').innerHTML = project.results;
-            
+
             // Update technologies
             const technologiesContainer = document.getElementById('project-technologies');
             technologiesContainer.innerHTML = '';
@@ -768,7 +784,7 @@
                 `;
                 technologiesContainer.appendChild(techElement);
             });
-            
+
             // Update project info
             const infoContainer = document.getElementById('project-info');
             infoContainer.innerHTML = '';
@@ -781,7 +797,7 @@
                 `;
                 infoContainer.appendChild(infoElement);
             });
-            
+
             // Trigger animations
             setTimeout(() => {
                 anime({
@@ -799,15 +815,15 @@
         function toggleMobileMenu() {
             const mobileMenu = document.querySelector('.mobile-menu');
             const hamburger = document.querySelector('.hamburger');
-            
+
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         }
 
         // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadProjectData();
-            
+
             // Navbar scroll effect
             window.addEventListener('scroll', () => {
                 const nav = document.querySelector('.navbar');
@@ -823,4 +839,5 @@
         window.toggleMobileMenu = toggleMobileMenu;
     </script>
 </body>
+
 </html>

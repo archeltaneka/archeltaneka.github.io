@@ -9,15 +9,18 @@
 body {
     font-family: 'Lato', 'Roboto', Arial, sans-serif;
     font-size: 16px;
-    background-image: url("files/images/background.jpg"); 
-    background-size: cover; /* Ensures the image covers the entire background */
-    background-position: center; 
+    background-image: url("assets/images/background.jpg");
+    background-size: cover;
+    /* Ensures the image covers the entire background */
+    background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Fixes the background while scrolling */
+    background-attachment: fixed;
+    /* Fixes the background while scrolling */
     color: #333;
     line-height: 1.6;
     padding: 20px;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
 }
 
 body::before {
@@ -27,8 +30,10 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7); /* Give some opacity so that the text appears more clearly */
-    z-index: -1; /* Place it to the back */
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Give some opacity so that the text appears more clearly */
+    z-index: -1;
+    /* Place it to the back */
 }
 
 /* 1st Page (Project Description) Container */
@@ -61,24 +66,30 @@ body::before {
     gap: 40px;
     align-items: flex-start;
     opacity: 0;
-    transform: translateY(20px); /* Start slightly below */
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Apply fade-in fade-out transition when scrolling */
+    transform: translateY(20px);
+    /* Start slightly below */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    /* Apply fade-in fade-out transition when scrolling */
 }
 
 /* Enable/disable interaction when scrolling in between pages */
 #project-info,
 #visualization-container,
 #map-radar-container {
-  transition: opacity 1s ease-in-out;
-  opacity: 0; /* Hide page initially */
-  visibility: hidden; /* Prevent interaction */
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    /* Hide page initially */
+    visibility: hidden;
+    /* Prevent interaction */
 }
 
 #project-info.visible,
 #visualization-container.visible,
 #map-radar-container.visible {
-  opacity: 1; /* Show page */
-  visibility: visible; /* Allow interaction */
+    opacity: 1;
+    /* Show page */
+    visibility: visible;
+    /* Allow interaction */
 }
 
 /* 2nd Page Barplots Styling */
@@ -93,7 +104,7 @@ body::before {
 }
 
 .plot {
-    width: 100%; 
+    width: 100%;
     height: 200px;
     border-radius: 8px;
     position: relative;
@@ -115,7 +126,8 @@ body::before {
     position: relative;
 }
 
-.plot, .plot-centered {
+.plot,
+.plot-centered {
     background: #f3eff5;
     border: 2px solid #606c38;
 }
@@ -135,7 +147,7 @@ body::before {
     border: 2px solid #606c38;
     border-radius: 8px;
 }
-  
+
 /* 3rd Page Radar Chart Styling */
 #radar-chart {
     flex: 1;
@@ -213,7 +225,7 @@ body::before {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
-  
+
 /* Slider Styling */
 #slider-container {
     display: flex;
@@ -221,12 +233,12 @@ body::before {
     gap: 10px;
     margin-bottom: 20px;
 }
-  
+
 #slider-container label {
     font-size: 1rem;
     font-weight: bold;
 }
-  
+
 #timeline-slider {
     flex: 1;
     padding: 5px;
@@ -236,21 +248,21 @@ body::before {
     background-color: #f3eff5;
     border: 2px solid #dda15e;
 }
-  
+
 #slider-value {
     font-size: 1rem;
     font-weight: bold;
-    color: #283618; 
-} 
+    color: #283618;
+}
 
 /* Button Styling */
 #button-container {
     display: flex;
     justify-content: center;
-    gap: 10px; 
+    gap: 10px;
     margin-top: 10px;
-  }
-  
+}
+
 #button-container button {
     padding: 8px 16px;
     font-size: 1rem;
@@ -258,28 +270,31 @@ body::before {
     border-radius: 4px;
     cursor: pointer;
     background-color: #dda15e;
-    color: #283618; 
+    color: #283618;
     transition: background-color 0.3s ease;
 }
-  
+
 #button-container button:hover {
     background-color: #bc6c25;
 }
 
 /* Visualization Instructions Styling */
-#instructions, #instructions-map {
+#instructions,
+#instructions-map {
     background: #f3eff5;
     padding: 20px;
-    border: 2px solid #606c38; 
+    border: 2px solid #606c38;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#instructions h2, #instructions-map h2 {
+#instructions h2,
+#instructions-map h2 {
     color: #000000;
 }
 
-#instructions p, #instructions-map p {
+#instructions p,
+#instructions-map p {
     color: #000000;
 }
 
@@ -287,7 +302,7 @@ body::before {
     list-style-type: disc;
     margin-left: 20px;
 }
-  
+
 #instructions-map ul {
     list-style-type: disc;
     margin-left: 20px;
@@ -296,7 +311,7 @@ body::before {
 /* Mouse Hover Tooltip Styling */
 .tooltip {
     background: #f3eff5;
-    color: #283618; 
+    color: #283618;
     border: 1px solid #dda15e;
     border-radius: 5px;
     padding: 10px;
