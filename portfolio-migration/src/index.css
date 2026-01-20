@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  /* New Guidelines Palette */
+  --color-deep-sea: #213C51;
+  /* Deep Blue - Primary background/headings */
+  --color-sky-blue: #6594B1;
+  /* Mid Blue - Accents/Secondary */
+  --color-lavender: #DDAED3;
+  /* Soft Purple - Highlights/Interactive */
+  --color-frost: #EEEEEE;
+  /* Off White - Background/Text */
+
+  /* Legacy mapping so existing components don't break immediately */
+  --color-charcoal: var(--color-deep-sea);
+  --color-sage: var(--color-lavender);
+  --color-warm-gray: var(--color-sky-blue);
+  --color-soft-cream: var(--color-frost);
+
+  --font-inter: "Inter", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+}
