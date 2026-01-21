@@ -20,3 +20,15 @@
   --font-inter: "Inter", sans-serif;
   --font-playfair: "Playfair Display", serif;
 }
+
+html {
+  scroll-behavior: smooth;
+  /* Adjusting scroll speed for a more cinematic feel */
+  scrollbar-gutter: stable;
+}
+
+/* Hide scrollbar for a truly immersive look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

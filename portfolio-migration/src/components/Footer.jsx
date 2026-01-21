@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Contact = () => {
     const socialLinks = [
-        { name: 'LinkedIn', href: 'https://linkedin.com/in/archeltaneka', icon: '󰈸' },
+        { name: 'LinkedIn', href: 'https://linkedin.com/in/archel-taneka-sutanto', icon: '󰈸' },
         { name: 'GitHub', href: 'https://github.com/archeltaneka', icon: '󰊤' },
         { name: 'Email', href: 'mailto:archeltaneka@gmail.com', icon: '󰇮' }
     ];
