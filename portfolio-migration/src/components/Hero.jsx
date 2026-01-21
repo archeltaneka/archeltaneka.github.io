@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 
 const Hero = () => {
     const { scrollY } = useScroll();
@@ -7,17 +7,24 @@ const Hero = () => {
 
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth - 0.5) * 20,
-                y: (e.clientY / window.innerHeight - 0.5) * 20
-            });
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+    // Easter Egg Cursor Tracking
+    const maskX = useMotionValue(-100);
+    const maskY = useMotionValue(-100);
+    const springX = useSpring(maskX, { damping: 20, stiffness: 200 });
+    const springY = useSpring(maskY, { damping: 20, stiffness: 200 });
+    const [isHoveringName, setIsHoveringName] = useState(false);
 
+    const handleNameMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        maskX.set(e.clientX - rect.left);
+        maskY.set(e.clientY - rect.top);
+    };
+
+    // This creates the masking string for the CSS clip-path
+    const clipPath = useTransform(
+        [springX, springY],
+        ([x, y]) => `circle(${isHoveringName ? '100px' : '0px'} at ${x}px ${y}px)`
+    );
     return (
         <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-32">
 
@@ -97,23 +104,34 @@ const Hero = () => {
                         </motion.div>
 
                         {/* Name */}
-                        <div className="space-y-2">
-                            <motion.h1
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3, duration: 0.8 }}
-                                className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter"
+                        <div
+                            className="relative cursor-none group"
+                            onMouseMove={handleNameMouseMove}
+                            onMouseEnter={() => setIsHoveringName(true)}
+                            onMouseLeave={() => setIsHoveringName(false)}
+                        >
+                            {/* Base Layer: English Name */}
+                            <div className="space-y-2">
+                                <motion.h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter">
+                                    ARCHEL
+                                </motion.h1>
+                                <motion.h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent">
+                                    TANEKA
+                                </motion.h1>
+                            </div>
+
+                            {/* Chinese Name masking */}
+                            <motion.div
+                                style={{ clipPath }}
+                                className="absolute inset-0 space-y-2 pointer-events-none select-none bg-deep-sea z-20"
                             >
-                                ARCHEL
-                            </motion.h1>
-                            <motion.h1
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.8 }}
-                                className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent"
-                            >
-                                TANEKA
-                            </motion.h1>
+                                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-widest">
+                                    陈
+                                </h1>
+                                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-widest text-sky-blue">
+                                    文金
+                                </h1>
+                            </motion.div>
                         </div>
 
                         {/* Tagline */}
