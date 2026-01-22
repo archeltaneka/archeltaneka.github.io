@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Hero = () => {
     const { scrollY } = useScroll();
+    const imageY = useTransform(scrollY, [0, 500], [0, 150]);
+    const textY = useTransform(scrollY, [0, 500], [0, -50]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    // Easter Egg Cursor Tracking
-    const maskX = useMotionValue(-100);
-    const maskY = useMotionValue(-100);
-    const springX = useSpring(maskX, { damping: 20, stiffness: 200 });
-    const springY = useSpring(maskY, { damping: 20, stiffness: 200 });
-    const [isHoveringName, setIsHoveringName] = useState(false);
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            setMousePosition({
+                x: (e.clientX / window.innerWidth - 0.5) * 20,
+                y: (e.clientY / window.innerHeight - 0.5) * 20
+            });
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
 
-    const handleNameMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        maskX.set(e.clientX - rect.left);
-        maskY.set(e.clientY - rect.top);
-    };
-
-    // This creates the masking string for the CSS clip-path
-    const clipPath = useTransform(
-        [springX, springY],
-        ([x, y]) => `circle(${isHoveringName ? '100px' : '0px'} at ${x}px ${y}px)`
-    );
     return (
         <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-32">
 
@@ -85,6 +80,7 @@ const Hero = () => {
 
                     {/* Left Content */}
                     <motion.div
+                        style={{ y: textY }}
                         className="space-y-8 lg:space-y-12"
                     >
                         {/* Status Badge */}
@@ -103,34 +99,75 @@ const Hero = () => {
                             </span>
                         </motion.div>
 
-                        {/* Name */}
+                        {/* Name with Easter Egg Reveal */}
                         <div
-                            className="relative cursor-none group"
-                            onMouseMove={handleNameMouseMove}
-                            onMouseEnter={() => setIsHoveringName(true)}
-                            onMouseLeave={() => setIsHoveringName(false)}
+                            className="relative cursor-none select-none group"
+                            onMouseMove={(e) => {
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                const x = e.clientX - rect.left;
+                                const y = e.clientY - rect.top;
+                                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.setProperty('--mouse-x', '-200px');
+                                e.currentTarget.style.setProperty('--mouse-y', '-200px');
+                            }}
                         >
                             {/* Base Layer: English Name */}
-                            <div className="space-y-2">
-                                <motion.h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter">
+                            <div className="space-y-2 relative z-10">
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3, duration: 0.8 }}
+                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter"
+                                >
                                     ARCHEL
                                 </motion.h1>
-                                <motion.h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent">
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4, duration: 0.8 }}
+                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent"
+                                >
                                     TANEKA
                                 </motion.h1>
                             </div>
 
-                            {/* Chinese Name masking */}
-                            <motion.div
-                                style={{ clipPath }}
-                                className="absolute inset-0 space-y-2 pointer-events-none select-none bg-deep-sea z-20"
+                            {/* Reveal Layer: Chinese Name */}
+                            <div
+                                className="absolute inset-0 z-20 pointer-events-none space-y-2 bg-deep-sea"
+                                style={{
+                                    clipPath: 'circle(120px at var(--mouse-x, -200px) var(--mouse-y, -200px))',
+                                    transition: 'clip-path 0.2s ease-out'
+                                }}
                             >
-                                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-widest">
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3, duration: 0.8 }}
+                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-wider"
+                                >
                                     陈
-                                </h1>
-                                <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-widest text-sky-blue">
-                                    文金
-                                </h1>
+                                </motion.h1>
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4, duration: 0.8 }}
+                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-wider bg-gradient-to-r from-sky-blue via-lavender to-sky-blue bg-clip-text text-transparent"
+                                >
+                                    文群
+                                </motion.h1>
+                            </div>
+
+                            {/* Hover instruction hint */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 2 }}
+                                className="absolute -bottom-8 left-0 text-frost/40 text-xs font-mono tracking-wider pointer-events-none"
+                            >
+                                Hover to reveal
                             </motion.div>
                         </div>
 
@@ -199,8 +236,8 @@ const Hero = () => {
                                 <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">Projects</div>
                             </div>
                             <div>
-                                <div className="text-3xl lg:text-4xl font-black text-frost">94B</div>
-                                <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">IDR Impact</div>
+                                <div className="text-3xl lg:text-4xl font-black text-frost">2+</div>
+                                <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">Years Working Experience</div>
                             </div>
                             <div>
                                 <div className="text-3xl lg:text-4xl font-black text-frost">ML & DS</div>
@@ -211,6 +248,7 @@ const Hero = () => {
 
                     {/* Right Image */}
                     <motion.div
+                        style={{ y: imageY }}
                         initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                         animate={{ opacity: 1, scale: 1, rotate: 0 }}
                         transition={{ delay: 0.5, duration: 1 }}
@@ -231,7 +269,7 @@ const Hero = () => {
                                 />
                             </div>
 
-                            {/* Floating Badge */}
+                            {/* Floating Flag Badge */}
                             <motion.div
                                 animate={{
                                     y: [0, -20, 0],
@@ -242,14 +280,42 @@ const Hero = () => {
                                     duration: 5,
                                     ease: "easeInOut"
                                 }}
-                                className="absolute -bottom-8 -left-8 bg-gradient-to-br from-lavender to-sky-blue p-6 rounded-2xl shadow-2xl border border-frost/20"
+                                className="absolute -bottom-8 -left-8 bg-frost/20 backdrop-blur-xl p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 flex flex-col gap-4 min-w-[140px]"
                             >
-                                <div className="text-deep-sea font-mono text-xs uppercase tracking-wider mb-1 font-bold">
-                                    Portfolio Impact
+                                {/* Label */}
+                                <div className="text-[10px] font-mono text-lavender uppercase tracking-[0.2em] font-black border-b border-white/10 pb-2">
+                                    Global Journey
                                 </div>
-                                <div className="text-4xl font-black text-deep-sea flex items-baseline gap-2">
-                                    94B
-                                    <span className="text-sm font-mono text-deep-sea/80">IDR</span>
+
+                                {/* Flag Rows */}
+                                <div className="flex flex-col gap-4">
+                                    {/* Indonesian Flag */}
+                                    <div className="flex items-center justify-between group">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-5 rounded-sm overflow-hidden shadow-md border border-white/10">
+                                                <img
+                                                    src="https://flagcdn.com/id.svg"
+                                                    alt="Indonesia"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <span className="text-frost font-mono text-xs tracking-tighter font-bold">INDONESIA</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Australia Flag */}
+                                    <div className="flex items-center justify-between group">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-5 rounded-sm overflow-hidden shadow-md border border-white/10">
+                                                <img
+                                                    src="https://flagcdn.com/au.svg"
+                                                    alt="Australia"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <span className="text-frost font-mono text-xs tracking-tighter font-bold">AUSTRALIA</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
 

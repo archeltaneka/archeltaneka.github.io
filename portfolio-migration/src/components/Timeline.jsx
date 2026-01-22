@@ -11,7 +11,12 @@ const combinedTimeline = [
         date: "Jul 2024 - Present",
         points: ["Data Wrangling", "Data Exploration & Visualization", "Statistical Data Modelling", "Big Data Processing", "Applied Data Analysis"],
         description: "Focusing on advanced statistical techniques and large-scale data systems to solve complex analytical challenges. Key units:",
-        image: "../assets/img/monash.jpg"
+        image: "../assets/img/monash.jpg",
+        gallery: [
+            "../assets/img/monash-1.jpg",
+            "../assets/img/monash-2.jpg",
+            "../assets/img/monash-3.jpg"
+        ]
     },
     {
         type: 'experience',
@@ -25,7 +30,13 @@ const combinedTimeline = [
             "Reduced RPA costs by 150M IDR annually"
         ],
         description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
-        image: "../assets/img/tiket.jpg"
+        image: "../assets/img/tiket.jpg",
+        gallery: [
+            "../assets/img/tiket-1.jpg",
+            "../assets/img/tiket-1.png",
+            "../assets/img/tiket-2.jpg",
+            "../assets/img/tiket-3.jpg"
+        ]
     },
     {
         type: 'experience',
@@ -49,7 +60,13 @@ const combinedTimeline = [
         date: "Sep 2019 - Sep 2020",
         points: ["First Class Degree", "Computer Science with AI", "Undergraduate Dissertation: Top 10 Common Chest X-ray Classification & Localization"],
         description: "Graduated with top honors, specializing in Computer Science with Artificial Intelligence.",
-        image: "../assets/img/nottingham.jpg"
+        image: "../assets/img/nottingham.jpg",
+        gallery: [
+            "../assets/img/nottingham-1.jpg",
+            "../assets/img/nottingham-2.jpg",
+            "../assets/img/nottingham-3.jpg",
+            "../assets/img/nottingham-4.jpg"
+        ]
     },
     {
         type: 'education',
@@ -59,11 +76,70 @@ const combinedTimeline = [
         date: "Sep 2016 - Sep 2020",
         points: ["GPA: 3.74/4.0", "International Program", "Teaching Assistant for Introduction to Database Unit"],
         description: "Built a strong foundation in computer science while serving as a mentor for junior students.",
-        image: "../assets/img/binus.jpg"
+        image: "../assets/img/binus.jpg",
+        gallery: [
+            "https://lh3.googleusercontent.com/u/0/d/1yB5bpV3fkfCRhUxef5p4iEif-WMoncQ1",
+            "../assets/img/binus-2.jpg",
+            "../assets/img/binus-3.jpg",
+            "../assets/img/binus-4.jpg"
+        ]
     }
 ];
 
 const allItems = [{ type: 'header' }, ...combinedTimeline];
+
+const ScatteredImages = ({ images, type }) => {
+    const positions = [
+        { top: '-10%', left: '-15%', rotate: -12, w: '250px', h: '200px' },
+        { top: '60%', left: '-10%', rotate: 8, w: '200px', h: '150px' },
+        { top: '-5%', right: '-12%', rotate: 15, w: '170px', h: '200px' },
+        { bottom: '5%', right: '-5%', rotate: -5, w: '150px', h: '100px' },
+    ];
+
+    if (!images) return null;
+
+    return (
+        <>
+            {images.slice(0, 4).map((src, i) => (
+                <motion.div
+                    key={src}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                        y: [0, i % 2 === 0 ? 10 : -10, 0]
+                    }}
+                    exit={{ opacity: 0, scale: 0 }}
+                    transition={{
+                        delay: 0.4 + (i * 0.1),
+                        duration: 0.5,
+                        y: { repeat: Infinity, duration: 3 + i, ease: "easeInOut" }
+                    }}
+                    style={{
+                        top: positions[i].top,
+                        left: positions[i].left,
+                        right: positions[i].right,
+                        bottom: positions[i].bottom,
+                        rotate: positions[i].rotate,
+                        position: 'absolute',
+                        width: positions[i].w,
+                        height: positions[i].h,
+                        zIndex: 30 // Set higher than the main image's z-20
+                    }}
+                    className="hidden xl:block"
+                >
+                    {/* Added a slightly larger shadow and hover effect since they are now in front */}
+                    <motion.div
+                        whileHover={{ scale: 1.1, zIndex: 40 }}
+                        className="w-full h-full rounded-xl overflow-hidden border-4 border-white shadow-2xl transition-shadow"
+                    >
+                        <img src={src} alt="Gallery item" className="w-full h-full object-cover" />
+                    </motion.div>
+                </motion.div>
+            ))}
+        </>
+    );
+};
 
 const TimelineContent = ({ item, index }) => {
     if (item.type === 'header') {
@@ -149,9 +225,14 @@ const TimelineContent = ({ item, index }) => {
                 className={`${!isEven ? 'lg:order-1' : ''} relative`}
             >
                 <div className={`absolute inset-0 blur-3xl rounded-full opacity-20 ${item.type === 'education' ? 'bg-sky-blue' : 'bg-lavender'}`} />
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border-2 border-frost shadow-2xl">
+
+                {/* Main Image Container */}
+                <div className="relative z-20 aspect-[4/3] rounded-3xl overflow-hidden border-2 border-frost shadow-2xl">
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 </div>
+
+                {/* Scattered Gallery */}
+                <ScatteredImages images={item.gallery} type={item.type} />
             </motion.div>
         </div>
     );
