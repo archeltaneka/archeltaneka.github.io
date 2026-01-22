@@ -78,7 +78,7 @@ const combinedTimeline = [
         description: "Built a strong foundation in computer science while serving as a mentor for junior students.",
         image: "../assets/img/binus.jpg",
         gallery: [
-            "https://lh3.googleusercontent.com/u/0/d/1yB5bpV3fkfCRhUxef5p4iEif-WMoncQ1",
+            "../assets/img/binus-1.jpg",
             "../assets/img/binus-2.jpg",
             "../assets/img/binus-3.jpg",
             "../assets/img/binus-4.jpg"
