@@ -8,6 +8,8 @@ const Hero = () => {
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isRevealed, setIsRevealed] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -21,10 +23,10 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-32">
+        <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-20 md:pb-32">
 
-            {/* Animated Grid Background */}
-            <div className="absolute inset-0 opacity-10">
+            {/* Background Animations */}
+            <div className="absolute inset-0 opacity-10 hidden md:block">
                 <div className="absolute inset-0" style={{
                     backgroundImage: `linear-gradient(rgba(101, 148, 177, 0.4) 1px, transparent 1px),
                                      linear-gradient(90deg, rgba(101, 148, 177, 0.4) 1px, transparent 1px)`,
@@ -33,61 +35,38 @@ const Hero = () => {
                 }}></div>
             </div>
 
-            {/* Gradient Orbs */}
-            <motion.div
-                animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.2, 0.4, 0.2]
-                }}
-                transition={{ duration: 8, repeat: Infinity }}
-                className="absolute top-20 right-20 w-96 h-96 bg-lavender/30 rounded-full blur-3xl"
-            />
-            <motion.div
-                animate={{
-                    scale: [1.2, 1, 1.2],
-                    opacity: [0.15, 0.3, 0.15]
-                }}
-                transition={{ duration: 10, repeat: Infinity }}
-                className="absolute bottom-20 left-20 w-96 h-96 bg-sky-blue/20 rounded-full blur-3xl"
-            />
-
-            {/* Scrolling Text Background */}
-            <div className="absolute top-1/3 left-0 w-full pointer-events-none overflow-hidden">
+            <div className="absolute top-1/4 md:top-1/3 left-0 w-full pointer-events-none overflow-hidden">
                 <motion.div
                     className="flex whitespace-nowrap"
                     animate={{ x: ["0%", "-50%"] }}
-                    transition={{
-                        repeat: Infinity,
-                        ease: "linear",
-                        duration: 25,
-                        repeatType: "loop"
-                    }}
+                    transition={{ repeat: Infinity, ease: "linear", duration: 25, repeatType: "loop" }}
                 >
-                    <h2 className="text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
-                        DATA SCIENTIST • MACHINE LEARNING • DATA SCIENTIST • MACHINE LEARNING •
+                    <h2 className="text-7xl md:text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
+                        DATA SCIENTIST • MACHINE LEARNING •
                     </h2>
-                    <h2 className="text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
-                        DATA SCIENTIST • MACHINE LEARNING • DATA SCIENTIST • MACHINE LEARNING •
+                    <h2 className="text-7xl md:text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
+                        DATA SCIENTIST • MACHINE LEARNING •
                     </h2>
                 </motion.div>
             </div>
 
             <motion.div
                 style={{ opacity }}
-                className="container mx-auto px-6 lg:px-12 relative z-10 pt-20 pb-20"
+                className="container mx-auto px-6 lg:px-12 relative z-10 pt-28"
             >
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                {/* GRID FIX: Changed from lg:grid-cols-2 to a single column that 
+                   reverses order on mobile so the image stays near the top/middle 
+                */}
+                <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                     {/* Left Content */}
                     <motion.div
-                        style={{ y: textY }}
-                        className="space-y-8 lg:space-y-12"
+                        style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? textY : 0 }}
+                        className="space-y-8 text-center lg:text-left"
                     >
-                        {/* Status Badge */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
                             className="inline-flex items-center gap-3 bg-frost/10 backdrop-blur-md border border-frost/20 rounded-full px-6 py-3"
                         >
                             <span className="relative flex h-3 w-3">
@@ -99,241 +78,93 @@ const Hero = () => {
                             </span>
                         </motion.div>
 
-                        {/* Name with Easter Egg Reveal */}
+                        {/* Name with Swapping Easter Egg */}
                         <div
-                            className="relative cursor-none select-none group"
+                            className="relative cursor-none select-none group inline-block lg:block"
+                            onClick={() => setIsRevealed(!isRevealed)}
+                            onMouseEnter={() => setIsHovered(true)} // Set hovered state
                             onMouseMove={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect();
-                                const x = e.clientX - rect.left;
-                                const y = e.clientY - rect.top;
-                                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
                             }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.setProperty('--mouse-x', '-200px');
-                                e.currentTarget.style.setProperty('--mouse-y', '-200px');
+                            onMouseLeave={() => {
+                                setIsHovered(false); // Reset hover
+                                setIsRevealed(false); // Reset mobile tap
                             }}
                         >
-                            {/* Base Layer: English Name */}
-                            <div className="space-y-2 relative z-10">
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3, duration: 0.8 }}
-                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter"
-                                >
-                                    ARCHEL
-                                </motion.h1>
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4, duration: 0.8 }}
-                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent"
-                                >
-                                    TANEKA
-                                </motion.h1>
-                            </div>
-
-                            {/* Reveal Layer: Chinese Name */}
+                            {/* English Layer */}
                             <div
-                                className="absolute inset-0 z-20 pointer-events-none space-y-2 bg-deep-sea"
+                                className={`space-y-2 relative z-10 transition-opacity duration-500 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}
                                 style={{
-                                    clipPath: 'circle(120px at var(--mouse-x, -200px) var(--mouse-y, -200px))',
-                                    transition: 'clip-path 0.2s ease-out'
+                                    /* The mask only applies if we are hovering OR if it's revealed on mobile */
+                                    WebkitMaskImage: (isHovered && !isRevealed)
+                                        ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
+                                        : 'none',
+                                    maskImage: (isHovered && !isRevealed)
+                                        ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
+                                        : 'none',
                                 }}
                             >
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3, duration: 0.8 }}
-                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-wider"
-                                >
-                                    陈
-                                </motion.h1>
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4, duration: 0.8 }}
-                                    className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-wider bg-gradient-to-r from-sky-blue via-lavender to-sky-blue bg-clip-text text-transparent"
-                                >
-                                    文群
-                                </motion.h1>
+                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter">ARCHEL</h1>
+                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent">TANEKA</h1>
+                            </div>
+
+                            {/* Chinese Layer */}
+                            <div
+                                className={`absolute inset-0 z-20 pointer-events-none space-y-2 transition-opacity duration-500 
+                    ${isRevealed ? 'opacity-100' : (isHovered ? 'opacity-100' : 'opacity-0')}`}
+                                style={{
+                                    /* The clip-path only applies if we are hovering; otherwise it is hidden */
+                                    clipPath: isRevealed
+                                        ? 'circle(150% at 50% 50%)'
+                                        : (isHovered ? 'circle(120px at var(--mouse-x) var(--mouse-y))' : 'circle(0% at 50% 50%)'),
+                                    transition: isRevealed ? 'clip-path 0.5s ease' : 'none' // Smooth transition only for mobile tap
+                                }}
+                            >
+                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-wider">陈</h1>
+                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-wider bg-gradient-to-r from-sky-blue via-lavender to-sky-blue bg-clip-text text-transparent">文群</h1>
                             </div>
                         </div>
 
-                        {/* Tagline */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
-                            className="space-y-4"
-                        >
-                            <p className="text-xl lg:text-2xl text-frost/80 font-light max-w-lg leading-relaxed">
-                                Transforming <span className="text-frost font-semibold">raw data</span> into
-                                <span className="relative inline-block ml-2">
-                                    <span className="relative z-10 text-frost font-semibold">strategic insights</span>
-                                    <span className="absolute bottom-1 left-0 w-full h-3 bg-lavender/40 -rotate-1"></span>
-                                </span>
-                                <br />through Machine Learning
-                            </p>
-                        </motion.div>
+                        <p className="text-lg md:text-2xl text-frost/80 font-light max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                            Transforming <span className="text-frost font-semibold">raw data</span> into <span className="text-frost font-semibold">strategic insights</span> through Machine Learning
+                        </p>
 
-                        {/* CTA Buttons */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
-                            className="flex flex-wrap gap-4 items-center"
-                        >
-                            <a
-                                href="#projects"
-                                className="group relative px-8 py-4 bg-frost text-deep-sea rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-lavender/50"
-                            >
-                                <span className="relative z-10">Explore Work</span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-lavender to-sky-blue"
-                                    initial={{ x: '-100%' }}
-                                    whileHover={{ x: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                />
-                            </a>
-
-                            <a
-                                href="#contact"
-                                className="group flex items-center gap-2 px-8 py-4 border-2 border-frost/30 text-frost rounded-full font-bold text-lg hover:border-lavender hover:bg-frost/5 transition-all"
-                            >
-                                <span>Contact Me</span>
-                                <svg
-                                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </a>
-                        </motion.div>
-
-                        {/* Stats */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1 }}
-                            className="grid grid-cols-3 gap-8 pt-8 border-t border-frost/20"
-                        >
-                            <div>
-                                <div className="text-3xl lg:text-4xl font-black text-frost">5+</div>
-                                <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">Projects</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl lg:text-4xl font-black text-frost">2+</div>
-                                <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">Years Working Experience</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl lg:text-4xl font-black text-frost">ML & DS</div>
-                                <div className="text-sm text-frost/60 uppercase tracking-wider font-mono mt-1">Focused</div>
-                            </div>
-                        </motion.div>
+                        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
+                            <a href="#projects" className="w-full sm:w-auto px-8 py-4 bg-frost text-deep-sea rounded-full font-bold text-lg">Explore Work</a>
+                            <a href="#contact" className="w-full sm:w-auto px-8 py-4 border-2 border-frost/30 text-frost rounded-full font-bold text-lg">Contact Me</a>
+                        </div>
                     </motion.div>
 
-                    {/* Right Image */}
+                    {/* Right Image: Now visible on all screens */}
                     <motion.div
-                        style={{ y: imageY }}
-                        initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                        transition={{ delay: 0.5, duration: 1 }}
-                        className="relative lg:block hidden pb-16"
+                        style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? imageY : 0 }}
+                        className="relative w-full max-w-[280px] sm:max-max-w-md lg:max-w-none mx-auto"
                     >
-                        {/* Glow Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-3xl"></div>
-
-                        {/* Image Container */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-2xl"></div>
                         <div className="relative">
                             <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 shadow-2xl">
-                                <motion.img
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.6 }}
-                                    src="../assets/img/profile.jpg"
-                                    alt="Archel Taneka"
-                                    className="w-full h-full object-cover"
-                                />
+                                <img src="../assets/img/profile.jpg" alt="Archel Taneka" className="w-full h-full object-cover" />
                             </div>
 
-                            {/* Floating Flag Badge */}
-                            <motion.div
-                                animate={{
-                                    y: [0, -100, 0],
-                                    rotate: [0, 5, 0]
-                                }}
-                                transition={{
-                                    repeat: Infinity,
-                                    duration: 5,
-                                    ease: "easeInOut"
-                                }}
-                                className="absolute -bottom-8 -left-8 bg-frost/20 backdrop-blur-xl p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 flex flex-col gap-4 min-w-[140px]"
-                            >
-                                {/* Label */}
-                                <div className="text-[10px] font-mono text-lavender uppercase tracking-[0.2em] font-black border-b border-white/10 pb-2">
-                                    Global Journey
+                            {/* Floating Flag Badge - Adjusted for mobile scale */}
+                            <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 bg-frost/20 backdrop-blur-xl p-3 md:p-5 rounded-2xl border border-white/20 flex flex-col gap-2 md:gap-4 shadow-xl">
+                                <div className="text-[8px] md:text-[10px] font-mono text-lavender uppercase tracking-widest font-black border-b border-white/10 pb-1">Global Journey</div>
+                                <div className="flex items-center gap-2 md:gap-3">
+                                    <img src="https://flagcdn.com/id.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="ID" />
+                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">INDONESIA</span>
                                 </div>
-
-                                {/* Flag Rows */}
-                                <div className="flex flex-col gap-4">
-                                    {/* Indonesian Flag */}
-                                    <div className="flex items-center justify-between group">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-5 rounded-sm overflow-hidden shadow-md border border-white/10">
-                                                <img
-                                                    src="https://flagcdn.com/id.svg"
-                                                    alt="Indonesia"
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-                                            <span className="text-frost font-mono text-xs tracking-tighter font-bold">INDONESIA</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Australia Flag */}
-                                    <div className="flex items-center justify-between group">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-5 rounded-sm overflow-hidden shadow-md border border-white/10">
-                                                <img
-                                                    src="https://flagcdn.com/au.svg"
-                                                    alt="Australia"
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-                                            <span className="text-frost font-mono text-xs tracking-tighter font-bold">AUSTRALIA</span>
-                                        </div>
-                                    </div>
+                                <div className="flex items-center gap-2 md:gap-3">
+                                    <img src="https://flagcdn.com/au.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="AU" />
+                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">AUSTRALIA</span>
                                 </div>
-                            </motion.div>
-
-                            {/* Corner Accent */}
-                            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-4 border-r-4 border-lavender rounded-tr-3xl"></div>
+                            </div>
                         </div>
                     </motion.div>
 
                 </div>
             </motion.div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            >
-                <span className="text-frost/50 text-xs uppercase tracking-widest font-mono">Scroll</span>
-                <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="w-6 h-10 border-2 border-frost/30 rounded-full flex justify-center pt-2"
-                >
-                    <motion.div className="w-1.5 h-2 bg-lavender rounded-full" />
-                </motion.div>
-            </motion.div>
-
         </section>
     );
 };
