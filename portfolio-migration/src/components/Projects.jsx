@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
-import { FaGithub } from 'react-icons/fa'; // Add this to your imports
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const projectData = [
     {
@@ -19,7 +19,7 @@ const projectData = [
         title: 'Slot Filling & Intent Detection',
         description: 'Implementing NLU approaches for conversational AI systems, comparing different model architectures.',
         category: 'nlp',
-        tags: ['Python', 'NLP', 'PyTorch', 'Transformers'],
+        tags: ['Python', 'Scikit-learn', 'CRF', 'Random Forest', 'NLP', 'PyTorch', 'Transformers'],
         image: '../assets/img/slot-filling-intent-detection.png',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
@@ -30,9 +30,9 @@ const projectData = [
         title: 'Monash Stock Performance Prediction',
         description: 'Predict whether US stocks are likely to outperform or underperform the US Monash Index benchmark and the excess return value.',
         category: 'machine-learning',
-        tags: ['Regression', 'Classification', 'Python', 'Scikit-learn', 'XGBoost', 'Catboost'],
+        tags: ['Python', 'Regression', 'Classification', 'Scikit-learn', 'XGBoost', 'Catboost'],
         image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop..',
-        github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
+        github: 'https://github.com/archeltaneka/monash_stock_performance_prediction',
         live: 'https://github.com/archeltaneka/monash_stock_performance_prediction/blob/main/notebooks/modelling_experiment_regression.ipynb',
         type: 'analysis'
     },
@@ -41,7 +41,7 @@ const projectData = [
         title: 'Pokemon Battle Analysis',
         description: 'Analyzing and building a 1v1 Pokemon battle prediction model.',
         category: 'machine-learning',
-        tags: ['R', 'RShiny', 'Machine Learning', 'Data Analysis'],
+        tags: ['R', 'RShiny', 'XGBoost', 'Random Forest', 'Data Analysis'],
         image: '../assets/img/pokemon-battle-analysis.png',
         github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
         live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
@@ -74,7 +74,7 @@ const projectData = [
         title: 'Common Chest X-Ray Classification',
         description: 'My undergraduate dissertation submission bout predicting and classifying chest x-rays into 10 common chest diseases using deep learning with Grad-CAM localization.',
         category: 'computer-vision',
-        tags: ['Computer Vision', 'Deep Learning', 'CNN', 'Grad-CAM', 'Python'],
+        tags: ['Python', 'Computer Vision', 'Deep Learning', 'CNN', 'Grad-CAM'],
         image: '../assets/img/common-chest-x-ray-classification.jpeg',
         github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
         live: 'https://github.com/archeltaneka/common-chest-x-ray-classification/blob/master/app/chest_xray_pneumonia_predictor.ipynb',
@@ -83,99 +83,121 @@ const projectData = [
 ];
 
 const Projects = () => {
-    const [filter, setFilter] = useState('all');
-    const [selectedId, setSelectedId] = useState(null);
-    const [isHoveringHand, setIsHoveringHand] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    const filteredProjects = projectData.filter(p => filter === 'all' || p.category === filter);
-    const selectedProject = projectData.find(p => p.id === selectedId);
+    const nextProject = () => {
+        setCurrentIndex((prev) => (prev + 1) % projectData.length);
+    };
+
+    const prevProject = () => {
+        setCurrentIndex((prev) => (prev - 1 + projectData.length) % projectData.length);
+    };
 
     return (
-        <section
-            id="projects"
-            className="relative py-32 bg-deep-sea min-h-screen overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
+        <section id="projects" className="py-20 md:py-32 bg-deep-sea overflow-hidden min-h-screen flex flex-col justify-center">
+            <div className="container mx-auto px-6">
 
-                {/* Header Logic */}
-                <div className="text-center mb-12">
-                    <h2 className="text-5xl font-black text-frost mb-6">My Deck of Projects</h2>
-                    <div className="flex justify-center gap-2">
-                        {['all', 'machine-learning', 'nlp', 'data-analysis', 'computer-vision'].map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => { setFilter(cat); setSelectedId(null); }}
-                                className={`px-4 py-2 rounded-full text-xs font-mono transition-all ${filter === cat ? 'bg-lavender text-deep-sea' : 'bg-frost/10 text-frost/50'}`}
-                            >
-                                {cat.replace('-', ' ').toUpperCase()}
+                {/* Header */}
+                <div className="mb-12 md:mb-20 text-center lg:text-left">
+                    <h2 className="text-5xl md:text-8xl font-black text-frost tracking-tighter uppercase leading-[0.8]">
+                        Selected <br /> <span className="text-lavender">Works.</span>
+                    </h2>
+                </div>
+
+                {/* The Deck Interface */}
+                <div className="relative flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+
+                    {/* Left: Project Preview (The Deck) */}
+                    <div className="relative w-full max-w-[340px] md:max-w-[450px] aspect-[3/4] perspective-1000">
+                        <AnimatePresence mode="popLayout">
+                            {projectData.map((project, index) => {
+                                // Calculate position relative to currentIndex
+                                const offset = index - currentIndex;
+                                const isVisible = index >= currentIndex && index <= currentIndex + 2;
+
+                                if (!isVisible) return null;
+
+                                return (
+                                    <motion.div
+                                        key={project.id}
+                                        initial={{ opacity: 0, x: 100, scale: 0.8 }}
+                                        animate={{
+                                            opacity: 1 - offset * 0.3,
+                                            x: offset * 40,
+                                            z: -offset * 100,
+                                            scale: 1 - offset * 0.05,
+                                            rotateY: -offset * 10,
+                                        }}
+                                        exit={{ opacity: 0, x: -200, scale: 0.8 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        className="absolute inset-0 cursor-pointer"
+                                        style={{ zIndex: projectData.length - index }}
+                                        onClick={nextProject}
+                                    >
+                                        <div className="w-full h-full rounded-[2rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-[#1a1a1a]">
+                                            <img
+                                                src={project.image}
+                                                className="w-full h-full object-cover"
+                                                alt={project.title}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Right: Project Details (Always visible, changes with deck) */}
+                    <div className="w-full lg:max-w-xl space-y-6 text-center lg:text-left">
+                        <motion.div
+                            key={currentIndex}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="space-y-6"
+                        >
+                            <span className="text-lavender font-mono text-sm tracking-[0.3em] uppercase">
+                                Project 0{currentIndex + 1} / 0{projectData.length}
+                            </span>
+                            <h3 className="text-3xl md:text-5xl font-black text-frost uppercase tracking-tighter">
+                                {projectData[currentIndex].title}
+                            </h3>
+                            <p className="text-frost/60 text-lg md:text-xl font-light leading-relaxed">
+                                {projectData[currentIndex].description}
+                            </p>
+
+                            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                                {projectData[currentIndex].tags.map(tag => (
+                                    <span key={tag} className="px-3 py-1 bg-frost/5 border border-frost/10 text-frost/40 text-[10px] font-mono uppercase rounded-full">
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center justify-center lg:justify-start gap-6 pt-8">
+                                <a href={projectData[currentIndex].github} target="_blank" className="flex items-center gap-2 text-frost hover:text-lavender transition-all group">
+                                    <FaGithub size={24} />
+                                    <span className="font-bold uppercase text-sm tracking-widest">Source</span>
+                                </a>
+                                <a href={projectData[currentIndex].live} target="_blank" className="flex items-center gap-2 text-frost hover:text-sky-blue transition-all group">
+                                    <FaExternalLinkAlt size={20} />
+                                    <span className="font-bold uppercase text-sm tracking-widest">
+                                        {projectData[currentIndex].type === "app" ? "Live Demo" : "View Notebook"}
+                                    </span>
+                                </a>
+                            </div>
+                        </motion.div>
+
+                        {/* Navigation Controls */}
+                        <div className="flex items-center justify-center lg:justify-start gap-4 mt-12">
+                            <button onClick={prevProject} className="p-4 rounded-full border border-frost/20 text-frost hover:bg-frost hover:text-deep-sea transition-all">
+                                <FaChevronLeft />
                             </button>
-                        ))}
+                            <button onClick={nextProject} className="p-4 rounded-full border border-frost/20 text-frost hover:bg-frost hover:text-deep-sea transition-all">
+                                <FaChevronRight />
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                {/* The Playing Field */}
-                <div
-                    className="relative h-[600px] flex items-center justify-center"
-                    onMouseEnter={() => setIsHoveringHand(true)}
-                    onMouseLeave={() => setIsHoveringHand(false)}
-                >
-                    {filteredProjects.map((project, index) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            index={index}
-                            total={filteredProjects.length}
-                            isHandExpanded={isHoveringHand}
-                            onClick={() => setSelectedId(project.id)}
-                        />
-                    ))}
-                </div>
-
-                {/* Dealt Card (Modal View) */}
-                <AnimatePresence>
-                    {selectedId && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-deep-sea/90 backdrop-blur-xl"
-                            onClick={() => setSelectedId(null)}
-                        >
-                            <motion.div
-                                layoutId={selectedId}
-                                className="bg-frost/5 border border-frost/20 p-1 rounded-3xl max-w-5xl w-full shadow-2xl"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <div className="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[22px]">
-                                    <img src={selectedProject.image} alt="" className="h-full w-full object-cover min-h-[400px]" />
-                                    <div className="p-10 bg-frost/5 flex flex-col justify-center">
-                                        <span className="text-lavender font-mono text-sm mb-4 uppercase tracking-widest">{selectedProject.category}</span>
-                                        <h3 className="text-4xl font-black text-frost mb-6">{selectedProject.title}</h3>
-                                        <p className="text-frost/70 text-lg mb-8 leading-relaxed">{selectedProject.description}</p>
-                                        <div className="flex gap-4">
-                                            <a
-                                                href={selectedProject.demo || selectedProject.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="flex-1 px-8 py-4 bg-lavender text-deep-sea rounded-xl font-black text-center hover:bg-white hover:scale-[1.02] transition-all shadow-lg shadow-lavender/10"
-                                            >
-                                                {selectedProject.type === "app" ? "Live Demo" : "View Notebook"}
-                                            </a>
-                                            <a
-                                                href={selectedProject.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-14 h-14 flex items-center justify-center border border-frost/20 text-frost rounded-xl hover:bg-frost/10 hover:border-lavender/50 transition-all duration-300 group"
-                                                aria-label="View on GitHub"
-                                            >
-                                                <FaGithub className="text-2xl group-hover:scale-110 group-hover:text-lavender transition-transform" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </div>
         </section>
     );
