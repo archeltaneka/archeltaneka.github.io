@@ -272,7 +272,7 @@ const Hero = () => {
                             {/* Floating Flag Badge */}
                             <motion.div
                                 animate={{
-                                    y: [0, -20, 0],
+                                    y: [0, -100, 0],
                                     rotate: [0, 5, 0]
                                 }}
                                 transition={{

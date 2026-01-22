@@ -25,9 +25,10 @@ const combinedTimeline = [
         icon: "../assets/img/tiket-logo.png",
         date: "Oct 2022 - Jul 2024",
         points: [
-            "Developed payment recommendation model (94B IDR GBV uplift)",
-            "Improved hotel inventory image quality classification by 10%",
-            "Reduced RPA costs by 150M IDR annually"
+            "Developed a mathematical model that boosted payment conversion rate by 4.8%, contributing to IDR 94 billion in gross booking value (GBV).",
+            "Developed a CatBoost room grouping model with similarity scoring, achieving 90% accuracy in hotel listing classification.",
+            "Optimized a hotel recommendation engine utilizing POI and geospatial analytics, contributing to an IDR 8 billion increase in gross booking volume (GBV).",
+            "Streamlined flight reschedule identification process by developing automated algorithms, resulting in a 165 million IDR reduction in operational expenses."
         ],
         description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
         image: "../assets/img/tiket.jpg",
@@ -45,9 +46,9 @@ const combinedTimeline = [
         icon: "../assets/img/sayurbox-logo.png",
         date: "May 2020 - Oct 2021",
         points: [
-            "Developed market basket analysis system, item recommendations system, and automated courier delivery assignments.",
-            "Improved internal reporting processes for more than 5 stakeholders.",
-            "Developed item stock forecasting model."
+            "Engineered a comprehensive weekly demand forecasting model utilizing FBProphet and time series analysis, resulting in a 15% increase in prediction accuracy for over 500 SKUs. ",
+            "Streamlined order preparation workflows by automating workforce scheduling processes, which resulted in a 75% reduction in labor planning time and improved response times during peak periods by 40%.",
+            "Implemented dynamic route assignment algorithms that optimized driver deployment, decreasing idle time by 20% and increasing daily delivery capacity by 12%."
         ],
         description: "My first job as a Data Scientist for an e-commerce grocery platform company based in Jakarta.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
@@ -92,7 +93,7 @@ const ScatteredImages = ({ images, type }) => {
     const positions = [
         { top: '-10%', left: '-15%', rotate: -12, w: '250px', h: '200px' },
         { top: '60%', left: '-10%', rotate: 8, w: '200px', h: '150px' },
-        { top: '-5%', right: '-12%', rotate: 15, w: '170px', h: '200px' },
+        { top: '-5%', right: '-5%', rotate: 15, w: '200px', h: '200px' },
         { bottom: '5%', right: '-5%', rotate: -5, w: '150px', h: '100px' },
     ];
 
@@ -144,20 +145,37 @@ const ScatteredImages = ({ images, type }) => {
 const TimelineContent = ({ item, index }) => {
     if (item.type === 'header') {
         return (
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50 }}
-                className="text-center space-y-6 max-w-4xl px-6"
-            >
-                <div className="h-1 w-24 bg-gradient-to-r from-lavender to-sky-blue rounded-full mx-auto" />
-                <h2 className="text-6xl lg:text-8xl font-black text-deep-sea tracking-tighter uppercase">
-                    The Journey<span className="text-lavender">.</span>
-                </h2>
-                <p className="text-xl lg:text-2xl text-deep-sea/60 leading-relaxed font-light">
-                    A unified look at my professional and academic evolution.
-                </p>
-            </motion.div>
+            <section>
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    className="text-center space-y-6 max-w-4xl px-6"
+                >
+                    <div className="h-1 w-24 bg-gradient-to-r from-lavender to-sky-blue rounded-full mx-auto" />
+                    <h2 className="text-6xl lg:text-8xl font-black text-deep-sea tracking-tighter uppercase">
+                        The Journey<span className="text-lavender">.</span>
+                    </h2>
+                    <p className="text-xl lg:text-2xl text-deep-sea/60 leading-relaxed font-light">
+                        A unified look at my professional and academic evolution.
+                    </p>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5 }}
+                    className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                >
+                    <span className="text-deep-blue/50 text-xs uppercase tracking-widest font-mono">Scroll</span>
+                    <motion.div
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="w-6 h-10 border-2 border-deep-blue/30 rounded-full flex justify-center pt-2"
+                    >
+                        <motion.div className="w-1.5 h-2 bg-lavender rounded-full" />
+                    </motion.div>
+                </motion.div>
+            </section>
         );
     }
 
