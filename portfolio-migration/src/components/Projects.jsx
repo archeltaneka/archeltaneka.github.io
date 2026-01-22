@@ -9,7 +9,7 @@ const projectData = [
         description: 'Analyzing the 2025 mobile phone market through an interactive dashboard',
         category: 'data-analysis',
         tags: ['Data Analysis', 'Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Plotly', 'Streamlit'],
-        image: '../assets/img/mobiles-analysis.png',
+        image: '../assets/img/mobiles-analysis.jpg',
         github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
         live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
         type: 'app'
@@ -53,7 +53,7 @@ const projectData = [
         description: 'Analyzing Melbourne air quality and pedestrian traffic data.',
         category: 'data-analysis',
         tags: ['Data Analysis', 'R', 'Python', 'Tableau', 'HTML', 'CSS', 'JavaScript', 'D3.js', 'Vercel'],
-        image: '../assets/img/melbourne-air-quality-pedestrian-traffic-analysis.png',
+        image: '../assets/img/melbourne-air-quality-pedestrian-traffic-analysis.jpg',
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
         type: 'app'

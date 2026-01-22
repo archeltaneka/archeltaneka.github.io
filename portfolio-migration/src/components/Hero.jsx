@@ -54,9 +54,7 @@ const Hero = () => {
                 style={{ opacity }}
                 className="container mx-auto px-6 lg:px-12 relative z-10 pt-28"
             >
-                {/* GRID FIX: Changed from lg:grid-cols-2 to a single column that 
-                   reverses order on mobile so the image stays near the top/middle 
-                */}
+
                 <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                     {/* Left Content */}
@@ -137,8 +135,16 @@ const Hero = () => {
                         </div>
                     </motion.div>
 
-                    {/* Right Image: Now visible on all screens */}
+                    {/* Right Image */}
                     <motion.div
+                        animate={{
+                            y: [0, -12, 0], // Moves up 12px and back
+                        }}
+                        transition={{
+                            duration: 4,      // 4 seconds for a full loop
+                            repeat: Infinity, // Loop forever
+                            ease: "easeInOut" // Smooth start and stop
+                        }}
                         style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? imageY : 0 }}
                         className="relative w-full max-w-[280px] sm:max-max-w-md lg:max-w-none mx-auto"
                     >
@@ -148,12 +154,15 @@ const Hero = () => {
                                 <img src="../assets/img/profile.jpg" alt="Archel Taneka" className="w-full h-full object-cover" />
                             </div>
 
-                            {/* Floating Flag Badge - Adjusted for mobile scale */}
-                            <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 bg-frost/20 backdrop-blur-xl p-3 md:p-5 rounded-2xl border border-white/20 flex flex-col gap-2 md:gap-4 shadow-xl">
-                                <div className="text-[8px] md:text-[10px] font-mono text-lavender uppercase tracking-widest font-black border-b border-white/10 pb-1">Global Journey</div>
+                            {/* Floating Flag Badge */}
+                            <div className="absolute bottom-4 -left-6 md:bottom-15 md:-left-8 bg-frost/20 backdrop-blur-xl p-3 md:p-5 rounded-2xl border border-white/20 flex flex-col gap-2 md:gap-4 shadow-xl">                                <div className="text-[8px] md:text-[10px] font-mono text-lavender uppercase tracking-widest font-black border-b border-white/10 pb-1">Global Journey</div>
                                 <div className="flex items-center gap-2 md:gap-3">
                                     <img src="https://flagcdn.com/id.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="ID" />
                                     <span className="text-frost font-mono text-[10px] md:text-xs font-bold">INDONESIA</span>
+                                </div>
+                                <div className="flex items-center gap-2 md:gap-3">
+                                    <img src="https://flagcdn.com/gb.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="UK" />
+                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">UNITED KINGDOM</span>
                                 </div>
                                 <div className="flex items-center gap-2 md:gap-3">
                                     <img src="https://flagcdn.com/au.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="AU" />
