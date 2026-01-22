@@ -159,16 +159,6 @@ const Hero = () => {
                                     文群
                                 </motion.h1>
                             </div>
-
-                            {/* Hover instruction hint */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 2 }}
-                                className="absolute -bottom-8 left-0 text-frost/40 text-xs font-mono tracking-wider pointer-events-none"
-                            >
-                                Hover to reveal
-                            </motion.div>
                         </div>
 
                         {/* Tagline */}
@@ -263,7 +253,7 @@ const Hero = () => {
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.6 }}
-                                    src="https://archeltaneka.github.io/assets/img/profile.jpg"
+                                    src="../assets/img/profile.jpg"
                                     alt="Archel Taneka"
                                     className="w-full h-full object-cover"
                                 />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { FaGithub } from 'react-icons/fa'; // Add this to your imports
 
 const projectData = [
     {
@@ -8,39 +9,32 @@ const projectData = [
         description: 'Analyzing the 2025 mobile phone market through an interactive dashboard',
         category: 'data-analysis',
         tags: ['Data Analysis', 'Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Plotly', 'Streamlit'],
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+        image: '../assets/img/mobiles-analysis.png',
         github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
-        live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/'
+        live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
+        type: 'app'
     },
     {
         id: 'slot-filling',
         title: 'Slot Filling & Intent Detection',
         description: 'Implementing NLU approaches for conversational AI systems, comparing different model architectures.',
         category: 'nlp',
-        tags: ['NLP', 'PyTorch', 'Transformers'],
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+        tags: ['Python', 'NLP', 'PyTorch', 'Transformers'],
+        image: '../assets/img/slot-filling-intent-detection.png',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
-        live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/'
+        live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
+        type: 'app'
     },
     {
-        id: 'stock-prediction',
-        title: 'Stock Performance Prediction',
-        description: 'Predicting stock outperformance against the Monash Index benchmark using ensemble learning.',
+        id: 'stock-performance-prediction',
+        title: 'Monash Stock Performance Prediction',
+        description: 'Predict whether US stocks are likely to outperform or underperform the US Monash Index benchmark and the excess return value.',
         category: 'machine-learning',
-        tags: ['Regression', 'XGBoost', 'Feature Engineering'],
-        image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop',
-        github: 'https://github.com/archeltaneka/monash_stock_performance_prediction',
-        live: '#'
-    },
-    {
-        id: 'melbourne-air-quality-pedestrian-traffic-analysis',
-        title: 'Melbourne Air Quality & Pedestrian Traffic Analysis',
-        description: 'Analyzing Melbourne air quality and pedestrian traffic data.',
-        category: 'data-analysis',
-        tags: ['Data Analysis', 'R', 'Python', 'Tableau', 'HTML', 'CSS', 'JavaScript', 'D3.js', 'Vercel'],
-        image: 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=800&h=600&fit=crop',
-        github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
-        live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/'
+        tags: ['Regression', 'Classification', 'Python', 'Scikit-learn', 'XGBoost', 'Catboost'],
+        image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop..',
+        github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
+        live: 'https://github.com/archeltaneka/monash_stock_performance_prediction/blob/main/notebooks/modelling_experiment_regression.ipynb',
+        type: 'analysis'
     },
     {
         id: 'pokemon-battle-analysis',
@@ -48,19 +42,43 @@ const projectData = [
         description: 'Analyzing and building a 1v1 Pokemon battle prediction model.',
         category: 'machine-learning',
         tags: ['R', 'RShiny', 'Machine Learning', 'Data Analysis'],
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+        image: '../assets/img/pokemon-battle-analysis.png',
         github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
-        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/'
+        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
+        type: 'app'
     },
     {
-        id: 'recommendation-system',
-        title: 'Payment Recommendation Engine',
-        description: 'ML-powered recommendation system that increased gross booking value by 94B IDR.',
-        category: 'machine-learning',
-        tags: ['Recommender Systems', 'A/B Testing', 'Python'],
-        image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop',
-        github: '#',
-        live: '#'
+        id: 'melbourne-air-quality-pedestrian-traffic-analysis',
+        title: 'Melbourne Air Quality & Pedestrian Traffic Analysis',
+        description: 'Analyzing Melbourne air quality and pedestrian traffic data.',
+        category: 'data-analysis',
+        tags: ['Data Analysis', 'R', 'Python', 'Tableau', 'HTML', 'CSS', 'JavaScript', 'D3.js', 'Vercel'],
+        image: '../assets/img/melbourne-air-quality-pedestrian-traffic-analysis.png',
+        github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
+        live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
+        type: 'app'
+    },
+    {
+        id: 'table-tennis-analytics',
+        title: 'Table Tennis Analytics',
+        description: 'Analyzing table tennis match video and map their movements into a heatmap plot to analyze the efficiency of their movements.',
+        category: 'computer-vision',
+        tags: ['Computer Vision', 'Deep Learning', 'Python', 'YOLO', 'OpenCV'],
+        image: '../assets/img/table-tennis-analytics.png',
+        github: 'https://github.com/archeltaneka/table-tennis-analytics',
+        live: 'https://github.com/archeltaneka/table-tennis-analytics/blob/master/table_tennis_analytic_playground.ipynb',
+        type: 'notebook'
+    },
+    {
+        id: 'common-chest-x-ray-classification',
+        title: 'Common Chest X-Ray Classification',
+        description: 'My undergraduate dissertation submission bout predicting and classifying chest x-rays into 10 common chest diseases using deep learning with Grad-CAM localization.',
+        category: 'computer-vision',
+        tags: ['Computer Vision', 'Deep Learning', 'CNN', 'Grad-CAM', 'Python'],
+        image: '../assets/img/common-chest-x-ray-classification.jpeg',
+        github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
+        live: 'https://github.com/archeltaneka/common-chest-x-ray-classification/blob/master/app/chest_xray_pneumonia_predictor.ipynb',
+        type: 'notebook'
     }
 ];
 
@@ -82,13 +100,13 @@ const Projects = () => {
                 <div className="text-center mb-12">
                     <h2 className="text-5xl font-black text-frost mb-6">My Deck of Projects</h2>
                     <div className="flex justify-center gap-2">
-                        {['all', 'machine-learning', 'nlp', 'data-analysis'].map((cat) => (
+                        {['all', 'machine-learning', 'nlp', 'data-analysis', 'computer-vision'].map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => { setFilter(cat); setSelectedId(null); }}
                                 className={`px-4 py-2 rounded-full text-xs font-mono transition-all ${filter === cat ? 'bg-lavender text-deep-sea' : 'bg-frost/10 text-frost/50'}`}
                             >
-                                {cat.replace('-', ' ')}
+                                {cat.replace('-', ' ').toUpperCase()}
                             </button>
                         ))}
                     </div>
@@ -134,8 +152,23 @@ const Projects = () => {
                                         <h3 className="text-4xl font-black text-frost mb-6">{selectedProject.title}</h3>
                                         <p className="text-frost/70 text-lg mb-8 leading-relaxed">{selectedProject.description}</p>
                                         <div className="flex gap-4">
-                                            <a href={selectedProject.live} target="_blank" className="flex-1 text-center py-4 bg-frost text-deep-sea font-bold rounded-xl hover:bg-lavender transition-colors">Live Demo</a>
-                                            <a href={selectedProject.github} target="_blank" className="px-6 py-4 border border-frost/20 text-frost rounded-xl hover:bg-frost/10 transition-colors">GitHub</a>
+                                            <a
+                                                href={selectedProject.demo || selectedProject.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 px-8 py-4 bg-lavender text-deep-sea rounded-xl font-black text-center hover:bg-white hover:scale-[1.02] transition-all shadow-lg shadow-lavender/10"
+                                            >
+                                                {selectedProject.type === "app" ? "Live Demo" : "View Notebook"}
+                                            </a>
+                                            <a
+                                                href={selectedProject.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-14 h-14 flex items-center justify-center border border-frost/20 text-frost rounded-xl hover:bg-frost/10 hover:border-lavender/50 transition-all duration-300 group"
+                                                aria-label="View on GitHub"
+                                            >
+                                                <FaGithub className="text-2xl group-hover:scale-110 group-hover:text-lavender transition-transform" />
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

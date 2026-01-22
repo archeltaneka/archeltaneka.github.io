@@ -1,18 +1,39 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaLinkedinIn, FaGithub, FaEnvelope } from 'react-icons/fa'; // Importing React Icons
 
 const Contact = () => {
+    // Updated social links with React Icons components
     const socialLinks = [
-        { name: 'LinkedIn', href: 'https://linkedin.com/in/archel-taneka-sutanto', icon: '󰈸' },
-        { name: 'GitHub', href: 'https://github.com/archeltaneka', icon: '󰊤' },
-        { name: 'Email', href: 'mailto:archeltaneka@gmail.com', icon: '󰇮' }
+        {
+            name: 'LinkedIn',
+            href: 'https://linkedin.com/in/archel-taneka-sutanto',
+            icon: <FaLinkedinIn className="text-xl" />
+        },
+        {
+            name: 'GitHub',
+            href: 'https://github.com/archeltaneka',
+            icon: <FaGithub className="text-xl" />
+        },
+        {
+            name: 'Email',
+            href: 'mailto:archeltaneka@gmail.com',
+            icon: <FaEnvelope className="text-xl" />
+        }
     ];
+
+    // Function to handle smooth scrolling back to the top
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
     return (
         <section id="contact" className="py-24 bg-white overflow-hidden">
             <div className="max-w-6xl mx-auto px-6">
                 <div className="grid lg:grid-cols-2 gap-20">
-
                     {/* Left: Contact Info */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -32,18 +53,20 @@ const Contact = () => {
 
                         <div className="space-y-4">
                             <p className="font-mono text-xs uppercase tracking-[0.3em] text-sage font-bold">Connect with me</p>
-                            <div className="flex flex-col gap-3">
+                            <div className="flex gap-4">
                                 {socialLinks.map((link) => (
-                                    <a
+                                    <motion.a
                                         key={link.name}
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="group flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-sage transition-all duration-500"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        className="w-12 h-12 flex items-center justify-center rounded-full border border-gray-100 text-charcoal hover:bg-sage hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+                                        aria-label={link.name}
                                     >
-                                        <span className="text-charcoal group-hover:text-white font-medium transition-colors">{link.name}</span>
-                                        <span className="text-sage group-hover:text-white transition-colors">→</span>
-                                    </a>
+                                        {link.icon}
+                                    </motion.a>
                                 ))}
                             </div>
                         </div>
@@ -78,15 +101,18 @@ const Contact = () => {
 
                 {/* Footer */}
                 <footer className="mt-32 pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="text-sm text-warm-gray font-mono">
+                    <div className="text-sm text-warm-gray font-mono uppercase tracking-widest">
                         © {new Date().getFullYear()} ARCHEL TANEKA SUTANTO
                     </div>
+
                     <motion.button
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        onClick={scrollToTop}
                         whileHover={{ y: -5 }}
-                        className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-charcoal hover:text-sage transition-colors"
+                        whileTap={{ scale: 0.95 }}
+                        className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-charcoal hover:text-sage transition-colors"
                     >
-                        Back to Top <span className="text-xl">↑</span>
+                        Back to Top
+                        <span className="text-xl group-hover:-translate-y-1 transition-transform duration-300">↑</span>
                     </motion.button>
                 </footer>
             </div>
