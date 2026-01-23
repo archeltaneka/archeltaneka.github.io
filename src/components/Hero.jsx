@@ -12,9 +12,20 @@ const Hero = () => {
     const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
     const opacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
 
+    // Mouse event handler
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isRevealed, setIsRevealed] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            setMousePosition({
+                x: (e.clientX / window.innerWidth - 0.5) * 20,
+                y: (e.clientY / window.innerHeight - 0.5) * 20
+            });
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
 
     // Copy email state
     const [copied, setCopied] = useState(false);
@@ -25,15 +36,32 @@ const Hero = () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    // Profile photo change
+    const [activePhoto, setActivePhoto] = useState('/assets/img/profile.jpg');
+    const [inputSequence, setInputSequence] = useState('');
+
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth - 0.5) * 20,
-                y: (e.clientY / window.innerHeight - 0.5) * 20
+        const handleKeyDown = (e) => {
+            // Only track letters
+            if (!/^[a-zA-Z]$/.test(e.key)) return;
+
+            setInputSequence(prev => {
+                const newSeq = (prev + e.key.toLowerCase()).slice(-10); // Keep last 10 chars
+
+                if (newSeq.includes('australia')) {
+                    setActivePhoto('/assets/img/profile-au.jpg');
+                } else if (newSeq.includes('uk') || newSeq.includes('london')) {
+                    setActivePhoto('/assets/img/profile-uk.jpg');
+                } else if (newSeq.includes('reset') || newSeq.includes('home')) {
+                    setActivePhoto('/assets/img/profile.jpg');
+                }
+
+                return newSeq;
             });
         };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
     return (
@@ -237,8 +265,19 @@ const Hero = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-2xl"></div>
                         <div className="relative">
-                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 shadow-2xl">
-                                <img src="/assets/img/profile.jpg" alt="Archel Taneka" className="w-full h-full object-cover" />
+                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 shadow-2xl bg-deep-sea">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={activePhoto} // This triggers the animation when the photo changes
+                                        src={activePhoto}
+                                        alt="Archel Taneka"
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </AnimatePresence>
                             </div>
 
                             {/* Floating Flag Badge */}
