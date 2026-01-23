@@ -35,11 +35,37 @@ function App() {
   // Loading screen state
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    // Simulate loading time (e.g., 2.5 seconds)
-    const timer = setTimeout(() => {
+    const imagesToPreload = [
+      '/assets/img/profile-au.webp',
+      '/assets/img/profile-uk.webp',
+      '/assets/img/profile.webp',
+      '/assets/img/monash.webp',
+      '/assets/img/tiket.webp',
+      '/assets/img/nottingham.webp',
+      '/assets/img/binus.webp',
+      '/assets/img/mobiles-analysis.webp',
+      '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
+      '/assets/img/common-chest-x-ray-classification.webp'
+    ];
+
+    // Create a promise for image loading
+    const imagePromises = imagesToPreload.map((src) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = resolve; // Resolve when image is cached
+        img.onerror = resolve; // Resolve anyway on error so we don't get stuck
+      });
+    });
+
+    // Create a promise for the minimum timer (2.5s)
+    const timerPromise = new Promise((resolve) => setTimeout(resolve, 2500));
+
+    // Wait for BOTH (Images cached AND timer finished)
+    Promise.all([...imagePromises, timerPromise]).then(() => {
       setIsLoading(false);
-    }, 2500);
-    return () => clearTimeout(timer);
+    });
+
   }, []);
 
   // Web page title change easter egg

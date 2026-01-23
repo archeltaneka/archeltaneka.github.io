@@ -9,7 +9,7 @@ const projectData = [
         description: 'Analyzing the 2025 mobile phone market through an interactive dashboard',
         category: 'data-analysis',
         tags: ['Data Analysis', 'Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Plotly', 'Streamlit'],
-        image: '/assets/img/mobiles-analysis.jpg',
+        image: '/assets/img/mobiles-analysis.webp',
         github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
         live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
         type: 'app'
@@ -53,7 +53,7 @@ const projectData = [
         description: 'Analyzing Melbourne air quality and pedestrian traffic data.',
         category: 'data-analysis',
         tags: ['Data Analysis', 'R', 'Python', 'Tableau', 'HTML', 'CSS', 'JavaScript', 'D3.js', 'Vercel'],
-        image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.jpg',
+        image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
         type: 'app'
@@ -75,7 +75,7 @@ const projectData = [
         description: 'My undergraduate dissertation submission bout predicting and classifying chest x-rays into 10 common chest diseases using deep learning with Grad-CAM localization.',
         category: 'computer-vision',
         tags: ['Python', 'Computer Vision', 'Deep Learning', 'CNN', 'Grad-CAM'],
-        image: '/assets/img/common-chest-x-ray-classification.jpeg',
+        image: '/assets/img/common-chest-x-ray-classification.webp',
         github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
         live: 'https://github.com/archeltaneka/common-chest-x-ray-classification/blob/master/app/chest_xray_pneumonia_predictor.ipynb',
         type: 'notebook'
