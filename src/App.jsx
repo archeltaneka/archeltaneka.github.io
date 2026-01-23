@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
@@ -30,6 +32,17 @@ Now tell your HR manager to hire me before my mom does!
   "color: #6594B1; font-style: italic;");
 
 function App() {
+  // Loading screen state
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Simulate loading time (e.g., 2.5 seconds)
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Web page title change easter egg
   useEffect(() => {
     // Fallback to a string if document.title is empty at mount
     const originalTitle = document.title || "My Portfolio";
@@ -52,16 +65,27 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#faf9f7] selection:bg-sage selection:text-white">
-      <FluidCursor />
-      <Navbar />
-      <main>
-        <Hero />
-        <Timeline />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
+    <div className="bg-deep-sea min-h-screen">
+      <AnimatePresence>
+        {isLoading && <LoadingScreen key="loader" />}
+      </AnimatePresence>
+      {!isLoading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <Navbar />
+          <main className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
+            <Hero />
+            <Timeline />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+          <FluidCursor />
+        </motion.div>
+      )}
     </div>
   );
 }
