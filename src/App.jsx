@@ -76,7 +76,7 @@ function App() {
           transition={{ duration: 1 }}
         >
           <Navbar />
-          <main className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
+          <main>
             <Hero />
             <Timeline />
             <Skills />
