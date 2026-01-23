@@ -19,7 +19,7 @@ const Navbar = () => {
         { name: 'Timeline', hoverText: 'My Villain Origin Story', href: '#timeline' },
         { name: 'Skills', hoverText: 'Things I’m Actually Good At', href: '#skills' },
         { name: 'Projects', hoverText: 'Proof I’m Not Lying', href: '#projects' },
-        { name: 'Contact', hoverText: 'Don’t Be a Stranger', href: '#contact' },
+        { name: 'Contact', hoverText: 'Say Hi!', href: '#contact' },
     ];
 
     return (
@@ -37,7 +37,7 @@ const Navbar = () => {
                     </span>
                 </motion.a>
 
-                {/* Mobile Menu Button - THIS WAS MISSING! */}
+                {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="md:hidden relative z-[101] flex flex-col gap-1.5 p-2"
@@ -62,40 +62,31 @@ const Navbar = () => {
                     {navLinks.map((link) => (
                         <div key={link.name} className="relative group flex items-center justify-center py-2 h-10">
                             <a
+                                key={link.name}
                                 href={link.href}
                                 onMouseEnter={() => setHoveredName(link.name)}
                                 onMouseLeave={() => setHoveredName(null)}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    const target = document.querySelector(link.href);
-                                    if (target) {
-                                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                                    }
-                                }}
-                                className="text-sm font-bold text-frost/80 hover:text-frost transition-colors tracking-widest uppercase font-mono"
+                                className="relative flex flex-col items-center group py-2"
                             >
-                                {link.name}
-                            </a>
+                                {/* Original Professional Name */}
+                                <span className="text-sm font-bold text-frost/80 group-hover:text-frost transition-colors tracking-widest uppercase font-mono">
+                                    {link.name}
+                                </span>
 
-                            {/* Offset Callout for Humorous Text */}
-                            <AnimatePresence>
-                                {hoveredName === link.name && (
-                                    <motion.div
-                                        initial={{ opacity: 0, x: 10, y: -5 }}
-                                        animate={{ opacity: 1, x: 50, y: 25 }}
-                                        exit={{ opacity: 0, x: 10, y: -5 }}
-                                        className="absolute pointer-events-none flex flex-col items-start"
-                                    >
-                                        <svg width="20" height="20" className="text-lavender/40">
-                                            <line x1="0" y1="0" x2="20" y2="20" stroke="currentColor" strokeWidth="1" />
-                                        </svg>
-                                        <span className="whitespace-nowrap text-[10px] text-lavender italic font-sans tracking-tight bg-deep-sea/40 px-2 py-1 rounded-sm backdrop-blur-sm">
+                                {/* Small Absolute Subtitle */}
+                                <AnimatePresence>
+                                    {hoveredName === link.name && (
+                                        <motion.span
+                                            initial={{ opacity: 0, y: -5 }}
+                                            animate={{ opacity: 1, y: 2 }}
+                                            exit={{ opacity: 0, y: -5 }}
+                                            className="absolute top-full whitespace-nowrap text-[20px] text-lavender italic tracking-normal font-sans"
+                                        >
                                             {link.hoverText}
-                                        </span>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </a>
                         </div>
                     ))}
 
