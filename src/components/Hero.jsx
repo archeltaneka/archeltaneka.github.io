@@ -27,6 +27,9 @@ const Hero = () => {
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    // "Machine Learning" word change toggle
+    const [isMlToggled, setIsMlToggled] = useState(false);
+
     // Copy email state
     const [copied, setCopied] = useState(false);
     const handleCopyEmail = (e) => {
@@ -176,21 +179,33 @@ const Hero = () => {
                         </div>
 
                         {/* Tagline */}
-                        <motion.div
+                        <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
-                            className="space-y-4"
+                            className="text-lg md:text-xl text-frost/70 font-light leading-relaxed"
                         >
-                            <p className="text-xl lg:text-2xl text-frost/80 font-light max-w-lg leading-relaxed">
-                                Transforming <span className="text-frost font-semibold">raw data</span> into
-                                <span className="relative inline-block ml-2">
-                                    <span className="relative z-10 text-frost font-semibold">strategic insights</span>
-                                    <span className="absolute bottom-1 left-0 w-full h-3 bg-lavender/40 -rotate-1"></span>
+                            (Translation: I use
+                            <span
+                                className="relative inline-grid cursor-help mx-1 align-bottom group"
+                                onClick={() => setIsMlToggled(!isMlToggled)}
+                                onMouseEnter={() => setIsMlToggled(true)}
+                                onMouseLeave={() => setIsMlToggled(false)}
+                            >
+                                {/* The Professional Text */}
+                                <span className={`col-start-1 row-start-1 text-frost font-medium transition-all duration-300 
+            ${isMlToggled ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                    Machine Learning
                                 </span>
-                                <br />through Machine Learning
-                            </p>
-                        </motion.div>
+
+                                {/* The Witty Text */}
+                                <span className={`col-start-1 row-start-1 text-lavender font-bold transition-all duration-300 whitespace-nowrap
+            ${isMlToggled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                                    Math with fancy branding
+                                </span>
+                            </span>
+                            to bridge the gap between <span className="text-frost font-medium">"Trust me bro"</span> and <span className="text-frost font-medium">"The data proves it."</span>)
+                        </motion.p>
 
                         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
                             {/* Explore Work - Magnetic Solid Button */}
