@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 
 const Hero = () => {
-    const { scrollY } = useScroll();
-    const imageY = useTransform(scrollY, [0, 500], [0, 150]);
-    const textY = useTransform(scrollY, [0, 500], [0, -50]);
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+    const containerRef = useRef(null);
+    // Link scroll progress specifically to this container
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
+    const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+    const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
 
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isRevealed, setIsRevealed] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+
+    // Copy email state
+    const [copied, setCopied] = useState(false);
+    const handleCopyEmail = (e) => {
+        e.preventDefault();
+        navigator.clipboard.writeText("archeltaneka@gmail.com");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -23,8 +37,11 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-20 md:pb-32">
-
+        <section
+            ref={containerRef}
+            id="home"
+            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-20 md:pb-32"
+        >
             {/* Background Animations */}
             <div className="absolute inset-0 opacity-10 hidden md:block">
                 <div className="absolute inset-0" style={{
@@ -79,27 +96,32 @@ const Hero = () => {
                         {/* Name with Swapping Easter Egg */}
                         <div
                             className="relative cursor-none select-none group inline-block lg:block"
-                            onClick={() => setIsRevealed(!isRevealed)}
-                            onMouseEnter={() => setIsHovered(true)} // Set hovered state
+                            // Change: Logic to properly toggle state on mobile tap
+                            onClick={() => {
+                                if (window.innerWidth <= 1024) {
+                                    setIsRevealed(!isRevealed);
+                                }
+                            }}
+                            onMouseEnter={() => setIsHovered(true)}
                             onMouseMove={(e) => {
                                 const rect = e.currentTarget.getBoundingClientRect();
                                 e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
                                 e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
                             }}
                             onMouseLeave={() => {
-                                setIsHovered(false); // Reset hover
-                                setIsRevealed(false); // Reset mobile tap
+                                setIsHovered(false);
+                                setIsRevealed(false); // Reset reveal when mouse leaves on desktop
                             }}
                         >
                             {/* English Layer */}
                             <div
                                 className={`space-y-2 relative z-10 transition-opacity duration-500 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}
                                 style={{
-                                    /* The mask only applies if we are hovering OR if it's revealed on mobile */
-                                    WebkitMaskImage: (isHovered && !isRevealed)
+                                    // On mobile (when not revealed), we disable the radial mask so it doesn't look "cut out" by a ghost cursor
+                                    WebkitMaskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
                                         ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
                                         : 'none',
-                                    maskImage: (isHovered && !isRevealed)
+                                    maskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
                                         ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
                                         : 'none',
                                 }}
@@ -111,13 +133,13 @@ const Hero = () => {
                             {/* Chinese Layer */}
                             <div
                                 className={`absolute inset-0 z-20 pointer-events-none space-y-2 transition-opacity duration-500 
-                    ${isRevealed ? 'opacity-100' : (isHovered ? 'opacity-100' : 'opacity-0')}`}
+            ${isRevealed ? 'opacity-100' : (isHovered && window.innerWidth > 1024 ? 'opacity-100' : 'opacity-0')}`}
                                 style={{
-                                    /* The clip-path only applies if we are hovering; otherwise it is hidden */
+                                    // Improved clipPath logic to handle the mobile toggle vs desktop hover
                                     clipPath: isRevealed
                                         ? 'circle(150% at 50% 50%)'
-                                        : (isHovered ? 'circle(120px at var(--mouse-x) var(--mouse-y))' : 'circle(0% at 50% 50%)'),
-                                    transition: isRevealed ? 'clip-path 0.5s ease' : 'none' // Smooth transition only for mobile tap
+                                        : (isHovered && window.innerWidth > 1024 ? 'circle(120px at var(--mouse-x) var(--mouse-y))' : 'circle(0% at 50% 50%)'),
+                                    transition: 'clip-path 0.5s ease, opacity 0.5s ease'
                                 }}
                             >
                                 <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-wider">陈</h1>
@@ -125,13 +147,78 @@ const Hero = () => {
                             </div>
                         </div>
 
-                        <p className="text-lg md:text-2xl text-frost/80 font-light max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                            Transforming <span className="text-frost font-semibold">raw data</span> into <span className="text-frost font-semibold">strategic insights</span> through Machine Learning
-                        </p>
+                        {/* Tagline */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6 }}
+                            className="space-y-4"
+                        >
+                            <p className="text-xl lg:text-2xl text-frost/80 font-light max-w-lg leading-relaxed">
+                                Transforming <span className="text-frost font-semibold">raw data</span> into
+                                <span className="relative inline-block ml-2">
+                                    <span className="relative z-10 text-frost font-semibold">strategic insights</span>
+                                    <span className="absolute bottom-1 left-0 w-full h-3 bg-lavender/40 -rotate-1"></span>
+                                </span>
+                                <br />through Machine Learning
+                            </p>
+                        </motion.div>
 
                         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-                            <a href="#projects" className="w-full sm:w-auto px-8 py-4 bg-frost text-deep-sea rounded-full font-bold text-lg">Explore Work</a>
-                            <a href="#contact" className="w-full sm:w-auto px-8 py-4 border-2 border-frost/30 text-frost rounded-full font-bold text-lg">Contact Me</a>
+                            {/* Explore Work - Magnetic Solid Button */}
+                            <motion.a
+                                href="#projects"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="w-full sm:w-auto px-10 py-4 bg-frost text-deep-sea rounded-full font-black text-lg shadow-lg shadow-frost/10 hover:shadow-frost/30 transition-shadow flex items-center justify-center gap-2"
+                            >
+                                Explore Work
+                                <motion.span
+                                    animate={{ x: [0, 5, 0] }}
+                                    transition={{ repeat: Infinity, duration: 1.5 }}
+                                >
+                                    →
+                                </motion.span>
+                            </motion.a>
+
+                            {/* Contact Me - Feedback Ghost Button */}
+                            <motion.button
+                                onClick={handleCopyEmail}
+                                whileHover={{ scale: 1.05, backgroundColor: "rgba(237, 242, 247, 0.1)" }}
+                                whileTap={{ scale: 0.95 }}
+                                className="w-full sm:w-auto px-10 py-4 border-2 border-frost/30 text-frost rounded-full font-bold text-lg flex items-center justify-center relative overflow-hidden group"
+                            >
+                                <AnimatePresence mode="wait">
+                                    {copied ? (
+                                        <motion.span
+                                            key="copied"
+                                            initial={{ y: 20, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: -20, opacity: 0 }}
+                                            className="text-lavender font-black"
+                                        >
+                                            Email Copied!
+                                        </motion.span>
+                                    ) : (
+                                        <motion.span
+                                            key="contact"
+                                            initial={{ y: 20, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: -20, opacity: 0 }}
+                                            className="flex items-center gap-2"
+                                        >
+                                            Good First Impression?
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* Subtle Shine Effect */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+                            </motion.button>
                         </div>
                     </motion.div>
 
