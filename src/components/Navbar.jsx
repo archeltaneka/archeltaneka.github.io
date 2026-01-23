@@ -78,7 +78,7 @@ const Navbar = () => {
                                     {hoveredName === link.name && (
                                         <motion.span
                                             initial={{ opacity: 0, y: -5 }}
-                                            animate={{ opacity: 1, y: 2 }}
+                                            animate={{ opacity: 1, y: -10 }}
                                             exit={{ opacity: 0, y: -5 }}
                                             className="absolute top-full whitespace-nowrap text-[20px] text-lavender italic tracking-normal font-sans"
                                         >
@@ -113,7 +113,7 @@ const Navbar = () => {
                                             animate={{ rotateX: 0, opacity: 1 }}
                                             exit={{ rotateX: 90, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
-                                            className="block text-[10px] font-black text-lavender tracking-[0.1em] italic"
+                                            className="block text-[12px] font-black text-lavender tracking-[0.1em] italic"
                                         >
                                             Hire Me! Don't Change Your Mind!
                                         </motion.span>
