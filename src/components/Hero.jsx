@@ -151,7 +151,7 @@ const Hero = () => {
                         <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-2xl"></div>
                         <div className="relative">
                             <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 shadow-2xl">
-                                <img src="../assets/img/profile.jpg" alt="Archel Taneka" className="w-full h-full object-cover" />
+                                <img src="/assets/img/profile.jpg" alt="Archel Taneka" className="w-full h-full object-cover" />
                             </div>
 
                             {/* Floating Flag Badge */}

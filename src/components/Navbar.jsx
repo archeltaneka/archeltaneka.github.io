@@ -70,7 +70,7 @@ const Navbar = () => {
 
                     {/* Resume / CTA Button */}
                     <a
-                        href="../assets/resume/Resume - Archel Sutanto.pdf"
+                        href="/assets/resume/Resume - Archel Sutanto.pdf"
                         target="_blank"
                         className="relative px-6 py-2 bg-frost text-deep-sea rounded-full text-xs font-black uppercase tracking-widest overflow-hidden group hover:scale-105 transition-transform"
                     >

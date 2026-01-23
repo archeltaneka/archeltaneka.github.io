@@ -9,7 +9,7 @@ const projectData = [
         description: 'Analyzing the 2025 mobile phone market through an interactive dashboard',
         category: 'data-analysis',
         tags: ['Data Analysis', 'Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Plotly', 'Streamlit'],
-        image: '../assets/img/mobiles-analysis.jpg',
+        image: '/assets/img/mobiles-analysis.jpg',
         github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
         live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
         type: 'app'
@@ -20,7 +20,7 @@ const projectData = [
         description: 'Implementing NLU approaches for conversational AI systems, comparing different model architectures.',
         category: 'nlp',
         tags: ['Python', 'Scikit-learn', 'CRF', 'Random Forest', 'NLP', 'PyTorch', 'Transformers'],
-        image: '../assets/img/slot-filling-intent-detection.png',
+        image: '/assets/img/slot-filling-intent-detection.png',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
         type: 'app'
@@ -42,7 +42,7 @@ const projectData = [
         description: 'Analyzing and building a 1v1 Pokemon battle prediction model.',
         category: 'machine-learning',
         tags: ['R', 'RShiny', 'XGBoost', 'Random Forest', 'Data Analysis'],
-        image: '../assets/img/pokemon-battle-analysis.png',
+        image: '/assets/img/pokemon-battle-analysis.png',
         github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
         live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
         type: 'app'
@@ -53,7 +53,7 @@ const projectData = [
         description: 'Analyzing Melbourne air quality and pedestrian traffic data.',
         category: 'data-analysis',
         tags: ['Data Analysis', 'R', 'Python', 'Tableau', 'HTML', 'CSS', 'JavaScript', 'D3.js', 'Vercel'],
-        image: '../assets/img/melbourne-air-quality-pedestrian-traffic-analysis.jpg',
+        image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.jpg',
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
         type: 'app'
@@ -64,7 +64,7 @@ const projectData = [
         description: 'Analyzing table tennis match video and map their movements into a heatmap plot to analyze the efficiency of their movements.',
         category: 'computer-vision',
         tags: ['Computer Vision', 'Deep Learning', 'Python', 'YOLO', 'OpenCV'],
-        image: '../assets/img/table-tennis-analytics.png',
+        image: '/assets/img/table-tennis-analytics.png',
         github: 'https://github.com/archeltaneka/table-tennis-analytics',
         live: 'https://github.com/archeltaneka/table-tennis-analytics/blob/master/table_tennis_analytic_playground.ipynb',
         type: 'notebook'
@@ -75,7 +75,7 @@ const projectData = [
         description: 'My undergraduate dissertation submission bout predicting and classifying chest x-rays into 10 common chest diseases using deep learning with Grad-CAM localization.',
         category: 'computer-vision',
         tags: ['Python', 'Computer Vision', 'Deep Learning', 'CNN', 'Grad-CAM'],
-        image: '../assets/img/common-chest-x-ray-classification.jpeg',
+        image: '/assets/img/common-chest-x-ray-classification.jpeg',
         github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
         live: 'https://github.com/archeltaneka/common-chest-x-ray-classification/blob/master/app/chest_xray_pneumonia_predictor.ipynb',
         type: 'notebook'

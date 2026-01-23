@@ -7,17 +7,17 @@ const combinedTimeline = [
         type: 'education',
         title: "Master of Data Science",
         subtitle: "Monash University, Australia",
-        icon: "../assets/img/monash-logo.png",
+        icon: "/assets/img/monash-logo.png",
         date: "Jul 2024 - Present",
         points: ["Data Wrangling", "Data Exploration & Visualization", "Statistical Data Modelling", "Big Data Processing", "Applied Data Analysis"],
         description: "Focusing on advanced statistical techniques and large-scale data systems to solve complex analytical challenges. Key units:",
-        image: "../assets/img/monash.jpg"
+        image: "/assets/img/monash.jpg"
     },
     {
         type: 'experience',
         title: "Associate Data Scientist",
         subtitle: "tiket.com, Indonesia",
-        icon: "../assets/img/tiket-logo.png",
+        icon: "/assets/img/tiket-logo.png",
         date: "Oct 2022 - Jul 2024",
         points: [
             "Developed a mathematical model for payment method recommendation that boosted payment conversion rate by 4.8%.",
@@ -26,13 +26,13 @@ const combinedTimeline = [
             "Streamlined flight reschedule identification process by developing automated algorithms."
         ],
         description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
-        image: "../assets/img/tiket.jpg"
+        image: "/assets/img/tiket.jpg"
     },
     {
         type: 'experience',
         title: "Junior Data Scientist",
         subtitle: "Sayurbox, Indonesia",
-        icon: "../assets/img/sayurbox-logo.png",
+        icon: "/assets/img/sayurbox-logo.png",
         date: "May 2020 - Oct 2021",
         points: [
             "Engineered a weekly demand forecasting model utilizing FBProphet and time series analysis. ",
@@ -46,21 +46,21 @@ const combinedTimeline = [
         type: 'education',
         title: "Bachelor of Science (Hons.)",
         subtitle: "University of Nottingham, UK",
-        icon: "../assets/img/nottingham-logo.png",
+        icon: "/assets/img/nottingham-logo.png",
         date: "Sep 2019 - Sep 2020",
         points: ["First Class Degree", "Computer Science with AI", "Undergraduate Dissertation: Top 10 Common Chest X-ray Classification & Localization"],
         description: "Graduated with top honors, specializing in Computer Science with Artificial Intelligence.",
-        image: "../assets/img/nottingham.jpg"
+        image: "/assets/img/nottingham.jpg"
     },
     {
         type: 'education',
         title: "Bachelor of Science",
         subtitle: "Bina Nusantara University, Indonesia",
-        icon: "../assets/img/binus-logo.png",
+        icon: "/assets/img/binus-logo.png",
         date: "Sep 2016 - Sep 2020",
         points: ["GPA: 3.74/4.0", "International Program", "Teaching Assistant for Introduction to Database Unit"],
         description: "Built a strong foundation in computer science while serving as a mentor for junior students.",
-        image: "../assets/img/binus.jpg"
+        image: "/assets/img/binus.jpg"
     }
 ];
 
