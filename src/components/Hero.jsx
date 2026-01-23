@@ -40,7 +40,7 @@ const Hero = () => {
     };
 
     // Profile photo change
-    const [activePhoto, setActivePhoto] = useState('/assets/img/profile.jpg');
+    const [activePhoto, setActivePhoto] = useState('/assets/img/profile.webp');
     const [inputSequence, setInputSequence] = useState('');
 
     useEffect(() => {
@@ -52,11 +52,11 @@ const Hero = () => {
                 const newSeq = (prev + e.key.toLowerCase()).slice(-10); // Keep last 10 chars
 
                 if (newSeq.includes('australia')) {
-                    setActivePhoto('/assets/img/profile-au.jpg');
+                    setActivePhoto('/assets/img/profile-au.webp');
                 } else if (newSeq.includes('uk') || newSeq.includes('london')) {
-                    setActivePhoto('/assets/img/profile-uk.jpg');
+                    setActivePhoto('/assets/img/profile-uk.webp');
                 } else if (newSeq.includes('reset') || newSeq.includes('home')) {
-                    setActivePhoto('/assets/img/profile.jpg');
+                    setActivePhoto('/assets/img/profile.webp');
                 }
 
                 return newSeq;
@@ -280,19 +280,18 @@ const Hero = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-2xl"></div>
                         <div className="relative">
-                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 shadow-2xl bg-deep-sea">
-                                <AnimatePresence mode="wait">
-                                    <motion.img
-                                        key={activePhoto} // This triggers the animation when the photo changes
-                                        src={activePhoto}
-                                        alt="Archel Taneka"
-                                        initial={{ opacity: 0, scale: 1.1 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        transition={{ duration: 0.5 }}
-                                        className="w-full h-full object-cover"
-                                    />
-                                </AnimatePresence>
+                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 bg-deep-sea shadow-2xl">                                <AnimatePresence mode="wait">
+                                <motion.img
+                                    key={activePhoto} // This triggers the animation when the photo changes
+                                    src={activePhoto}
+                                    alt="Archel Taneka"
+                                    initial={{ opacity: 0, scale: 1.1 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="w-full h-full object-cover"
+                                />
+                            </AnimatePresence>
                             </div>
 
                             {/* Floating Flag Badge */}
