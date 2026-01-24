@@ -179,6 +179,25 @@ const Hero = () => {
                         </div>
 
                         {/* Tagline */}
+                        <motion.h2
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="text-3xl md:text-5xl font-black text-frost leading-tight tracking-tight"
+                        >
+                            I torture data until it confesses <br className="hidden md:block" />
+                            <span className="relative inline-block">
+                                <span className="relative z-10 text-lavender italic">something useful.</span>
+                                <motion.span
+                                    initial={{ width: 0 }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ delay: 1, duration: 0.8 }}
+                                    className="absolute bottom-2 left-0 h-4 bg-lavender/20 -rotate-1"
+                                />
+                            </span>
+                        </motion.h2>
+
+                        {/* Clear Explanation with Interactive Text */}
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
