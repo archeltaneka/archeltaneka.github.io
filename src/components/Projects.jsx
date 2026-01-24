@@ -120,17 +120,21 @@ const Projects = () => {
                                 return (
                                     <motion.div
                                         key={project.id}
+                                        className="absolute inset-0 cursor-pointer will-change-transform"
                                         initial={{ opacity: 0, x: 100, scale: 0.8 }}
                                         animate={{
                                             opacity: 1 - offset * 0.3,
                                             x: offset * 40,
-                                            z: -offset * 100,
+                                            translateZ: -offset * 100,
                                             scale: 1 - offset * 0.05,
                                             rotateY: -offset * 10,
                                         }}
                                         exit={{ opacity: 0, x: -200, scale: 0.8 }}
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                        className="absolute inset-0 cursor-pointer"
+                                        transition={{
+                                            type: "tween",
+                                            ease: "circOut",
+                                            duration: 0.4
+                                        }}
                                         style={{ zIndex: projectData.length - index }}
                                         onClick={nextProject}
                                     >
