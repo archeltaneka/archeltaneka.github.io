@@ -110,19 +110,6 @@ const Hero = () => {
                         style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? textY : 0 }}
                         className="space-y-8 text-center lg:text-left"
                     >
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="inline-flex items-center gap-3 bg-frost/10 backdrop-blur-md border border-frost/20 rounded-full px-6 py-3"
-                        >
-                            <span className="relative flex h-3 w-3">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lavender opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-lavender"></span>
-                            </span>
-                            <span className="text-frost font-mono text-sm tracking-wide uppercase">
-                                Available for Internships Nov 2025
-                            </span>
-                        </motion.div>
 
                         {/* Name with Swapping Easter Egg */}
                         <div
