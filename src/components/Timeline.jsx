@@ -1,275 +1,204 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-// Combined Data: Sorted from most recent to oldest
-const combinedTimeline = [
+// --- Data ---
+const experienceData = [
     {
-        type: 'education',
-        title: "Master of Data Science",
-        subtitle: "Monash University, Australia",
-        icon: "/assets/img/monash-logo.png",
-        date: "Jul 2024 - Present",
-        points: ["Data Wrangling", "Data Exploration & Visualization", "Statistical Data Modelling", "Big Data Processing", "Applied Data Analysis"],
-        description: "Focusing on advanced statistical techniques and large-scale data systems to solve complex analytical challenges. Key units:",
-        image: "/assets/img/monash.webp"
-    },
-    {
-        type: 'experience',
-        title: "Associate Data Scientist",
-        subtitle: "tiket.com, Indonesia",
-        icon: "/assets/img/tiket-logo.png",
+        id: 'tiket',
+        role: "Associate Data Scientist",
+        company: "tiket.com",
+        location: "Jakarta, Indonesia",
         date: "Oct 2022 - Jul 2024",
-        points: [
-            "Developed a mathematical model for payment method recommendation that boosted payment conversion rate by 4.8%.",
-            "Developed a CatBoost room grouping model with similarity scoring, achieving 90% accuracy in hotel listing classification.",
-            "Optimized a hotel recommendation engine utilizing POI and geospatial analytics.",
-            "Streamlined flight reschedule identification process by developing automated algorithms."
-        ],
+        logo: "/assets/img/tiket-logo.png",
         description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
+        achievements: [
+            "Developed mathematical models for payment method recommendations, boosting conversion rate by 4.8%.",
+            "Built CatBoost room grouping model with 90% accuracy for hotel listing classification.",
+            "Optimized hotel recommendation engine using POI and geospatial analytics.",
+            "Automated flight reschedule identification algorithms."
+        ],
         image: "/assets/img/tiket.webp"
     },
     {
-        type: 'experience',
-        title: "Junior Data Scientist",
-        subtitle: "Sayurbox, Indonesia",
-        icon: "/assets/img/sayurbox-logo.png",
+        id: 'sayurbox',
+        role: "Junior Data Scientist",
+        company: "Sayurbox",
+        location: "Jakarta, Indonesia",
         date: "May 2020 - Oct 2021",
-        points: [
-            "Engineered a weekly demand forecasting model utilizing FBProphet and time series analysis. ",
-            "Streamlined order preparation workflows by automating workforce scheduling processes.",
-            "Implemented dynamic route assignment algorithms that optimized driver deployment."
+        logo: "/assets/img/sayurbox-logo.png",
+        description: "Focusing on demand forecasting and logistics optimization for e-grocery.",
+        achievements: [
+            "Engineered weekly demand forecasting model using FBProphet.",
+            "Streamlined order preparation workflows via automated workforce scheduling.",
+            "Implemented dynamic route assignment algorithms for driver deployment."
         ],
-        description: "My first job as a Data Scientist for an e-commerce grocery platform company based in Jakarta.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+    }
+];
+
+const educationData = [
+    {
+        id: 'monash',
+        degree: "Master of Data Science",
+        school: "Monash University",
+        location: "Melbourne, Australia",
+        date: "Jul 2024 - Present",
+        logo: "/assets/img/monash-logo.png",
+        description: "Focusing on advanced statistical techniques and big data processing. Key units:",
+        details: ["Data Exploration & Visualization", "Data Wrangling", "Statistical Modelling", "Big Data Processing", "Applied Data Analysis"],
+        image: "/assets/img/monash.webp"
     },
     {
-        type: 'education',
-        title: "Bachelor of Science (Hons.)",
-        subtitle: "University of Nottingham, UK",
-        icon: "/assets/img/nottingham-logo.png",
+        id: 'nottingham',
+        degree: "B.Sc (Hons) Computer Science with AI",
+        school: "University of Nottingham",
+        location: "United Kingdom",
         date: "Sep 2019 - Sep 2020",
-        points: ["First Class Degree", "Computer Science with AI", "Undergraduate Dissertation: Top 10 Common Chest X-ray Classification & Localization"],
-        description: "Graduated with top honors, specializing in Computer Science with Artificial Intelligence.",
+        logo: "/assets/img/nottingham-logo.png",
+        description: "Double degree program. Graduated with First Class Honors, specialized in AI.",
+        details: ["Undergraduate Dissertation: Chest X-ray Classification", "Supervisor: Dr. Chao Chen"],
         image: "/assets/img/nottingham.webp"
     },
     {
-        type: 'education',
-        title: "Bachelor of Science",
-        subtitle: "Bina Nusantara University, Indonesia",
-        icon: "/assets/img/binus-logo.png",
+        id: 'binus',
+        degree: "Bachelor of Science",
+        school: "Bina Nusantara University",
+        location: "Indonesia",
         date: "Sep 2016 - Sep 2020",
-        points: ["GPA: 3.74/4.0", "International Program", "Teaching Assistant for Introduction to Database Unit"],
-        description: "Built a strong foundation in computer science while serving as a mentor for junior students.",
+        logo: "/assets/img/binus-logo.png",
+        description: "Undergraduate studies in Computer Science.",
+        details: ["GPA: 3.74/4.0", "Teaching Assistant for Databases", "International Program Mentor"],
         image: "/assets/img/binus.webp"
     }
 ];
 
-const allItems = [{ type: 'header' }, ...combinedTimeline];
+const TimelineNode = ({ data, type, isLast }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.5 }}
+        className="relative pl-8 md:pl-0 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-start group"
+    >
 
-const variants = {
-    initial: (direction) => ({
-        opacity: 0,
-        x: direction > 0 ? 100 : -100, // Slide in from right or left
-        filter: "blur(10px)"
-    }),
-    animate: {
-        opacity: 1,
-        x: 0,
-        filter: "blur(0px)",
-        transition: {
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1] // Custom "Expo" ease for a snappy feel
-        }
-    },
-    exit: (direction) => ({
-        opacity: 0,
-        x: direction > 0 ? -100 : 100, // Slide out in the opposite direction
-        filter: "blur(10px)",
-        transition: {
-            duration: 0.3
-        }
-    })
-};
+        {/* Date / Time (Left on Desktop) */}
+        <div className={`hidden md:block text-right ${type === 'experience' ? '' : 'order-last text-left'}`}>
+            <div className="text-sm font-bold text-slate-400 font-mono tracking-widest uppercase mb-1">{data.date}</div>
+            <div className="text-slate-500 text-xs font-semibold">{data.location}</div>
+        </div>
+
+        {/* Center Line & Dot */}
+        <div className="absolute left-0 top-0 bottom-0 md:relative md:flex md:flex-col md:items-center">
+            <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
+                className={`w-4 h-4 rounded-full border-2 z-10 bg-white ${type === 'experience' ? 'border-blue-600' : 'border-indigo-600'} group-hover:scale-125 transition-transform duration-300`}
+            />
+            {!isLast && <div className="absolute top-4 bottom-0 left-[7px] w-[2px] bg-slate-100 md:relative md:left-0 md:w-[2px] md:h-full md:flex-1" />}
+        </div>
+
+        {/* Content (Right on Desktop for Exp, Left for Edu) */}
+        <div className={`pb-12 md:pb-16 ${type === 'experience' ? '' : 'order-first md:text-right'}`}>
+            {/* Mobile Date Header */}
+            <div className="md:hidden mb-2">
+                <span className="text-xs font-bold text-slate-400 font-mono tracking-widest uppercase">{data.date}</span>
+            </div>
+
+            <div className={`bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-300 relative ${type === 'education' && 'md:items-end'}`}>
+                <div className={`flex items-start gap-4 mb-4 ${type === 'education' && 'md:flex-row-reverse'}`}>
+                    {/* Logo */}
+                    <div className="w-12 h-12 rounded-lg bg-slate-50 p-2 border border-slate-100 shrink-0 overflow-hidden">
+                        <img src={data.logo} alt="logo" className="w-full h-full object-contain" />
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-bold text-slate-800 leading-tight">
+                            {type === 'experience' ? data.role : data.degree}
+                        </h3>
+                        <div className="text-blue-600 font-medium text-sm">
+                            {type === 'experience' ? data.company : data.school}
+                        </div>
+                    </div>
+                </div>
+
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                    {data.description}
+                </p>
+
+                {/* List Items */}
+                <ul className={`space-y-2 ${type === 'education' && 'md:text-right'}`}>
+                    {(data.achievements || data.details).map((item, i) => (
+                        <li key={i} className="text-xs text-slate-500 flex gap-2 items-start md:items-center justify-start md:justify-end">
+                            <span className={`block w-1 h-1 mt-1.5 md:mt-0 rounded-full shrink-0 ${type === 'experience' ? 'bg-blue-400' : 'bg-indigo-400'} md:order-last`} />
+                            <span className={type === 'education' ? 'md:order-first' : ''}>{item}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    </motion.div>
+);
 
 const Timeline = () => {
-    const containerRef = useRef(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
-    // Track direction to know if we are scrolling up or down
-    const [direction, setDirection] = useState(0);
-
-    // Responsive Check
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
-
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        if (isMobile) return;
-        const step = 1 / allItems.length;
-        const index = Math.min(Math.floor(latest / step), allItems.length - 1);
-        if (index !== activeIndex) {
-            setDirection(index > activeIndex ? 1 : -1);
-            setActiveIndex(index);
-        }
-    });
-
     return (
-        <section
-            ref={containerRef}
-            id="timeline"
-            className={`relative bg-frost ${isMobile ? 'py-20' : 'h-[500vh]'}`}
-        >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{ backgroundImage: `radial-gradient(circle at 2px 2px, #213C51 1px, transparent 0)`, backgroundSize: '40px 40px' }}
-            />
+        <section id="timeline" className="py-24 bg-slate-50/50">
+            <div className="container mx-auto px-6 max-w-5xl">
 
-            {isMobile ? (
-                /* MOBILE VIEW: Standard Vertical List */
-                <div className="relative z-10 space-y-24 px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-5xl font-black text-deep-sea tracking-tighter uppercase">The Journey.</h2>
-                        <p className="text-deep-sea/60 mt-4">Professional and academic evolution</p>
+                {/* Header */}
+                <div className="text-center mb-20 space-y-4">
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The Journey</h2>
+                    <p className="text-slate-500 max-w-xl mx-auto">
+                        A timeline of professional growth and academic milestones.
+                    </p>
+                </div>
+
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
+
+                    {/* Experience Column */}
+                    <div>
+                        <div className="flex items-center gap-3 mb-12">
+                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-800">Experience</h3>
+                        </div>
+                        <div className="space-y-0">
+                            {experienceData.map((item, i) => (
+                                <TimelineNode
+                                    key={item.id}
+                                    data={item}
+                                    type="experience"
+                                    isLast={i === experienceData.length - 1}
+                                />
+                            ))}
+                        </div>
                     </div>
 
-                    {combinedTimeline.map((item, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="flex flex-col gap-8"
-                        >
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-white border border-deep-sea/10 p-2 shrink-0 shadow-sm">
-                                    <img src={item.icon} alt="icon" className="w-full h-full object-contain" />
-                                </div>
-                                <div>
-                                    <span className="text-lavender font-mono text-xs font-bold uppercase tracking-widest">{item.date}</span>
-                                    <h3 className="text-2xl font-black text-deep-sea leading-tight">{item.title}</h3>
-                                </div>
+                    {/* Education Column */}
+                    <div>
+                        <div className="flex items-center gap-3 mb-12 lg:justify-end">
+                            <h3 className="text-2xl font-bold text-slate-800">Education</h3>
+                            <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
                             </div>
-
-                            <div className="aspect-video rounded-2xl overflow-hidden shadow-xl border-2 border-white">
-                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                            </div>
-
-                            <div className="space-y-4">
-                                <p className="text-lg text-deep-sea/70 font-light leading-relaxed">{item.description}</p>
-                                <ul className="space-y-3">
-                                    {item.points.map((point, idx) => (
-                                        <li key={idx} className="flex gap-3 text-sm text-deep-sea/80">
-                                            <span className="text-lavender">•</span>
-                                            {point}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            ) : (
-                <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-                    <AnimatePresence mode="wait" custom={direction}>
-                        <motion.div
-                            key={activeIndex}
-                            custom={direction}
-                            variants={variants}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            className="w-full h-full flex items-center justify-center"
-                        >
-                            <TimelineContent item={allItems[activeIndex]} index={activeIndex} />
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* Indicators */}
-                    <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4">
-                        {allItems.map((_, i) => (
-                            <div key={i} className={`w-1.5 transition-all duration-500 rounded-full ${i === activeIndex ? 'h-10 bg-lavender' : 'h-3 bg-deep-sea/10'}`} />
-                        ))}
+                        </div>
+                        <div className="space-y-0">
+                            {educationData.map((item, i) => (
+                                <TimelineNode
+                                    key={item.id}
+                                    data={item}
+                                    type="education"
+                                    isLast={i === educationData.length - 1}
+                                />
+                            ))}
+                        </div>
                     </div>
+
                 </div>
-            )}
+            </div>
         </section>
     );
 };
-
-// Separated sub-components for cleanliness
-const TimelineContent = ({ item, index }) => {
-    if (item.type === 'header') return <TimelineHeader />;
-    const isEven = index % 2 === 0;
-
-    return (
-        <div className="w-full max-w-7xl mx-auto px-12 grid grid-cols-2 gap-16 items-center">
-            {/* Description Column */}
-            <div className={!isEven ? 'order-2' : ''}>
-                <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-white border border-deep-sea/10 p-2 shadow-sm flex items-center justify-center">
-                        <img src={item.icon} alt="logo" className="w-full h-full object-contain" />
-                    </div>
-                    <div>
-                        <span className="font-mono text-xs font-bold text-lavender uppercase tracking-widest">{item.date}</span>
-                        <p className="text-lg text-sky-blue font-bold tracking-tight leading-none mt-1">{item.subtitle}</p>
-                    </div>
-                </div>
-
-                <h3 className="text-5xl font-black text-deep-sea leading-[1.1] tracking-tighter mb-4">{item.title}</h3>
-                <p className="text-xl text-deep-sea/70 font-light leading-relaxed mb-8">{item.description}</p>
-
-                <div className="space-y-4">
-                    {item.points.map((p, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                            <div className={`w-1.5 h-1.5 rounded-full mt-2.5 shrink-0 ${item.type === 'education' ? 'bg-sky-blue' : 'bg-lavender'}`} />
-                            <p className="text-deep-sea/80 font-medium leading-snug">{p}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Image Column */}
-            <div className={`relative ${!isEven ? 'order-1' : ''}`}>
-                <div className={`absolute inset-0 blur-3xl opacity-20 -z-10 ${item.type === 'education' ? 'bg-sky-blue' : 'bg-lavender'}`} />
-                <div className="aspect-[4/3] rounded-3xl overflow-hidden border-2 border-white shadow-2xl">
-                    <img src={item.image} className="w-full h-full object-cover" alt={item.title} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const TimelineHeader = () => (
-    <section>
-        <div className="text-center space-y-6">
-            <h2 className="text-8xl font-black text-deep-sea tracking-tighter uppercase">The Journey<span className="text-lavender">.</span></h2>
-            <p className="text-2xl text-deep-sea/60">A unified look at my professional and academic evolution.</p>
-        </div>
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-            <span className="text-deep-blue/50 text-xs uppercase tracking-widest font-mono">Scroll</span>
-            <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="w-6 h-10 border-2 border-deep-blue/30 rounded-full flex justify-center pt-2"
-            >
-                <motion.div className="w-1.5 h-2 bg-lavender rounded-full" />
-            </motion.div>
-        </motion.div>
-    </section>
-
-);
 
 export default Timeline;

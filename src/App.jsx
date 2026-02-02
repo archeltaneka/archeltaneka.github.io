@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import LoadingScreen from './components/LoadingScreen';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Timeline from './components/Timeline';
 import Contact from './components/Footer';
-import FluidCursor from './components/FluidCursor';
 
-
+// Easter Egg: Console Log
 console.log(`%c
     █▀▀█ █░█ █▀▀ █▀▀▄ █▀▀█ ▀▀█▀▀ ░░ █░░ █▀▀ █▀▀ █░░█ █▀▀█ █▀▀█ 
     █▄▄█ █▀▄ █▀▀ █░░█ █▄▄█ ░░█░░ ░░ █░░ █▀▀ █░░ █▀▀█ █▄▄▀ █▄▄█ 
@@ -32,42 +30,6 @@ Now tell your HR manager to hire me before my mom does!
   "color: #6594B1; font-style: italic;");
 
 function App() {
-  // Loading screen state
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const imagesToPreload = [
-      '/assets/img/profile-au.webp',
-      '/assets/img/profile-uk.webp',
-      '/assets/img/profile.webp',
-      '/assets/img/monash.webp',
-      '/assets/img/tiket.webp',
-      '/assets/img/nottingham.webp',
-      '/assets/img/binus.webp',
-      '/assets/img/mobiles-analysis.webp',
-      '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
-      '/assets/img/common-chest-x-ray-classification.webp'
-    ];
-
-    // Create a promise for image loading
-    const imagePromises = imagesToPreload.map((src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve; // Resolve when image is cached
-        img.onerror = resolve; // Resolve anyway on error so we don't get stuck
-      });
-    });
-
-    // Create a promise for the minimum timer (2.5s)
-    const timerPromise = new Promise((resolve) => setTimeout(resolve, 2500));
-
-    // Wait for BOTH (Images cached AND timer finished)
-    Promise.all([...imagePromises, timerPromise]).then(() => {
-      setIsLoading(false);
-    });
-
-  }, []);
-
   // Web page title change easter egg
   useEffect(() => {
     // Fallback to a string if document.title is empty at mount
@@ -91,27 +53,15 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-deep-sea min-h-screen">
-      <AnimatePresence>
-        {isLoading && <LoadingScreen key="loader" />}
-      </AnimatePresence>
-      {!isLoading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <Navbar />
-          <main>
-            <Hero />
-            <Timeline />
-            <Skills />
-            <Projects />
-            <Contact />
-          </main>
-          <FluidCursor />
-        </motion.div>
-      )}
+    <div className="bg-white min-h-screen text-slate-900 font-inter">
+      <Navbar />
+      <main>
+        <Hero />
+        <Timeline />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
     </div>
   );
 }
