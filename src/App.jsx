@@ -57,9 +57,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <Projects />
         <Timeline />
         <Skills />
-        <Projects />
         <Contact />
       </main>
     </div>
