@@ -49,14 +49,14 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay, duration: 0.5 }}
-            className={`absolute bg-white p-4 rounded-2xl shadow-[0_20px_40px_-5px_rgba(0,0,0,0.1)] border border-slate-100 flex items-center gap-4 z-20 ${className}`}
+            className={`absolute bg-white/90 backdrop-blur-md p-2 md:p-4 rounded-xl md:rounded-2xl shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] border border-slate-100 flex items-center gap-2 md:gap-4 z-20 ${className}`}
         >
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${sub === 'Stack' ? 'bg-indigo-50 text-indigo-600' : 'bg-blue-50 text-blue-600'}`}>
-                {icon}
+            <div className={`w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 ${sub === 'Stack' ? 'bg-indigo-50 text-indigo-600' : 'bg-blue-50 text-blue-600'}`}>
+                <div className="scale-75 md:scale-100">{icon}</div>
             </div>
             <div className="text-left">
-                <div className="text-sm font-bold text-slate-900 leading-tight">{title}</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{sub}</div>
+                <div className="text-[10px] md:text-sm font-bold text-slate-900 leading-tight whitespace-nowrap">{title}</div>
+                <div className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{sub}</div>
             </div>
         </motion.div>
     );
@@ -180,7 +180,7 @@ const Hero = () => {
                                 <LuArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.a>
 
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 justify-center lg:justify-start">
                                 <motion.a
                                     href="https://github.com/archeltaneka" target="_blank"
                                     whileHover={{ scale: 1.1 }}
@@ -195,16 +195,6 @@ const Hero = () => {
                                 >
                                     <LuLinkedin className="w-6 h-6" />
                                 </motion.a>
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                            className="pt-8 flex items-center justify-center lg:justify-start gap-3"
-                        >
-                            <div className="px-4 py-2 bg-slate-50 rounded-full border border-slate-100 text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                Open to Work
                             </div>
                         </motion.div>
                     </motion.div>
@@ -247,7 +237,7 @@ const Hero = () => {
                                 title="Machine Learning"
                                 sub="Specialist"
                                 icon={<LuBrain className="w-6 h-6" />}
-                                className="-right-4 top-20 md:-right-12 lg:-right-8 lg:top-32 animate-[float_4s_ease-in-out_infinite]"
+                                className="-right-8 top-12 md:-right-12 lg:-right-8 lg:top-32 animate-[float_4s_ease-in-out_infinite]"
                                 delay={0.2}
                             />
 
@@ -256,7 +246,7 @@ const Hero = () => {
                                 title="Data Scientist"
                                 sub="Analyst"
                                 icon={<LuDatabase className="w-6 h-6" />}
-                                className="-left-4 bottom-20 md:-left-12 lg:-left-16 lg:bottom-40 animate-[float_5s_ease-in-out_infinite_1s]"
+                                className="-left-8 bottom-20 md:-left-12 lg:-left-16 lg:bottom-40 animate-[float_5s_ease-in-out_infinite_1s]"
                                 delay={0.4}
                             />
 
@@ -265,7 +255,7 @@ const Hero = () => {
                                 title="15+ Tech Stack"
                                 sub="Stack"
                                 icon={<LuCode className="w-6 h-6" />}
-                                className="right-0 bottom-0 md:right-0 lg:right-0 lg:bottom-12 animate-[float_6s_ease-in-out_infinite_0.5s]"
+                                className="-right-4 bottom-4 md:right-0 lg:right-0 lg:bottom-12 animate-[float_6s_ease-in-out_infinite_0.5s]"
                                 delay={0.6}
                             />
 
