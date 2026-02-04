@@ -92,7 +92,6 @@ const Hero = () => {
                         <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
                             <div
                                 className="relative cursor-none select-none group inline-block lg:block"
-                                // Change: Logic to properly toggle state on mobile tap
                                 onClick={() => {
                                     if (window.innerWidth <= 1024) {
                                         setIsRevealed(!isRevealed);
@@ -235,7 +234,7 @@ const Hero = () => {
                             {/* Machine Learning (Top Right) */}
                             <FloatingCard
                                 title="Machine Learning"
-                                sub="Specialist"
+                                sub="Architect"
                                 icon={<LuBrain className="w-6 h-6" />}
                                 className="-right-8 top-12 md:-right-12 lg:-right-8 lg:top-32 animate-[float_4s_ease-in-out_infinite]"
                                 delay={0.2}
