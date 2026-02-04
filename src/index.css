@@ -1,21 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* New Guidelines Palette */
-  --color-deep-sea: #213C51;
-  /* Deep Blue - Primary background/headings */
-  --color-sky-blue: #6594B1;
-  /* Mid Blue - Accents/Secondary */
-  --color-lavender: #DDAED3;
-  /* Soft Purple - Highlights/Interactive */
-  --color-frost: #EEEEEE;
-  /* Off White - Background/Text */
+  /* Morg Theme Palette (Light) */
+  --color-morg-bg: #FFFFFF;
+  --color-morg-bg-alt: #F8FAFC;
+  /* Light gray for sections */
+  --color-morg-text: #1A202C;
+  /* Deep gray for primary text */
+  --color-morg-text-muted: #64748B;
+  --color-morg-accent: #2563EB;
+  /* Bright blue for primary actions */
+  --color-morg-accent-hover: #1D4ED8;
+  --color-morg-white: #FFFFFF;
 
-  /* Legacy mapping so existing components don't break immediately */
-  --color-charcoal: var(--color-deep-sea);
-  --color-sage: var(--color-lavender);
-  --color-warm-gray: var(--color-sky-blue);
-  --color-soft-cream: var(--color-frost);
+  /* Retaining legacy names mapped to new theme to prevent immediate crashes, 
+     but we should replace them in components over time */
+  --color-deep-sea: #FFFFFF;
+  /* Was Dark Blue, now White base */
+  --color-sky-blue: #2563EB;
+  /* Was Mid Blue, now Accent Blue */
+  --color-lavender: #4F46E5;
+  /* Was Soft Purple, now Secondary Accent (Indigo) */
+  --color-frost: #1A202C;
+  /* Was Off White, now Dark Text */
+
+  /* New Semantic Colors */
+  --color-primary: var(--color-morg-accent);
+  --color-bg-primary: var(--color-morg-bg);
+  --color-bg-secondary: var(--color-morg-bg-alt);
+  --color-text-primary: var(--color-morg-text);
+  --color-text-secondary: var(--color-morg-text-muted);
 
   --font-inter: "Inter", sans-serif;
   --font-playfair: "Playfair Display", serif;
@@ -23,12 +37,38 @@
 
 html {
   scroll-behavior: smooth;
-  /* Adjusting scroll speed for a more cinematic feel */
   scrollbar-gutter: stable;
+  background-color: var(--color-morg-bg);
+  color: var(--color-morg-text);
 }
 
-/* Hide scrollbar for a truly immersive look */
+/* Scrollbar styling for light theme */
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
   background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+::selection {
+  background-color: var(--color-morg-accent);
+  color: white;
 }

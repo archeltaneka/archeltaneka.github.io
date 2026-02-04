@@ -1,338 +1,280 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LuArrowRight, LuGithub, LuLinkedin, LuFileText, LuBrain, LuDatabase, LuCode } from 'react-icons/lu';
 
 const Hero = () => {
-    const containerRef = useRef(null);
-    // Link scroll progress specifically to this container
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"]
-    });
-    const imageY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-    const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 1, 0]);
-
-    // Mouse event handler
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isRevealed, setIsRevealed] = useState(false);
+    // --- Easter Eggs State ---
     const [isHovered, setIsHovered] = useState(false);
+    const [isRevealed, setIsRevealed] = useState(false);
+
+    // Copy Email State
+    const [copied, setCopied] = useState(false);
+
+    // Profile Photo Easter Egg
+    const [activePhoto, setActivePhoto] = useState('/assets/img/profile.webp');
+    // Preload photos
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth - 0.5) * 20,
-                y: (e.clientY / window.innerHeight - 0.5) * 20
-            });
-        };
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        ['/assets/img/profile-au.webp', '/assets/img/profile-uk.webp'].forEach(src => {
+            new Image().src = src;
+        });
     }, []);
 
-    // "Machine Learning" word change toggle
-    const [isMlToggled, setIsMlToggled] = useState(false);
+    const [inputSequence, setInputSequence] = useState('');
 
-    // Copy email state
-    const [copied, setCopied] = useState(false);
-    const handleCopyEmail = (e) => {
-        e.preventDefault();
+    // --- Effects ---
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!/^[a-zA-Z]$/.test(e.key)) return;
+            setInputSequence(prev => {
+                const newSeq = (prev + e.key.toLowerCase()).slice(-10);
+                if (newSeq.includes('australia')) setActivePhoto('/assets/img/profile-au.webp');
+                else if (newSeq.includes('uk') || newSeq.includes('london')) setActivePhoto('/assets/img/profile-uk.webp');
+                else if (newSeq.includes('reset') || newSeq.includes('home')) setActivePhoto('/assets/img/profile.webp');
+                return newSeq;
+            });
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleCopyEmail = () => {
         navigator.clipboard.writeText("archeltaneka@gmail.com");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
-    // Profile photo change
-    const [activePhoto, setActivePhoto] = useState('/assets/img/profile.webp');
-    const [inputSequence, setInputSequence] = useState('');
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            // Only track letters
-            if (!/^[a-zA-Z]$/.test(e.key)) return;
-
-            setInputSequence(prev => {
-                const newSeq = (prev + e.key.toLowerCase()).slice(-10); // Keep last 10 chars
-
-                if (newSeq.includes('australia')) {
-                    setActivePhoto('/assets/img/profile-au.webp');
-                } else if (newSeq.includes('uk') || newSeq.includes('london')) {
-                    setActivePhoto('/assets/img/profile-uk.webp');
-                } else if (newSeq.includes('reset') || newSeq.includes('home')) {
-                    setActivePhoto('/assets/img/profile.webp');
-                }
-
-                return newSeq;
-            });
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    // --- Floating Card Component ---
+    const FloatingCard = ({ title, sub, icon, className, delay }) => (
+        <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay, duration: 0.5 }}
+            className={`absolute bg-white/90 backdrop-blur-md p-2 md:p-4 rounded-xl md:rounded-2xl shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] border border-slate-100 flex items-center gap-2 md:gap-4 z-20 ${className}`}
+        >
+            <div className={`w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 ${sub === 'Stack' ? 'bg-indigo-50 text-indigo-600' : 'bg-blue-50 text-blue-600'}`}>
+                <div className="scale-75 md:scale-100">{icon}</div>
+            </div>
+            <div className="text-left">
+                <div className="text-[10px] md:text-sm font-bold text-slate-900 leading-tight whitespace-nowrap">{title}</div>
+                <div className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{sub}</div>
+            </div>
+        </motion.div>
+    );
 
     return (
-        <section
-            ref={containerRef}
-            id="home"
-            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-deep-sea via-deep-sea/95 to-sky-blue/20 overflow-hidden pb-20 md:pb-32"
-        >
-            {/* Background Animations */}
-            <div className="absolute inset-0 opacity-10 hidden md:block">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: `linear-gradient(rgba(101, 148, 177, 0.4) 1px, transparent 1px),
-                                     linear-gradient(90deg, rgba(101, 148, 177, 0.4) 1px, transparent 1px)`,
-                    backgroundSize: '50px 50px',
-                    transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
-                }}></div>
-            </div>
+        <section id="home" className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden pt-20">
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-b from-blue-50/50 to-transparent rounded-bl-[100px] pointer-events-none" />
 
-            <div className="absolute top-1/4 md:top-1/3 left-0 w-full pointer-events-none overflow-hidden">
-                <motion.div
-                    className="flex whitespace-nowrap"
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ repeat: Infinity, ease: "linear", duration: 25, repeatType: "loop" }}
-                >
-                    <h2 className="text-7xl md:text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
-                        DATA SCIENTIST • MACHINE LEARNING •
-                    </h2>
-                    <h2 className="text-7xl md:text-[12vw] font-black text-frost/5 leading-none tracking-tighter uppercase select-none pr-10">
-                        DATA SCIENTIST • MACHINE LEARNING •
-                    </h2>
-                </motion.div>
-            </div>
+            <div className="container mx-auto px-6 max-w-7xl relative z-10 w-full">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-            <motion.div
-                style={{ opacity }}
-                className="container mx-auto px-6 lg:px-12 relative z-10 pt-28"
-            >
-
-                <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-                    {/* Left Content */}
+                    {/* --- Left Column: Content --- */}
                     <motion.div
-                        style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? textY : 0 }}
-                        className="space-y-8 text-center lg:text-left"
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: { opacity: 0, x: -20 },
+                            visible: {
+                                opacity: 1,
+                                x: 0,
+                                transition: {
+                                    staggerChildren: 0.1,
+                                    duration: 0.8,
+                                    ease: "easeOut"
+                                }
+                            }
+                        }}
+                        className="text-center lg:text-left space-y-8 order-2 lg:order-1"
                     >
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="inline-flex items-center gap-3 bg-frost/10 backdrop-blur-md border border-frost/20 rounded-full px-6 py-3"
-                        >
-                            <span className="relative flex h-3 w-3">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lavender opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-3 w-3 bg-lavender"></span>
-                            </span>
-                            <span className="text-frost font-mono text-sm tracking-wide uppercase">
-                                Available for Internships Nov 2025
-                            </span>
+
+                        {/* Name Reveal Interaction */}
+                        <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+                            <div
+                                className="relative cursor-none select-none group inline-block lg:block"
+                                onClick={() => {
+                                    if (window.innerWidth <= 1024) {
+                                        setIsRevealed(!isRevealed);
+                                    }
+                                }}
+                                onMouseEnter={() => setIsHovered(true)}
+                                onMouseMove={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect();
+                                    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                                    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                                }}
+                                onMouseLeave={() => {
+                                    setIsHovered(false);
+                                    setIsRevealed(false); // Reset reveal when mouse leaves on desktop
+                                }}
+                            >
+                                <div className="text-xl md:text-2xl font-bold text-slate-500 mb-2 tracking-wide uppercase">Hello, I'm</div>
+
+                                {/* Container for both name layers */}
+                                <div className="relative">
+                                    {/* English Name (Visible mainly) */}
+                                    <div
+                                        className={`space-y-2 relative z-10 transition-opacity duration-500 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}
+                                        style={{
+                                            WebkitMaskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
+                                                ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
+                                                : 'none',
+                                            maskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
+                                                ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
+                                                : 'none',
+                                        }}
+                                    >
+                                        <h1 className={`text-6xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9] transition-opacity duration-300 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}>
+                                            ARCHEL
+                                            <br />
+                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                                                TANEKA
+                                            </span>
+                                        </h1>
+                                    </div>
+
+                                    {/* Chinese Layer */}
+                                    <div
+                                        className={`absolute top-0 left-0 z-20 pointer-events-none space-y-2 transition-opacity duration-500 
+                ${isRevealed ? 'opacity-100' : (isHovered && window.innerWidth > 1024 ? 'opacity-100' : 'opacity-0')}`}
+                                        style={{
+                                            clipPath: isRevealed
+                                                ? 'circle(150% at 50% 50%)'
+                                                : (isHovered && window.innerWidth > 1024 ? 'circle(120px at var(--mouse-x) var(--mouse-y))' : 'circle(0% at 50% 50%)'),
+                                            transition: 'clip-path 0.5s ease, opacity 0.5s ease'
+                                        }}
+                                    >
+                                        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9]">
+                                            陈
+                                            <br />
+                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                                                文群
+                                            </span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
                         </motion.div>
 
-                        {/* Name with Swapping Easter Egg */}
-                        <div
-                            className="relative cursor-none select-none group inline-block lg:block"
-                            // Change: Logic to properly toggle state on mobile tap
-                            onClick={() => {
-                                if (window.innerWidth <= 1024) {
-                                    setIsRevealed(!isRevealed);
-                                }
-                            }}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseMove={(e) => {
-                                const rect = e.currentTarget.getBoundingClientRect();
-                                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                            }}
-                            onMouseLeave={() => {
-                                setIsHovered(false);
-                                setIsRevealed(false); // Reset reveal when mouse leaves on desktop
-                            }}
-                        >
-                            {/* English Layer */}
-                            <div
-                                className={`space-y-2 relative z-10 transition-opacity duration-500 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}
-                                style={{
-                                    // On mobile (when not revealed), we disable the radial mask so it doesn't look "cut out" by a ghost cursor
-                                    WebkitMaskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
-                                        ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
-                                        : 'none',
-                                    maskImage: (isHovered && !isRevealed && window.innerWidth > 1024)
-                                        ? 'radial-gradient(circle 120px at var(--mouse-x) var(--mouse-y), transparent 99%, black 100%)'
-                                        : 'none',
-                                }}
-                            >
-                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-frost leading-[0.9] tracking-tighter">ARCHEL</h1>
-                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-tighter bg-gradient-to-r from-lavender via-sky-blue to-lavender bg-clip-text text-transparent">TANEKA</h1>
-                            </div>
-
-                            {/* Chinese Layer */}
-                            <div
-                                className={`absolute inset-0 z-20 pointer-events-none space-y-2 transition-opacity duration-500 
-            ${isRevealed ? 'opacity-100' : (isHovered && window.innerWidth > 1024 ? 'opacity-100' : 'opacity-0')}`}
-                                style={{
-                                    // Improved clipPath logic to handle the mobile toggle vs desktop hover
-                                    clipPath: isRevealed
-                                        ? 'circle(150% at 50% 50%)'
-                                        : (isHovered && window.innerWidth > 1024 ? 'circle(120px at var(--mouse-x) var(--mouse-y))' : 'circle(0% at 50% 50%)'),
-                                    transition: 'clip-path 0.5s ease, opacity 0.5s ease'
-                                }}
-                            >
-                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-lavender leading-[0.9] tracking-wider">陈</h1>
-                                <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.9] tracking-wider bg-gradient-to-r from-sky-blue via-lavender to-sky-blue bg-clip-text text-transparent">文群</h1>
-                            </div>
-                        </div>
-
-                        {/* Tagline */}
-                        <motion.h2
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="text-3xl md:text-5xl font-black text-frost leading-tight tracking-tight"
-                        >
-                            I torture data until it confesses <br className="hidden md:block" />
-                            <span className="relative inline-block">
-                                <span className="relative z-10 text-lavender italic">something useful.</span>
-                                <motion.span
-                                    initial={{ width: 0 }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ delay: 1, duration: 0.8 }}
-                                    className="absolute bottom-2 left-0 h-4 bg-lavender/20 -rotate-1"
-                                />
-                            </span>
-                        </motion.h2>
-
-                        {/* Clear Explanation with Interactive Text */}
                         <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
-                            className="text-lg md:text-xl text-frost/70 font-light leading-relaxed"
+                            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                            className="text-xl text-slate-500 leading-relaxed max-w-lg mx-auto lg:mx-0"
                         >
-                            (Translation: I use
-                            <span
-                                className="relative inline-grid cursor-help mx-1 align-bottom group"
-                                onClick={() => setIsMlToggled(!isMlToggled)}
-                                onMouseEnter={() => setIsMlToggled(true)}
-                                onMouseLeave={() => setIsMlToggled(false)}
-                            >
-                                {/* The Professional Text */}
-                                <span className={`col-start-1 row-start-1 text-frost font-medium transition-all duration-300 
-            ${isMlToggled ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                                    Machine Learning
-                                </span>
-
-                                {/* The Witty Text */}
-                                <span className={`col-start-1 row-start-1 text-lavender font-bold transition-all duration-300 whitespace-nowrap
-            ${isMlToggled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-                                    Math with fancy branding
-                                </span>
-                            </span>
-                            to bridge the gap between <span className="text-frost font-medium">"Trust me bro"</span> and <span className="text-frost font-medium">"The data proves it."</span>)
+                            Data Scientist designing intelligent systems.
+                            I love <span className="text-slate-800 font-semibold">fun UI</span>, <span className="text-slate-800 font-semibold">collaboration</span>, and making helpful products that connect people.
                         </motion.p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-                            {/* Explore Work - Magnetic Solid Button */}
+                        {/* CTAs */}
+                        <motion.div
+                            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2"
+                        >
                             <motion.a
                                 href="#projects"
-                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="w-full sm:w-auto px-10 py-4 bg-frost text-deep-sea rounded-full font-black text-lg shadow-lg shadow-frost/10 hover:shadow-frost/30 transition-shadow flex items-center justify-center gap-2"
+                                className="group flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
                             >
-                                Explore Work
-                                <motion.span
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{ repeat: Infinity, duration: 1.5 }}
-                                >
-                                    →
-                                </motion.span>
+                                View Work
+                                <LuArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.a>
 
-                            {/* Contact Me - Feedback Ghost Button */}
-                            <motion.button
-                                onClick={handleCopyEmail}
-                                whileHover={{ scale: 1.05, backgroundColor: "rgba(237, 242, 247, 0.1)" }}
-                                whileTap={{ scale: 0.95 }}
-                                className="w-full sm:w-auto px-10 py-4 border-2 border-frost/30 text-frost rounded-full font-bold text-lg flex items-center justify-center relative overflow-hidden group"
-                            >
-                                <AnimatePresence mode="wait">
-                                    {copied ? (
-                                        <motion.span
-                                            key="copied"
-                                            initial={{ y: 20, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: -20, opacity: 0 }}
-                                            className="text-lavender font-black"
-                                        >
-                                            Email Copied!
-                                        </motion.span>
-                                    ) : (
-                                        <motion.span
-                                            key="contact"
-                                            initial={{ y: 20, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: -20, opacity: 0 }}
-                                            className="flex items-center gap-2"
-                                        >
-                                            Good First Impression?
-                                        </motion.span>
-                                    )}
+                            <div className="flex gap-3 justify-center lg:justify-start">
+                                <motion.a
+                                    href="https://github.com/archeltaneka" target="_blank"
+                                    whileHover={{ scale: 1.1 }}
+                                    className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                                >
+                                    <LuGithub className="w-6 h-6" />
+                                </motion.a>
+                                <motion.a
+                                    href="https://linkedin.com/in/archel-taneka-sutanto" target="_blank"
+                                    whileHover={{ scale: 1.1 }}
+                                    className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-blue-700 hover:bg-slate-100 transition-colors"
+                                >
+                                    <LuLinkedin className="w-6 h-6" />
+                                </motion.a>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* --- Right Column: Image & Floating Cards --- */}
+                    <div className="relative order-1 lg:order-2 flex justify-center lg:block">
+
+                        {/* Central Image Container */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8 }}
+                            className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[500px] lg:h-[600px] mx-auto"
+                        >
+                            {/* The "Morg" Circle Background */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white rounded-full shadow-[0_0_100px_rgba(230,240,255,0.8)] -z-10" />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] bg-gradient-to-b from-blue-50 to-indigo-50 rounded-full -z-10" />
+
+                            {/* Masked Image */}
+                            <div className="w-full h-full relative z-10">
+                                <AnimatePresence mode="popLayout">
+                                    <motion.img
+                                        key={activePhoto}
+                                        initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                        exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                                        transition={{ duration: 0.5 }}
+                                        src={activePhoto}
+                                        alt="Archel Taneka"
+                                        className="w-full h-full object-contain drop-shadow-2xl"
+                                        style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
+                                    />
                                 </AnimatePresence>
-
-                                {/* Subtle Shine Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
-                            </motion.button>
-                        </div>
-                    </motion.div>
-
-                    {/* Right Image */}
-                    <motion.div
-                        animate={{
-                            y: [0, -12, 0], // Moves up 12px and back
-                        }}
-                        transition={{
-                            duration: 4,      // 4 seconds for a full loop
-                            repeat: Infinity, // Loop forever
-                            ease: "easeInOut" // Smooth start and stop
-                        }}
-                        style={{ y: typeof window !== 'undefined' && window.innerWidth > 1024 ? imageY : 0 }}
-                        className="relative w-full max-w-[280px] sm:max-max-w-md lg:max-w-none mx-auto"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-tr from-lavender/40 via-transparent to-sky-blue/40 rounded-3xl blur-2xl"></div>
-                        <div className="relative">
-                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border-2 border-frost/20 bg-deep-sea shadow-2xl">                                <AnimatePresence mode="wait">
-                                <motion.img
-                                    key={activePhoto} // This triggers the animation when the photo changes
-                                    src={activePhoto}
-                                    alt="Archel Taneka"
-                                    initial={{ opacity: 0, scale: 1.1 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="w-full h-full object-cover"
-                                />
-                            </AnimatePresence>
                             </div>
 
-                            {/* Floating Flag Badge */}
-                            <div className="absolute bottom-4 -left-6 md:bottom-15 md:-left-8 bg-frost/20 backdrop-blur-xl p-3 md:p-5 rounded-2xl border border-white/20 flex flex-col gap-2 md:gap-4 shadow-xl">                                <div className="text-[8px] md:text-[10px] font-mono text-lavender uppercase tracking-widest font-black border-b border-white/10 pb-1">Global Journey</div>
-                                <div className="flex items-center gap-2 md:gap-3">
-                                    <img src="https://flagcdn.com/id.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="ID" />
-                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">INDONESIA</span>
-                                </div>
-                                <div className="flex items-center gap-2 md:gap-3">
-                                    <img src="https://flagcdn.com/gb.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="UK" />
-                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">UNITED KINGDOM</span>
-                                </div>
-                                <div className="flex items-center gap-2 md:gap-3">
-                                    <img src="https://flagcdn.com/au.svg" className="w-6 md:w-8 h-4 md:h-5 rounded-sm" alt="AU" />
-                                    <span className="text-frost font-mono text-[10px] md:text-xs font-bold">AUSTRALIA</span>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                            {/* Floating Orbiting Cards */}
+
+                            {/* Machine Learning (Top Right) */}
+                            <FloatingCard
+                                title="Machine Learning"
+                                sub="Architect"
+                                icon={<LuBrain className="w-6 h-6" />}
+                                className="-right-8 top-12 md:-right-12 lg:-right-8 lg:top-32 animate-[float_4s_ease-in-out_infinite]"
+                                delay={0.2}
+                            />
+
+                            {/* Data Science (Bottom Left) */}
+                            <FloatingCard
+                                title="Data Scientist"
+                                sub="Analyst"
+                                icon={<LuDatabase className="w-6 h-6" />}
+                                className="-left-8 bottom-20 md:-left-12 lg:-left-16 lg:bottom-40 animate-[float_5s_ease-in-out_infinite_1s]"
+                                delay={0.4}
+                            />
+
+                            {/* 15+ Tools (Bottom Right) */}
+                            <FloatingCard
+                                title="15+ Tech Stack"
+                                sub="Stack"
+                                icon={<LuCode className="w-6 h-6" />}
+                                className="-right-4 bottom-4 md:right-0 lg:right-0 lg:bottom-12 animate-[float_6s_ease-in-out_infinite_0.5s]"
+                                delay={0.6}
+                            />
+
+                            {/* Decorative Floating Elements (Spheres/Donuts from reference) */}
+                            <motion.div
+                                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                                transition={{ repeat: Infinity, duration: 5 }}
+                                className="absolute top-0 left-0 w-12 h-12 bg-gradient-to-br from-slate-200 to-white rounded-full shadow-lg z-0 opacity-80"
+                            />
+                            <motion.div
+                                animate={{ y: [0, 15, 0], rotate: [0, -10, 0] }}
+                                transition={{ repeat: Infinity, duration: 7 }}
+                                className="absolute bottom-1/3 -right-8 w-8 h-8 bg-blue-100 rounded-full blur-sm z-0"
+                            />
+
+                        </motion.div>
+                    </div>
 
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 };

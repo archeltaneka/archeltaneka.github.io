@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Deep Dive - Customer Churn Prediction</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1a2332",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Navigation -->
+<div class="relative flex w-full flex-col bg-surface-dark/95 border-b border-[#282e39] sticky top-0 z-50 backdrop-blur-md">
+<header class="flex items-center justify-between whitespace-nowrap px-6 lg:px-10 py-3 max-w-[1280px] mx-auto w-full">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">analytics</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Alex Data | Portfolio</h2>
+</div>
+<div class="flex items-center justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Projects</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">Resume</a>
+<a class="text-white/80 hover:text-white text-sm font-medium transition-colors" href="#">About Me</a>
+</div>
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-primary/90 transition-colors text-white text-sm font-bold tracking-[0.015em]">
+<span class="truncate">Contact Me</span>
+</button>
+</div>
+</header>
+</div>
+<main class="flex-1 flex flex-col items-center w-full pb-20">
+<!-- Header / Project Intro -->
+<section class="w-full max-w-[960px] px-6 lg:px-0 pt-12 pb-8">
+<div class="flex flex-col gap-6">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span>Projects</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-medium">Churn Prediction</span>
+</div>
+<!-- Title & Abstract -->
+<div class="flex flex-col gap-4">
+<h1 class="text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">
+                        Customer Churn Prediction Engine
+                    </h1>
+<p class="text-slate-600 dark:text-[#9da6b9] text-lg leading-relaxed max-w-3xl">
+                        An end-to-end machine learning solution designed to identify high-risk customers and recommend retention strategies, deploying an XGBoost model with 92% accuracy that processes over 50k customer records daily.
+                    </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap gap-4 pt-2">
+<button class="group flex items-center gap-2 h-11 px-6 rounded-lg bg-primary hover:bg-primary/90 text-white font-bold text-sm transition-all">
+<span class="material-symbols-outlined text-lg">code</span>
+<span>View GitHub Repo</span>
+</button>
+<button class="group flex items-center gap-2 h-11 px-6 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-900 dark:text-white font-bold text-sm transition-all">
+<span class="material-symbols-outlined text-lg">rocket_launch</span>
+<span>Live Demo</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="w-full max-w-[960px] px-6 lg:px-0 flex flex-col gap-16">
+<!-- Section 1: The Problem -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychology_alt</span>
+                        The Problem
+                    </h2>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                        The client, a mid-sized SaaS telecom company, was experiencing an alarming <strong>12% monthly churn rate</strong>, significantly above the industry average. They lacked visibility into which users were likely to leave and, more importantly, <em>why</em> they were leaving.
+                    </p>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Marketing efforts were generic and reactive. The goal was to build a predictive engine to flag at-risk accounts 30 days in advance, allowing the customer success team to intervene proactively.
+                    </p>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Business Goal</span>
+<div class="text-3xl font-black text-slate-900 dark:text-white mb-1">Reduce Churn</div>
+<div class="text-sm text-green-600 font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-base">trending_down</span>
+                        Target: &lt; 8% Monthly
+                    </div>
+</div>
+</section>
+<!-- Section 2: Methodology Pipeline -->
+<section>
+<h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schema</span>
+                    The Methodology
+                </h2>
+<!-- Visual Pipeline -->
+<div class="w-full overflow-x-auto pb-4">
+<div class="flex min-w-[700px] justify-between items-center gap-4">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-3 w-40 text-center group">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-surface-dark border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary group-hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">database</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Data Ingestion</h4>
+<span class="text-xs text-slate-500">SQL &amp; APIs</span>
+</div>
+</div>
+<!-- Arrow -->
+<div class="h-[2px] flex-1 bg-slate-200 dark:bg-slate-700 relative">
+<div class="absolute right-0 -top-1.5 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-3 w-40 text-center group">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-surface-dark border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary group-hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">cleaning_services</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Preprocessing</h4>
+<span class="text-xs text-slate-500">Pandas / Scikit-learn</span>
+</div>
+</div>
+<!-- Arrow -->
+<div class="h-[2px] flex-1 bg-slate-200 dark:bg-slate-700 relative">
+<div class="absolute right-0 -top-1.5 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-3 w-40 text-center group">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-surface-dark border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary group-hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">model_training</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Modeling</h4>
+<span class="text-xs text-slate-500">XGBoost Tuning</span>
+</div>
+</div>
+<!-- Arrow -->
+<div class="h-[2px] flex-1 bg-slate-200 dark:bg-slate-700 relative">
+<div class="absolute right-0 -top-1.5 text-slate-300 dark:text-slate-600">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-3 w-40 text-center group">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-surface-dark border-2 border-primary bg-primary/10 text-primary flex items-center justify-center shadow-[0_0_15px_rgba(19,91,236,0.3)]">
+<span class="material-symbols-outlined text-3xl">deployed_code</span>
+</div>
+<div>
+<h4 class="font-bold text-sm">Deployment</h4>
+<span class="text-xs text-slate-500">Flask / Docker</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Code Snippet -->
+<div class="mt-8 rounded-xl overflow-hidden bg-[#0d1117] border border-slate-800 font-mono text-sm relative group">
+<div class="flex items-center justify-between px-4 py-2 bg-[#161b22] border-b border-slate-800">
+<span class="text-xs text-slate-400">model_training.py</span>
+<div class="flex gap-1.5">
+<div class="size-3 rounded-full bg-red-500/50"></div>
+<div class="size-3 rounded-full bg-yellow-500/50"></div>
+<div class="size-3 rounded-full bg-green-500/50"></div>
+</div>
+</div>
+<div class="p-6 overflow-x-auto">
+<pre class="text-slate-300"><code><span class="text-purple-400">import</span> xgboost <span class="text-purple-400">as</span> xgb
+<span class="text-purple-400">from</span> sklearn.model_selection <span class="text-purple-400">import</span> GridSearchCV
+
+<span class="text-slate-500"># Define the hyperparameter grid</span>
+param_grid = {
+    <span class="text-green-400">'max_depth'</span>: [<span class="text-orange-400">3</span>, <span class="text-orange-400">4</span>, <span class="text-orange-400">5</span>],
+    <span class="text-green-400">'learning_rate'</span>: [<span class="text-orange-400">0.1</span>, <span class="text-orange-400">0.01</span>, <span class="text-orange-400">0.05</span>],
+    <span class="text-green-400">'n_estimators'</span>: [<span class="text-orange-400">100</span>, <span class="text-orange-400">500</span>, <span class="text-orange-400">1000</span>]
+}
+
+<span class="text-slate-500"># Initialize the classifier</span>
+xgb_model = xgb.XGBClassifier(objective=<span class="text-green-400">'binary:logistic'</span>)
+
+<span class="text-slate-500"># Grid Search for best parameters</span>
+grid_search = GridSearchCV(estimator=xgb_model, param_grid=param_grid, cv=<span class="text-orange-400">3</span>)
+grid_search.fit(X_train, y_train)</code></pre>
+</div>
+</div>
+</section>
+<!-- Section 3: Key Insights (Simulated Charts) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Chart 1: Feature Importance -->
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800">
+<h3 class="font-bold text-lg mb-6 text-slate-900 dark:text-white">Feature Importance</h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-medium text-slate-500">
+<span>Contract Type</span>
+<span>35%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[35%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-medium text-slate-500">
+<span>Monthly Charges</span>
+<span>28%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary/80 w-[28%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-medium text-slate-500">
+<span>Tenure</span>
+<span>15%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary/60 w-[15%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-medium text-slate-500">
+<span>Tech Support Usage</span>
+<span>12%</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary/40 w-[12%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart 2: Model Performance Metrics -->
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col">
+<h3 class="font-bold text-lg mb-6 text-slate-900 dark:text-white">Model Performance</h3>
+<div class="flex-1 grid grid-cols-2 gap-4">
+<div class="bg-slate-50 dark:bg-[#111318] rounded-lg p-4 flex flex-col justify-between">
+<span class="text-xs text-slate-500">Accuracy</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white">92.4%</span>
+</div>
+<div class="bg-slate-50 dark:bg-[#111318] rounded-lg p-4 flex flex-col justify-between">
+<span class="text-xs text-slate-500">Precision</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white">88.1%</span>
+</div>
+<div class="bg-slate-50 dark:bg-[#111318] rounded-lg p-4 flex flex-col justify-between">
+<span class="text-xs text-slate-500">Recall</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white">90.5%</span>
+</div>
+<div class="bg-slate-50 dark:bg-[#111318] rounded-lg p-4 flex flex-col justify-between">
+<span class="text-xs text-slate-500">F1 Score</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white">89.3%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: The Impact -->
+<section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-2xl p-8 lg:p-12 relative overflow-hidden">
+<!-- Abstract Background Decoration -->
+<div class="absolute -right-10 -top-10 w-64 h-64 bg-primary/20 blur-[100px] rounded-full pointer-events-none" data-alt="Soft blue glowing background effect"></div>
+<div class="relative z-10 text-center lg:text-left grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white mb-4">Business Impact</h2>
+<p class="text-slate-600 dark:text-slate-300">
+                            By deploying this model into the customer success dashboard, the team was able to prioritize retention offers for high-value, high-risk customers.
+                        </p>
+</div>
+<div class="flex flex-col gap-6 lg:border-l border-primary/20 lg:pl-12">
+<div>
+<span class="block text-4xl lg:text-5xl font-black text-primary tracking-tight">15%</span>
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Reduction in Churn</span>
+</div>
+<div>
+<span class="block text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">$2.1M</span>
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">Projected Annual Savings</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Technical Decision Log -->
+<section>
+<h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">engineering</span>
+                    Technical Decision Log
+                </h2>
+<div class="space-y-4">
+<!-- Decision 1 -->
+<div class="group bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors">
+<div class="flex flex-col md:flex-row md:items-start gap-4">
+<div class="min-w-[40px] h-[40px] rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+                                1
+                            </div>
+<div>
+<h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Why XGBoost over Random Forest?</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    While Random Forest provided a solid baseline accuracy (86%), XGBoost offered superior performance on the imbalanced dataset due to its gradient boosting framework. It also provided better interpretability via SHAP values, which was critical for explaining churn reasons to stakeholders.
+                                </p>
+</div>
+</div>
+</div>
+<!-- Decision 2 -->
+<div class="group bg-white dark:bg-surface-dark p-6 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors">
+<div class="flex flex-col md:flex-row md:items-start gap-4">
+<div class="min-w-[40px] h-[40px] rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+                                2
+                            </div>
+<div>
+<h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Handling Class Imbalance with SMOTE</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    The dataset was heavily skewed (only 15% churn). Standard training led to poor recall. I implemented SMOTE (Synthetic Minority Over-sampling Technique) during the training phase, which improved recall from 45% to 90.5%, ensuring we caught the majority of at-risk customers.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark py-10">
+<div class="max-w-[960px] mx-auto px-6 lg:px-0 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-slate-900 dark:text-white font-bold tracking-tight">Alex Data</span>
+<span class="text-slate-400">|</span>
+<span class="text-slate-500 text-sm">© 2023 Portfolio</span>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">LinkedIn</a>
+<a class="text-slate-500 hover:text-primary transition-colors" href="#">Twitter</a>
+</div>
+</div>
+</footer>
+</body></html>
