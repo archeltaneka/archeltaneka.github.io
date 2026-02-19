@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const projectData = [
     {
-        id: 'mobiles-analysis',
-        title: '2025 Mobile Phones Analysis',
-        description: 'Interactive dashboard analyzing market trends and features of smartphones in 2025.',
-        impact: "Cleaned and processed 100+ smartphone attributes using a fully automated custom wrangling pipeline.",
-        stack_details: ["Python", "Streamlit", "Plotly", "Pandas"],
-        image: '/assets/img/mobiles-analysis.webp',
-        github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
-        live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
+        id: 'dag-nabit',
+        title: 'DAG-nabit',
+        description: 'Interactive business strategy simulation dashboard designed to demonstrate the power of causal inference in marketing and customer targeting',
+        impact: "Visualized the impact of different marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/DAG-nabit',
+        live: 'https://dag-nabit.streamlit.app/',
         type: 'app'
     },
     {
@@ -25,27 +25,6 @@ const projectData = [
         type: 'app'
     },
     {
-        id: 'stock-prediction',
-        title: 'Monash Stock Performance Prediction',
-        description: 'Predictive modeling for stock performance against the Monash Index.',
-        impact: "Achieved significant predictive lift using ensemble methods with 0.103 RMSE on regression problem and 0.8545 F1-score on classification problem.",
-        stack_details: ["XGBoost", "CatBoost", "Scikit-learn", "Python"],
-        image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop',
-        github: 'https://github.com/archeltaneka/monash_stock_performance_prediction',
-        type: 'notebook'
-    },
-    {
-        id: 'pokemon-battle',
-        title: 'Pokemon Battle Predictor',
-        description: 'Machine learning model to predict 1v1 battle outcomes.',
-        impact: "Deployed interactive RShiny app for real-time battle simulation with 90% predictive accuracy by leveraging type effectiveness analysis, moveset insights, and pokemon stats (HP, Attack, Defense, etc.)",
-        stack_details: ["R", "RShiny", "Random Forest", "XGBoost"],
-        image: '/assets/img/pokemon-battle-analysis.png',
-        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
-        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
-        type: 'app'
-    },
-    {
         id: 'melbourne-air',
         title: 'Melbourne Urban Analytics',
         description: 'Spatiotemporal analysis of air quality and pedestrian traffic.',
@@ -57,15 +36,15 @@ const projectData = [
         type: 'app'
     },
     {
-        id: 'chest-xray',
-        title: 'Chest X-Ray Classification',
-        description: 'Deep learning model for disease classification with explainable AI.',
-        impact: "Implemented Grad-CAM to visualize model attention for medical interpretability across 10+ common chest pathologies with +80% F1-score.",
-        stack_details: ["TensorFlow/Keras", "CNNs", "Grad-CAM", "Python"],
-        image: '/assets/img/common-chest-x-ray-classification.webp',
-        github: 'https://github.com/archeltaneka/common-chest-x-ray-classification',
-        live: null,
-        type: 'notebook'
+        id: 'pokemon-battle',
+        title: 'Pokemon Battle Predictor',
+        description: 'Machine learning model to predict 1v1 battle outcomes.',
+        impact: "Deployed interactive RShiny app for real-time battle simulation with 90% predictive accuracy by leveraging type effectiveness analysis, moveset insights, and pokemon stats (HP, Attack, Defense, etc.)",
+        stack_details: ["R", "RShiny", "Random Forest", "XGBoost"],
+        image: '/assets/img/pokemon-battle-analysis.png',
+        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
+        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
+        type: 'app'
     }
 ];
 
