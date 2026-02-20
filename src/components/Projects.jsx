@@ -5,8 +5,7 @@ const projectData = [
     {
         id: 'dag-nabit',
         title: 'DAG-nabit',
-        description: 'Interactive business strategy simulation dashboard designed to demonstrate the power of causal inference in marketing and customer targeting',
-        impact: "Visualized the impact of different marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
+        impact: "Visualized the impact of different business marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
         stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
         image: '/assets/img/dag-nabit.webp',
         github: 'https://github.com/archeltaneka/DAG-nabit',
@@ -16,9 +15,8 @@ const projectData = [
     {
         id: 'slot-filling',
         title: 'NLU Intent Detection & Slot Filling',
-        description: 'Comparative study of NLU architectures for conversational agents.',
-        impact: "Benchmarked 4 distinct architectures (CRF, Joint Bi-LSTM, Joint Bi-LSTM with Attention, and BERT), achieving +90% F1-score.",
-        stack_details: ["PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
+        impact: "Benchmarked 4 distinct NLU architectures (CRF, Joint Bi-LSTM, Joint Bi-LSTM with Attention, and BERT) for conversational agents, achieving +90% F1-score.",
+        stack_details: ["Python", "Streamlit", "PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
         image: '/assets/img/slot-filling-intent-detection.png',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
@@ -27,9 +25,8 @@ const projectData = [
     {
         id: 'melbourne-air',
         title: 'Melbourne Urban Analytics',
-        description: 'Spatiotemporal analysis of air quality and pedestrian traffic.',
-        impact: "Visualized correlation between traffic density and PM2.5 levels by combinng 765k+ records of environmental data and 8.7k+ records across 80+ locations of pedestrian data.",
-        stack_details: ["D3.js", "Tableau", "Python", "JavaScript"],
+        impact: "Visualized correlation between traffic density and air pollution levels by combinng 765k+ records of environmental data and 8.7k+ records across 80+ locations of pedestrian data.",
+        stack_details: ["Python", "HTML", "CSS", "D3.js", "Leaflet", "Tableau"],
         image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
@@ -73,9 +70,6 @@ const ProjectCard = ({ project, index }) => {
                     <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
                         {project.title}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                        {project.description}
-                    </p>
                 </div>
 
                 {/* Metrics / Impact Highlight */}
