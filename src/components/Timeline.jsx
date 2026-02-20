@@ -12,10 +12,9 @@ const experienceData = [
         logo: "/assets/img/tiket-logo.png",
         description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
         achievements: [
-            "Developed mathematical models for payment method recommendations, boosting conversion rate by 4.8%.",
-            "Built CatBoost room grouping model with 90% accuracy for hotel listing classification.",
-            "Optimized hotel recommendation engine using POI and geospatial analytics.",
-            "Automated flight reschedule identification algorithms."
+            "Generated IDR 94B+ incremental GBV by engineering a Scikit-learn payment recommendation engine that analyzed 15+ payment methods, boosting conversion by 4.8%.",
+            "Unlocked IDR 47B annual revenue impact with a deep learning classifier that filtered low-quality hotel images, reducing bounce rates by 18%.",
+            "Drove IDR 8B revenue uplift by optimizing hotel recommendations with ensemble models and geospatial analytics, outperforming existing baselines."
         ],
         image: "/assets/img/tiket.webp"
     },
@@ -39,23 +38,23 @@ const experienceData = [
 const educationData = [
     {
         id: 'monash',
-        degree: "Master of Data Science",
+        degree: "Master of Science",
         school: "Monash University",
         location: "Melbourne, Australia",
         date: "Jul 2024 - Present",
         logo: "/assets/img/monash-logo.png",
-        description: "Focusing on advanced statistical techniques and big data processing. Key units:",
-        details: ["Data Exploration & Visualization", "Data Wrangling", "Statistical Modelling", "Big Data Processing", "Applied Data Analysis"],
+        description: "Majoring in Data Science, focusing on advanced statistical techniques and big data processing. Key units:",
+        details: ["Foundationals of Data Science", "Data Exploration & Visualization", "Data Wrangling", "Statistical Modelling", "Big Data Processing", "Applied Data Analysis"],
         image: "/assets/img/monash.webp"
     },
     {
         id: 'nottingham',
-        degree: "B.Sc (Hons) Computer Science with AI",
+        degree: "Bachelor of Science (Hons.)",
         school: "University of Nottingham",
         location: "Nottingham, United Kingdom",
         date: "Sep 2019 - Sep 2020",
         logo: "/assets/img/nottingham-logo.png",
-        description: "Double degree program in Computer Science with AI.",
+        description: "Undergraduate double degree program in Computer Science with AI.",
         details: ["Graduated with First Class Honors", "Undergraduate Dissertation: Chest X-ray Classification | Supervisor: Dr. Chao Chen"],
         image: "/assets/img/nottingham.webp"
     },
@@ -67,7 +66,7 @@ const educationData = [
         date: "Sep 2016 - Sep 2020",
         logo: "/assets/img/binus-logo.png",
         description: "Undergraduate studies in Computer Science.",
-        details: ["GPA: 3.74/4.0", "Teaching Assistant for Databases", "International Program Mentor"],
+        details: ["Teaching Assistant for 'Introduction to Database' unit", "International Program Mentor"],
         image: "/assets/img/binus.webp"
     }
 ];
