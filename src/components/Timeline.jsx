@@ -217,8 +217,8 @@ const Timeline = () => {
                 {/* Header */}
                 <div className="text-center mb-20 space-y-4">
                     <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The Journey</h2>
-                    <p className="text-slate-500 max-w-xl mx-auto">
-                        A timeline of professional growth and academic milestones.
+                    <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
+                        A timeline of <span className="text-blue-600 font-medium italic">professional growth</span> and <span className="text-blue-600 font-medium italic">academic milestones</span>.
                     </p>
                 </div>
 

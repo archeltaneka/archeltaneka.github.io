@@ -126,21 +126,29 @@ const Projects = () => {
         <section id="projects" className="py-32 bg-white">
             <div className="container mx-auto px-6 max-w-7xl">
 
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                    <div className="max-w-2xl">
-                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6">
-                            Selected Works<span className="text-blue-600">.</span>
+                {/* Header  */}
+                <div className="flex flex-col items-center justify-center text-center mb-16 md:mb-24 gap-6">
+                    <div className="max-w-3xl px-4">
+                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                            Selected Works
                         </h2>
-                        <p className="text-xl text-slate-500 font-light leading-relaxed">
-                            A showcase of technical problems solved with data, from end-to-end applications to deep analytical notebooks.
+                        <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
+                            A showcase of technical problems solved with data, from end-to-end
+                            <span className="text-blue-600 font-medium italic"> applications </span>
+                            to deep analytical <span className="text-blue-600 font-medium italic"> notebooks.</span>
                         </p>
                     </div>
 
-                    {/* Github Stat / Decorative */}
-                    <div className="hidden md:block text-right">
-                        <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Total Repositories</div>
-                        <div className="text-3xl font-black text-slate-800">25+</div>
+                    {/* Github Stat*/}
+                    <div className="flex flex-col items-center">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
+                            Total Repositories
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="h-[1px] w-8 bg-slate-200" />
+                            <div className="text-2xl font-black text-slate-800">25+</div>
+                            <div className="h-[1px] w-8 bg-slate-200" />
+                        </div>
                     </div>
                 </div>
 

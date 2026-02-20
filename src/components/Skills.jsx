@@ -51,8 +51,8 @@ const Skills = () => {
                     <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
                         Technical Expertise
                     </h2>
-                    <p className="text-slate-500 max-w-2xl mx-auto">
-                        A comprehensive toolkit built through academic excellence and professional experience in production environments.
+                    <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
+                        A comprehensive toolkit built through <span className="text-blue-600 font-medium italic">academic excellence</span> and <span className="text-blue-600 font-medium italic">professional experience</span> in production environments.
                     </p>
                 </div>
 
