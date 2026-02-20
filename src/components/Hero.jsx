@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LuArrowRight, LuGithub, LuLinkedin, LuFileText, LuBrain, LuDatabase, LuCode } from 'react-icons/lu';
+import { LuArrowRight, LuGithub, LuLinkedin, LuFileText, LuBrain, LuDatabase, LuCode, LuMail } from 'react-icons/lu';
 
 const Hero = () => {
     // --- Easter Eggs State ---
@@ -108,7 +108,7 @@ const Hero = () => {
                                     setIsRevealed(false); // Reset reveal when mouse leaves on desktop
                                 }}
                             >
-                                <div className="text-xl md:text-2xl font-bold text-slate-500 mb-2 tracking-wide uppercase">Hello, I'm</div>
+                                <div className="text-xl md:text-2xl font-bold text-slate-500 mb-2 tracking-wide uppercase">Hello🙋‍♂️, I'm</div>
 
                                 {/* Container for both name layers */}
                                 <div className="relative">
@@ -161,7 +161,7 @@ const Hero = () => {
                             className="text-xl text-slate-500 leading-relaxed max-w-lg mx-auto lg:mx-0"
                         >
                             Data Scientist designing intelligent systems.
-                            I love <span className="text-slate-800 font-semibold">fun UI</span>, <span className="text-slate-800 font-semibold">collaboration</span>, and making helpful products that connect people.
+                            I bridge the gap between <span className="text-slate-800 font-semibold">messy data</span> and <span className="text-slate-800 font-semibold">high-stakes strategic decisions.</span>
                         </motion.p>
 
                         {/* CTAs */}
@@ -179,7 +179,27 @@ const Hero = () => {
                                 <LuArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.a>
 
+                            <motion.a
+                                href="/assets/resume/Resume - Archel Sutanto.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="group flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold hover:border-slate-300 hover:bg-slate-50 transition-all shadow-lg shadow-slate-100"
+                            >
+                                <LuFileText className="w-5 h-5 text-blue-600" />
+                                Resume
+                            </motion.a>
+
                             <div className="flex gap-3 justify-center lg:justify-start">
+                                <motion.a
+                                    href="mailto:archeltaneka@gmail.com"
+                                    whileHover={{ scale: 1.1 }}
+                                    className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-red-500 hover:bg-red-50 transition-colors"
+                                    title="Send Email"
+                                >
+                                    <LuMail className="w-6 h-6" />
+                                </motion.a>
                                 <motion.a
                                     href="https://github.com/archeltaneka" target="_blank"
                                     whileHover={{ scale: 1.1 }}
@@ -229,6 +249,22 @@ const Hero = () => {
                                 </AnimatePresence>
                             </div>
 
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.5, duration: 1 }} // Appears 1.5 seconds after page load
+                                className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                            >
+                                <div className="flex items-center gap-2 group">
+                                    {/* Pulsing indicator to grab attention without being annoying */}
+                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+
+                                    <p className="text-[10px] font-mono text-slate-400 uppercase tracking-widest transition-colors group-hover:text-slate-600">
+                                        Try typing <span className="text-slate-900 font-bold">"australia"</span> or <span className="text-slate-900 font-bold">"uk"</span>
+                                    </p>
+                                </div>
+                            </motion.div>
+
                             {/* Floating Orbiting Cards */}
 
                             {/* Machine Learning (Top Right) */}
@@ -242,8 +278,8 @@ const Hero = () => {
 
                             {/* Data Science (Bottom Left) */}
                             <FloatingCard
-                                title="Data Scientist"
-                                sub="Analyst"
+                                title="Data Alchemist"
+                                sub="Raw Chaos → Insights"
                                 icon={<LuDatabase className="w-6 h-6" />}
                                 className="-left-8 bottom-20 md:-left-12 lg:-left-16 lg:bottom-40 animate-[float_5s_ease-in-out_infinite_1s]"
                                 delay={0.4}
@@ -251,8 +287,8 @@ const Hero = () => {
 
                             {/* 15+ Tools (Bottom Right) */}
                             <FloatingCard
-                                title="15+ Tech Stack"
-                                sub="Stack"
+                                title="Full-Stack Data"
+                                sub="Python • SQL • Cloud"
                                 icon={<LuCode className="w-6 h-6" />}
                                 className="-right-4 bottom-4 md:right-0 lg:right-0 lg:bottom-12 animate-[float_6s_ease-in-out_infinite_0.5s]"
                                 delay={0.6}

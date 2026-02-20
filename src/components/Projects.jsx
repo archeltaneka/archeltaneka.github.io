@@ -5,8 +5,7 @@ const projectData = [
     {
         id: 'dag-nabit',
         title: 'DAG-nabit',
-        description: 'Interactive business strategy simulation dashboard designed to demonstrate the power of causal inference in marketing and customer targeting',
-        impact: "Visualized the impact of different marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
+        impact: "Visualized the impact of different business marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
         stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
         image: '/assets/img/dag-nabit.webp',
         github: 'https://github.com/archeltaneka/DAG-nabit',
@@ -16,9 +15,8 @@ const projectData = [
     {
         id: 'slot-filling',
         title: 'NLU Intent Detection & Slot Filling',
-        description: 'Comparative study of NLU architectures for conversational agents.',
-        impact: "Benchmarked 4 distinct architectures (CRF, Joint Bi-LSTM, Joint Bi-LSTM with Attention, and BERT), achieving +90% F1-score.",
-        stack_details: ["PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
+        impact: "Benchmarked 4 distinct NLU architectures (CRF, Joint Bi-LSTM, Joint Bi-LSTM with Attention, and BERT) for conversational agents, achieving +90% F1-score.",
+        stack_details: ["Python", "Streamlit", "PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
         image: '/assets/img/slot-filling-intent-detection.png',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
@@ -27,23 +25,11 @@ const projectData = [
     {
         id: 'melbourne-air',
         title: 'Melbourne Urban Analytics',
-        description: 'Spatiotemporal analysis of air quality and pedestrian traffic.',
-        impact: "Visualized correlation between traffic density and PM2.5 levels by combinng 765k+ records of environmental data and 8.7k+ records across 80+ locations of pedestrian data.",
-        stack_details: ["D3.js", "Tableau", "Python", "JavaScript"],
+        impact: "Visualized correlation between traffic density and air pollution levels by combinng 765k+ records of environmental data and 8.7k+ records across 80+ locations of pedestrian data.",
+        stack_details: ["Python", "HTML", "CSS", "D3.js", "Leaflet", "Tableau"],
         image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
-        type: 'app'
-    },
-    {
-        id: 'pokemon-battle',
-        title: 'Pokemon Battle Predictor',
-        description: 'Machine learning model to predict 1v1 battle outcomes.',
-        impact: "Deployed interactive RShiny app for real-time battle simulation with 90% predictive accuracy by leveraging type effectiveness analysis, moveset insights, and pokemon stats (HP, Attack, Defense, etc.)",
-        stack_details: ["R", "RShiny", "Random Forest", "XGBoost"],
-        image: '/assets/img/pokemon-battle-analysis.png',
-        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
-        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
         type: 'app'
     }
 ];
@@ -84,9 +70,6 @@ const ProjectCard = ({ project, index }) => {
                     <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
                         {project.title}
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                        {project.description}
-                    </p>
                 </div>
 
                 {/* Metrics / Impact Highlight */}
@@ -143,21 +126,29 @@ const Projects = () => {
         <section id="projects" className="py-32 bg-white">
             <div className="container mx-auto px-6 max-w-7xl">
 
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                    <div className="max-w-2xl">
-                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6">
-                            Selected Works<span className="text-blue-600">.</span>
+                {/* Header  */}
+                <div className="flex flex-col items-center justify-center text-center mb-16 md:mb-24 gap-6">
+                    <div className="max-w-3xl px-4">
+                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                            Selected Works
                         </h2>
-                        <p className="text-xl text-slate-500 font-light leading-relaxed">
-                            A showcase of technical problems solved with data, from end-to-end applications to deep analytical notebooks.
+                        <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
+                            A showcase of technical problems solved with data, from end-to-end
+                            <span className="text-blue-600 font-medium italic"> applications </span>
+                            to deep analytical <span className="text-blue-600 font-medium italic"> notebooks.</span>
                         </p>
                     </div>
 
-                    {/* Github Stat / Decorative */}
-                    <div className="hidden md:block text-right">
-                        <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Total Repositories</div>
-                        <div className="text-3xl font-black text-slate-800">25+</div>
+                    {/* Github Stat*/}
+                    <div className="flex flex-col items-center">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
+                            Total Repositories
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="h-[1px] w-8 bg-slate-200" />
+                            <div className="text-2xl font-black text-slate-800">25+</div>
+                            <div className="h-[1px] w-8 bg-slate-200" />
+                        </div>
                     </div>
                 </div>
 
