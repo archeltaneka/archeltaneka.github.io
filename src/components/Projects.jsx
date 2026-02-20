@@ -34,17 +34,6 @@ const projectData = [
         github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
         live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
         type: 'app'
-    },
-    {
-        id: 'pokemon-battle',
-        title: 'Pokemon Battle Predictor',
-        description: 'Machine learning model to predict 1v1 battle outcomes.',
-        impact: "Deployed interactive RShiny app for real-time battle simulation with 90% predictive accuracy by leveraging type effectiveness analysis, moveset insights, and pokemon stats (HP, Attack, Defense, etc.)",
-        stack_details: ["R", "RShiny", "Random Forest", "XGBoost"],
-        image: '/assets/img/pokemon-battle-analysis.png',
-        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
-        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
-        type: 'app'
     }
 ];
 
