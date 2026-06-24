@@ -21,6 +21,7 @@ const skillGroups = [
             { name: 'Pandas', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
             { name: 'NumPy', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
             { name: 'Matplotlib', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg' },
+            { name: 'LLama', logo: 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/ollama.svg' }
         ]
     },
     {
@@ -37,7 +38,8 @@ const skillGroups = [
         skills: [
             { name: 'GCP', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg' },
             { name: 'BigQuery', logo: 'https://www.vectorlogo.zone/logos/google_bigquery/google_bigquery-icon.svg' },
-            { name: 'PySpark', logo: 'https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/apachespark/apachespark-original.svg' }
+            { name: 'PySpark', logo: 'https://raw.githubusercontent.com/devicons/devicon/54cfe13ac10eaa1ef817a343ab0a9437eb3c2e08/icons/apachespark/apachespark-original.svg' },
+            { name: 'Databricks', logo: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/databricks.svg' }
         ]
     }
 ];

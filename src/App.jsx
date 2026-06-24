@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Impact from './components/Impact';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Timeline from './components/Timeline';
@@ -14,17 +14,17 @@ console.log(`%c
     ▀░░▀ ▀░▀ ▀▀▀ ▀░░▀ ▀░░▀ ░░▀░░ ░░ ▀▀▀ ▀▀▀ ▀▀▀ ▀░░▀ ▀░▀▀ ▀░░▀
 %c
 If you can read this, then congrats! You're not a typical HR guy.
-There's nothing to see here actually 😆, but the fact that you can see this, we might talk within the same frequency.
+There's nothing to see here actually, but the fact that you can see this means we might talk within the same frequency.
 
-Here's my other useless info that are useless and unrelated with my profile:
-- Nationality: Indonesian. Yeah yeah I know, you might think I'm a Japanese cuz of my name but I'm a proud Indonesian! Except for the government🤪.
-- MBTI: ISTJ (99% introverted lol)
+Here's a little extra context beyond the resume:
+- Nationality: Indonesian.
+- MBTI: ISTJ.
 - Blood type: O
 - Zodiac: Taurus
-- Hobbies: Listening to music, watching tech reviews on youtube, gym.
-- Sports I played: Table tennis, fencing. (Emphasis on the 'ed' so I don't play them regularly anymore lol)
+- Hobbies: Listening to music, watching tech reviews on YouTube, gym.
+- Sports I played: Table tennis, fencing.
 
-Now tell your HR manager to hire me before my mom does!
+Now tell your hiring manager I care about both signal and implementation.
 `,
   "color: #E6E6FA; font-weight: bold;",
   "color: #6594B1; font-style: italic;");
@@ -36,7 +36,7 @@ function App() {
     const originalTitle = document.title || "My Portfolio";
 
     const handleBlur = () => {
-      document.title = "Looking for other candidates?🤔 They are boring anyway...";
+      document.title = "Still reviewing data science candidates?";
     };
 
     const handleFocus = () => {
@@ -57,8 +57,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Timeline />
+        <Impact />
         <Projects />
+        <Timeline />
         <Skills />
         <Contact />
       </main>

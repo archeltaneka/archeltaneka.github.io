@@ -15,9 +15,10 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', href: '#home' },
-        { name: 'Timeline', href: '#timeline' },
-        { name: 'Skills', href: '#skills' },
+        { name: 'Impact', href: '#impact' },
         { name: 'Projects', href: '#projects' },
+        { name: 'Experience', href: '#timeline' },
+        { name: 'Skills', href: '#skills' },
         { name: 'Contact', href: '#contact' },
     ];
 
@@ -49,6 +50,8 @@ const Navbar = () => {
                 <button
                     className="md:hidden text-slate-900 p-2"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    aria-label="Toggle navigation menu"
+                    aria-expanded={mobileMenuOpen}
                 >
                     <div className="space-y-1.5 w-6">
                         <span className={`block w-full h-0.5 bg-current transition-transform ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
