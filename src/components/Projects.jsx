@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const projectData = [
     {
+        id: 'cherebowl',
+        title: 'ChèreBowl',
+        problem: "Food insecurity data and emergency relief service information were scattered across multiple public sources, making it difficult to identify where need, access barriers, and available support overlap.",
+        method: "Designed an end-to-end unified data pipeline including schema-backed loading, Victorian LGA geospatial joins, food-insecurity metric aggregation, and interactive Mapbox/D3 visual analytics.",
+        result: "Cleaned, wrangled, and transformed raw public datasets from 10+ different sources into translatable, easy-to-digest, and communicable insights",
+        stack_details: [
+            "Python",
+            "Pandas",
+            "GeoPandas",
+            "FastAPI",
+            "SQLAlchemy",
+            "PostgreSQL/PostGIS",
+            "Nuxt",
+            "Vue",
+            "Mapbox GL",
+            "D3.js"
+        ],
+        image: '/assets/img/cherebowl.webp',
+        github: 'https://github.com/TP14-5201/aegis',
+        live: 'https://cherebowl.vercel.app/',
+        type: 'app'
+    },
+    {
         id: 'dag-nabit',
         title: 'DAG-nabit',
-        impact: "Visualized the impact of different business marketing strategies on customer behavior using causal inference, leading to an increase of +3.88% purchase probability average with 1.05% error.",
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
         stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
         image: '/assets/img/dag-nabit.webp',
         github: 'https://github.com/archeltaneka/DAG-nabit',
@@ -15,26 +40,18 @@ const projectData = [
     {
         id: 'slot-filling',
         title: 'NLU Intent Detection & Slot Filling',
-        impact: "Benchmarked 4 distinct NLU architectures (CRF, Joint Bi-LSTM, Joint Bi-LSTM with Attention, and BERT) for conversational agents, achieving +90% F1-score.",
+        problem: "Conversational agents need reliable intent and slot extraction before downstream automation can be trusted.",
+        method: "Benchmarked CRF, Joint Bi-LSTM, attention-based Bi-LSTM, and BERT models with consistent evaluation.",
+        result: "Achieved 90%+ F1-score across the strongest NLU architectures.",
         stack_details: ["Python", "Streamlit", "PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
-        image: '/assets/img/slot-filling-intent-detection.png',
+        image: '/assets/img/slot-filling-intent-detection.webp',
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
-        type: 'app'
-    },
-    {
-        id: 'melbourne-air',
-        title: 'Melbourne Urban Analytics',
-        impact: "Visualized correlation between traffic density and air pollution levels by combinng 765k+ records of environmental data and 8.7k+ records across 80+ locations of pedestrian data.",
-        stack_details: ["Python", "HTML", "CSS", "D3.js", "Leaflet", "Tableau"],
-        image: '/assets/img/melbourne-air-quality-pedestrian-traffic-analysis.webp',
-        github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
-        live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
         type: 'app'
     }
 ];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project }) => {
     return (
         <motion.div
             variants={{
@@ -72,13 +89,18 @@ const ProjectCard = ({ project, index }) => {
                     </h3>
                 </div>
 
-                {/* Metrics / Impact Highlight */}
-                <div className="mb-6 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-                    <div className="flex items-start gap-2">
-                        <svg className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        <p className="text-xs md:text-sm font-medium text-blue-800">
-                            {project.impact}
-                        </p>
+                <div className="space-y-4 mb-6">
+                    <div>
+                        <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Problem</div>
+                        <p className="text-sm text-slate-600 leading-relaxed">{project.problem}</p>
+                    </div>
+                    <div>
+                        <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Method</div>
+                        <p className="text-sm text-slate-600 leading-relaxed">{project.method}</p>
+                    </div>
+                    <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
+                        <div className="text-[10px] font-black uppercase tracking-wider text-blue-500 mb-1">Result</div>
+                        <p className="text-sm font-bold text-blue-900">{project.result}</p>
                     </div>
                 </div>
 
@@ -130,19 +152,18 @@ const Projects = () => {
                 <div className="flex flex-col items-center justify-center text-center mb-16 md:mb-24 gap-6">
                     <div className="max-w-3xl px-4">
                         <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-                            Selected Works
+                            Selected Case Studies
                         </h2>
                         <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
-                            A showcase of technical problems solved with data, from end-to-end
-                            <span className="text-blue-600 font-medium italic"> applications </span>
-                            to deep analytical <span className="text-blue-600 font-medium italic"> notebooks.</span>
+                            Projects selected for decision quality: causal reasoning, model evaluation,
+                            deployment-minded interfaces, and measurable business or user impact.
                         </p>
                     </div>
 
                     {/* Github Stat*/}
                     <div className="flex flex-col items-center">
                         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
-                            Total Repositories
+                            Public Repositories
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="h-[1px] w-8 bg-slate-200" />
@@ -166,8 +187,8 @@ const Projects = () => {
                     }}
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
-                    {projectData.map((project, index) => (
-                        <ProjectCard key={project.id} project={project} index={index} />
+                    {projectData.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
                     ))}
                 </motion.div>
 

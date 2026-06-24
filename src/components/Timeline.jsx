@@ -9,12 +9,14 @@ const experienceData = [
         company: "tiket.com",
         location: "Jakarta, Indonesia",
         date: "Oct 2022 - Jul 2024",
-        logo: "/assets/img/tiket-logo.png",
-        description: "Led high-impact ML initiatives for one of SE Asia's largest travel platforms.",
+        logo: "/assets/img/tiket-logo.webp",
+        focus: "Product ML, experimentation, marketplace quality",
+        description: "Product data science role across payments, hotel discovery, listing quality, and marketplace operations at one of Southeast Asia's largest online travel platforms.",
         achievements: [
-            "Generated IDR 94B+ incremental GBV by engineering a Scikit-learn payment recommendation engine that analyzed 15+ payment methods, boosting conversion by 4.8%.",
-            "Unlocked IDR 47B annual revenue impact with a deep learning classifier that filtered low-quality hotel images, reducing bounce rates by 18%.",
-            "Drove IDR 8B revenue uplift by optimizing hotel recommendations with ensemble models and geospatial analytics, outperforming existing baselines."
+            "Partnered with product, engineering, and commercial teams to translate experimentation, personalization, and ML systems into checkout, discovery, and marketplace-quality decisions.",
+            "Worked across marketplace-scale data including 15+ payment methods, 15,000+ hotel listings, four customer segments, and 12,000+ hotel properties.",
+            "Built and evaluated production-oriented ML workflows spanning recommendation systems, computer vision, entity matching, and NLP automation.",
+            "Improved operational decision-making through CatBoost-based hotel entity matching, reducing duplicate inventory by 34% and weekly manual review from 120 hours to 15 hours."
         ],
         image: "/assets/img/tiket.webp"
     },
@@ -24,12 +26,13 @@ const experienceData = [
         company: "Sayurbox",
         location: "Jakarta, Indonesia",
         date: "May 2020 - Oct 2021",
-        logo: "/assets/img/sayurbox-logo.png",
-        description: "Focusing on demand forecasting and logistics optimization for e-grocery.",
+        logo: "/assets/img/sayurbox-logo.webp",
+        focus: "Forecasting, workforce planning, logistics",
+        description: "Earlier data science role in e-grocery operations, focused on demand forecasting, workforce planning, and logistics optimization.",
         achievements: [
-            "Engineered weekly demand forecasting model using FBProphet.",
-            "Streamlined order preparation workflows via automated workforce scheduling.",
-            "Implemented dynamic route assignment algorithms for driver deployment."
+            "Built weekly demand-forecasting workflows to support inventory and fulfillment planning.",
+            "Automated workforce scheduling inputs for order preparation operations.",
+            "Developed route-assignment logic to improve driver deployment decisions."
         ],
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
     }
@@ -38,13 +41,14 @@ const experienceData = [
 const educationData = [
     {
         id: 'monash',
-        degree: "Master of Science",
+        degree: "M.Sc. Data Science",
         school: "Monash University",
         location: "Melbourne, Australia",
-        date: "Jul 2024 - Present",
-        logo: "/assets/img/monash-logo.png",
-        description: "Majoring in Data Science, focusing on advanced statistical techniques and big data processing. Key units:",
-        details: ["Foundationals of Data Science", "Data Exploration & Visualization", "Data Wrangling", "Statistical Modelling", "Big Data Processing", "Applied Data Analysis"],
+        date: "2024 - 2026",
+        logo: "/assets/img/monash-logo.webp",
+        focus: "Completed Jun 2026; graduation Oct 2026",
+        description: "Graduate study in data science with emphasis on statistical modelling, big data processing, applied analysis, and data visualization.",
+        details: ["Statistical Modelling", "Big Data Processing", "Applied Data Analysis", "Data Exploration & Visualization", "Data Wrangling", "Business Analysis"],
         image: "/assets/img/monash.webp"
     },
     {
@@ -53,7 +57,8 @@ const educationData = [
         school: "University of Nottingham",
         location: "Nottingham, United Kingdom",
         date: "Sep 2019 - Sep 2020",
-        logo: "/assets/img/nottingham-logo.png",
+        logo: "/assets/img/nottingham-logo.webp",
+        focus: "Computer Science with AI",
         description: "Undergraduate double degree program in Computer Science with AI.",
         details: ["Graduated with First Class Honors", "Undergraduate Dissertation: Chest X-ray Classification | Supervisor: Dr. Chao Chen"],
         image: "/assets/img/nottingham.webp"
@@ -64,7 +69,8 @@ const educationData = [
         school: "Bina Nusantara University",
         location: "Jakarta, Indonesia",
         date: "Sep 2016 - Sep 2020",
-        logo: "/assets/img/binus-logo.png",
+        logo: "/assets/img/binus-logo.webp",
+        focus: "Computer Science foundation",
         description: "Undergraduate studies in Computer Science.",
         details: ["Teaching Assistant for 'Introduction to Database' unit", "International Program Mentor"],
         image: "/assets/img/binus.webp"
@@ -185,6 +191,11 @@ const TimelineNode = ({ data, type, isLast }) => {
                             <div className="text-blue-600 font-medium text-sm">
                                 {isExp ? data.company : data.school}
                             </div>
+                            {data.focus && (
+                                <div className="mt-2 text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">
+                                    {data.focus}
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -216,9 +227,9 @@ const Timeline = () => {
 
                 {/* Header */}
                 <div className="text-center mb-20 space-y-4">
-                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">The Journey</h2>
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Experience & Education</h2>
                     <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
-                        A timeline of <span className="text-blue-600 font-medium italic">professional growth</span> and <span className="text-blue-600 font-medium italic">academic milestones</span>.
+                        The operating context behind the selected impact: where the work happened, what scope it covered, and how the technical foundation was built.
                     </p>
                 </div>
 

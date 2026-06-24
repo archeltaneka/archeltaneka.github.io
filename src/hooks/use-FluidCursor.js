@@ -235,6 +235,7 @@ const useFluidCursor = () => {
        }
    `
     );
+    // eslint-disable-next-line no-unused-vars
     const blurVertexShader = compileShader(
         gl.VERTEX_SHADER,
         `
@@ -255,6 +256,7 @@ const useFluidCursor = () => {
        }
    `
     );
+    // eslint-disable-next-line no-unused-vars
     const blurShader = compileShader(
         gl.FRAGMENT_SHADER,
         `
@@ -303,6 +305,7 @@ const useFluidCursor = () => {
        }
    `
     );
+    // eslint-disable-next-line no-unused-vars
     const colorShader = compileShader(
         gl.FRAGMENT_SHADER,
         `
@@ -777,6 +780,7 @@ const useFluidCursor = () => {
         target.texelSizeY = 1.0 / h;
         return target;
     }
+    // eslint-disable-next-line no-unused-vars
     function createTextureAsync(url) {
         let texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);

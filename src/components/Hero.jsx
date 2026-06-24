@@ -1,14 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LuArrowRight, LuGithub, LuLinkedin, LuFileText, LuBrain, LuDatabase, LuCode, LuMail } from 'react-icons/lu';
+
+const proofPoints = [
+    { value: '$8.3M (IDR 149B+)', label: 'measured impact' },
+    { value: '4.8%', label: 'conversion lift' },
+    { value: '87%', label: 'operational efficiency gain' },
+];
+
+const FloatingCard = ({ title, sub, icon, className, delay }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay, duration: 0.5 }}
+        className={`absolute bg-white/90 backdrop-blur-md p-2 md:p-4 rounded-xl md:rounded-2xl shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] border border-slate-100 flex items-center gap-2 md:gap-4 z-20 ${className}`}
+    >
+        <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 bg-blue-50 text-blue-600">
+            <div className="scale-75 md:scale-100">{icon}</div>
+        </div>
+        <div className="text-left">
+            <div className="text-[10px] md:text-sm font-bold text-slate-900 leading-tight whitespace-nowrap">{title}</div>
+            <div className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{sub}</div>
+        </div>
+    </motion.div>
+);
 
 const Hero = () => {
     // --- Easter Eggs State ---
     const [isHovered, setIsHovered] = useState(false);
     const [isRevealed, setIsRevealed] = useState(false);
-
-    // Copy Email State
-    const [copied, setCopied] = useState(false);
 
     // Profile Photo Easter Egg
     const [activePhoto, setActivePhoto] = useState('/assets/img/profile.webp');
@@ -19,7 +39,7 @@ const Hero = () => {
         });
     }, []);
 
-    const [inputSequence, setInputSequence] = useState('');
+    const [, setInputSequence] = useState('');
 
     // --- Effects ---
     useEffect(() => {
@@ -37,32 +57,8 @@ const Hero = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText("archeltaneka@gmail.com");
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
-    // --- Floating Card Component ---
-    const FloatingCard = ({ title, sub, icon, className, delay }) => (
-        <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay, duration: 0.5 }}
-            className={`absolute bg-white/90 backdrop-blur-md p-2 md:p-4 rounded-xl md:rounded-2xl shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] border border-slate-100 flex items-center gap-2 md:gap-4 z-20 ${className}`}
-        >
-            <div className={`w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 ${sub === 'Stack' ? 'bg-indigo-50 text-indigo-600' : 'bg-blue-50 text-blue-600'}`}>
-                <div className="scale-75 md:scale-100">{icon}</div>
-            </div>
-            <div className="text-left">
-                <div className="text-[10px] md:text-sm font-bold text-slate-900 leading-tight whitespace-nowrap">{title}</div>
-                <div className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">{sub}</div>
-            </div>
-        </motion.div>
-    );
-
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden pt-20">
+        <section id="home" className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden pt-24 pb-16 lg:pt-20 lg:pb-10">
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-[50vw] h-[50vh] bg-gradient-to-b from-blue-50/50 to-transparent rounded-bl-[100px] pointer-events-none" />
 
@@ -85,7 +81,7 @@ const Hero = () => {
                                 }
                             }
                         }}
-                        className="text-center lg:text-left space-y-8 order-2 lg:order-1"
+                        className="text-center lg:text-left space-y-7 order-1 lg:order-1"
                     >
 
                         {/* Name Reveal Interaction */}
@@ -108,7 +104,7 @@ const Hero = () => {
                                     setIsRevealed(false); // Reset reveal when mouse leaves on desktop
                                 }}
                             >
-                                <div className="text-xl md:text-2xl font-bold text-slate-500 mb-2 tracking-wide uppercase">Hello🙋‍♂️, I'm</div>
+                                <div className="text-base md:text-xl font-bold text-slate-500 mb-2 tracking-wide uppercase">Hello, I'm</div>
 
                                 {/* Container for both name layers */}
                                 <div className="relative">
@@ -124,11 +120,11 @@ const Hero = () => {
                                                 : 'none',
                                         }}
                                     >
-                                        <h1 className={`text-6xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9] transition-opacity duration-300 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}>
-                                            ARCHEL
+                                        <h1 className={`text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9] transition-opacity duration-300 ${isRevealed ? 'opacity-0' : 'opacity-100'}`}>
+                                            ARCHEL T.
                                             <br />
                                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                                                TANEKA
+                                                SUTANTO
                                             </span>
                                         </h1>
                                     </div>
@@ -144,7 +140,7 @@ const Hero = () => {
                                             transition: 'clip-path 0.5s ease, opacity 0.5s ease'
                                         }}
                                     >
-                                        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9]">
+                                        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tighter leading-[0.9]">
                                             陈
                                             <br />
                                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -158,10 +154,28 @@ const Hero = () => {
 
                         <motion.p
                             variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-                            className="text-xl text-slate-500 leading-relaxed max-w-lg mx-auto lg:mx-0"
+                            className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
                         >
-                            Data Scientist designing intelligent systems.
-                            I bridge the gap between <span className="text-slate-800 font-semibold">messy data</span> and <span className="text-slate-800 font-semibold">high-stakes strategic decisions.</span>
+                            Product Data Scientist turning <span className="text-slate-900 font-semibold">experimentation</span>, <span className="text-slate-900 font-semibold">causal inference</span>, and <span className="text-slate-900 font-semibold">machine learning</span> into measurable product and revenue decisions.
+                        </motion.p>
+
+                        <motion.div
+                            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                            className="grid grid-cols-3 gap-3 max-w-xl mx-auto lg:mx-0"
+                        >
+                            {proofPoints.map((point) => (
+                                <div key={point.label} className="border border-slate-200 rounded-xl px-3 py-3 md:px-4 bg-white shadow-sm">
+                                    <div className="text-lg md:text-2xl font-black text-slate-900 leading-tight">{point.value}</div>
+                                    <div className="text-[10px] md:text-[11px] uppercase tracking-wider font-bold text-slate-500 mt-1">{point.label}</div>
+                                </div>
+                            ))}
+                        </motion.div>
+
+                        <motion.p
+                            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                            className="text-sm md:text-base font-semibold text-blue-700"
+                        >
+                            Targeting Product Data Scientist, Data Scientist, and Machine Learning Engineer roles.
                         </motion.p>
 
                         {/* CTAs */}
@@ -170,12 +184,12 @@ const Hero = () => {
                             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2"
                         >
                             <motion.a
-                                href="#projects"
+                                href="#impact"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="group flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
                             >
-                                View Work
+                                View Impact
                                 <LuArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </motion.a>
 
@@ -197,20 +211,25 @@ const Hero = () => {
                                     whileHover={{ scale: 1.1 }}
                                     className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-red-500 hover:bg-red-50 transition-colors"
                                     title="Send Email"
+                                    aria-label="Email Archel"
                                 >
                                     <LuMail className="w-6 h-6" />
                                 </motion.a>
                                 <motion.a
                                     href="https://github.com/archeltaneka" target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ scale: 1.1 }}
                                     className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                                    aria-label="GitHub profile"
                                 >
                                     <LuGithub className="w-6 h-6" />
                                 </motion.a>
                                 <motion.a
                                     href="https://linkedin.com/in/archel-taneka-sutanto" target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ scale: 1.1 }}
                                     className="p-4 bg-slate-50 rounded-2xl text-slate-600 hover:text-blue-700 hover:bg-slate-100 transition-colors"
+                                    aria-label="LinkedIn profile"
                                 >
                                     <LuLinkedin className="w-6 h-6" />
                                 </motion.a>
@@ -219,7 +238,7 @@ const Hero = () => {
                     </motion.div>
 
                     {/* --- Right Column: Image & Floating Cards --- */}
-                    <div className="relative order-1 lg:order-2 flex justify-center lg:block">
+                    <div className="relative order-2 lg:order-2 flex justify-center lg:block mt-6 lg:mt-0">
 
                         {/* Central Image Container */}
                         <motion.div
@@ -269,8 +288,8 @@ const Hero = () => {
 
                             {/* Machine Learning (Top Right) */}
                             <FloatingCard
-                                title="Machine Learning"
-                                sub="Architect"
+                                title="Experimentation"
+                                sub="A/B Testing • Causal"
                                 icon={<LuBrain className="w-6 h-6" />}
                                 className="-right-8 top-12 md:-right-12 lg:-right-8 lg:top-32 animate-[float_4s_ease-in-out_infinite]"
                                 delay={0.2}
@@ -278,8 +297,8 @@ const Hero = () => {
 
                             {/* Data Science (Bottom Left) */}
                             <FloatingCard
-                                title="Data Alchemist"
-                                sub="Raw Chaos → Insights"
+                                title="Product ML"
+                                sub="Recommendations • Classification"
                                 icon={<LuDatabase className="w-6 h-6" />}
                                 className="-left-8 bottom-20 md:-left-12 lg:-left-16 lg:bottom-40 animate-[float_5s_ease-in-out_infinite_1s]"
                                 delay={0.4}
@@ -287,8 +306,8 @@ const Hero = () => {
 
                             {/* 15+ Tools (Bottom Right) */}
                             <FloatingCard
-                                title="Full-Stack Data"
-                                sub="Python • SQL • Cloud"
+                                title="Analytics Engineering"
+                                sub="Python • SQL • BigQuery"
                                 icon={<LuCode className="w-6 h-6" />}
                                 className="-right-4 bottom-4 md:right-0 lg:right-0 lg:bottom-12 animate-[float_6s_ease-in-out_infinite_0.5s]"
                                 delay={0.6}
