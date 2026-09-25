@@ -12,17 +12,31 @@ Personal portfolio for Archel Taneka Sutanto, focused on product data science, m
 
 ## Local Development
 
+Use Bun 1.4.2 (the version recorded in `package.json`).
+
 ```bash
-npm install
-npm run dev
+bun install --frozen-lockfile
+bun run dev
 ```
 
 ## Quality Checks
 
 ```bash
-npm run lint
-npm run build
+bun run lint
+bun run build
 ```
+
+Commit `bun.lock` when dependencies change. Use `bun add <package>` or
+`bun add --dev <package>` to add dependencies.
+
+## Deployment
+
+```bash
+bun run deploy
+```
+
+The `predeploy` script builds the site before `gh-pages` publishes `dist/`.
+To preview a production build locally, run `bun run preview` after building.
 
 ## Content Priorities
 
