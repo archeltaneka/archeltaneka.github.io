@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-28T13:52:55.570100+00:00",
+  "title": "Design System: Archel Taneka — Underwater Landing",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "neutral",
+        "displayName": "Midnight navy",
+        "tonalRamp": [
+          "oklch(15.00% 0.05989 260.20)",
+          "oklch(26.43% 0.05989 260.20)",
+          "oklch(37.86% 0.05989 260.20)",
+          "oklch(49.29% 0.05989 260.20)",
+          "oklch(60.71% 0.05989 260.20)",
+          "oklch(72.14% 0.05989 260.20)",
+          "oklch(83.57% 0.05989 260.20)",
+          "oklch(95.00% 0.05989 260.20)"
+        ]
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Cobalt blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.17674 262.21)",
+          "oklch(26.43% 0.17674 262.21)",
+          "oklch(37.86% 0.17674 262.21)",
+          "oklch(49.29% 0.17674 262.21)",
+          "oklch(60.71% 0.17674 262.21)",
+          "oklch(72.14% 0.17674 262.21)",
+          "oklch(83.57% 0.17674 262.21)",
+          "oklch(95.00% 0.17674 262.21)"
+        ]
+      },
+      "cyan": {
+        "role": "secondary",
+        "displayName": "Luminous cyan",
+        "tonalRamp": [
+          "oklch(15.00% 0.10592 195.49)",
+          "oklch(26.43% 0.10592 195.49)",
+          "oklch(37.86% 0.10592 195.49)",
+          "oklch(49.29% 0.10592 195.49)",
+          "oklch(60.71% 0.10592 195.49)",
+          "oklch(72.14% 0.10592 195.49)",
+          "oklch(83.57% 0.10592 195.49)",
+          "oklch(95.00% 0.10592 195.49)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Cool white",
+        "tonalRamp": [
+          "oklch(15.00% 0.00844 225.08)",
+          "oklch(26.43% 0.00844 225.08)",
+          "oklch(37.86% 0.00844 225.08)",
+          "oklch(49.29% 0.00844 225.08)",
+          "oklch(60.71% 0.00844 225.08)",
+          "oklch(72.14% 0.00844 225.08)",
+          "oklch(83.57% 0.00844 225.08)",
+          "oklch(95.00% 0.00844 225.08)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Pale blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.05178 237.71)",
+          "oklch(26.43% 0.05178 237.71)",
+          "oklch(37.86% 0.05178 237.71)",
+          "oklch(49.29% 0.05178 237.71)",
+          "oklch(60.71% 0.05178 237.71)",
+          "oklch(72.14% 0.05178 237.71)",
+          "oklch(83.57% 0.05178 237.71)",
+          "oklch(95.00% 0.05178 237.71)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Main-menu labels."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Identity badge name."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Polite destination status."
+      },
+      "specialization": {
+        "displayName": "Specialization",
+        "purpose": "Compact specialization bullets inside the identity badge."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Interaction hints and motion control."
+      }
+    },
+    "shadows": [
+      {
+        "name": "mobile-menu-text",
+        "value": "0 2px 12px #07133480",
+        "purpose": "Unselected mobile navigation over illustration; text-shadow, not box-shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Entrance and supporting interaction easing."
+      },
+      {
+        "name": "ease-snap",
+        "value": "cubic-bezier(.2, 1.35, .35, 1)",
+        "purpose": "Selection transform overshoot."
+      },
+      {
+        "name": "selection-duration",
+        "value": "190ms",
+        "purpose": "Menu state transition."
+      },
+      {
+        "name": "character-dive",
+        "value": "1150ms",
+        "purpose": "Visible character descent; no content fade."
+      },
+      {
+        "name": "identity-dive",
+        "value": "950ms",
+        "purpose": "Visible badge descent."
+      },
+      {
+        "name": "menu-dive",
+        "value": "900ms; stagger 35ms",
+        "purpose": "Cancelled on menu input."
+      },
+      {
+        "name": "dive-wash",
+        "value": "1150ms",
+        "purpose": "Nonblocking water wash."
+      },
+      {
+        "name": "dive-ripple",
+        "value": "1050ms; outer delay 110ms",
+        "purpose": "Expanding entrance ripples."
+      },
+      {
+        "name": "dive-spray",
+        "value": "1100ms; stagger 0–105ms",
+        "purpose": "Decorative entrance droplets."
+      },
+      {
+        "name": "character-float",
+        "value": "8s; delay 1150ms; alternate",
+        "purpose": "Translate Y −4px to 7px and rotate −.3deg to .3deg."
+      },
+      {
+        "name": "selection-pulse",
+        "value": "3.2s",
+        "purpose": "White backing scale and cyan edge opacity."
+      },
+      {
+        "name": "name-scroll",
+        "value": "34s linear infinite",
+        "purpose": "Vertical ribbon translates −50% for seamless repeated content."
+      },
+      {
+        "name": "surface-drift",
+        "value": "13s alternate",
+        "purpose": "Surface reflections drift."
+      },
+      {
+        "name": "environment-light",
+        "value": "16s alternate",
+        "purpose": "Ambient light drifts."
+      },
+      {
+        "name": "water-rays",
+        "value": "21s alternate-reverse",
+        "purpose": "Rays drift independently."
+      },
+      {
+        "name": "bubble-rise",
+        "value": "12–28s linear infinite",
+        "purpose": "Twenty fixed seeds rise through max(120svh, 1100px)."
+      },
+      {
+        "name": "pause",
+        "value": "animation-play-state: paused !important",
+        "purpose": "All descendants and pseudo-elements; splash wrapper opacity: 0 preserves state and prevents completed splash replay."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none !important; transition: none !important",
+        "purpose": "All landing descendants and pseudo-elements; hide entry and motion button, keep static bubbles, use automatic scroll."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "599px"
+      },
+      {
+        "name": "tablet-min",
+        "value": "600px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "899px"
+      },
+      {
+        "name": "desktop-min",
+        "value": "900px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1199px"
+      },
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-desktop-height-max",
+        "value": "800px"
+      }
+    ],
+    "layout": {
+      "desktopMenu": {
+        "left": "46%",
+        "top": "29%",
+        "width": "42%"
+      },
+      "identityBadge": {
+        "left": "3%",
+        "top": "5%",
+        "width": "480px",
+        "purpose": "Identity, role, and specialization share one badge.",
+        "scaleFromPrior": 1.5,
+        "compactWidth": "442.5px",
+        "mobileWidth": "min(calc(100% + 12px), 465px)",
+        "padding": "19.5px 25.5px",
+        "nameSize": "37.5px",
+        "specializationSize": "16.5px",
+        "mobileLeft": "12px",
+        "backgroundColor": "#ffffff",
+        "border": "1px solid #000000"
+      },
+      "desktopStatus": {
+        "right": "5%",
+        "bottom": "20%",
+        "width": "22%"
+      },
+      "tabletMenu": {
+        "left": "49%",
+        "top": "34%",
+        "width": "47%"
+      },
+      "mobile": {
+        "padding": "24px 24px 20px",
+        "purpose": "Identity, menu, status, and contact in document flow; illustration crops right."
+      },
+      "nameCarousel": {
+        "desktop": {
+          "width": "210px",
+          "fontSize": "176px"
+        },
+        "tablet": {
+          "width": "140px",
+          "fontSize": "124px"
+        },
+        "mobile": {
+          "width": "70px",
+          "fontSize": "62px"
+        },
+        "firstNameColor": "#808080",
+        "lastNameColor": "#000000"
+      }
+    },
+    "environment": {
+      "waterGradient": "radial-gradient(ellipse at var(--hair-x) var(--hair-y), var(--hair-blue) 0%, #002bb8eb 18%, transparent 62%), linear-gradient(180deg, #7df7f2 0%, #27badf 12%, #087bca 28%, #084bb2 47%, #082a83 70%, #03175c 100%)",
+      "purpose": "Bright turquoise surface darkens into blue depth, with a localized field sampled from the current illustration hair.",
+      "hairBlue": "#002bb8",
+      "hairPosition": {
+        "desktop": "24% 88%",
+        "mobile": "80% 76%"
+      },
+      "leftField": {
+        "color": "#ffffff",
+        "shape": "polygon(0 0, 44% 0, 34% 48%, 24% 78%, 16% 100%, 0 100%)"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Menu entry",
+      "kind": "nav",
+      "refersTo": "menu-control",
+      "description": "Unselected expressive main-menu control.",
+      "html": "<button class=\"ds-menu\">Experience</button>",
+      "css": ".ds-menu{position:relative;isolation:isolate;display:inline-flex;align-items:center;padding:0 18px 8px 12px;min-height:64px;border:0;background:transparent;color:#8bffff;font:700 clamp(54px,5.7vw,88px)/1.07 Antonio,sans-serif;letter-spacing:-.035em;text-transform:uppercase;cursor:pointer;transform:rotate(-8deg);transition:transform 190ms cubic-bezier(.2,1.35,.35,1),color 190ms}.ds-menu:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}.ds-menu:hover{transform:rotate(-8deg) translateX(12px) scale(1.12)}@media(prefers-reduced-motion:reduce){.ds-menu{transition:none}}"
+    },
+    {
+      "name": "Selected menu entry",
+      "kind": "nav",
+      "refersTo": "menu-selected",
+      "description": "White polygon with cyan offset and near-black selected text.",
+      "html": "<button class=\"ds-menu ds-selected\" aria-current=\"true\">About <svg width=\"25\" height=\"25\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-menu{position:relative;isolation:isolate;display:inline-flex;align-items:center;padding:0 18px 8px 12px;min-height:64px;border:0;background:transparent;color:#8bffff;font:700 clamp(54px,5.7vw,88px)/1.07 Antonio,sans-serif;letter-spacing:-.035em;text-transform:uppercase;cursor:pointer;transform:rotate(-8deg);transition:transform 190ms cubic-bezier(.2,1.35,.35,1),color 190ms}.ds-menu:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}.ds-menu:hover{transform:rotate(-8deg) translateX(12px) scale(1.12)}@media(prefers-reduced-motion:reduce){.ds-menu{transition:none}}.ds-selected{color:#061632;gap:14px}.ds-selected::before,.ds-selected::after{content:\"\";position:absolute;inset:-2px -16px -4px -15px;z-index:-1;clip-path:polygon(5% 9%,100% 0,94% 83%,0 100%);background:#f5fcff}.ds-selected::before{background:#8bffff;transform:translate(7px,7px)}"
+    },
+    {
+      "name": "Identity badge",
+      "kind": "custom",
+      "refersTo": "identity-badge",
+      "description": "Name, role, and specialization from the identity badge; portrait omitted from portable preview.",
+      "html": "<header class=\"ds-identity\"><button class=\"ds-name\"><span class=\"ds-en\">ARCHEL TANEKA</span><span class=\"ds-zh\" lang=\"zh\">陈文群</span></button><p>Product Data Scientist</p><ul class=\"ds-specialization\"><li>Experimentation</li><li>Machine Learning</li><li>Product Analytics</li><li>AI</li></ul></header>",
+      "css": ".ds-identity{display:inline-block;width:480px;padding:19.5px 25.5px;background:#fff;border:1px solid #000;color:#061632}.ds-name{position:relative;border:0;padding:2px 0;background:transparent;color:inherit;font:700 37.5px/1.15 Antonio,sans-serif;letter-spacing:-.025em;cursor:pointer}.ds-zh{position:absolute;left:0;top:0;opacity:0;font-family:sans-serif;letter-spacing:.14em}.ds-name:hover .ds-en,.ds-name:focus-visible .ds-en{opacity:0}.ds-name:hover .ds-zh,.ds-name:focus-visible .ds-zh{opacity:1}.ds-name:focus-visible{outline:3px solid #083da6;outline-offset:6px}.ds-identity p{font:600 12px Inter,sans-serif;margin:5px 0 0} .ds-specialization{display:flex;flex-wrap:wrap;gap:6px 14px;list-style:none;padding:11px 0 0;margin:11px 0 0;border-top:1px solid #0a377527;font:600 11px/1.5 Inter,sans-serif}.ds-specialization li{display:flex;align-items:center;gap:6px}.ds-specialization li::before{content:\"\";width:4px;height:4px;border-radius:50%;background:#087c96}"
+    },
+    {
+      "name": "Contact link",
+      "kind": "button",
+      "refersTo": "contact-link",
+      "description": "Upright contact text and directional line icon.",
+      "html": "<a class=\"ds-contact\" href=\"mailto:archeltaneka@gmail.com\">Email <svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-contact{display:inline-flex;align-items:center;gap:9px;min-height:44px;color:#f5fcff;font:600 13px Inter,sans-serif;text-decoration:none}.ds-contact svg{transform:rotate(-45deg);transition:transform 190ms cubic-bezier(.16,1,.3,1)}.ds-contact:hover{color:#8bffff}.ds-contact:hover svg{transform:translate(2px,-2px) rotate(-45deg)}.ds-contact:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-contact svg{transition:none}}"
+    },
+    {
+      "name": "Motion control",
+      "kind": "button",
+      "refersTo": "motion-toggle",
+      "description": "Pause/resume every animated layer; portable preview is static.",
+      "html": "<button class=\"ds-motion\" aria-pressed=\"false\" aria-label=\"Pause animation\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M8 5v14M16 5v14\"/></svg>Motion on</button>",
+      "css": ".ds-motion{display:flex;align-items:center;gap:6px;min-height:44px;padding:0;background:transparent;border:0;font:11px Inter,sans-serif;color:#c1e6ff;cursor:pointer}.ds-motion:hover{color:#f5fcff}.ds-motion:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-motion{display:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Underwater Main Menu",
+    "overview": "The underwater main menu moves from a bright turquoise surface through cobalt water to deep navy. Reflections, drifting rays, rising bubbles, and the original transparent character establish depth. Condensed, tilted navigation carries the expressive energy; upright supporting text keeps identity, specialization, resume access, and contact readable.\n\nThis document describes the landing mounted by `src/App.jsx`, grounded in `src/components/landing/` and the approved `.impeccable/surfaces/src-app-jsx.md` contract. Existing section components and factual data remain preserved but unmounted. The former Decision Journal documentation remains archived and does not govern this surface.",
+    "keyCharacteristics": [
+      "Bright surface reflections descend into a deep blue underwater stage.",
+      "The original transparent illustration sits closely beside oversized angled navigation.",
+      "A vertical name ribbon occupies the far left; identity and specialization share a compact badge.",
+      "A visible, nonblocking dive entrance settles into float, bubble, light, and selection motion."
+    ],
+    "rules": [
+      {
+        "name": "The Upright Support Rule",
+        "body": "Rotate expressive menu entries, but keep identity and supporting paragraphs upright.",
+        "section": "typography"
+      },
+      {
+        "name": "The Interruptible Water Rule",
+        "body": "Keep content immediately usable, and let visitors stop every animated layer.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do use the supplied original illustration and the original identity portrait with its alternate photos.",
+      "Do keep supporting text upright, readable, and clear of illustration and menu silhouettes.",
+      "Do preserve visible keyboard focus, native resume/contact links, and reduced-motion support.",
+      "Do preserve all four easter eggs: Chinese name, keyboard photos, console output, and tab/window title.",
+      "Do keep the landing-only scope explicit and preserve existing section components and factual data."
+    ],
+    "donts": [
+      "Don't ship reference game artwork, logos, characters, or icons.",
+      "Don't hide essential access behind hover or a blocking opening sequence.",
+      "Don't present the unbuilt menu destinations as completed pages.",
+      "Don't apply the archived Decision Journal palette or component rules to this landing."
+    ]
+  }
+}

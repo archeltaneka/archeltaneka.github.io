@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Impact from './components/Impact';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Timeline from './components/Timeline';
-import Contact from './components/Footer';
+import LandingPage from './components/landing/LandingPage';
 
 // Easter Egg: Console Log
 console.log(`%c
@@ -42,28 +36,24 @@ function App() {
     const handleFocus = () => {
       document.title = originalTitle;
     };
+    const handleVisibility = () => {
+      if (document.hidden) handleBlur();
+      else handleFocus();
+    };
 
     window.addEventListener('blur', handleBlur);
     window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       window.removeEventListener('blur', handleBlur);
       window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 
   return (
-    <div className="bg-white min-h-screen text-slate-900 font-inter">
-      <Navbar />
-      <main>
-        <Hero />
-        <Impact />
-        <Projects />
-        <Timeline />
-        <Skills />
-        <Contact />
-      </main>
-    </div>
+    <LandingPage />
   );
 }
 

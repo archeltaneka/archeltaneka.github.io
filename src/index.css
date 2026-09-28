@@ -37,8 +37,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
-  background-color: var(--color-morg-bg);
+  background-color: #0937c8;
   color: var(--color-morg-text);
 }
 
@@ -49,12 +48,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #65f5ff;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #c1e6ff;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
