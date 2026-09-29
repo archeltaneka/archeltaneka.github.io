@@ -20,37 +20,30 @@ try {
   assert.equal(await about.getAttribute('aria-current'), 'true');
   await about.focus();
   await page.keyboard.press('ArrowDown');
-  assert.equal(await menu.getByRole('button', { name: 'Experience', exact: true }).getAttribute('aria-current'), 'true');
-  await page.keyboard.press('Enter');
+  assert.equal(await about.getAttribute('aria-current'), 'true', 'Arrow keys no longer change menu selection');
+  assert.equal(await about.evaluate(el => el === document.activeElement), true, 'Arrow keys do not move menu focus');
+  await page.keyboard.press('Tab');
+  const experience = menu.getByRole('button', { name: 'Experience', exact: true });
+  assert.equal(await experience.evaluate(el => el === document.activeElement), true, 'Native Tab access remains');
+  await experience.click();
   assert.match(await page.getByRole('status').textContent(), /Experience.*coming next/i);
-  await page.keyboard.press('ArrowUp');
-  await page.keyboard.press('ArrowUp');
-  assert.equal(await menu.getByRole('link', { name: 'Resume', exact: true }).getAttribute('aria-current'), 'true');
+  await page.evaluate(() => document.activeElement.blur());
+  await page.keyboard.press('Enter');
+  assert.equal(await experience.evaluate(el => el === document.activeElement), false, 'Enter on the page does not focus or activate a menu item');
   await menu.getByRole('button', { name: 'Projects', exact: true }).hover();
   assert.equal(await menu.getByRole('button', { name: 'Projects', exact: true }).getAttribute('aria-current'), 'true');
   await menu.getByRole('button', { name: 'Skills', exact: true }).click();
   assert.match(await page.getByRole('status').textContent(), /Skills.*coming next/i);
   assert.equal(await page.locator('main > section').count(), 0, 'No destination sections are mounted');
-  // Catches loss of any of the four existing easter eggs.
+  // Console/title remain live; name/photo are retained in the unmounted AboutIdentity component.
   assert.ok(logs.some(text => text.includes('not a typical HR guy')));
   const title = await page.title();
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
   assert.notEqual(await page.title(), title);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   assert.equal(await page.title(), title);
-  await page.keyboard.type('australia');
-  assert.match(await page.locator('.identity-photo').getAttribute('src'), /profile-au/);
-  await page.keyboard.type('london');
-  assert.match(await page.locator('.identity-photo').getAttribute('src'), /profile-uk/);
-  await page.keyboard.type('reset');
-  assert.match(await page.locator('.identity-photo').getAttribute('src'), /profile.webp/);
-  await page.locator('.name-reveal').hover();
-  assert.equal(await page.locator('.chinese-name').evaluate(el => getComputedStyle(el).opacity), '1');
-  await page.locator('.name-reveal').focus();
-  await page.keyboard.press('Enter');
-  assert.equal(await page.locator('.name-reveal').getAttribute('aria-pressed'), 'true');
-  await page.keyboard.press('Enter');
-  assert.equal(await page.locator('.name-reveal').getAttribute('aria-pressed'), 'false');
+  assert.match(await page.getByRole('complementary', { name: 'Total measured impact' }).textContent(), /\$8\.3M.*IDR 149B\+/);
+  assert.equal(await page.locator('.name-reveal').count(), 0, 'Identity easter eggs are reserved for the future About section');
   // Resume must stay reachable through the menu after removing its duplicate actions.
   assert.equal(await page.locator('a[href$=".pdf"]').count(), 1, 'One clear resume action');
   assert.match(await menu.getByRole('link', { name: 'Resume', exact: true }).getAttribute('href'), /Resume.*pdf$/);
@@ -68,6 +61,8 @@ try {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => window.scrollTo(0, 0));
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${width}x${height}`);
+    const impactBox = await page.locator('.impact-card').boundingBox();
+    assert.ok(impactBox.x >= 0 && impactBox.x + impactBox.width <= width, `Impact card fits at ${width}`);
     for (const label of ['About','Experience','Projects','Skills']) {
       const control = menu.getByRole('button', { name: label, exact: true });
       await control.focus();
@@ -123,9 +118,7 @@ try {
   await touch.goto(baseURL);
   await touch.getByRole('button', { name: 'Projects', exact: true }).tap();
   assert.match(await touch.getByRole('status').textContent(), /Projects.*coming next/i);
-  await touch.locator('.name-reveal').tap();
-  assert.equal(await touch.locator('.name-reveal').getAttribute('aria-pressed'), 'true');
   await touchContext.close();
   assert.deepEqual(errors, []);
-  console.log('PASS: menu, early input, contact/resume, four easter eggs, reduced motion, 12 viewport sizes; no browser exceptions.');
+  console.log('PASS: menu, early input, contact/resume, console/title easter eggs, native keyboard access, reduced motion, 12 viewport sizes; no browser exceptions.');
 } finally { await browser.close(); }

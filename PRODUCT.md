@@ -41,3 +41,7 @@ Product Data Scientist specializing in experimentation, causal inference, and pr
 - Keep exploration optional; critical content must not depend on hidden interactions.
 - Preserve factual qualifications and metric definitions.
 - Translate reference principles into an original identity.
+
+## Confirmed landing update — 2026-09-29
+
+The user requested a compact “Total measured impact” card showing $8.3M / IDR 149B+. Keep its GBV/revenue qualifier; this is not a pure revenue claim. The old identity card, specializations, and two name/photo easter eggs are reserved for the future About section in AboutIdentity.jsx. Console/title easter eggs remain active. Remove custom keyboard navigation while retaining native accessible controls.

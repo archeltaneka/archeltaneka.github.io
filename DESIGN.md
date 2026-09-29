@@ -49,10 +49,11 @@ components:
     backgroundColor: "{colors.white}"
     textColor: "{colors.navy}"
     typography: "{typography.display}"
-  identity-badge:
+  impact-card:
     backgroundColor: "{colors.left-field}"
     textColor: "{colors.navy}"
-    padding: "19.5px 25.5px"
+    padding: "10px 13px"
+    width: "240px"
   contact-link:
     textColor: "{colors.white}"
   motion-toggle:
@@ -108,11 +109,11 @@ Menu entries are uppercase with individual rotations between −4 and −9 degre
 
 ## Layout
 
-Desktop uses a viewport-height layered stage (`100svh`, minimum 760px), an oversized transparent character at left, and a menu beginning at 46% from the left and 29% from the top. The far-left ribbon is 210px wide. Identity sits at top 5%, left 3%, with a 480px badge; specialization is inside this badge. The status region occupies the lower right above contacts. There is no centered card container.
+Desktop uses a viewport-height layered stage (`100svh`, minimum 760px), an oversized transparent character at left, and a menu beginning at 46% from the left and 29% from the top. The far-left ribbon is 210px wide. The impact card sits at top 5%, left 3%, at 240px wide and approximately 107px tall—half the former desktop identity card dimensions. It displays the user-supplied $8.3M / IDR 149B+ figure with a GBV/revenue qualifier. The character fills the stage height with proportional cover cropping, positioned at top -5% with 110% height to keep both edges covered during its float animation. The status region occupies the lower right above contacts. There is no centered card container.
 
-At 900–1199px, the badge narrows to 442.5px, the character occupies 53% width, and the menu begins at left 47%, top 38%. At desktop heights of 800px or less, the stage minimum becomes 800px and navigation tightens. At 1600px and above, menu type grows.
+At 900–1199px, the impact card stays 240px wide, the character occupies 53% width, and the menu begins at left 47%, top 38%. At desktop heights of 800px or less, the stage minimum becomes 800px and navigation tightens. At 1600px and above, menu type grows.
 
-At 600–899px, the stage minimum is 900px; the character crops beyond the left boundary, the menu begins at left 49%, top 34%, and the ribbon narrows to 140px. Below 600px, the stage uses document flow with 24px 24px 20px padding. Identity stays above the left menu, the cropped illustration moves right, and status/contact follow below. The ribbon narrows to 70px. Keyboard hints disappear; contact links wrap and all controls remain available. Short screens can scroll.
+At 600–899px, the stage minimum is 900px; the character crops beyond the left boundary, the menu begins at left 49%, top 34%, and the ribbon narrows to 140px. Below 600px, the stage uses document flow with 24px 24px 20px padding. The compact impact card stays above the left menu, the illustration fills the stage height and crops beyond its right edge, and status/contact follow below. The ribbon narrows to 70px. Custom keyboard navigation and its hints have been removed; contact links wrap and all controls remain available. Short screens can scroll.
 
 ## Elevation & Depth
 
@@ -120,19 +121,21 @@ Depth comes from the bright surface, translucent reflections and rays, rising ou
 
 ## Shapes
 
-Tilted typography and asymmetric selection polygons sit within fluid water forms. The menu backing is a clipped quadrilateral with its cyan layer offset by 7px on both axes. The identity badge is a pure-white rectangle with a 1px black border, with a subtle internal divider above specialization. Circular bubbles, elliptical ripples, and curved surface reflections carry the aquatic character. Avoid replacing the menu silhouette with rounded cards.
+Tilted typography and asymmetric selection polygons sit within fluid water forms. The menu backing is a clipped quadrilateral with its cyan layer offset by 7px on both axes. The impact card is a compact pure-white rectangle with a 1px black border. Irregular foam edges, rising bubbles, and curved surface reflections carry the aquatic character. Avoid replacing the menu silhouette with rounded cards.
 
 ## Components
 
 ### Main menu
 
-Five entries—About, Experience, Projects, Skills, Resume—form the primary navigation. Hover and keyboard focus update the current entry; arrow keys wrap through entries and move actual focus; Enter activates. Selection uses navy text, a white backing, cyan offset edge, a revealed arrow, and outward scale/translation. Desktop selection scales to 1.12; mobile to 1.06. A visible focus outline remains distinct from selection.
+Five entries—About, Experience, Projects, Skills, Resume—form the primary navigation. Hover and native focus update the current entry. Custom arrow navigation and page-level Enter activation are removed; native Tab navigation and activation of focused links/buttons remain. Selection uses navy text, a white backing, cyan offset edge, a revealed arrow, and outward scale/translation. Desktop selection scales to 1.12; mobile to 1.06. A visible focus outline remains distinct from selection.
 
 Resume is the sole PDF access control in the landing menu and uses a native anchor opening the existing PDF. There are no separate View PDF or Download links. The other four entries remain buttons that announce their coming-next destination through a polite status region; no destination pages are implemented.
 
-### Identity badge
+### Impact card and reserved About identity
 
-The identity card overlaps the name carousel at a 3% left inset on desktop/tablet and a 12px left inset on mobile. It uses 1.5× its prior dimensions, padding, portrait, and typography, with viewport-constrained width on mobile. Below 360px the portrait and name wrap to keep content readable. The original WebP portrait sits beside the name and Product Data Scientist role. Experimentation, Machine Learning, Product Analytics, and AI appear as compact bullets below. The name button reveals Chinese lettering on hover or activation. Keyboard photo sequences and preloaded alternate portraits remain available. The separate main character is decorative and hidden from assistive technology; its current source is `docs/assets/archel-main-source.png`, copied from the user-supplied `dist/assets/img/archel-main.png`. Built-in image editing removed the baked checkerboard into `docs/assets/archel-main-cutout.png`; responsive transparent 1024px and 640px WebP derivatives carry the cleanup prompt in provenance sidecars. The prior illustration master remains archived as `docs/assets/archel_main.png`.
+The landing card displays `$8.3M / IDR 149B+`, labelled “Total measured impact,” with “Across incremental GBV and revenue outcomes” clarifying the mixed metric types. It is not described as total revenue. The white card retains the thin black outline and overlaps the left carousel.
+
+The prior identity card—portrait, name, role, specialization bullets, Chinese-name reveal, and keyboard photo sequences—is preserved in `src/components/landing/AboutIdentity.jsx` for the future About section. It is intentionally unmounted, so those two easter eggs are not active on the landing. Console and title easter eggs remain active. The supplied character assets remain unchanged.
 
 ### Contact and supporting controls
 
@@ -140,9 +143,9 @@ The footer passes pointer input through empty space overlapping the menu; its an
 
 ### Motion
 
-A roughly 1.15-second opening combines a dive wash, expanding ripples, droplets, character descent, badge descent, and staggered menu arrival. Content has no entrance opacity fade and remains visible and interactive from the first frame; decorative layers never intercept input. Menu input cancels its remaining arrival choreography. Selection changes use the approved 190ms overshoot.
+A 1.2-second opening pushes through an original SVG water sheet with an irregular expanding foam opening, long cyan streaks, and 22 rising bubbles. The water palette runs from #20d9eb through #087bda to #1232b6, with #4de5f2 spray and #b1f5fb foam. Character descent, impact-card descent, and menu arrival remain coordinated underneath. Content stays mounted and interactive; the decorative foreground never intercepts input and hides immediately on menu interaction or keyboard focus. The sequence replays on page load/reload. Menu input cancels its remaining arrival choreography. Selection changes use the approved 190ms overshoot.
 
-Idle animation includes an 8-second alternating character float, 3.2-second selection pulse, 34-second name scroll, 13-second surface drift, 16-second ambient light drift, 21-second ray drift, and deterministic rising bubbles with 12–28-second cycles. The bubble travel distance is `max(120svh, 1100px)`. These layers remain animated on mobile unless motion is paused or reduced.
+Idle animation includes an 5.5-second alternating character float, 3.2-second selection pulse, 34-second name scroll, 13-second surface drift, 16-second ambient light drift, 21-second ray drift, and deterministic rising bubbles with 12–28-second cycles. The bubble travel distance is `max(120svh, 1100px)`. These layers remain animated on mobile unless motion is paused or reduced.
 
 **The Interruptible Water Rule.** Keep content immediately usable, and let visitors stop every animated layer.
 
@@ -155,7 +158,7 @@ Pause applies `animation-play-state: paused` to all descendants and pseudo-eleme
 - Do use the supplied original illustration and the original identity portrait with its alternate photos.
 - Do keep supporting text upright, readable, and clear of illustration and menu silhouettes.
 - Do preserve visible keyboard focus, native resume/contact links, and reduced-motion support.
-- Do preserve all four easter eggs: Chinese name, keyboard photos, console output, and tab/window title.
+- Do keep console/title easter eggs active and retain the name/photo interactions in AboutIdentity for the future About section.
 - Do keep the landing-only scope explicit and preserve existing section components and factual data.
 
 ### Don't:

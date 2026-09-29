@@ -68,3 +68,9 @@ No generated portrait or mockup pixels are shipped. Existing images have provena
 - `DESIGN.md` and `.impeccable/design.json`: created from the implementation and validated.
 
 The automated comp-diff reported 65% similarity before the final functional fixes. The independent visual review judged the selected composition faithfully represented and the grid-based score overly sensitive to moved text. The build is a responsive implementation of the approved composition, not a claim of pixel-identical reproduction.
+
+## Pool-dive entrance — 2026-09-29
+
+Replaced thin ripples with an original SVG water sheet, uneven cyan foam, streaks, and 22 bubbles. The sequence clears at 1200ms, replays on load/reload, and hides on menu input or keyboard focus. No reference pixels or new dependencies are shipped.
+
+Lint, production build, and the existing 12-viewport landing suite passed. Additional desktop/mobile checks verified two reloads each, completed foreground opacity, and reduced-motion removal. Timed captures at 0/350/700/1250ms were inspected on desktop and mobile. Browser connection was unavailable; local headless Chromium was used. Console/title easter eggs passed; name/photo easter eggs remain unchanged in the previously unmounted AboutIdentity component. The design detector reported advisory palette/type-ramp findings; the new water colors are documented in DESIGN.md and its sidecar.

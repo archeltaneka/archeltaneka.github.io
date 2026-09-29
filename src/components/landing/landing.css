@@ -50,19 +50,26 @@
 .name-carousel .carousel-name { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; font: 700 176px/.95 Antonio, sans-serif; letter-spacing: -.035em; }
 .carousel-first { color: #808080; }
 .carousel-last { color: #000; }
-.character-entrance { position: absolute; pointer-events: none; z-index: -1; left: 1%; top: -13%; width: 49%; height: 122%; animation: character-dive 1150ms var(--ease-out) both; }
-.landing-character { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center top; transform-origin: 42% 62%; animation: character-float 8s ease-in-out 1150ms infinite alternate; }
+.character-entrance { position: absolute; pointer-events: none; z-index: -1; left: 1%; top: -5%; width: 49%; height: 110%; animation: character-dive 1150ms var(--ease-out) both; }
+.landing-character { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; transform-origin: 42% 62%; animation: character-float 5.5s ease-in-out 1150ms infinite alternate; }
 
-.identity-badge { position: absolute; top: 5%; left: 3%; z-index: 3; width: 480px; padding: 19.5px 25.5px; background: #fff; border: 1px solid #000; color: var(--navy); animation: identity-dive 950ms var(--ease-out) both; }
+.impact-card { position: absolute; top: 5%; left: 3%; z-index: 3; width: 240px; min-height: 107px; padding: 10px 13px; border: 1px solid #000; background: #fff; color: #061632; animation: identity-dive 950ms var(--ease-out) both; }
+.impact-amount { margin: 0; font: 700 29px/1.15 Antonio, sans-serif; white-space: nowrap; letter-spacing: -.025em; }
+.impact-amount span { font-size: 25px; }
+.impact-label { margin: 6px 0 0; font-size: 12px; font-weight: 700; }
+.impact-definition { margin: 5px 0 0; font-size: 10px; line-height: 1.4; }
+
+/* Original identity content and easter eggs retained for the future About section. */
+.about-identity { position: absolute; top: 5%; left: 3%; z-index: 3; width: 480px; padding: 19.5px 25.5px; background: #fff; border: 1px solid #000; color: var(--navy); animation: identity-dive 950ms var(--ease-out) both; }
 .identity-person { display: flex; align-items: center; gap: 19.5px; }
 .identity-photo { width: 67.5px; height: 78px; object-fit: cover; object-position: 50% 30%; background: #c1e6ff; }
-.identity-badge h1 { margin: 0; font: 700 37.5px/1.15 Antonio, sans-serif; letter-spacing: -.025em; }
+.about-identity h1 { margin: 0; font: 700 37.5px/1.15 Antonio, sans-serif; letter-spacing: -.025em; }
 .identity-person p { font-size: 18px; margin: 7.5px 0 0; font-weight: 600; }
 .specialization { display: flex; flex-wrap: wrap; gap: 9px 21px; list-style: none; padding: 16.5px 0 0; margin: 16.5px 0 0; border-top: 1px solid #0a377527; font-size: 16.5px; line-height: 1.5; font-weight: 600; }
 .specialization li { display: flex; align-items: center; gap: 9px; }
 .specialization li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #087c96; }
 .name-reveal { position: relative; display: block; padding: 2px 0; background: transparent; border: 0; color: inherit; text-align: left; }
-.identity-badge :focus-visible { outline-color: var(--cobalt); }
+.about-identity :focus-visible { outline-color: var(--cobalt); }
 .english-name, .chinese-name { transition: opacity 150ms ease; }
 .chinese-name { position: absolute; left: 0; top: 0; opacity: 0; font: 700 37.5px/1.15 sans-serif; letter-spacing: .14em; }
 .name-reveal[aria-pressed="true"] .english-name { opacity: 0; }
@@ -108,36 +115,43 @@
 .contact-links a:hover { color: var(--cyan); }
 .contact-links a:hover .contact-arrow { transform: translate(2px, -2px) rotate(-45deg); }
 .interaction-hints { display: flex; justify-content: flex-end; align-items: center; gap: 24px; color: var(--muted); font-size: 11px; }
-.keyboard-hints, .keyboard-hints > span { display: flex; align-items: center; gap: 10px; }
-.keyboard-hints { gap: 20px; }
-.keyboard-hints kbd { display: inline-flex; align-items: center; gap: 2px; font: 600 11px Inter, sans-serif; color: var(--white); border-bottom: 1px solid #c1e6ff80; padding: 4px 2px; }
-.keyboard-hints svg { width: 12px; height: 12px; }
 .motion-toggle { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; background: transparent; border: 0; font: inherit; color: var(--muted); }
 .motion-toggle svg { width: 12px; height: 12px; }
 .motion-toggle:hover { color: var(--white); }
 
-/* The entry effect never intercepts input; content is visible from frame one. */
+/* Decorative water clears in 1.2s; navigation remains interactive throughout. */
 .dive-entrance { position: absolute; inset: 0; z-index: 8; pointer-events: none; overflow: hidden; }
-.dive-wash { position: absolute; inset: -30%; background: radial-gradient(ellipse at 48% 45%, transparent 30%, #b9ffff50 48%, #e6ffffad 51%, transparent 60%); opacity: 0; animation: dive-wash 1150ms cubic-bezier(.18,.65,.25,1) both; }
-.dive-ripple { position: absolute; top: 34%; left: 42%; width: 24vw; height: 12vw; border: 5px solid #dcffffc9; border-radius: 50%; opacity: 0; animation: dive-ripple 1050ms ease-out both; }
-.dive-ripple-outer { animation-delay: 110ms; border-width: 2px; }
-.dive-droplet { position: absolute; top: 52%; left: 50%; width: var(--spray-size); height: calc(var(--spray-size) * 1.4); border-radius: 50%; border: 1px solid #e5ffffb0; background: radial-gradient(circle at 30% 20%, #f5ffff, #8cffff30 50%, transparent 80%); opacity: 0; animation: dive-spray 1100ms ease-out var(--spray-delay) both; }
+.dive-wash { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform-origin: 50% 48%; opacity: 0; animation: dive-wash 1200ms cubic-bezier(.32,.05,.35,1) both; }
+.dive-droplet { position: absolute; top: var(--spray-top); left: var(--spray-left); width: var(--spray-size); height: calc(var(--spray-size) * 1.25); border-radius: 43% 57% 61% 39% / 42% 38% 62% 58%; border: 3px solid #b1f5fb; background: #55deee80; opacity: 0; animation: dive-spray 1060ms cubic-bezier(.2,.4,.3,1) var(--spray-delay) both; }
+.dive-droplet:nth-of-type(3n) { background: #b1f5fb; border: 0; }
+.dive-droplet:nth-of-type(4n) { background: transparent; border-width: 2px; }
+/* Input dismisses the foreground immediately, including keyboard focus. */
+.landing[data-interacted="true"] .dive-entrance, .landing:focus-within .dive-entrance { visibility: hidden; }
 .landing[data-motion="paused"] *, .landing[data-motion="paused"] *::before, .landing[data-motion="paused"] *::after { animation-play-state: paused !important; }
 .landing[data-motion="paused"] .dive-entrance { opacity: 0; }
 
 @keyframes character-dive { from { transform: translate(24px, -150px) rotate(-4deg) scale(1.08); } to { transform: none; } }
 @keyframes identity-dive { from { transform: translateY(-38px); } to { transform: none; } }
 @keyframes menu-dive { from { transform: translate(18px, 80px) rotate(3deg); } to { transform: none; } }
-@keyframes character-float { from { transform: translateY(-4px) rotate(-.3deg); } to { transform: translateY(7px) rotate(.3deg); } }
+@keyframes character-float { from { transform: translate(-5px, -18px) rotate(-1.2deg); } to { transform: translate(5px, 18px) rotate(1.2deg); } }
 @keyframes water-light { from { translate: -1% 0; scale: 1; } to { translate: 2% 1%; scale: 1.05; } }
 @keyframes surface-drift { from { translate: -2% 0; } to { translate: 2% 9px; } }
 @keyframes bubble-rise { 0% { transform: translate(0, 0) scale(.7); opacity: 0; } 8% { opacity: .65; } 85% { opacity: .5; } 100% { transform: translate(var(--bubble-drift), calc(-1 * var(--water-column))) scale(1.15); opacity: 0; } }
 @keyframes name-scroll { to { transform: translateY(-50%); } }
 @keyframes selection-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.025 1.045; } }
 @keyframes selection-edge { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
-@keyframes dive-wash { 0% { transform: translateY(28%) scale(.7); opacity: .8; } 70% { opacity: .5; } 100% { transform: translateY(-50%) scale(1.8); opacity: 0; visibility: hidden; } }
-@keyframes dive-ripple { 0% { transform: translate(-50%, -50%) scale(.2); opacity: .9; } 100% { transform: translate(-50%, -160%) scale(7); opacity: 0; visibility: hidden; } }
-@keyframes dive-spray { 0% { transform: translate(0, 15vh) scale(.5); opacity: 0; } 12% { opacity: .85; } 100% { transform: translate(var(--spray-x), var(--spray-y)) scale(1.2); opacity: 0; visibility: hidden; } }
+@keyframes dive-wash {
+  0% { transform: scale(.72) translateY(8%); opacity: .98; }
+  35% { opacity: .96; }
+  72% { opacity: .8; }
+  100% { transform: scale(5.8) translateY(-7%); opacity: 0; visibility: hidden; }
+}
+@keyframes dive-spray {
+  0% { transform: translate(0, 12vh) scale(.35) rotate(-15deg); opacity: 0; }
+  16% { opacity: .95; }
+  65% { opacity: .85; }
+  100% { transform: translate(var(--spray-x), var(--spray-y)) scale(1.65) rotate(24deg); opacity: 0; visibility: hidden; }
+}
 
 @media (min-width: 1600px) { .menu-control { font-size: clamp(88px, 5.4vw, 108px); } }
 @media (min-width: 900px) and (max-height: 800px) {
@@ -150,7 +164,7 @@
   .landing-context { bottom: 16%; width: 23%; }
 }
 @media (min-width: 900px) and (max-width: 1199px) {
-  .identity-badge { left: 3%; width: 442.5px; }
+  .about-identity { left: 3%; width: 442.5px; }
   .menu-position { left: 47%; width: 48%; top: 38%; }
   .menu-control { font-size: 58px; }
   .character-entrance { left: 0; width: 53%; }
@@ -159,8 +173,8 @@
 }
 @media (min-width: 600px) and (max-width: 899px) {
   .landing { min-height: 900px; }
-  .identity-badge { left: 3%; top: 4%; }
-  .character-entrance { width: 65%; left: -19%; top: -4%; height: 113%; }
+  .about-identity { left: 3%; top: 4%; }
+  .character-entrance { width: 65%; left: -19%; top: -5%; height: 110%; }
   .name-carousel { width: 140px; }
   .name-carousel .carousel-name { font-size: 124px; }
   .menu-position { top: 34%; left: 49%; width: 47%; }
@@ -174,8 +188,9 @@
 }
 @media (max-width: 599px) {
   .landing { --hair-x: 80%; --hair-y: 76%; height: auto; min-height: 100svh; padding: 24px 24px 20px; }
-  .identity-badge { position: relative; inset: auto; width: min(calc(100% + 12px), 465px); margin-left: -12px; padding: 16.5px 19.5px; }
-  .identity-badge h1 { font-size: 34.5px; }
+  .impact-card { position: relative; inset: auto; width: min(240px, 100%); margin-left: -12px; }
+  .about-identity { position: relative; inset: auto; width: min(calc(100% + 12px), 465px); margin-left: -12px; padding: 16.5px 19.5px; }
+  .about-identity h1 { font-size: 34.5px; }
   .chinese-name { font-size: 34.5px; }
   .identity-person p { font-size: 16.5px; }
   .identity-photo { width: 54px; height: 67.5px; }
@@ -184,7 +199,7 @@
   .character-backdrop { clip-path: polygon(0 0, 75% 0, 70px 330px, 70px 100%, 0 100%); }
   .name-carousel .carousel-name { font-size: 62px; }
   .name-carousel-copy { gap: 30px; padding-bottom: 30px; }
-  .character-entrance { top: 180px; left: auto; right: -132px; width: 400px; height: 600px; }
+  .character-entrance { top: -5%; bottom: auto; left: auto; right: -132px; width: 400px; height: 110%; }
   .landing::after { content: ''; position: absolute; z-index: 0; pointer-events: none; top: 270px; left: 70px; right: 0; height: 560px; background: linear-gradient(90deg, #073984ed, #073984e6 70%, transparent); mask-image: linear-gradient(transparent, #000 15%, #000 78%, transparent); }
   .water-surface { height: 210px; top: -30px; }
   .menu-position { position: relative; top: auto; left: auto; width: calc(100% - 54px); margin: 120px 0 0 54px; }
@@ -206,12 +221,10 @@
   .contact-links a { font-size: 12px; gap: 7px; }
   .contact-links .contact-arrow { display: none; }
   .interaction-hints { justify-content: flex-start; margin-top: 10px; }
-  .keyboard-hints { display: none; }
   .motion-toggle { min-height: 44px; }
 }
 @media (max-width: 359px) {
   .identity-person { flex-wrap: wrap; gap: 12px; }
-  .character-entrance { top: 260px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

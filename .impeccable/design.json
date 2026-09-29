@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-09-28T13:52:55.570100+00:00",
-  "title": "Design System: Archel Taneka — Underwater Landing",
+  "title": "Design System: Archel Taneka \u2014 Underwater Landing",
   "extensions": {
     "colorMeta": {
       "navy": {
@@ -147,13 +147,13 @@
       },
       {
         "name": "dive-spray",
-        "value": "1100ms; stagger 0–105ms",
+        "value": "1100ms; stagger 0\u2013105ms",
         "purpose": "Decorative entrance droplets."
       },
       {
         "name": "character-float",
-        "value": "8s; delay 1150ms; alternate",
-        "purpose": "Translate Y −4px to 7px and rotate −.3deg to .3deg."
+        "value": "5.5s; delay 1150ms; alternate",
+        "purpose": "Translate Y \u221218px to 18px, X \u22125px to 5px, and rotate \u22121.2deg to 1.2deg."
       },
       {
         "name": "selection-pulse",
@@ -163,7 +163,7 @@
       {
         "name": "name-scroll",
         "value": "34s linear infinite",
-        "purpose": "Vertical ribbon translates −50% for seamless repeated content."
+        "purpose": "Vertical ribbon translates \u221250% for seamless repeated content."
       },
       {
         "name": "surface-drift",
@@ -182,7 +182,7 @@
       },
       {
         "name": "bubble-rise",
-        "value": "12–28s linear infinite",
+        "value": "12\u201328s linear infinite",
         "purpose": "Twenty fixed seeds rise through max(120svh, 1100px)."
       },
       {
@@ -232,21 +232,6 @@
         "top": "29%",
         "width": "42%"
       },
-      "identityBadge": {
-        "left": "3%",
-        "top": "5%",
-        "width": "480px",
-        "purpose": "Identity, role, and specialization share one badge.",
-        "scaleFromPrior": 1.5,
-        "compactWidth": "442.5px",
-        "mobileWidth": "min(calc(100% + 12px), 465px)",
-        "padding": "19.5px 25.5px",
-        "nameSize": "37.5px",
-        "specializationSize": "16.5px",
-        "mobileLeft": "12px",
-        "backgroundColor": "#ffffff",
-        "border": "1px solid #000000"
-      },
       "desktopStatus": {
         "right": "5%",
         "bottom": "20%",
@@ -276,6 +261,21 @@
         },
         "firstNameColor": "#808080",
         "lastNameColor": "#000000"
+      },
+      "impactCard": {
+        "left": "3%",
+        "top": "5%",
+        "width": "240px",
+        "minHeight": "107px",
+        "padding": "10px 13px",
+        "backgroundColor": "#ffffff",
+        "border": "1px solid #000000"
+      },
+      "character": {
+        "top": "-5%",
+        "height": "110%",
+        "objectFit": "cover",
+        "purpose": "Fill the stage height with proportional cropping and overscan for the float animation; crop beyond the left on tablet and the right on mobile."
       }
     },
     "environment": {
@@ -290,6 +290,32 @@
         "color": "#ffffff",
         "shape": "polygon(0 0, 44% 0, 34% 48%, 24% 78%, 16% 100%, 0 100%)"
       }
+    },
+    "interaction": {
+      "navigation": "Native links/buttons and Tab; no custom Arrow/Enter handling or hints.",
+      "reservedAbout": "AboutIdentity.jsx preserves the unmounted name/photo easter eggs and prior identity content."
+    },
+    "characterFloat": {
+      "durationPerDirection": "5.5s",
+      "verticalRange": "-18px to 18px",
+      "horizontalRange": "-5px to 5px",
+      "rotationRange": "-1.2deg to 1.2deg",
+      "accessibility": "Pause freezes motion; prefers-reduced-motion disables it."
+    },
+    "poolDiveEntrance": {
+      "durationMs": 1200,
+      "bubbleCount": 22,
+      "waterColors": [
+        "#20d9eb",
+        "#087bda",
+        "#1232b6"
+      ],
+      "sprayColor": "#4de5f2",
+      "foamColor": "#b1f5fb",
+      "replay": "page load/reload",
+      "dismiss": "menu interaction or keyboard focus",
+      "reducedMotion": "hidden",
+      "technique": "original SVG masked water sheet; CSS transform and opacity"
     }
   },
   "components": [
@@ -310,14 +336,6 @@
       "css": ".ds-menu{position:relative;isolation:isolate;display:inline-flex;align-items:center;padding:0 18px 8px 12px;min-height:64px;border:0;background:transparent;color:#8bffff;font:700 clamp(54px,5.7vw,88px)/1.07 Antonio,sans-serif;letter-spacing:-.035em;text-transform:uppercase;cursor:pointer;transform:rotate(-8deg);transition:transform 190ms cubic-bezier(.2,1.35,.35,1),color 190ms}.ds-menu:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}.ds-menu:hover{transform:rotate(-8deg) translateX(12px) scale(1.12)}@media(prefers-reduced-motion:reduce){.ds-menu{transition:none}}.ds-selected{color:#061632;gap:14px}.ds-selected::before,.ds-selected::after{content:\"\";position:absolute;inset:-2px -16px -4px -15px;z-index:-1;clip-path:polygon(5% 9%,100% 0,94% 83%,0 100%);background:#f5fcff}.ds-selected::before{background:#8bffff;transform:translate(7px,7px)}"
     },
     {
-      "name": "Identity badge",
-      "kind": "custom",
-      "refersTo": "identity-badge",
-      "description": "Name, role, and specialization from the identity badge; portrait omitted from portable preview.",
-      "html": "<header class=\"ds-identity\"><button class=\"ds-name\"><span class=\"ds-en\">ARCHEL TANEKA</span><span class=\"ds-zh\" lang=\"zh\">陈文群</span></button><p>Product Data Scientist</p><ul class=\"ds-specialization\"><li>Experimentation</li><li>Machine Learning</li><li>Product Analytics</li><li>AI</li></ul></header>",
-      "css": ".ds-identity{display:inline-block;width:480px;padding:19.5px 25.5px;background:#fff;border:1px solid #000;color:#061632}.ds-name{position:relative;border:0;padding:2px 0;background:transparent;color:inherit;font:700 37.5px/1.15 Antonio,sans-serif;letter-spacing:-.025em;cursor:pointer}.ds-zh{position:absolute;left:0;top:0;opacity:0;font-family:sans-serif;letter-spacing:.14em}.ds-name:hover .ds-en,.ds-name:focus-visible .ds-en{opacity:0}.ds-name:hover .ds-zh,.ds-name:focus-visible .ds-zh{opacity:1}.ds-name:focus-visible{outline:3px solid #083da6;outline-offset:6px}.ds-identity p{font:600 12px Inter,sans-serif;margin:5px 0 0} .ds-specialization{display:flex;flex-wrap:wrap;gap:6px 14px;list-style:none;padding:11px 0 0;margin:11px 0 0;border-top:1px solid #0a377527;font:600 11px/1.5 Inter,sans-serif}.ds-specialization li{display:flex;align-items:center;gap:6px}.ds-specialization li::before{content:\"\";width:4px;height:4px;border-radius:50%;background:#087c96}"
-    },
-    {
       "name": "Contact link",
       "kind": "button",
       "refersTo": "contact-link",
@@ -332,6 +350,14 @@
       "description": "Pause/resume every animated layer; portable preview is static.",
       "html": "<button class=\"ds-motion\" aria-pressed=\"false\" aria-label=\"Pause animation\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M8 5v14M16 5v14\"/></svg>Motion on</button>",
       "css": ".ds-motion{display:flex;align-items:center;gap:6px;min-height:44px;padding:0;background:transparent;border:0;font:11px Inter,sans-serif;color:#c1e6ff;cursor:pointer}.ds-motion:hover{color:#f5fcff}.ds-motion:focus-visible{outline:3px solid #f5fcff;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-motion{display:none}}"
+    },
+    {
+      "name": "Measured impact",
+      "kind": "aside",
+      "refersTo": "impact-card",
+      "description": "Compact white, black-bordered measured-impact card.",
+      "html": "<aside class=\"ds-impact\"><strong>$8.3M / IDR 149B+</strong><p>Total measured impact</p><small>Across incremental GBV and revenue outcomes</small></aside>",
+      "css": ".ds-impact{width:240px;min-height:107px;padding:10px 13px;background:#fff;color:#061632;border:1px solid #000}.ds-impact strong{font:700 29px/1.15 Antonio,sans-serif}.ds-impact p{font:700 12px Inter,sans-serif}.ds-impact small{font:10px Inter,sans-serif}"
     }
   ],
   "narrative": {
