@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LuArrowRight, LuGithub, LuLinkedin, LuMail, LuPause, LuPlay } from 'react-icons/lu';
 import './landing.css';
+import { LANDING_MOTION_STYLE } from './landing-motion';
 
 const RESUME = '/assets/resume/Resume - Archel Sutanto.pdf';
 const MENU = ['About', 'Experience', 'Projects', 'Skills', 'Resume'];
@@ -11,15 +12,15 @@ const CONTACTS = [
 ];
 
 // Fixed seeds keep the water stable across renders and menu selection changes.
-const BUBBLES = Array.from({ length: 20 }, (_, index) => ({
+const BUBBLES = Array.from({ length: 10 }, (_, index) => ({
   left: `${(index * 37 + 11) % 100}%`,
-  size: `${4 + (index * 7) % 15}px`,
-  duration: `${12 + (index * 3) % 17}s`,
+  size: `${4 + (index * 7) % 10}px`,
+  duration: `${18 + (index * 3) % 15}s`,
   delay: `${-((index * 7) % 29)}s`,
   drift: `${(index % 2 ? 1 : -1) * (18 + index * 2)}px`,
 }));
 
-function BackgroundLayers() {
+function UnderwaterBackground() {
   return (
     <div className="landing-environment" aria-hidden="true">
       <div className="environment-light" />
@@ -36,51 +37,6 @@ function BackgroundLayers() {
       <div className="water-bubbles">
         {BUBBLES.map((bubble, index) => <i key={index} className="water-bubble" style={{ '--bubble-left': bubble.left, '--bubble-size': bubble.size, '--bubble-duration': bubble.duration, '--bubble-delay': bubble.delay, '--bubble-drift': bubble.drift }} />)}
       </div>
-    </div>
-  );
-}
-
-function DiveEntrance() {
-  return (
-    <div className="dive-entrance" aria-hidden="true">
-      <svg className="dive-wash" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
-        <defs>
-          <linearGradient id="dive-depth" x1="720" y1="0" x2="720" y2="900" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#20d9eb" />
-            <stop offset=".48" stopColor="#087bda" />
-            <stop offset="1" stopColor="#1232b6" />
-          </linearGradient>
-          {/* An original uneven opening: the water moves past the viewer. */}
-          <path id="dive-opening" d="M530 300C556 274 592 301 612 273C641 230 679 264 711 252C755 224 770 283 811 272C849 267 837 312 875 328C913 347 864 384 890 416C925 455 872 469 880 505C889 545 840 532 820 568C798 607 761 572 732 604C701 634 670 589 636 604C601 617 598 572 565 566C520 560 548 512 517 494C475 469 522 435 503 402C483 369 531 361 520 336C514 322 520 308 530 300Z" />
-          <mask id="dive-water-mask" maskUnits="userSpaceOnUse" x="-3000" y="-2000" width="7440" height="4900">
-            <rect x="-3000" y="-2000" width="7440" height="4900" fill="white" />
-            <use href="#dive-opening" fill="black" />
-          </mask>
-        </defs>
-        <g mask="url(#dive-water-mask)">
-          <rect x="-3000" y="-2000" width="7440" height="4900" fill="url(#dive-depth)" />
-          <g stroke="#4de5f2" strokeWidth="65" strokeLinecap="round" opacity=".7">
-            <path d="M290-200C470 60 286 149 423 327S344 674 470 1100" />
-            <path d="M980-200C846 56 1031 143 943 307S1070 600 955 1100" />
-          </g>
-          <g stroke="#b1f5fb" strokeLinecap="round">
-            <path d="M510-100C455 39 586 101 541 202S609 327 558 398" strokeWidth="46" />
-            <path d="M769-100C872 70 739 121 824 239S787 352 851 394" strokeWidth="32" />
-            <path d="M636 539C568 627 676 675 603 786S670 921 625 1000" strokeWidth="48" />
-            <path d="M863 521C929 603 830 662 902 754S864 955 971 1040" strokeWidth="27" />
-          </g>
-        </g>
-        <use href="#dive-opening" stroke="#4de5f2" strokeWidth="64" />
-        <use href="#dive-opening" stroke="#b1f5fb" strokeWidth="34" />
-      </svg>
-      {Array.from({ length: 22 }, (_, index) => <i className="dive-droplet" key={index} style={{
-        '--spray-left': `${12 + (index * 31) % 78}%`,
-        '--spray-top': `${20 + (index * 23) % 72}%`,
-        '--spray-x': `${(index % 2 ? 1 : -1) * (14 + index * 2)}vw`,
-        '--spray-y': `${-45 - (index * 13) % 55}vh`,
-        '--spray-size': `${12 + (index * 11) % 42}px`,
-        '--spray-delay': `${(index % 4) * 35}ms`,
-      }} />)}
     </div>
   );
 }
@@ -152,28 +108,35 @@ function InteractionHints({ paused, onToggleMotion }) {
   );
 }
 
-export default function LandingPage() {
+export default function LandingPage({ introPhase = 'complete', onExperience, active = true }) {
   const [selected, setSelected] = useState(0);
   const [notice, setNotice] = useState('');
   const [paused, setPaused] = useState(false);
+  const [hidden, setHidden] = useState(() => document.hidden);
+  useEffect(() => {
+    const syncVisibility = () => setHidden(document.hidden);
+    document.addEventListener('visibilitychange', syncVisibility);
+    return () => document.removeEventListener('visibilitychange', syncVisibility);
+  }, []);
   const [interacted, setInteracted] = useState(false);
   const select = index => {
+    if (introPhase === 'dive') return;
     setInteracted(true);
     setSelected(index);
   };
   const activate = index => {
     setInteracted(true);
     setSelected(index);
+    if (MENU[index] === 'Experience') { onExperience?.(); return; }
     setNotice(`${MENU[index]} section coming next. Explore the resume or get in touch in the meantime.`);
   };
   return (
-    <main id="home" className="landing" data-motion={paused ? 'paused' : 'running'} data-interacted={interacted} style={{ '--selection-index': selected }}>
+    <main id="home" className="landing" data-intro={introPhase} data-menu-phase={introPhase === 'complete' ? 'idle' : introPhase === 'settled' ? 'settled' : 'entry'} data-motion={paused || hidden || !active ? 'paused' : 'running'} data-interacted={interacted} style={{ ...LANDING_MOTION_STYLE, '--selection-index': selected }}>
       <a className="landing-skip" href="#landing-menu">Skip to navigation</a>
-      <BackgroundLayers />
+      <UnderwaterBackground />
       <div className="character-backdrop" aria-hidden="true" />
       <NameCarousel />
       <CharacterLayer />
-      <DiveEntrance />
       <ImpactCard />
       <div id="landing-menu" className="menu-position" tabIndex="-1"><MainMenu selected={selected} onSelect={select} onActivate={activate} /></div>
       <div className="landing-context">

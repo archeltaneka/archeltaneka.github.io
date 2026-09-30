@@ -26,7 +26,9 @@ try {
   const experience = menu.getByRole('button', { name: 'Experience', exact: true });
   assert.equal(await experience.evaluate(el => el === document.activeElement), true, 'Native Tab access remains');
   await experience.click();
-  assert.match(await page.getByRole('status').textContent(), /Experience.*coming next/i);
+  await page.getByRole('heading', { name: 'Experience', exact: true }).waitFor();
+  await page.getByRole('button', { name: /Main menu/ }).click();
+  await menu.waitFor();
   await page.evaluate(() => document.activeElement.blur());
   await page.keyboard.press('Enter');
   assert.equal(await experience.evaluate(el => el === document.activeElement), false, 'Enter on the page does not focus or activate a menu item');
@@ -108,7 +110,7 @@ try {
   assert.equal(await page.evaluate(() => document.getAnimations().filter(animation => animation.effect.getTiming().iterations === Infinity && animation.playState === 'running').length), 0, 'Pause stops continuous motion');
   await page.getByRole('button', { name: 'Resume animation' }).click();
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-  assert.equal(await page.locator('.dive-wash').evaluate(el => getComputedStyle(el).opacity), '0', 'Resuming idle motion does not replay the dive entrance');
+  assert.equal(await page.locator('.page-load-dive').count(), 0, 'Resuming idle motion does not replay the dive entrance');
   const contactSelection = await menu.locator('[aria-current="true"]').textContent();
   await page.getByRole('link', { name: 'Email', exact: true }).focus();
   await page.keyboard.press('ArrowDown');
