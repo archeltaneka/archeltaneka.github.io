@@ -82,9 +82,9 @@ export const experienceData = [
         reflectionPosition: '50% 40%',
         metrics: [
             { value: '+4.8%', label: 'Payment conversion', detail: 'Personalised payment recommendations · controlled experimentation' },
-            { value: '+2.3%', label: 'Booking conversion', detail: 'Computer vision · quality across 15,000+ hotel listings' },
-            { value: '−87%', label: 'Manual review effort', detail: '120 → 15 hours per week · hotel entity matching' },
+            { value: '+2.3%', label: 'Booking conversion', detail: 'Computer vision (YOLOv10 with TensorRT inference) · quality across 15,000+ hotel listings' },
             { value: '12K+', label: 'Properties processed', detail: 'Entity matching · 34% less duplicate inventory' },
+            { value: '$440K', label: 'GBV delivered', detail: 'Personalized recommendations · traveller behaviour analysis' },
         ],
         role: "Associate Data Scientist",
         company: "tiket.com",
@@ -103,7 +103,7 @@ export const experienceData = [
     },
     {
         id: 'sayurbox',
-        reflectionImage: '/assets/img/sayurbox-logo.webp',
+        reflectionImage: '/assets/img/sayurbox.jpeg',
         reflectionKind: 'logo', // No Sayurbox photograph is supplied.
         reflectionPosition: '50% 50%',
         metrics: [],
@@ -119,7 +119,7 @@ export const experienceData = [
             "Automated workforce scheduling inputs for order preparation operations.",
             "Developed route-assignment logic to improve driver deployment decisions."
         ],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+        image: "/assets/img/sayurbox.jpeg"
     }
 ];
 
@@ -145,7 +145,7 @@ export const educationData = [
         logo: "/assets/img/nottingham-logo.webp",
         focus: "Computer Science with AI",
         description: "Undergraduate double degree program in Computer Science with AI.",
-        details: ["Graduated with First Class Honors", "Undergraduate Dissertation: Chest X-ray Classification | Supervisor: Dr. Chao Chen"],
+        details: ["First Class Honors", "Dissertation (76%): \"Common Chest X-ray Classification and Localization with Deep Learning\" | Supervisor: Dr. Chao Chen"],
         image: "/assets/img/nottingham.webp"
     },
     {
