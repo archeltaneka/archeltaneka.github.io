@@ -108,7 +108,7 @@
       {
         "name": "ease-out",
         "value": "cubic-bezier(.16, 1, .3, 1)",
-        "purpose": "Entrance and supporting interaction easing."
+        "purpose": "Supporting interaction easing; entry uses cubic-bezier(.12,.8,.16,1)."
       },
       {
         "name": "ease-snap",
@@ -122,73 +122,73 @@
       },
       {
         "name": "character-dive",
-        "value": "1150ms",
-        "purpose": "Visible character descent; no content fade."
+        "value": "480ms after 400ms reveal",
+        "purpose": "Translation, rotation and scale settle to neutral."
       },
       {
         "name": "identity-dive",
-        "value": "950ms",
-        "purpose": "Visible badge descent."
+        "value": "440ms; 50ms delay",
+        "purpose": "Impact-card entry; reserved About identity retains its own 950ms entrance."
       },
       {
         "name": "menu-dive",
-        "value": "900ms; stagger 35ms",
-        "purpose": "Cancelled on menu input."
+        "value": "420ms; stagger 18ms",
+        "purpose": "Skew, rotation and translation; cancelled on input, retired after entry."
       },
       {
         "name": "dive-wash",
-        "value": "1150ms",
-        "purpose": "Nonblocking water wash."
+        "value": "980ms total; reveal 400ms; settle 780ms",
+        "purpose": "Original page-entry water; unmounts at completion."
       },
       {
         "name": "dive-ripple",
-        "value": "1050ms; outer delay 110ms",
-        "purpose": "Expanding entrance ripples."
+        "value": "400\u2013784ms",
+        "purpose": "Irregular SVG opening expands vertically through water."
       },
       {
         "name": "dive-spray",
-        "value": "1100ms; stagger 0\u2013105ms",
-        "purpose": "Decorative entrance droplets."
+        "value": "460ms; stagger 120\u2013350ms",
+        "purpose": "Twelve original SVG droplets."
       },
       {
         "name": "character-float",
-        "value": "5.5s; delay 1150ms; alternate",
-        "purpose": "Translate Y \u221218px to 18px, X \u22125px to 5px, and rotate \u22121.2deg to 1.2deg."
+        "value": "6s infinite",
+        "purpose": "Neutral endpoints; Y -4px to 3px, X within 1px, rotation -.12deg to .1deg."
       },
       {
         "name": "selection-pulse",
-        "value": "3.2s",
-        "purpose": "White backing scale and cyan edge opacity."
+        "value": "6.8s infinite",
+        "purpose": "Independent 1\u20132px backing drift; menu text remains stationary."
       },
       {
         "name": "name-scroll",
-        "value": "34s linear infinite",
-        "purpose": "Vertical ribbon translates \u221250% for seamless repeated content."
+        "value": "52s linear infinite",
+        "purpose": "Preserved seamless vertical name ribbon."
       },
       {
         "name": "surface-drift",
-        "value": "13s alternate",
-        "purpose": "Surface reflections drift."
+        "value": "15s infinite",
+        "purpose": "Reflections drift 3px horizontally and 2px vertically."
       },
       {
         "name": "environment-light",
-        "value": "16s alternate",
-        "purpose": "Ambient light drifts."
+        "value": "18s infinite",
+        "purpose": "5px/3px light drift and 1.008 scale."
       },
       {
         "name": "water-rays",
-        "value": "21s alternate-reverse",
-        "purpose": "Rays drift independently."
+        "value": "23s infinite",
+        "purpose": "Independent 4px/2px ray drift and .25deg rotation."
       },
       {
         "name": "bubble-rise",
-        "value": "12\u201328s linear infinite",
-        "purpose": "Twenty fixed seeds rise through max(120svh, 1100px)."
+        "value": "18\u201330s linear infinite",
+        "purpose": "Ten fixed seeds; restrained opacity and 4\u201313px sizes."
       },
       {
         "name": "pause",
         "value": "animation-play-state: paused !important",
-        "purpose": "All descendants and pseudo-elements; splash wrapper opacity: 0 preserves state and prevents completed splash replay."
+        "purpose": "All descendants/pseudo-elements. Hidden document also pauses; input dismisses entry."
       },
       {
         "name": "reduced-motion",
@@ -296,26 +296,28 @@
       "reservedAbout": "AboutIdentity.jsx preserves the unmounted name/photo easter eggs and prior identity content."
     },
     "characterFloat": {
-      "durationPerDirection": "5.5s",
-      "verticalRange": "-18px to 18px",
-      "horizontalRange": "-5px to 5px",
-      "rotationRange": "-1.2deg to 1.2deg",
-      "accessibility": "Pause freezes motion; prefers-reduced-motion disables it."
+      "durationPerCycle": "6s",
+      "verticalRange": "-4px to 3px",
+      "horizontalRange": "-1px to 1px",
+      "rotationRange": "-.12deg to .1deg",
+      "accessibility": "Pause or hidden document freezes motion; reduced motion disables it."
     },
     "poolDiveEntrance": {
-      "durationMs": 1200,
-      "bubbleCount": 22,
+      "durationMs": 980,
+      "bubbleCount": 12,
       "waterColors": [
-        "#20d9eb",
-        "#087bda",
-        "#1232b6"
+        "#057fd6",
+        "#0948dc",
+        "#082979"
       ],
-      "sprayColor": "#4de5f2",
-      "foamColor": "#b1f5fb",
+      "sprayColor": "#51dbe8",
+      "foamColor": "#bafaff",
       "replay": "page load/reload",
-      "dismiss": "menu interaction or keyboard focus",
-      "reducedMotion": "hidden",
-      "technique": "original SVG masked water sheet; CSS transform and opacity"
+      "dismiss": "pointerdown, keydown, focusin, hidden document",
+      "reducedMotion": "skipped immediately",
+      "technique": "original SVG masked water sheets; CSS transforms; one frame callback aligns React deadlines",
+      "revealMs": 400,
+      "settleMs": 780
     }
   },
   "components": [

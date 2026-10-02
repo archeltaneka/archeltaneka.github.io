@@ -1,0 +1,121 @@
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { experienceArt, reflectionSource } from '../experience/experience-art';
+import { experienceEntries } from '../../data/portfolio';
+import { playScene, SCENE_MOTION } from './scene-motion';
+
+const readRoute = () => window.location.hash === '#experience' ? 'experience' : 'home';
+const idleState = route => route === 'home' ? 'MAIN_MENU_IDLE' : 'STATS_IDLE';
+let assets;
+function preloadExperience() {
+  assets ??= Promise.allSettled([experienceArt.character, experienceArt.mirror.mask,
+    ...experienceEntries.map(reflectionSource).filter(Boolean)].map(src => {
+    const image = new Image();
+    image.src = src;
+    return image.decode();
+  }));
+  return assets;
+}
+
+export default function useSceneNavigation() {
+  const root = useRef(null);
+  const current = useRef(readRoute());
+  const busy = useRef(false);
+  const hasNavigated = useRef(false);
+  const queuedHistory = useRef(null);
+  const [route, setRoute] = useState(readRoute);
+  const [transition, setTransition] = useState(null);
+  const [phase, setPhase] = useState(() => idleState(readRoute()));
+  const navigate = useCallback((to, push = true) => {
+    if (busy.current) {
+      if (!push) queuedHistory.current = to;
+      return;
+    }
+    if (to === current.current) return;
+    busy.current = true;
+    hasNavigated.current = true;
+    setPhase(to === 'experience' ? 'MAIN_MENU_SELECT_EXPERIENCE' : 'STATS_EXIT');
+    setTransition({ from: current.current, to, push, paused: root.current?.querySelector(`[data-scene="${current.current}"] main`)?.dataset.motion === 'paused' });
+  }, []);
+  useEffect(() => {
+    preloadExperience();
+    const sync = () => navigate(readRoute(), false);
+    window.addEventListener('popstate', sync);
+    window.addEventListener('hashchange', sync);
+    return () => {
+      window.removeEventListener('popstate', sync);
+      window.removeEventListener('hashchange', sync);
+    };
+  }, [navigate]);
+  useLayoutEffect(() => {
+    if (!transition) return;
+    let disposed = false;
+    let animation;
+    let frame;
+    const timers = [];
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const reduced = preference.matches || transition.paused;
+    const commitUrl = () => {
+      if (transition.push && queuedHistory.current === null) window.history.pushState(null, '', `#${transition.to}`);
+    };
+    let committed = false;
+    let finished = false;
+    const commit = () => { if (!committed) { committed = true; commitUrl(); } };
+    const finish = () => {
+      if (disposed || finished) return;
+      finished = true;
+      commit();
+      current.current = transition.to;
+      busy.current = false;
+      setRoute(transition.to);
+      setPhase(idleState(transition.to));
+      setTransition(null);
+      const queued = queuedHistory.current;
+      queuedHistory.current = null;
+      // History is the latest intent; ordinary repeated clicks are deliberately discarded.
+      if (queued !== null && queued !== transition.to) navigate(queued, false);
+    };
+    const run = () => {
+      if (disposed) return;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      animation = playScene(root.current, transition.to, reduced);
+      const schedule = (seconds, callback) => timers.push(setTimeout(callback, seconds * SCENE_MOTION.navigationScale * 1000));
+      if (reduced) { commit(); }
+      else if (transition.to === 'experience') {
+        schedule(SCENE_MOTION.forward.anticipation, () => setPhase('MAIN_TO_STATS_TRANSITION'));
+        schedule(SCENE_MOTION.forward.reveal, () => { commit(); setPhase('STATS_ENTER'); });
+      } else {
+        schedule(SCENE_MOTION.back.reveal, () => { commit(); setPhase('MAIN_MENU_RETURN'); });
+      }
+      animation.controls.then(finish);
+    };
+    // Incoming art stays hidden until decoded; selection feedback is already visible.
+    const start = () => {
+      if (disposed) return;
+      if (document.hidden) finish();
+      else frame = requestAnimationFrame(run);
+    };
+    if (document.hidden) queueMicrotask(finish);
+    else preloadExperience().then(start);
+    const skip = () => { if (preference.matches || document.hidden) finish(); };
+    preference.addEventListener('change', skip);
+    document.addEventListener('visibilitychange', skip);
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      timers.forEach(clearTimeout);
+      animation?.restore();
+      preference.removeEventListener('change', skip);
+      document.removeEventListener('visibilitychange', skip);
+    };
+  }, [transition, navigate]);
+  useEffect(() => {
+    if (transition) return;
+    const target = route === 'experience' ? '.experience-header h1' : '.menu-entry-experience button';
+    // Do not steal initial focus from the main menu's page-entry sequence.
+    if (route === 'experience' || hasNavigated.current) root.current.querySelector(target)?.focus({ preventScroll: true });
+  }, [route, transition]);
+  const interaction = useCallback(active => {
+    if (!busy.current && current.current === 'experience') setPhase(active ? 'STATS_INTERACTION' : 'STATS_IDLE');
+  }, []);
+  return { root, route, transition, phase, navigate, interaction };
+}

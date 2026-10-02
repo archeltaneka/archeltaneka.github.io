@@ -16,6 +16,11 @@ try {
   for (const label of ['About', 'Experience', 'Projects', 'Skills']) {
     await page.getByRole('button', { name: label, exact: true }).click();
     assert.equal(await page.locator('.page-load-dive').count(), 0, 'Menu interaction never replays entry');
+    if (label === 'Experience') {
+      await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
+      await page.getByRole('button', { name: 'Main menu', exact: true }).click();
+      await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
+    }
   }
   await page.reload();
   assert.equal(await page.locator('.page-load-dive').count(), 1, 'Full refresh replays entry');

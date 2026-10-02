@@ -1,5 +1,0 @@
-{
-  "prompt": "Use case: background-extraction. Edit target: supplied portrait illustration. Remove ONLY the baked gray checkerboard background, including checkerboard visible inside openings around the headphone cord and hair. Produce a genuinely transparent alpha background, no checkerboard pixels. Preserve the exact original upside-down character, face, glasses, headphones, wire, white clothing, pose, silhouette, rich royal-blue hair and cyan highlights, framing and proportions. Do not redraw, restyle, reinterpret or add anything. This is an exact asset background cleanup for a website. Save the transparent result as a local PNG and return its path.",
-  "tool": "built-in image_gen",
-  "source": "docs/assets/archel-main-source.png"
-}

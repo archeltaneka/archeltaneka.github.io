@@ -1,0 +1,41 @@
+.portfolio-scene { position: relative; isolation: isolate; }
+.portfolio-route[hidden] { display: none; }
+.portfolio-scene[data-transitioning='true'] { height: 100svh; overflow: clip; }
+.portfolio-scene[data-transitioning='true'] > .portfolio-route { position: absolute; inset: 0; overflow: clip; pointer-events: none; }
+.portfolio-route[data-incoming='true'] { z-index: 2; clip-path: polygon(100% 0,100% 0,100% 100%,100% 100%); }
+.portfolio-scene[data-transitioning='true'] main *,
+.portfolio-scene[data-transitioning='true'] main *::before,
+.portfolio-scene[data-transitioning='true'] main *::after { animation-play-state: paused !important; }
+/* Promote only the layers participating in the crossing, then release them. */
+.portfolio-scene[data-transitioning='true'] :is(.character-entrance, .experience-art-entrance, .scene-blade, .menu-arrival, .experience-selector > ol > li) { will-change: transform, opacity; }
+.experience-page[data-motion='running'] .memory-photo[data-visible='true'] { will-change: transform, scale; }
+.scene-crossing { position: fixed; inset: 0; overflow: clip; z-index: 10; pointer-events: none; }
+.scene-blade { position: absolute; inset: -35% -25%; transform: translateX(160%); }
+.scene-blade--blue { background: #083da6; clip-path: polygon(19% 0,100% 0,79% 100%,0 100%); }
+.scene-blade--white { background: #f5fcff; clip-path: polygon(0 37%,100% 10%,100% 63%,0 88%); }
+.scene-blade--ink { background: #050609; clip-path: polygon(0 62%,100% 30%,100% 39%,0 75%); }
+/* Idle layers use unequal periods and pauses; wrapper transforms belong to the timeline. */
+.experience-art { animation: stats-drift 7.8s cubic-bezier(.45,0,.55,1) infinite; }
+.experience-graphic-backdrop span { animation: shard-drift 9.1s ease-in-out infinite; }
+.experience-graphic-backdrop i { animation: shard-drift 6.2s ease-in-out -2.1s infinite reverse; }
+.experience-status-graphic p { animation: label-drift 4.7s ease-in-out infinite; }
+.experience-choice[data-active='true'] .experience-choice-stat i { animation: stat-accent 6.2s ease-in-out infinite; }
+.experience-choice[data-preview='true']:not([data-active='true']) { transform: translateX(5px); }
+.experience-choice:focus-visible::before { background: #12224e; }
+.experience-choice[data-active='true']:focus-visible::before { background: #fff; }
+.memory-photo { transition: opacity var(--reflection-duration) ease, transform var(--reflection-duration) ease, clip-path var(--reflection-duration) cubic-bezier(.16,1,.3,1); clip-path: polygon(0 0,0 0,0 100%,0 100%); transform: translateX(-3%) scale(1.025); }
+.memory-photo[data-visible='true'] { clip-path: polygon(0 0,100% 0,100% 100%,0 100%); transform: translateX(0) scale(1); animation: reflection-breathe 9.1s ease-in-out infinite; }
+.memory-wash { animation: memory-sweep var(--reflection-duration) ease-out var(--detail-delay) both; }
+.experience-role, .experience-outcomes { animation: record-in var(--detail-duration) cubic-bezier(.16,1,.3,1) var(--detail-delay) both; }
+.experience-outcomes { animation-delay: calc(var(--detail-delay) + .035s); }
+@keyframes stats-drift { 0%,100% { transform: none; } 22% { transform: translate(5px,-8px) rotate(-.2deg); } 61% { transform: translate(-2px,-2px); } 82% { transform: translate(-4px,2px) rotate(.15deg); } }
+@keyframes shard-drift { 0%,100% { translate: 0 0; } 36% { translate: 2px -3px; } 78% { translate: -1px 1px; } }
+@keyframes label-drift { 0%,73%,100% { translate: 0 0; } 85% { translate: -2px 1px; } }
+@keyframes stat-accent { 0%,70%,100% { scale: 1 1; } 83% { scale: .97 1; } }
+@keyframes reflection-breathe { 0%,100% { scale: 1; } 64% { scale: 1.015; } }
+@media (max-width: 900px) { .experience-graphic-backdrop :is(span,i), .experience-status-graphic p { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-route[data-incoming='true'] { clip-path: none; }
+  .scene-crossing { display: none; }
+  .portfolio-scene *, .portfolio-scene *::before, .portfolio-scene *::after { animation: none !important; transition: none !important; }
+}

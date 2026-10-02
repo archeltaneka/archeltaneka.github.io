@@ -19,13 +19,13 @@ try {
   const unfinished = await page.evaluate(() => document.getAnimations().filter(a => a.effect.getTiming().iterations !== Infinity && a.playState === 'running').map(a => ({ name: a.animationName || a.transitionProperty, time: a.currentTime, end: a.effect.getComputedTiming().endTime })));
   assert.deepEqual(unfinished, [], 'All arrivals finish before idle starts');
   assert.ok(arrivals.every(t => t <= 580), 'Landing settles within the final 580ms of the shared entrance');
-  assert.ok(await page.locator('.water-bubble').count() <= 12, 'Idle particle field stays sparse');
+  assert.ok(await page.locator('.landing .water-bubble').count() <= 12, 'Idle particle field stays sparse');
   const float = await page.locator('.landing-character').evaluate(el => {
     const a = el.getAnimations()[0]; a.pause();
     a.currentTime = a.effect.getTiming().duration / 4;
     return new DOMMatrix(getComputedStyle(el).transform).m42;
   });
-  assert.ok(Math.abs(float) <= 5, `Character buoyancy stays within 5px, got ${float}`);
+  assert.ok(Math.abs(float) >= 8 && Math.abs(float) <= 14, `Character buoyancy is visible but stays within its overscan, got ${float}px`);
   await page.getByRole('button', { name: 'Projects', exact: true }).hover();
   assert.equal(await page.locator('.page-load-dive').count(), 0);
   await page.getByRole('button', { name: 'Pause animation' }).click();

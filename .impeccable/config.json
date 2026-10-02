@@ -1,0 +1,21 @@
+{
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-27T13:27:31.136Z",
+        "reason": "User confirmed the proposed landing design on 2026-09-27; existing self-hosted Inter is intentionally retained for readable supporting text, while Antonio defines the expressive display typography."
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.2, 1.35, .35, 1)",
+        "createdAt": "2026-09-27T13:27:31.245Z",
+        "reason": "User explicitly requested small selection overshoot and approved the proposed 190ms selection transition on 2026-09-27; this exact curve implements that requirement."
+      }
+    ]
+  }
+}

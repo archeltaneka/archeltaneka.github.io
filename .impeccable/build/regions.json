@@ -1,0 +1,158 @@
+{
+  "regions": [
+    {
+      "id": "navigation",
+      "kind": "chrome",
+      "note": "Navy navigation strip with warm white angled active tab",
+      "container": true,
+      "grid": "A0:J0"
+    },
+    {
+      "id": "name",
+      "kind": "text",
+      "note": "Two-line condensed uppercase ARCHEL T. SUTANTO",
+      "grid": "A1:D4"
+    },
+    {
+      "id": "portrait",
+      "kind": "image",
+      "note": "Original profile photograph, intentionally cropped to upper body",
+      "plate": "public/assets/img/profile.webp",
+      "bleed": true,
+      "grid": "D1:F5"
+    },
+    {
+      "id": "role-label",
+      "kind": "text",
+      "note": "Product Data Scientist label",
+      "grid": "A1:B1"
+    },
+    {
+      "id": "role",
+      "kind": "text",
+      "note": "Product Data Scientist bold heading",
+      "grid": "A5:D5"
+    },
+    {
+      "id": "summary",
+      "kind": "text",
+      "note": "Two lines describing specialization and product decisions",
+      "grid": "A5:E6"
+    },
+    {
+      "id": "projects-action",
+      "kind": "control",
+      "note": "Cobalt View projects action",
+      "grid": "A6:B7"
+    },
+    {
+      "id": "resume-action",
+      "kind": "control",
+      "note": "Outlined Resume PDF action",
+      "grid": "C6:D7"
+    },
+    {
+      "id": "photo-caption",
+      "kind": "text",
+      "note": "Build for better decisions caption",
+      "grid": "E5:F6"
+    },
+    {
+      "id": "availability",
+      "kind": "text",
+      "note": "Role availability; omit unverified current location",
+      "grid": "A7:D7"
+    },
+    {
+      "id": "impact-label",
+      "kind": "text",
+      "note": "Selected impact and tiket.com",
+      "grid": "G1:J1"
+    },
+    {
+      "id": "impact-metric",
+      "kind": "text",
+      "note": "4.8 percent large metric",
+      "grid": "G1:I3"
+    },
+    {
+      "id": "impact-definition",
+      "kind": "text",
+      "note": "checkout conversion lift",
+      "grid": "G3:J3"
+    },
+    {
+      "id": "impact-title",
+      "kind": "text",
+      "note": "Payment recommendation engine",
+      "grid": "G4:J4"
+    },
+    {
+      "id": "impact-method",
+      "kind": "text",
+      "note": "Prioritized payment options by conversion propensity",
+      "grid": "G4:J5"
+    },
+    {
+      "id": "bounce-metric",
+      "kind": "text",
+      "note": "18 percent",
+      "grid": "G5:G6"
+    },
+    {
+      "id": "bounce-label",
+      "kind": "text",
+      "note": "reduction in bounce rate",
+      "grid": "H5:J6"
+    },
+    {
+      "id": "review-metric",
+      "kind": "text",
+      "note": "120 to 15 hours",
+      "grid": "G6:H6"
+    },
+    {
+      "id": "review-label",
+      "kind": "text",
+      "note": "weekly manual review",
+      "grid": "H6:J6"
+    },
+    {
+      "id": "impact-footer",
+      "kind": "text",
+      "note": "Same team, real problems, measurable outcomes",
+      "grid": "G7:I7"
+    },
+    {
+      "id": "work-heading",
+      "kind": "text",
+      "note": "Selected work",
+      "grid": "A8:B8"
+    },
+    {
+      "id": "work-tagline",
+      "kind": "text",
+      "note": "Models, experiments, better products",
+      "grid": "H8:J8"
+    },
+    {
+      "id": "project-title",
+      "kind": "text",
+      "note": "DAG-nabit causal inference",
+      "grid": "B9:E9"
+    },
+    {
+      "id": "project-description",
+      "kind": "text",
+      "note": "Causal inference framework description, use repository factual copy",
+      "grid": "B9:F9"
+    },
+    {
+      "id": "diagonal-seam",
+      "kind": "chrome",
+      "grid": "F0:G8",
+      "note": "Simple cobalt diagonal boundary between content and proof panels",
+      "container": true
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "tool": "build-phase",
+  "version": 2,
+  "startedAt": "2026-09-25T12:11:03.611Z",
+  "comp": ".impeccable/mocks/decision/model-pick.png",
+  "direction": null,
+  "breakpoint": "1536x1024",
+  "artifact": null,
+  "phase": "plates",
+  "phases": {
+    "comps": {
+      "status": "skipped",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [
+        {
+          "at": "2026-09-25T12:11:03.611Z",
+          "text": "started with an approved comp; the comp round happened before this state (surface round or manual)"
+        }
+      ],
+      "gate": null,
+      "forced": null
+    },
+    "spec": {
+      "status": "closed",
+      "openedAt": "2026-09-25T12:11:03.610Z",
+      "closedAt": "2026-09-25T12:15:35.692Z",
+      "attempts": 2,
+      "notes": [],
+      "gate": {
+        "ok": true,
+        "reasons": [],
+        "summary": "25 regions, 1 plates, 20 text regions measured",
+        "at": "2026-09-25T12:15:35.692Z"
+      },
+      "forced": null
+    },
+    "plates": {
+      "status": "open",
+      "openedAt": "2026-09-25T12:15:35.692Z",
+      "closedAt": null,
+      "attempts": 1,
+      "notes": [],
+      "gate": {
+        "ok": false,
+        "reasons": [
+          "plate public/assets/img/profile.webp is not a decodable PNG: png: not a PNG (bad signature)"
+        ],
+        "summary": "0/1 plates",
+        "at": "2026-09-25T12:15:35.719Z"
+      },
+      "forced": null
+    },
+    "hero": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "sections": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "motion": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "responsive": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    },
+    "review": {
+      "status": "pending",
+      "openedAt": null,
+      "closedAt": null,
+      "attempts": 0,
+      "notes": [],
+      "gate": null,
+      "forced": null
+    }
+  },
+  "finish": null,
+  "plates": {
+    "portrait": {
+      "status": "unreadable",
+      "score": null,
+      "size": null
+    }
+  }
+}

@@ -126,12 +126,12 @@ export const experienceData = [
 export const educationData = [
     {
         id: 'monash',
-        degree: "M.Sc. Data Science",
+        degree: "Master of Science",
         school: "Monash University",
         location: "Melbourne, Australia",
         date: "2024 - 2026",
         logo: "/assets/img/monash-logo.webp",
-        focus: "Completed Jun 2026; graduation Oct 2026",
+        focus: "Data Science",
         description: "Graduate study in data science with emphasis on statistical modelling, big data processing, applied analysis, and data visualization.",
         details: ["Statistical Modelling", "Big Data Processing", "Applied Data Analysis", "Data Exploration & Visualization", "Data Wrangling", "Business Analysis"],
         image: "/assets/img/monash.webp"

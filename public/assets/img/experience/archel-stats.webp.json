@@ -1,6 +1,6 @@
 {
   "source": "docs/assets/experience/archel-stats-character.png",
-  "origin": "User-supplied original Archel Experience illustration",
-  "processing": "ImageMagick WebP quality 88, original 1132x1389 dimensions; master unchanged",
-  "note": "Mirror glass and foreground fingers are baked into the artwork. No synthetic replacement art."
+  "origin": "User-supplied updated Archel Experience illustration",
+  "processing": "ImageMagick WebP quality 88, original 1536x1024 dimensions and alpha preserved; master unchanged",
+  "note": "Uses the frame drawn into the character. Separate frame and mask have different proportions; mirror-glass.svg traces visible glass on the character canvas."
 }
