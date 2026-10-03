@@ -194,3 +194,7 @@ Raised and shortened the desktop detail plane, preserving a clear gap above the 
 ### Detail header and affinity-band refinement — 2026-10-03
 
 Removed all project durations. Grouped gray category and black project-name typography at the quarter-width origin, with a restrained overlap. Moved technology categories into a taller royal-blue header band sharing that origin, separated the matrix below, and introduced alternating navy/lavender checkerboard technology cells (alternating rows on mobile). Desktop fit and band/panel separation are covered by the Projects suite.
+
+### Compact centered technical snapshot — 2026-10-03
+
+Reduced the desktop technology panel to a 52%-width, 720px-max content region starting at 9vw; tightened row padding, icons, headings, and legend spacing while allowing long tool names to wrap. Moved the technical snapshot downward and the artwork inward with its existing shared transform. Tablet and mobile preserve readable wrapping and natural flow. Seven-viewport Projects checks cover desktop fit, band separation, action/footer clearance, keyboard interactions, and reduced motion.

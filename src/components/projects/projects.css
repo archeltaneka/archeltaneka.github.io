@@ -246,3 +246,31 @@
 @media (min-width: 1024px) and (min-height: 700px) and (max-height: 800px) {
   .project-return, .project-detail-nav { bottom: 12px; }
 }
+/* Bring the technical snapshot and artwork into a compact central composition. */
+.technology-entry > span { min-width: 0; overflow-wrap: anywhere; }
+.technology-heading { flex-wrap: wrap; }
+@media (min-width: 768px) {
+  .project-detail-content { width: 52%; max-width: 720px; margin-left: 9vw; }
+  .technology-panel { padding: 9px; }
+  .technology-heading { margin-bottom: 6px; }
+  .technology-heading h3 { font-size: 15px; }
+  .technology-entry { grid-template-columns: 18px minmax(0, 1fr) 10px; gap: 8px; min-height: 26px; padding: 3px 8px; font-size: 12px; line-height: 18px; }
+  .technology-entry > svg { width: 17px; height: 17px; }
+  .technology-legend { margin-top: 8px; }
+  .project-purpose { font-size: 13px; line-height: 1.5; }
+  .project-compendium[data-view='details'] .project-art-anchor { transform: translate(-4%, 0%) scale(.80); }
+}
+@media (min-width: 1024px) and (min-height: 700px) {
+  .project-compendium[data-view='details'] .project-detail-content { padding-top: clamp(386px, 51svh, 530px); }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-detail-content { width: 60%; margin-left: 7vw; }
+  .project-compendium[data-view='details'] .project-detail-content { padding-top: 445px; }
+}
+@media (max-width: 767px) {
+  .project-detail-content { margin-left: 26px; margin-right: 26px; }
+  .project-compendium[data-view='details'] .project-detail-content { padding-top: 590px; }
+  .technology-panel { padding: 10px; }
+  .technology-entry { min-height: 38px; padding: 6px 8px; }
+  .project-compendium[data-view='details'] .project-art-anchor { transform: translate(-8%, -310px) scale(.78); }
+}
