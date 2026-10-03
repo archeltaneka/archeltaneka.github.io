@@ -176,3 +176,21 @@ Added proportional reflection-only WebP derivatives with a maximum dimension of 
 The next matched performance probe reduced the worst first-entry long task from 335ms to 61ms; a subsequent forward crossing had no long tasks. This is local Chromium evidence, not a promise of device-independent frame rate. A regression test failed against the original oversized images and independent selection translate, then passed after both fixes. It now runs in the default motion verification suite.
 
 Extended paused-navigation recording exposed an intermittent stale-style re-entry failure. The choreography now uses the installed Framer Motion `animateMini` native tracks with the same explicit offsets/durations, plus an empty native clock track. This avoids queued MotionValue rendering after original inline styles have been restored. Regression coverage includes a normal exit followed by paused entry and checks that the Back control remains onscreen. Final local performance probe: first forward long task 57ms (baseline 335ms); later forward/back had no long tasks and 33.4ms p95 frame intervals. The production JS bundle also fell from 320.76kB to 265.66kB by avoiding the full animation renderer in this route coordinator.
+
+### Project Compendium — 2026-10-03
+
+Added project selection and in-place details as an extension of the existing underwater design. Canonical data supplies descriptions, technology roles, available links, and explicit null-date fallbacks. Original geometric placeholders reserve the `project.illustration` replacement path; no final illustrations or reference assets are shipped. See [Project Compendium](project-compendium.md) for scope, tokens, timings, keyboard access, and mobile behavior. `DESIGN.md` and the pre-existing sidecar drift remain unchanged.
+
+Lint, production build, and diff whitespace checks passed. `check-projects.mjs` passed at 1440, 1200, 1024, 768, 390, and 320px, including navigation/history, reduced motion, retained artwork DOM, Enter on the focused row, and return focus. Experience passed seven viewports; Landing passed twelve, including console/title easter eggs; scene visual checks passed desktop/mobile and the retained AboutIdentity name/photo eggs. Independent review issues with focused-row Enter, mobile focus scrolling, and stable mobile artwork geometry were resolved. Captures are in `.impeccable/review/projects/`. The optional requestAnimationFrame probe was throttled with zero samples; no sampled performance or live FPS claim follows from it.
+
+Deterministic CSS timeline captures at 100, 250, 450, and 720ms confirmed the list exit, diagonal header entrance, staggered information reveal, and retained opaque artwork. Rapid repeated detail switching resolved to the latest project. The detector’s height-transition warning was removed; remaining type-ramp advisories refer to the existing landing contract.
+
+### Compendium layout refinement — 2026-10-03
+
+Centered category labels and tightened project rows (62px desktop minimum, 68px mobile). Replaced the duplicate red keyboard outline with a focused-name underline; the selection retains its single red upper stroke. Added an original cyan/navy card marker to the shared measured highlight, with a restrained 2.8-second float that respects pause and reduced motion. No game icon was copied.
+
+Raised and shortened the desktop detail plane, preserving a clear gap above the technical content. Desktop/laptop viewports at least 1024px wide and 700px tall use compact detail spacing; short, mobile, and zoomed layouts keep natural document scrolling for readability. Expanded the Projects browser suite with a 1280×720 viewport and checks for viewport fit and action/footer separation.
+
+### Detail header and affinity-band refinement — 2026-10-03
+
+Removed all project durations. Grouped gray category and black project-name typography at the quarter-width origin, with a restrained overlap. Moved technology categories into a taller royal-blue header band sharing that origin, separated the matrix below, and introduced alternating navy/lavender checkerboard technology cells (alternating rows on mobile). Desktop fit and band/panel separation are covered by the Projects suite.

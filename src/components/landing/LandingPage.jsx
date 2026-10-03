@@ -69,7 +69,7 @@ function InteractionHints({ paused, onToggleMotion }) {
   );
 }
 
-export default function LandingPage({ introPhase = 'complete', onExperience, active = true }) {
+export default function LandingPage({ introPhase = 'complete', onExperience, onProjects, active = true }) {
   const [selected, setSelected] = useState(0);
   const [notice, setNotice] = useState('');
   const [paused, setPaused] = useState(false);
@@ -88,6 +88,7 @@ export default function LandingPage({ introPhase = 'complete', onExperience, act
   const activate = index => {
     setInteracted(true);
     setSelected(index);
+    if (MENU[index] === 'Projects') { onProjects?.(); return; }
     if (MENU[index] === 'Experience') { onExperience?.(); return; }
     setNotice(`${MENU[index]} section coming next. Explore the resume or get in touch in the meantime.`);
   };

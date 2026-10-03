@@ -25,9 +25,41 @@ export const impactCases = [
     },
 ];
 
+// Project compendium: canonical facts plus a deliberately curated architecture snapshot.
 export const projectData = [
     {
+        id: 'experimentos',
+        name: 'ExperimentOS AI',
+        title: 'ExperimentOS AI',
+        category: 'AGENTIC AI',
+        description: 'Agentic experimentation and decision-intelligence platform combining RAG, multi-agent workflows, LLM evaluation and observability.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'LangGraph', category: 'ai', role: 'core' },
+            { name: 'FastAPI', category: 'backend', role: 'core' },
+            { name: 'PostgreSQL / pgvector', category: 'database', role: 'core' },
+            { name: 'Docker', category: 'infrastructure', role: 'support' },
+            { name: 'OpenTelemetry', category: 'observability', role: 'support' },
+            { name: 'Phoenix', category: 'observability', role: 'support' },
+            { name: 'GitHub Actions', category: 'infrastructure', role: 'support' },
+        ],
+        github: 'https://github.com/archeltaneka/ExperimentOS-AI',
+    },
+    {
         id: 'cherebowl',
+        name: 'Cherébowl',
+        category: 'DATA PLATFORM',
+        description: 'A unified data platform connecting food insecurity, access barriers and emergency relief across Victoria.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'GeoPandas', category: 'other', role: 'core' },
+            { name: 'FastAPI', category: 'backend', role: 'core' },
+            { name: 'PostgreSQL / PostGIS', category: 'database', role: 'core' },
+            { name: 'Pandas', category: 'other', role: 'used' },
+            { name: 'Nuxt / Vue', category: 'other', role: 'core' },
+            { name: 'Mapbox GL', category: 'visualization', role: 'core' },
+            { name: 'D3.js', category: 'visualization', role: 'used' },
+        ],
         title: 'ChèreBowl',
         problem: "Food insecurity data and emergency relief service information were scattered across multiple public sources, making it difficult to identify where need, access barriers, and available support overlap.",
         method: "Designed an end-to-end unified data pipeline including schema-backed loading, Victorian LGA geospatial joins, food-insecurity metric aggregation, and interactive Mapbox/D3 visual analytics.",
@@ -50,19 +82,18 @@ export const projectData = [
         type: 'app'
     },
     {
-        id: 'dag-nabit',
-        title: 'DAG-nabit',
-        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
-        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
-        result: "+3.88% estimated purchase probability lift with 1.05% error.",
-        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
-        image: '/assets/img/dag-nabit.webp',
-        github: 'https://github.com/archeltaneka/DAG-nabit',
-        live: 'https://dag-nabit.streamlit.app/',
-        type: 'app'
-    },
-    {
         id: 'slot-filling',
+        name: 'Joint Intent & Slot Detection',
+        category: 'NLP',
+        description: 'A comparative NLP benchmark for recognizing user intent and extracting slots in conversational agents.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'PyTorch', category: 'ai', role: 'core' },
+            { name: 'Transformers (BERT)', category: 'ai', role: 'core' },
+            { name: 'CRF', category: 'ai', role: 'used' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+            { name: 'Streamlit', category: 'other', role: 'support' },
+        ],
         title: 'NLU Intent Detection & Slot Filling',
         problem: "Conversational agents need reliable intent and slot extraction before downstream automation can be trusted.",
         method: "Benchmarked CRF, Joint Bi-LSTM, attention-based Bi-LSTM, and BERT models with consistent evaluation.",
@@ -72,7 +103,31 @@ export const projectData = [
         github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
         live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
         type: 'app'
+    },
+    {
+        id: 'dag-nabit',
+        name: 'DAG-nabit',
+        category: 'CAUSAL INFERENCE',
+        description: 'An interactive causal inference workflow for exploring how marketing strategies affect customer purchase behavior.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'EconML', category: 'ai', role: 'core' },
+            { name: 'CausalML', category: 'ai', role: 'core' },
+            { name: 'Streamlit', category: 'other', role: 'core' },
+            { name: 'Plotly', category: 'visualization', role: 'used' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+        ],
+        title: 'DAG-nabit',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/DAG-nabit',
+        live: 'https://dag-nabit.streamlit.app/',
+        type: 'app'
     }
+
 ];
 
 export const experienceData = [

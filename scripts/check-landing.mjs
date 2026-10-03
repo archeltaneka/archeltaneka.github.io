@@ -36,7 +36,7 @@ try {
   assert.equal(await menu.getByRole('button', { name: 'Projects', exact: true }).getAttribute('aria-current'), 'true');
   await menu.getByRole('button', { name: 'Skills', exact: true }).click();
   assert.match(await page.getByRole('status').textContent(), /Skills.*coming next/i);
-  assert.equal(await page.locator('main > section').count(), 0, 'No destination sections are mounted');
+  assert.equal(await page.locator('.landing > section').count(), 0, 'Landing does not contain destination sections');
   // Console/title remain live; name/photo are retained in the unmounted AboutIdentity component.
   assert.ok(logs.some(text => text.includes('not a typical HR guy')));
   const title = await page.title();
@@ -103,6 +103,9 @@ try {
   await page.getByRole('button', { name: 'Projects', exact: true }).focus();
   await page.keyboard.press('Enter');
   await page.waitForTimeout(1400);
+  await page.locator('.project-compendium').waitFor({ state: 'visible' });
+  await page.getByRole('button', { name: 'Main menu', exact: true }).click();
+  await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   assert.equal(await menu.getByRole('button', { name: 'Projects', exact: true }).getAttribute('aria-current'), 'true');
   assert.equal(await about.locator('.menu-backing').evaluate(el => getComputedStyle(el).opacity), '0', 'Early selection removes the default backing');
   assert.ok(await page.evaluate(() => document.getAnimations().some(animation => animation.effect.getTiming().iterations === Infinity)), 'Idle motion runs with normal preferences');
@@ -119,7 +122,10 @@ try {
   const touch = await touchContext.newPage();
   await touch.goto(baseURL);
   await touch.getByRole('button', { name: 'Projects', exact: true }).tap();
-  assert.match(await touch.getByRole('status').textContent(), /Projects.*coming next/i);
+  await touch.locator('.project-compendium').waitFor({ state: 'visible' });
+  await touch.waitForFunction(() => location.hash === '#projects');
+  await touch.getByRole('button', { name: 'Main menu', exact: true }).tap();
+  await touch.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   await touchContext.close();
   assert.deepEqual(errors, []);
   console.log('PASS: menu, early input, contact/resume, console/title easter eggs, native keyboard access, reduced motion, 12 viewport sizes; no browser exceptions.');

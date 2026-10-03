@@ -3,8 +3,8 @@ import { experienceArt, reflectionSource } from '../experience/experience-art';
 import { experienceEntries } from '../../data/portfolio';
 import { playScene, SCENE_MOTION } from './scene-motion';
 
-const readRoute = () => window.location.hash === '#experience' ? 'experience' : 'home';
-const idleState = route => route === 'home' ? 'MAIN_MENU_IDLE' : 'STATS_IDLE';
+const readRoute = () => ['experience', 'projects'].includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : 'home';
+const idleState = route => route === 'home' ? 'MAIN_MENU_IDLE' : route === 'projects' ? 'PROJECTS_IDLE' : 'STATS_IDLE';
 let assets;
 function preloadExperience() {
   assets ??= Promise.allSettled([experienceArt.character, experienceArt.mirror.mask,
@@ -21,6 +21,7 @@ export default function useSceneNavigation() {
   const current = useRef(readRoute());
   const busy = useRef(false);
   const hasNavigated = useRef(false);
+  const lastDestination = useRef(readRoute());
   const queuedHistory = useRef(null);
   const [route, setRoute] = useState(readRoute);
   const [transition, setTransition] = useState(null);
@@ -77,7 +78,7 @@ export default function useSceneNavigation() {
     const run = () => {
       if (disposed) return;
       window.scrollTo({ top: 0, behavior: 'instant' });
-      animation = playScene(root.current, transition.to, reduced);
+      animation = playScene(root.current, transition.to, reduced, transition.from);
       const schedule = (seconds, callback) => timers.push(setTimeout(callback, seconds * SCENE_MOTION.navigationScale * 1000));
       if (reduced) { commit(); }
       else if (transition.to === 'experience') {
@@ -95,7 +96,8 @@ export default function useSceneNavigation() {
       else frame = requestAnimationFrame(run);
     };
     if (document.hidden) queueMicrotask(finish);
-    else preloadExperience().then(start);
+    else if (transition.to === 'experience') preloadExperience().then(start);
+    else start();
     const skip = () => { if (preference.matches || document.hidden) finish(); };
     preference.addEventListener('change', skip);
     document.addEventListener('visibilitychange', skip);
@@ -110,9 +112,10 @@ export default function useSceneNavigation() {
   }, [transition, navigate]);
   useEffect(() => {
     if (transition) return;
-    const target = route === 'experience' ? '.experience-header h1' : '.menu-entry-experience button';
+    const target = route === 'experience' ? '.experience-header h1' : route === 'projects' ? '.projects-toolbar h1' : lastDestination.current === 'projects' ? '.menu-entry-projects button' : '.menu-entry-experience button';
+    if (route !== 'home') lastDestination.current = route;
     // Do not steal initial focus from the main menu's page-entry sequence.
-    if (route === 'experience' || hasNavigated.current) root.current.querySelector(target)?.focus({ preventScroll: true });
+    if (route !== 'home' || hasNavigated.current) root.current.querySelector(target)?.focus({ preventScroll: true });
   }, [route, transition]);
   const interaction = useCallback(active => {
     if (!busy.current && current.current === 'experience') setPhase(active ? 'STATS_INTERACTION' : 'STATS_IDLE');

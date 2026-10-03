@@ -20,7 +20,18 @@ export const SCENE_STYLE = {
 const snap = [.16, 1, .3, 1];
 const cut = [.65, 0, .9, .35];
 
-export function playScene(root, destination, reduced) {
+export function playScene(root, destination, reduced, source = destination === 'home' ? 'experience' : 'home') {
+  // Projects uses a short route crossing; its internal 720ms expansion owns the main choreography.
+  if (destination === 'projects' || source === 'projects') {
+    const incoming = root.querySelector(`[data-scene="${destination}"]`);
+    const outgoing = root.querySelector(`[data-scene="${source}"]`);
+    const duration = reduced ? 100 : 340;
+    const tracks = [
+      incoming.animate([{ opacity: 0, transform: 'translateX(28px)', clipPath: 'inset(0)' }, { opacity: 1, transform: 'translateX(0)', clipPath: 'inset(0)' }], { duration, fill: 'both', easing: 'ease-out' }),
+      outgoing.animate([{ opacity: 1 }, { opacity: 0 }], { duration: duration * .7, fill: 'both' }),
+    ];
+    return { controls: Promise.allSettled(tracks.map(track => track.finished)), restore: () => tracks.forEach(track => track.cancel()) };
+  }
   const sequence = [];
   const originals = new Map();
   const home = '[data-scene="home"]';
