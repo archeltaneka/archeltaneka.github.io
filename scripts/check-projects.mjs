@@ -4,6 +4,7 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const errors = [];
+const output = process.env.PROJECTS_CAPTURE_DIR || '.impeccable/review/projects';
 page.on('pageerror', e => errors.push(e.message));
 const url = process.env.PORTFOLIO_URL || 'http://127.0.0.1:5173';
 try {
@@ -15,12 +16,12 @@ try {
   await page.locator('.project-compendium').waitFor({ state: 'visible', timeout: 4000 });
   await page.waitForFunction(() => location.hash === '#projects');
   const main = page.locator('.project-compendium');
-  const rows = main.locator('.project-choice');
+  const rows = main.locator('button.project-choice');
   await rows.nth(1).focus();
   await page.keyboard.press('Enter');
   await page.waitForTimeout(800);
   assert.equal(await main.locator('.project-detail-name').innerText(), 'Cherébowl', 'Enter opens the focused row');
-  await main.getByRole('button', { name: 'Project select', exact: true }).click();
+  await main.getByRole('button', { name: 'Project list', exact: true }).click();
   await page.waitForTimeout(350);
   await rows.nth(1).click();
   assert.equal(await rows.nth(1).getAttribute('aria-pressed'), 'true');
@@ -44,13 +45,14 @@ try {
   await page.keyboard.press('Escape');
   await page.waitForTimeout(400);
   assert.equal(await rows.nth(2).evaluate(el => el === document.activeElement), true);
-  await fs.mkdir('.impeccable/review/projects', { recursive: true });
+  await fs.mkdir(output, { recursive: true });
   for (const [width, height] of [[1440,900],[1280,720],[1200,800],[1024,768],[768,1024],[390,844],[320,568]]) {
     await page.setViewportSize({ width, height });
     await rows.first().click();
     await page.waitForTimeout(350);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `select overflow ${width}`);
-    await page.screenshot({ path: `.impeccable/review/projects/select-${width}.png`, fullPage: true });
+    assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight), `Project list fits viewport ${width}x${height}`);
+    await page.screenshot({ path: `${output}/select-${width}.png`, fullPage: true });
     await main.getByRole('button', { name: 'View project details' }).click();
     await page.waitForTimeout(800);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `detail overflow ${width}`);
@@ -63,8 +65,8 @@ try {
     assert.equal(await main.evaluate(el => el.scrollTop), 0, `No clipped internal scroll at ${width}`);
     assert.ok(await main.locator('.project-actions').evaluate(el => el.getBoundingClientRect().bottom <= document.documentElement.scrollHeight), 'Actions reachable in document flow');
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-    await page.screenshot({ path: `.impeccable/review/projects/detail-${width}.png`, fullPage: true });
-    await main.getByRole('button', { name: 'Project select', exact: true }).click();
+    await page.screenshot({ path: `${output}/detail-${width}.png`, fullPage: true });
+    await main.getByRole('button', { name: 'Project list', exact: true }).click();
     await page.waitForTimeout(350);
     const focused = await page.evaluate(() => { const r = document.activeElement.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; });
     assert.ok(focused, `Return focus stays in view at ${width}`);

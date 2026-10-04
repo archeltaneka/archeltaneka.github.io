@@ -27,8 +27,6 @@
 .projects-environment-title { position: absolute; left: -1.5%; top: 46px; color: var(--projects-white); opacity: .16; font: 700 clamp(160px, 23vw, 370px)/1 Antonio, sans-serif; letter-spacing: -.035em; transform: skewY(-7deg); pointer-events: none; transition: transform 250ms 100ms, opacity 200ms 100ms; }
 .projects-blue-wedge { position: absolute; inset: 60% -5% 7% -5%; background: var(--projects-blue-bright); opacity: .45; transform: skewY(-12deg); z-index: -1; transition: transform 400ms 220ms, opacity 400ms; }
 .project-selection { position: relative; z-index: 3; width: 48%; padding: 0 0 0 4vw; margin-top: clamp(155px, 17vh, 230px); padding-bottom: 120px; transition: opacity 180ms 120ms, transform 240ms 120ms, visibility 0s; }
-.project-selection h2 { display: flex; align-items: baseline; gap: 18px; margin: 0 0 28px; text-transform: uppercase; font: 700 28px/1.1 Antonio, sans-serif; }
-.project-selection h2 span { font: 400 11px/1.5 Inter, sans-serif; text-transform: none; color: var(--projects-text-muted); }
 .project-roster { position: relative; }
 .project-selection-highlight { position: absolute; top: 0; left: -4vw; right: -22px; border-top: 4px solid var(--projects-red); background: var(--projects-white); transition: transform 180ms var(--ease-out); pointer-events: none; }
 .project-selection-highlight::after { content: ''; position: absolute; right: -12px; top: -4px; width: 16px; height: calc(100% + 4px); background: var(--projects-white); clip-path: polygon(0 0,100% 0,0 100%); border-top: 4px solid var(--projects-red); }
@@ -132,8 +130,6 @@
   .projects-toolbar h1 { font-size: 18px; }
   .projects-environment-title { top: 90px; left: -6px; font-size: 36vw; }
   .project-selection { width: calc(100% - 24px); padding-left: 24px; margin-top: 125px; padding-bottom: 240px; }
-  .project-selection h2 { font-size: 26px; display: block; margin-bottom: 20px; }
-  .project-selection h2 span { display: block; margin-top: 8px; }
   .project-choice { min-height: 68px; grid-template-columns: 112px 1fr 14px; gap: 12px; padding-right: 4px; }
   .project-choice-category { font-size: 19px; padding: 8px; }
   .project-choice-name { font-size: 13px; }
@@ -273,4 +269,122 @@
   .technology-panel { padding: 10px; }
   .technology-entry { min-height: 38px; padding: 6px 8px; }
   .project-compendium[data-view='details'] .project-art-anchor { transform: translate(-8%, -310px) scale(.78); }
+}
+
+/* Viewport-sized selection. Details keep their existing readable document flow. */
+.project-compendium.underwater-stage[data-view='select'] {
+  height: 100svh;
+  min-height: 0;
+}
+.project-compendium[data-view='select'] .projects-toolbar {
+  justify-content: flex-end;
+  gap: 12px;
+}
+.projects-environment-title {
+  top: 0;
+  left: 0;
+  width: 66%;
+  padding: 8px 4vw 20px;
+  color: #77797e;
+  background: var(--projects-white);
+  opacity: 1;
+  font-size: clamp(64px, 8vw, 128px);
+  line-height: 1;
+  transform: none;
+  clip-path: polygon(0 0, 100% 0, 94% 78%, 0 100%);
+}
+.project-selection {
+  position: absolute;
+  top: clamp(112px, 12vw, 168px);
+  bottom: 20px;
+  width: 58%;
+  margin: 0;
+  padding: 0 0 0 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.project-roster {
+  flex: 1;
+  min-height: 0;
+}
+.project-roster-measure {
+  position: absolute;
+  inset: 0 0 auto;
+  visibility: hidden;
+  pointer-events: none;
+  contain: layout;
+}
+.project-choice {
+  grid-template-columns: clamp(100px, 10vw, 150px) minmax(0, 1fr) 18px;
+  gap: 12px;
+  min-height: 48px;
+  padding: 4px 0;
+}
+.project-choice[hidden] { display: none; }
+.project-choice-category {
+  min-height: 36px;
+  padding: 4px 8px;
+  font-size: clamp(18px, 1.65vw, 24px);
+  overflow-wrap: anywhere;
+}
+.project-choice-name {
+  font-size: clamp(13px, 1.1vw, 17px);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.project-list-footer { flex-shrink: 0; }
+.project-list-pages {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+.project-list-pages button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--projects-panel);
+  color: var(--projects-cyan);
+}
+.project-list-pages button:hover:not(:disabled) { background: var(--projects-blue); }
+.project-list-pages button:disabled { opacity: .35; cursor: default; }
+.project-list-pages span { min-width: 72px; text-align: center; font-size: 12px; font-variant-numeric: tabular-nums; }
+.project-list-footer .project-open { margin: 0; min-height: 44px; }
+.project-list-footer .project-keyboard-hint { margin: 12px 0 0; }
+.project-compendium[data-view='select'] .project-art-anchor {
+  top: 16%;
+  bottom: 0;
+  height: 82%;
+  width: 44%;
+  right: -2%;
+}
+@media (max-width: 767px) {
+  .projects-environment-title { width: 100%; padding: 8px 24px 18px; font-size: clamp(54px, 12vw, 84px); }
+  .project-compendium[data-view='select'] .projects-toolbar { padding: 88px 18px 0; justify-content: space-between; }
+  .project-selection { top: 148px; bottom: max(12px, env(safe-area-inset-bottom)); width: calc(100% - 24px); padding-left: 24px; gap: 8px; }
+  .project-choice { grid-template-columns: 96px minmax(0, 1fr) 14px; gap: 10px; min-height: 48px; }
+  .project-choice-category { font-size: 18px; }
+  .project-choice-name { font-size: 13px; }
+  .project-compendium[data-view='select'] .project-art-anchor { top: auto; bottom: 0; height: 45%; width: 80%; right: -16%; opacity: .2; }
+  .project-list-footer .project-open { width: 100%; justify-content: space-between; gap: 8px; }
+}
+@media (max-height: 600px) and (min-width: 768px) {
+  .projects-environment-title { font-size: 64px; }
+  .project-selection { top: 104px; bottom: 12px; width: 64%; }
+  .project-list-footer { display: flex; align-items: center; gap: 16px; }
+  .project-list-pages { margin: 0; gap: 4px; }
+  .project-list-footer .project-open { padding: 8px 12px !important; gap: 12px; }
+  .project-list-footer .project-keyboard-hint { display: none; }
+}
+@media (max-height: 450px) and (max-width: 767px) {
+  .project-compendium[data-view='select'] .projects-toolbar { padding: 8px 18px 0; }
+  .projects-environment-title { padding-top: 54px; font-size: 48px; }
+  .project-selection { top: 124px; }
+  .project-list-footer { display: flex; align-items: center; gap: 8px; }
+  .project-list-pages { margin: 0; gap: 0; }
+  .project-list-pages span { min-width: 56px; }
+  .project-list-footer .project-open { width: auto; flex: 1; padding: 8px !important; }
 }

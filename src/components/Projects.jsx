@@ -16,13 +16,20 @@ export default function Projects({ active = true, onBack }) {
   const [hidden, setHidden] = useState(() => document.hidden);
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [highlight, setHighlight] = useState({ y: 0, height: 76 });
+  const [pageStarts, setPageStarts] = useState([0]);
   const root = useRef(null);
+  const roster = useRef(null);
+  const measurements = useRef(null);
+  const pendingFocus = useRef(false);
   const rows = useRef([]);
   const heading = useRef(null);
   const swapTimer = useRef(null);
   const focusTimer = useRef(null);
   const project = projectData[displayed];
   const instant = reduced || paused;
+  const pageIndex = Math.max(0, pageStarts.findLastIndex(start => start <= selected));
+  const pageStart = pageStarts[pageIndex];
+  const pageEnd = pageStarts[pageIndex + 1] ?? projectData.length;
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => setReduced(media.matches);
@@ -32,15 +39,44 @@ export default function Projects({ active = true, onBack }) {
     return () => { media.removeEventListener('change', sync); document.removeEventListener('visibilitychange', visibility); clearTimeout(swapTimer.current); clearTimeout(focusTimer.current); };
   }, []);
   useLayoutEffect(() => {
+    if (!active || view !== 'select') return;
+    // Measure real copy, including wrapping and loaded fonts. Pagination stays
+    // independent of project count, device breakpoints and title length.
+    const measure = () => {
+      const available = roster.current.clientHeight;
+      if (!available) return;
+      const starts = [0];
+      let used = 0;
+      [...measurements.current.children].forEach((row, index) => {
+        const height = row.getBoundingClientRect().height;
+        if (index > starts.at(-1) && used + height > available) {
+          starts.push(index);
+          used = 0;
+        }
+        used += height;
+      });
+      setPageStarts(previous => previous.join(',') === starts.join(',') ? previous : starts);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(roster.current);
+    [...measurements.current.children].forEach(row => observer.observe(row));
+    return () => observer.disconnect();
+  }, [active, view]);
+  useLayoutEffect(() => {
     const measure = () => {
       const row = rows.current[selected];
       if (row) setHighlight({ y: row.offsetTop, height: row.offsetHeight });
     };
     measure();
+    if (pendingFocus.current) {
+      rows.current[selected]?.focus({ preventScroll: true });
+      pendingFocus.current = false;
+    }
     const observer = new ResizeObserver(measure);
     rows.current.forEach(row => row && observer.observe(row));
     return () => observer.disconnect();
-  }, [selected]);
+  }, [selected, pageStart, pageEnd, active, view]);
   const choose = index => {
     const next = (index + projectData.length) % projectData.length;
     setSelected(next);
@@ -72,8 +108,8 @@ export default function Projects({ active = true, onBack }) {
     if (view === 'select' && ['ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
       const next = (selected + (event.key === 'ArrowDown' ? 1 : -1) + projectData.length) % projectData.length;
+      pendingFocus.current = true;
       choose(next);
-      rows.current[next]?.focus({ preventScroll: true });
     } else if (view === 'select' && event.key === 'Enter' && event.target.classList.contains('project-choice')) {
       event.preventDefault(); openDetails(rows.current.indexOf(event.target));
     } else if (view === 'details' && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
@@ -87,26 +123,37 @@ export default function Projects({ active = true, onBack }) {
       <div className="projects-wash" aria-hidden="true" />
       <header className="projects-toolbar">
         <button onClick={() => { clearTimeout(focusTimer.current); onBack?.(); }}><LuArrowLeft aria-hidden="true" />Main menu</button>
-        <h1 tabIndex="-1">Projects</h1>
+        <h1 className="sr-only" tabIndex="-1">Projects</h1>
         <button onClick={() => setPaused(value => !value)} aria-pressed={paused}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />}Motion {paused ? 'off' : 'on'}</button>
       </header>
       <div className="projects-environment-title" aria-hidden="true">PROJECTS</div>
       <div className="projects-blue-wedge" aria-hidden="true" />
       <div className="project-art-anchor"><div className="project-art-swap" data-project={project.id}><ProjectIllustration project={project} /></div></div>
       <section className="project-selection" aria-label="Project selection" inert={view !== 'select'} aria-hidden={view !== 'select'}>
-        <h2>Project select<span>Choose a project to explore</span></h2>
-        <div className="project-roster">
+        <div className="project-roster" ref={roster}>
+          <div className="project-roster-measure" ref={measurements} aria-hidden="true" inert>
+            {projectData.map(item => <div key={item.id} className="project-choice">
+              <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
+            </div>)}
+          </div>
           <div className="project-selection-highlight" aria-hidden="true" style={{ transform: `translateY(${highlight.y}px)`, height: highlight.height }}>
             <span className="project-selection-card">
               <svg viewBox="0 0 36 52" fill="none"><path d="M2 2h32v48H2z" /><path d="m18 11 10 15-10 15L8 26Z" /><path d="M8 7h7M21 45h7M18 18v16M13 26h10" /></svg>
             </span>
           </div>
-          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" aria-pressed={selected === index} onClick={() => choose(index)}>
+          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} aria-pressed={selected === index} onClick={() => choose(index)}>
             <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
           </button>)}
         </div>
-        <button className="project-open" onClick={() => openDetails()}>View project details<LuArrowRight aria-hidden="true" /></button>
-        <p className="project-keyboard-hint">↑ ↓ Browse <span>Enter Open details</span></p>
+        <div className="project-list-footer">
+          <nav className="project-list-pages" aria-label="Project list pages">
+            <button aria-label="Previous project page" disabled={pageStarts.length === 1} onClick={() => choose(pageStarts[(pageIndex - 1 + pageStarts.length) % pageStarts.length])}><LuChevronLeft aria-hidden="true" /></button>
+            <span aria-live="polite">{pageStart + 1}–{pageEnd} / {projectData.length}</span>
+            <button aria-label="Next project page" disabled={pageStarts.length === 1} onClick={() => choose(pageStarts[(pageIndex + 1) % pageStarts.length])}><LuChevronRight aria-hidden="true" /></button>
+          </nav>
+          <button className="project-open" onClick={() => openDetails()}>View project details<LuArrowRight aria-hidden="true" /></button>
+          <p className="project-keyboard-hint">↑ ↓ Browse <span>Enter Open details</span></p>
+        </div>
       </section>
       <section className="project-details" aria-label="Project details" inert={view !== 'details'} aria-hidden={view !== 'details'}>
         <div className="project-header-plane">
@@ -128,7 +175,7 @@ export default function Projects({ active = true, onBack }) {
           <span>{String(selected + 1).padStart(2, '0')} / {String(projectData.length).padStart(2, '0')}</span>
           <button onClick={() => choose(selected + 1)} aria-label="Next project"><span>Next</span><LuChevronRight aria-hidden="true" /></button>
         </nav>
-        <button className="project-return" onClick={closeDetails}><LuArrowLeft aria-hidden="true" />Project select</button>
+        <button className="project-return" onClick={closeDetails}><LuArrowLeft aria-hidden="true" />Project list</button>
       </section>
       <div className="sr-only" role="status" aria-live="polite">{project.name}{view === 'details' ? ', project details' : ', selected'}</div>
     </main>
