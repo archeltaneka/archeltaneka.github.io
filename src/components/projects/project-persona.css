@@ -44,3 +44,37 @@
 @media (prefers-reduced-motion: reduce) {
   .project-persona :is(.project-persona-layer, .project-persona-idle) { animation: none; }
 }
+
+/* Cyan lettering drifts in a traveling wave across the selection artwork. */
+.project-persona-phrase {
+  position: absolute;
+  z-index: 1;
+  top: 57%;
+  left: -4%;
+  width: 108%;
+  color: #57dbe8;
+  opacity: .8;
+  text-align: center;
+  font: 800 clamp(24px, 3.25vw, 62px)/1.05 Inter, sans-serif;
+  letter-spacing: -.035em;
+}
+.persona-phrase-line { display: block; white-space: nowrap; }
+.persona-phrase-letter {
+  display: inline-block;
+  animation: persona-letter-wave 2.8s var(--letter-phase) ease-in-out infinite;
+}
+@keyframes persona-letter-wave {
+  0%, 100% { transform: translateY(0) skewX(-2deg) scaleY(1); }
+  25% { transform: translateY(-3px) skewX(1deg) scaleY(1.04); }
+  75% { transform: translateY(3px) skewX(-1deg) scaleY(.97); }
+}
+.project-persona[data-paused='true'] .persona-phrase-letter { animation-play-state: paused; }
+.project-compendium[data-view='details'] .project-persona-phrase { display: none; }
+@media (max-width: 767px) {
+  .project-compendium.underwater-stage[data-view='select'] .project-art-anchor { opacity: 1; }
+  .project-compendium[data-view='select'] .project-persona-layer { opacity: .2; }
+  .project-persona-phrase { left: -12%; width: 100%; top: 58%; font-size: clamp(18px, 5vw, 30px); opacity: .65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .persona-phrase-letter { animation: none; }
+}

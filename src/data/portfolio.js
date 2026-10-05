@@ -1,3 +1,12 @@
+// Decorative category mottos for the project selection artwork.
+export const projectCategoryPhrases = {
+    'AGENTIC AI': ['THOUGHT INTO', 'MOTION'],
+    'DATA PLATFORM': ['MANY STREAMS,', 'ONE FLOW'],
+    'NLP': ['MEANING', 'BETWEEN WORDS'],
+    'CAUSAL INFERENCE': ['BEYOND', 'COINCIDENCE'],
+    'DATA ANALYSIS': ['PATTERNS BENEATH', 'THE SURFACE'],
+};
+
 export const impactCases = [
     {
         title: 'Payment Recommendation Engine',

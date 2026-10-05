@@ -1,6 +1,7 @@
 import { useState, useSyncExternalStore } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProjectIllustration from './ProjectIllustration';
+import { projectCategoryPhrases } from '../../data/portfolio';
 import './project-persona.css';
 
 const motionPreference = '(prefers-reduced-motion: reduce)';
@@ -49,6 +50,11 @@ function PersonaArtwork({ project, instant }) {
         </div>
       </div>
     )) : <ProjectIllustration project={project} />}
+    {projectCategoryPhrases[project.category] && <div className="project-persona-phrase">
+      {projectCategoryPhrases[project.category].map((line, lineIndex) => <span className="persona-phrase-line" key={line}>
+        {[...line].map((letter, index) => <span className="persona-phrase-letter" key={index} style={{ '--letter-phase': `${-(index + lineIndex * 5) * .095}s` }}>{letter === ' ' ? '\u00a0' : letter}</span>)}
+      </span>)}
+    </div>}
   </motion.div>;
 }
 
