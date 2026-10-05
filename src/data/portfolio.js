@@ -29,6 +29,7 @@ export const impactCases = [
 export const projectData = [
     {
         id: 'experimentos',
+        persona: { mode: 'image', image: '/assets/projects/experimentos/experimentos-persona.png' },
         name: 'ExperimentOS AI',
         title: 'ExperimentOS AI',
         category: 'AGENTIC AI',
@@ -47,6 +48,7 @@ export const projectData = [
     },
     {
         id: 'cherebowl',
+        persona: { mode: 'image', image: '/assets/projects/cherebowl/cherebowl.png' },
         name: 'Cherébowl',
         category: 'DATA PLATFORM',
         description: 'A unified data platform connecting food insecurity, access barriers and emergency relief across Victoria.',
@@ -83,6 +85,7 @@ export const projectData = [
     },
     {
         id: 'slot-filling',
+        persona: { mode: 'image', image: '/assets/projects/slot-filling/slot-filling.png' },
         name: 'Joint Intent & Slot Detection',
         category: 'NLP',
         description: 'A comparative NLP benchmark for recognizing user intent and extracting slots in conversational agents.',
@@ -106,6 +109,7 @@ export const projectData = [
     },
     {
         id: 'dag-nabit',
+        persona: { mode: 'image', image: '/assets/projects/dag-nabit/dag-nabit.png' },
         name: 'DAG-nabit',
         category: 'CAUSAL INFERENCE',
         description: 'An interactive causal inference workflow for exploring how marketing strategies affect customer purchase behavior.',
@@ -126,7 +130,71 @@ export const projectData = [
         github: 'https://github.com/archeltaneka/DAG-nabit',
         live: 'https://dag-nabit.streamlit.app/',
         type: 'app'
-    }
+    },
+    {
+        id: 'melbourne-air-quality-analysis',
+        persona: { mode: 'image', image: '/assets/projects/melbourne-air-quality-analysis/melbourne-air-quality-analysis.png' },
+        name: 'Melbourne Air Quality Pedestrian Traffic Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive dashboard enables users to explore environmental and pedestrian traffic data across multiple time scales',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'D3.js', category: 'visualization', role: 'core' },
+            { name: 'HTML', category: 'visualization', role: 'core' },
+            { name: 'CSS', category: 'visualization', role: 'core' },
+        ],
+        title: 'DAG-nabit',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
+        live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
+        type: 'app'
+    },
+    {
+        id: 'mobiles-dataset-analysis',
+        persona: { mode: 'image', image: '/assets/projects/mobiles-dataset-analysis/mobiles-dataset-analysis.png' },
+        name: 'Mobiles Dataset Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive dashboard showing insights, pricing intelligence, and trend visualizations for mobile devices released before the year 2025.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'Streamlit', category: 'visualization', role: 'core' },
+            { name: 'Plotly', category: 'visualization', role: 'core' },
+            { name: 'Pandas', category: 'other', role: 'core' },
+            { name: 'Numpy', category: 'other', role: 'core' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+        ],
+        title: 'mobiles-dataset-analysis',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
+        live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
+        type: 'app'
+    },
+    {
+        id: 'pokemon-battle-analysis',
+        persona: { mode: 'image', image: '/assets/projects/pokemon-battle-analysis/pokemon-battle-analysis.png' },
+        name: 'Pokemon Battle Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive dashboard showing insights, pricing intelligence, and trend visualizations.',
+        technologies: [
+            { name: 'R', category: 'language', role: 'core' },
+            { name: 'RShiny', category: 'visualization', role: 'core' },
+            { name: 'tidyr', category: 'other', role: 'core' },
+            { name: 'stringr', category: 'other', role: 'core' },
+            { name: 'dplyr', category: 'other', role: 'core' },
+            { name: 'xgboost', category: 'ai', role: 'core' },
+        ],
+        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
+        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
+        type: 'app'
+    },
 
 ];
 

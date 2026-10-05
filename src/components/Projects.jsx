@@ -3,7 +3,7 @@ import { LuArrowLeft, LuArrowRight, LuArrowUpRight, LuChevronLeft, LuChevronRigh
 import { projectData } from '../data/portfolio';
 import { UnderwaterBackground } from './landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from './landing/landing-motion';
-import ProjectIllustration from './projects/ProjectIllustration';
+import ProjectPersona from './projects/ProjectPersona';
 import TechnologyMatrix, { TechnologyCategories } from './projects/TechnologyMatrix';
 import './projects/projects.css';
 
@@ -128,7 +128,11 @@ export default function Projects({ active = true, onBack }) {
       </header>
       <div className="projects-environment-title" aria-hidden="true">PROJECTS</div>
       <div className="projects-blue-wedge" aria-hidden="true" />
-      <div className="project-art-anchor"><div className="project-art-swap" data-project={project.id}><ProjectIllustration project={project} /></div></div>
+      <svg className="project-persona-diamond" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path className="persona-diamond-desktop" d="M76 26 98 64 76 102 54 64Z" />
+        <path className="persona-diamond-mobile" d="M50 1 99 50 50 99 1 50Z" />
+      </svg>
+      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={active} paused={paused || hidden} /></div>
       <section className="project-selection" aria-label="Project selection" inert={view !== 'select'} aria-hidden={view !== 'select'}>
         <div className="project-roster" ref={roster}>
           <div className="project-roster-measure" ref={measurements} aria-hidden="true" inert>

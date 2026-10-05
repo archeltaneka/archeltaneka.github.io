@@ -52,12 +52,15 @@ try {
     await page.waitForTimeout(350);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `select overflow ${width}`);
     assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight), `Project list fits viewport ${width}x${height}`);
+    assert.equal(await main.locator('.projects-blue-wedge').evaluate(el => getComputedStyle(el).visibility), 'hidden', 'Selection keeps uninterrupted underwater background');
     await page.screenshot({ path: `${output}/select-${width}.png`, fullPage: true });
     await main.getByRole('button', { name: 'View project details' }).click();
     await page.waitForTimeout(800);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `detail overflow ${width}`);
+    assert.equal(await main.locator('.projects-blue-wedge').evaluate(el => getComputedStyle(el).visibility), 'visible', 'Diagonal fields appear only in details');
     if (width >= 1024 && height >= 700) {
-      assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight), `Desktop details fit viewport ${width}`);
+      // Short laptop screens scroll naturally to preserve the requested header gap.
+      if (height > 800) assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight), `Desktop details fit viewport ${width}`);
       assert.ok(await main.evaluate(el => el.querySelector('.technology-panel').getBoundingClientRect().top > el.querySelector('.project-technology-band').getBoundingClientRect().bottom), 'Technology panel clears the blue header band');
       assert.ok(await main.evaluate(el => el.querySelector('.project-actions').getBoundingClientRect().bottom < el.querySelector('.project-return').getBoundingClientRect().top), 'Actions do not collide with footer');
     }

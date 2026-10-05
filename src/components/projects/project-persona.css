@@ -1,0 +1,46 @@
+/* This slot inherits the existing art anchor's responsive dimensions. No image
+   intrinsic size participates in page layout. Every layer uses the same canvas. */
+.project-persona,
+.project-persona-entry,
+.project-persona-layer,
+.project-persona-idle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.project-persona-entry { transform-origin: 65% 65%; }
+.project-persona img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  user-select: none;
+}
+.project-persona-layer {
+  --layer-delay: 0ms;
+  animation: persona-layer-enter 420ms var(--layer-delay) both cubic-bezier(.16, 1, .3, 1);
+}
+.project-persona-layer--core { --layer-delay: 80ms; }
+.project-persona-layer--shards { --layer-delay: 120ms; }
+.project-persona-layer--energy { --layer-delay: 180ms; }
+.project-persona-idle { animation-delay: 600ms; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+.project-persona-idle--body { animation-name: persona-float; animation-duration: 4.6s; }
+.project-persona-idle--core { animation-name: persona-core; animation-duration: 2.8s; }
+.project-persona-idle--shards { animation-name: persona-shards; animation-duration: 5.6s; }
+.project-persona-idle--energy { animation-name: persona-energy; animation-duration: 4s; }
+@keyframes persona-layer-enter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes persona-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes persona-core { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.04); opacity: 1; } }
+@keyframes persona-shards {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  33% { transform: translate(4px, -5px) rotate(1.5deg); }
+  66% { transform: translate(-3px, 3px) rotate(-1deg); }
+}
+@keyframes persona-energy { 0%, 100% { opacity: .8; } 50% { opacity: 1; } }
+.project-persona-entry[data-entered='true'] .project-persona-layer { animation: none; }
+.project-persona[data-paused='true'] .project-persona-idle { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .project-persona :is(.project-persona-layer, .project-persona-idle) { animation: none; }
+}
