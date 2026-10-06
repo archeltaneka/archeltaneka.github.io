@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Projects from './components/Projects';
+import SkillsPage from './components/skills/SkillsPage';
 import ExperiencePage from './components/experience/ExperiencePage';
 import LandingPage from './components/landing/LandingPage';
 import PageLoadDiveTransition from './components/landing/PageLoadDiveTransition';
@@ -33,7 +34,7 @@ function App() {
   const { root, route, transition, phase, navigate, interaction } = useSceneNavigation();
   // Lives above navigation: a full document reload is the only normal replay.
   const [introPhase, setIntroPhase] = useState(() =>
-    ['#experience', '#projects'].includes(window.location.hash) || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
+    ['#experience', '#projects', '#skills'].includes(window.location.hash) || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
   const revealLanding = useCallback(() => setIntroPhase(phase => phase === 'dive' ? 'landing' : phase), []);
   const settleLanding = useCallback(() => setIntroPhase(phase => phase === 'landing' ? 'settled' : phase), []);
   const completeDive = useCallback(() => setIntroPhase('complete'), []);
@@ -70,13 +71,16 @@ function App() {
     <>
       <div ref={root} className="portfolio-scene" data-scene-state={phase} data-transitioning={Boolean(transition)} style={SCENE_STYLE}>
         <div className="portfolio-route" data-scene="home" hidden={transition ? ![transition.from, transition.to].includes('home') : route !== 'home'} data-incoming={transition?.to === 'home'} inert={Boolean(transition) || route !== 'home'}>
-          <LandingPage onProjects={() => { setIntroPhase('complete'); navigate('projects'); }} introPhase={introPhase} active={route === 'home' && !transition} onExperience={() => { setIntroPhase('complete'); navigate('experience'); }} />
+          <LandingPage onSkills={() => { setIntroPhase('complete'); navigate('skills'); }} onProjects={() => { setIntroPhase('complete'); navigate('projects'); }} introPhase={introPhase} active={route === 'home' && !transition} onExperience={() => { setIntroPhase('complete'); navigate('experience'); }} />
         </div>
         <div className="portfolio-route" data-scene="experience" hidden={transition ? ![transition.from, transition.to].includes('experience') : route !== 'experience'} data-incoming={transition?.to === 'experience'} inert={Boolean(transition) || route !== 'experience'}>
           <ExperiencePage active={route === 'experience' && !transition} onInteraction={interaction} onBack={() => navigate('home')} />
         </div>
         <div className="portfolio-route" data-scene="projects" hidden={transition ? ![transition.from, transition.to].includes('projects') : route !== 'projects'} data-incoming={transition?.to === 'projects'} inert={Boolean(transition) || route !== 'projects'}>
           <Projects present={route === 'projects' || transition?.to === 'projects'} active={route === 'projects' && !transition} onBack={() => navigate('home')} />
+        </div>
+        <div className="portfolio-route" data-scene="skills" hidden={transition ? ![transition.from, transition.to].includes('skills') : route !== 'skills'} data-incoming={transition?.to === 'skills'} inert={Boolean(transition) || route !== 'skills'}>
+          {(route === 'skills' || transition?.to === 'skills' || transition?.from === 'skills') && <SkillsPage active={route === 'skills' && !transition} onBack={() => navigate('home')} />}
         </div>
         {transition && <div className="scene-crossing" aria-hidden="true"><i className="scene-blade scene-blade--blue" /><i className="scene-blade scene-blade--white" /><i className="scene-blade scene-blade--ink" /></div>}
       </div>
