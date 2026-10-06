@@ -7,7 +7,7 @@ import ProjectPersona from './projects/ProjectPersona';
 import TechnologyMatrix, { TechnologyCategories } from './projects/TechnologyMatrix';
 import './projects/projects.css';
 
-export default function Projects({ active = true, onBack }) {
+export default function Projects({ active = true, present = active, onBack }) {
   const [selected, setSelected] = useState(0);
   const [displayed, setDisplayed] = useState(0);
   const [view, setView] = useState('select');
@@ -39,7 +39,7 @@ export default function Projects({ active = true, onBack }) {
     return () => { media.removeEventListener('change', sync); document.removeEventListener('visibilitychange', visibility); clearTimeout(swapTimer.current); clearTimeout(focusTimer.current); };
   }, []);
   useLayoutEffect(() => {
-    if (!active || view !== 'select') return;
+    if (!present || view !== 'select') return;
     // Measure real copy, including wrapping and loaded fonts. Pagination stays
     // independent of project count, device breakpoints and title length.
     const measure = () => {
@@ -62,7 +62,7 @@ export default function Projects({ active = true, onBack }) {
     observer.observe(roster.current);
     [...measurements.current.children].forEach(row => observer.observe(row));
     return () => observer.disconnect();
-  }, [active, view]);
+  }, [present, view]);
   useLayoutEffect(() => {
     const measure = () => {
       const row = rows.current[selected];
@@ -132,7 +132,7 @@ export default function Projects({ active = true, onBack }) {
         <path className="persona-diamond-desktop" d="M76 26 98 64 76 102 54 64Z" />
         <path className="persona-diamond-mobile" d="M50 1 99 50 50 99 1 50Z" />
       </svg>
-      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={active} paused={paused || hidden} /></div>
+      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={present} paused={!active || paused || hidden} /></div>
       <section className="project-selection" aria-label="Project selection" inert={view !== 'select'} aria-hidden={view !== 'select'}>
         <div className="project-roster" ref={roster}>
           <div className="project-roster-measure" ref={measurements} aria-hidden="true" inert>
@@ -181,6 +181,7 @@ export default function Projects({ active = true, onBack }) {
         </nav>
         <button className="project-return" onClick={closeDetails}><LuArrowLeft aria-hidden="true" />Project list</button>
       </section>
+      <p className="project-ai-note">AI-generated artwork. For illustration only.</p>
       <div className="sr-only" role="status" aria-live="polite">{project.name}{view === 'details' ? ', project details' : ', selected'}</div>
     </main>
   );

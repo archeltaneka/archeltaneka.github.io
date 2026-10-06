@@ -76,7 +76,7 @@ function App() {
           <ExperiencePage active={route === 'experience' && !transition} onInteraction={interaction} onBack={() => navigate('home')} />
         </div>
         <div className="portfolio-route" data-scene="projects" hidden={transition ? ![transition.from, transition.to].includes('projects') : route !== 'projects'} data-incoming={transition?.to === 'projects'} inert={Boolean(transition) || route !== 'projects'}>
-          <Projects active={route === 'projects' && !transition} onBack={() => navigate('home')} />
+          <Projects present={route === 'projects' || transition?.to === 'projects'} active={route === 'projects' && !transition} onBack={() => navigate('home')} />
         </div>
         {transition && <div className="scene-crossing" aria-hidden="true"><i className="scene-blade scene-blade--blue" /><i className="scene-blade scene-blade--white" /><i className="scene-blade scene-blade--ink" /></div>}
       </div>

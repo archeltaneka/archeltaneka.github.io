@@ -15,6 +15,7 @@ try {
   await page.getByRole('button', { name: 'Projects', exact: true }).click();
   await page.locator('.project-compendium').waitFor({ state: 'visible', timeout: 4000 });
   await page.waitForFunction(() => location.hash === '#projects');
+  await page.locator('.portfolio-scene[data-scene-state="PROJECTS_IDLE"]').waitFor();
   const main = page.locator('.project-compendium');
   const rows = main.locator('button.project-choice');
   await rows.nth(1).focus();

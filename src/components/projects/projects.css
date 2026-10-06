@@ -468,3 +468,22 @@
   .persona-diamond-desktop { display: none; }
   .persona-diamond-mobile { display: initial; }
 }
+
+/* Shared acknowledgement stays readable in both the list and detail views. */
+.project-ai-note {
+  position: absolute;
+  z-index: 4;
+  right: 4vw;
+  bottom: 22px;
+  max-width: 27ch;
+  margin: 0;
+  color: var(--projects-text-muted);
+  font: 400 11px/1.65 Inter, sans-serif;
+  text-align: right;
+}
+.project-compendium[data-view='details'] .project-ai-note { bottom: 84px; }
+@media (max-width: 767px) {
+  .project-compendium[data-view='select'] .project-selection { bottom: 50px; }
+  .project-ai-note { right: 24px; bottom: 12px; max-width: calc(100% - 48px); text-align: left; }
+  .project-compendium[data-view='details'] .project-ai-note { bottom: 25px; max-width: min(23ch, calc(100% - 180px)); text-align: right; }
+}

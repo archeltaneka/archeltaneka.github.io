@@ -21,16 +21,8 @@ const snap = [.16, 1, .3, 1];
 const cut = [.65, 0, .9, .35];
 
 export function playScene(root, destination, reduced, source = destination === 'home' ? 'experience' : 'home') {
-  // Projects uses a short route crossing; its internal 720ms expansion owns the main choreography.
   if (destination === 'projects' || source === 'projects') {
-    const incoming = root.querySelector(`[data-scene="${destination}"]`);
-    const outgoing = root.querySelector(`[data-scene="${source}"]`);
-    const duration = reduced ? 100 : 340;
-    const tracks = [
-      incoming.animate([{ opacity: 0, transform: 'translateX(28px)', clipPath: 'inset(0)' }, { opacity: 1, transform: 'translateX(0)', clipPath: 'inset(0)' }], { duration, fill: 'both', easing: 'ease-out' }),
-      outgoing.animate([{ opacity: 1 }, { opacity: 0 }], { duration: duration * .7, fill: 'both' }),
-    ];
-    return { controls: Promise.allSettled(tracks.map(track => track.finished)), restore: () => tracks.forEach(track => track.cancel()) };
+    return playProjects(root, destination, source, reduced);
   }
   const sequence = [];
   const originals = new Map();
@@ -114,5 +106,55 @@ export function playScene(root, destination, reduced, source = destination === '
         else element.setAttribute('style', style);
       });
     },
+  };
+}
+
+// The project crossing shares the underwater stage: move its individual planes,
+// keeping artwork opaque instead of dissolving two complete pages together.
+function playProjects(root, destination, source, reduced) {
+  const incoming = root.querySelector(`[data-scene="${destination}"]`);
+  const outgoing = root.querySelector(`[data-scene="${source}"]`);
+  const tracks = [];
+  const snap = 'cubic-bezier(.16, 1, .3, 1)';
+  const exit = 'cubic-bezier(.65, 0, .9, .35)';
+  const add = (scope, selector, frames, delay, duration, easing = snap, stagger = 0) => {
+    const elements = selector ? scope.querySelectorAll(selector) : [scope];
+    elements.forEach((element, index) => tracks.push(element.animate(frames, {
+      delay: delay + Math.min(index, 7) * stagger, duration, easing, fill: 'both',
+    })));
+  };
+  if (reduced) {
+    add(incoming, null, { opacity: [0, 1], clipPath: ['inset(0)', 'inset(0)'] }, 0, 120);
+    add(outgoing, null, { opacity: [1, 0] }, 0, 120);
+  } else {
+    const forward = destination === 'projects';
+    const distance = window.matchMedia('(max-width: 767px)').matches ? 60 : 100;
+    // A short opaque cut exposes the new water stage while each plane settles.
+    add(incoming, null, { opacity: [0, 1], clipPath: ['inset(0)', 'inset(0)'] }, 280, 1);
+    add(outgoing, null, { opacity: [1, 0] }, 280, 1);
+    if (forward) {
+      add(outgoing, '.menu-arrival', { translate: ['0 0', '80vw -16vh'] }, 50, 290, exit, 15);
+      add(outgoing, '.character-entrance', { translate: ['0 0', '-65vw 15vh'] }, 20, 310, exit);
+      add(outgoing, '.name-carousel, .character-backdrop', { translate: ['0 0', '-45vw 10vh'] }, 60, 260, exit);
+      add(outgoing, '.impact-card, .landing-footer', { opacity: [1, 0] }, 0, 160);
+      add(incoming, '.projects-environment-title', { translate: ['-100% 15%', '0 0'] }, 260, 380);
+      add(incoming, '.project-roster', { translate: [`-${distance}% 8%`, '0 0'] }, 310, 390);
+      add(incoming, '.project-roster > .project-choice:not([hidden])', { translate: ['-40px 0', '0 0'] }, 340, 280, snap, 24);
+      add(incoming, '.project-art-anchor', { translate: [`${distance}% -8%`, '0 0'] }, 290, 490);
+      add(incoming, '.project-details', { translate: ['-60px 12px', '0 0'] }, 310, 390);
+      add(incoming, '.projects-toolbar, .project-list-footer, .project-ai-note', { opacity: [0, 1] }, 580, 180);
+    } else {
+      add(outgoing, '.project-selection, .project-details, .projects-environment-title', { translate: ['0 0', '-100vw 12vh'] }, 0, 300, exit);
+      add(outgoing, '.project-art-anchor', { translate: ['0 0', '70vw -12vh'] }, 30, 290, exit);
+      add(outgoing, '.projects-toolbar, .project-ai-note', { opacity: [1, 0] }, 0, 140);
+      add(incoming, '.character-backdrop, .name-carousel', { translate: ['-40vw 8vh', '0 0'] }, 270, 360);
+      add(incoming, '.character-entrance', { translate: ['-60vw 12vh', '0 0'] }, 290, 450);
+      add(incoming, '.menu-arrival', { translate: ['65vw -12vh', '0 0'] }, 340, 310, snap, 22);
+      add(incoming, '.impact-card, .landing-footer', { opacity: [0, 1] }, 610, 170);
+    }
+  }
+  return {
+    controls: Promise.allSettled(tracks.map(track => track.finished)),
+    restore: () => tracks.forEach(track => track.cancel()),
   };
 }

@@ -34,7 +34,7 @@ export default function useSceneNavigation() {
     if (to === current.current) return;
     busy.current = true;
     hasNavigated.current = true;
-    setPhase(to === 'experience' ? 'MAIN_MENU_SELECT_EXPERIENCE' : 'STATS_EXIT');
+    setPhase(to === 'experience' ? 'MAIN_MENU_SELECT_EXPERIENCE' : to === 'projects' ? 'MAIN_MENU_SELECT_PROJECTS' : current.current === 'projects' ? 'PROJECTS_EXIT' : 'STATS_EXIT');
     setTransition({ from: current.current, to, push, paused: root.current?.querySelector(`[data-scene="${current.current}"] main`)?.dataset.motion === 'paused' });
   }, []);
   useEffect(() => {
@@ -81,7 +81,9 @@ export default function useSceneNavigation() {
       animation = playScene(root.current, transition.to, reduced, transition.from);
       const schedule = (seconds, callback) => timers.push(setTimeout(callback, seconds * SCENE_MOTION.navigationScale * 1000));
       if (reduced) { commit(); }
-      else if (transition.to === 'experience') {
+      else if (transition.to === 'projects' || transition.from === 'projects') {
+        timers.push(setTimeout(() => { commit(); setPhase(transition.to === 'projects' ? 'PROJECTS_ENTER' : 'MAIN_MENU_RETURN'); }, 280));
+      } else if (transition.to === 'experience') {
         schedule(SCENE_MOTION.forward.anticipation, () => setPhase('MAIN_TO_STATS_TRANSITION'));
         schedule(SCENE_MOTION.forward.reveal, () => { commit(); setPhase('STATS_ENTER'); });
       } else {
