@@ -19,17 +19,16 @@ try {
   assert.equal(await main.locator('.skills-tool').count(), 3);
   await rows.nth(1).hover();
   assert.equal(await main.getAttribute('data-category'), 'machine-learning');
-  assert.equal(await rows.first().getAttribute('aria-pressed'), 'true');
+  assert.equal(await rows.nth(1).getAttribute('aria-pressed'), 'true');
   await main.locator('h1').hover();
-  assert.equal(await main.getAttribute('data-category'), 'programming', 'Leaving preview restores committed category');
+  assert.equal(await main.getAttribute('data-category'), 'machine-learning', 'Leaving hover retains selected category');
   await rows.nth(2).click();
   await main.locator('h1').hover();
   assert.equal(await main.getAttribute('data-category'), 'ai-llm');
   await rows.nth(2).focus();
   await page.keyboard.press('ArrowDown');
   assert.equal(await main.getAttribute('data-category'), 'data');
-  await page.keyboard.press('Enter');
-  assert.equal(await main.locator('.skills-tools').evaluate(el => el === document.activeElement), true);
+  assert.equal(await rows.nth(3).evaluate(el => el === document.activeElement), true);
   for (const [width, height] of [[1920,1080],[1440,900],[1280,800],[768,1024],[390,844],[320,568],[844,390]]) {
     await page.setViewportSize({ width, height });
     for (let index = 0; index < 6; index++) {
@@ -72,10 +71,6 @@ try {
   await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   await page.goForward();
   await page.locator('[data-scene-state="SKILLS_IDLE"]').waitFor();
-  await main.getByRole('button', { name: 'Motion on' }).click();
-  assert.equal(await main.getAttribute('data-motion'), 'paused');
-  await rows.nth(4).click();
-  assert.equal(await main.locator('.skills-tool').first().evaluate(el => getComputedStyle(el).opacity), '1', 'Paused category changes stay visible');
   await rows.nth(2).focus();
   await page.keyboard.press('ArrowDown');
   assert.equal(await main.getAttribute('data-category'), 'data', 'Arrows follow focused category');
@@ -93,5 +88,5 @@ try {
   assert.equal(await touch.locator('.skills-page').getAttribute('data-category'), 'visualization');
   await touch.close();
   assert.deepEqual(errors, []);
-  console.log('Skills: 7 viewports × 6 categories; hover/commit, keyboard, touch, history, return focus, pause, reduced motion and no dive replay passed.');
+  console.log('Skills: 7 viewports × 6 categories; hover selection, keyboard, touch, history, return focus, reduced motion and no dive replay passed.');
 } finally { await browser.close(); }

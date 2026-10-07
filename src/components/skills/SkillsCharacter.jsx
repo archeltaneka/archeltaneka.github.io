@@ -1,6 +1,5 @@
-// Replace the null source with an original transparent illustration. The slot,
-// clipping, stacking and scene-motion hook remain independent of the artwork.
-export default function SkillsCharacter({ src = null }) {
+// Keep the artwork inside the existing scene-motion anchor.
+export default function SkillsCharacter({ src = '/assets/skill/archel_illustration_skill.png' }) {
   return <div className="skills-character-anchor" aria-hidden="true">
     <div className="skills-character">
       {src ? <img src={src} alt="" decoding="async" /> :
