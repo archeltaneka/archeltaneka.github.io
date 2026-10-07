@@ -1,4 +1,5 @@
 import { animateMini as animate } from 'framer-motion';
+import { playAbout } from '../about/about-motion';
 
 // Seconds throughout. All navigation choreography and interaction timings live here.
 export const SCENE_MOTION = Object.freeze({
@@ -21,6 +22,7 @@ const snap = [.16, 1, .3, 1];
 const cut = [.65, 0, .9, .35];
 
 export function playScene(root, destination, reduced, source = destination === 'home' ? 'experience' : 'home') {
+  if (destination === 'about' || source === 'about') return playAbout(root, destination, source, reduced);
   if (destination === 'skills' || source === 'skills') return playSkills(root, destination, source, reduced);
   if (destination === 'projects' || source === 'projects') {
     return playProjects(root, destination, source, reduced);

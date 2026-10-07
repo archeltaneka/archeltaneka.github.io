@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import Projects from './components/Projects';
+import AboutPage from './components/about/AboutPage';
 import SkillsPage from './components/skills/SkillsPage';
 import ExperiencePage from './components/experience/ExperiencePage';
 import LandingPage from './components/landing/LandingPage';
@@ -32,9 +33,10 @@ Now tell your hiring manager I care about both signal and implementation.
 
 function App() {
   const { root, route, transition, phase, navigate, interaction } = useSceneNavigation();
+  const [aboutPaused, setAboutPaused] = useState(false);
   // Lives above navigation: a full document reload is the only normal replay.
   const [introPhase, setIntroPhase] = useState(() =>
-    ['#experience', '#projects', '#skills'].includes(window.location.hash) || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
+    ['#about', '#experience', '#projects', '#skills'].includes(window.location.hash) || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
   const revealLanding = useCallback(() => setIntroPhase(phase => phase === 'dive' ? 'landing' : phase), []);
   const settleLanding = useCallback(() => setIntroPhase(phase => phase === 'landing' ? 'settled' : phase), []);
   const completeDive = useCallback(() => setIntroPhase('complete'), []);
@@ -71,7 +73,7 @@ function App() {
     <>
       <div ref={root} className="portfolio-scene" data-scene-state={phase} data-transitioning={Boolean(transition)} style={SCENE_STYLE}>
         <div className="portfolio-route" data-scene="home" hidden={transition ? ![transition.from, transition.to].includes('home') : route !== 'home'} data-incoming={transition?.to === 'home'} inert={Boolean(transition) || route !== 'home'}>
-          <LandingPage onSkills={() => { setIntroPhase('complete'); navigate('skills'); }} onProjects={() => { setIntroPhase('complete'); navigate('projects'); }} introPhase={introPhase} active={route === 'home' && !transition} onExperience={() => { setIntroPhase('complete'); navigate('experience'); }} />
+          <LandingPage onAbout={() => { setIntroPhase('complete'); navigate('about'); }} onSkills={() => { setIntroPhase('complete'); navigate('skills'); }} onProjects={() => { setIntroPhase('complete'); navigate('projects'); }} introPhase={introPhase} active={route === 'home' && !transition} onExperience={() => { setIntroPhase('complete'); navigate('experience'); }} />
         </div>
         <div className="portfolio-route" data-scene="experience" hidden={transition ? ![transition.from, transition.to].includes('experience') : route !== 'experience'} data-incoming={transition?.to === 'experience'} inert={Boolean(transition) || route !== 'experience'}>
           <ExperiencePage active={route === 'experience' && !transition} onInteraction={interaction} onBack={() => navigate('home')} />
@@ -81,6 +83,9 @@ function App() {
         </div>
         <div className="portfolio-route" data-scene="skills" hidden={transition ? ![transition.from, transition.to].includes('skills') : route !== 'skills'} data-incoming={transition?.to === 'skills'} inert={Boolean(transition) || route !== 'skills'}>
           {(route === 'skills' || transition?.to === 'skills' || transition?.from === 'skills') && <SkillsPage active={route === 'skills' && !transition} onBack={() => navigate('home')} />}
+        </div>
+        <div className="portfolio-route" data-scene="about" hidden={transition ? ![transition.from, transition.to].includes('about') : route !== 'about'} data-incoming={transition?.to === 'about'} inert={Boolean(transition) || route !== 'about'}>
+          {(route === 'about' || transition?.to === 'about' || transition?.from === 'about') && <AboutPage paused={aboutPaused} onToggleMotion={() => setAboutPaused(value => !value)} active={route === 'about' && !transition} onBack={() => navigate('home')} />}
         </div>
         {transition && <div className="scene-crossing" aria-hidden="true"><i className="scene-blade scene-blade--blue" /><i className="scene-blade scene-blade--white" /><i className="scene-blade scene-blade--ink" /></div>}
       </div>

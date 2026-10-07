@@ -69,7 +69,7 @@ function InteractionHints({ paused, onToggleMotion }) {
   );
 }
 
-export default function LandingPage({ introPhase = 'complete', onExperience, onProjects, onSkills, active = true }) {
+export default function LandingPage({ introPhase = 'complete', onAbout, onExperience, onProjects, onSkills, active = true }) {
   const [selected, setSelected] = useState(0);
   const [notice, setNotice] = useState('');
   const [paused, setPaused] = useState(false);
@@ -88,6 +88,7 @@ export default function LandingPage({ introPhase = 'complete', onExperience, onP
   const activate = index => {
     setInteracted(true);
     setSelected(index);
+    if (MENU[index] === 'About') { onAbout?.(); return; }
     if (MENU[index] === 'Skills') { onSkills?.(); return; }
     if (MENU[index] === 'Projects') { onProjects?.(); return; }
     if (MENU[index] === 'Experience') { onExperience?.(); return; }

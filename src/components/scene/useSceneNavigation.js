@@ -3,8 +3,8 @@ import { experienceArt, reflectionSource } from '../experience/experience-art';
 import { experienceEntries } from '../../data/portfolio';
 import { playScene, SCENE_MOTION } from './scene-motion';
 
-const readRoute = () => ['experience', 'projects', 'skills'].includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : 'home';
-const idleState = route => route === 'skills' ? 'SKILLS_IDLE' : route === 'home' ? 'MAIN_MENU_IDLE' : route === 'projects' ? 'PROJECTS_IDLE' : 'STATS_IDLE';
+const readRoute = () => ['about', 'experience', 'projects', 'skills'].includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : 'home';
+const idleState = route => route === 'about' ? 'ABOUT_IDLE' : route === 'skills' ? 'SKILLS_IDLE' : route === 'home' ? 'MAIN_MENU_IDLE' : route === 'projects' ? 'PROJECTS_IDLE' : 'STATS_IDLE';
 let assets;
 function preloadExperience() {
   assets ??= Promise.allSettled([experienceArt.character, experienceArt.mirror.mask,
@@ -34,7 +34,7 @@ export default function useSceneNavigation() {
     if (to === current.current) return;
     busy.current = true;
     hasNavigated.current = true;
-    setPhase(to === 'skills' ? 'MAIN_MENU_SELECT_SKILLS' : current.current === 'skills' ? 'SKILLS_EXIT' : to === 'experience' ? 'MAIN_MENU_SELECT_EXPERIENCE' : to === 'projects' ? 'MAIN_MENU_SELECT_PROJECTS' : current.current === 'projects' ? 'PROJECTS_EXIT' : 'STATS_EXIT');
+    setPhase(to === 'about' ? 'MAIN_MENU_SELECT_ABOUT' : current.current === 'about' ? 'ABOUT_EXIT' : to === 'skills' ? 'MAIN_MENU_SELECT_SKILLS' : current.current === 'skills' ? 'SKILLS_EXIT' : to === 'experience' ? 'MAIN_MENU_SELECT_EXPERIENCE' : to === 'projects' ? 'MAIN_MENU_SELECT_PROJECTS' : current.current === 'projects' ? 'PROJECTS_EXIT' : 'STATS_EXIT');
     setTransition({ from: current.current, to, push, paused: root.current?.querySelector(`[data-scene="${current.current}"] main`)?.dataset.motion === 'paused' });
   }, []);
   useEffect(() => {
@@ -81,8 +81,8 @@ export default function useSceneNavigation() {
       animation = playScene(root.current, transition.to, reduced, transition.from);
       const schedule = (seconds, callback) => timers.push(setTimeout(callback, seconds * SCENE_MOTION.navigationScale * 1000));
       if (reduced) { commit(); }
-      else if (['projects', 'skills'].includes(transition.to) || ['projects', 'skills'].includes(transition.from)) {
-        timers.push(setTimeout(() => { commit(); setPhase(transition.to === 'skills' ? 'SKILLS_ENTER' : transition.to === 'projects' ? 'PROJECTS_ENTER' : 'MAIN_MENU_RETURN'); }, 280));
+      else if (['about', 'projects', 'skills'].includes(transition.to) || ['about', 'projects', 'skills'].includes(transition.from)) {
+        timers.push(setTimeout(() => { commit(); setPhase(transition.to === 'about' ? 'ABOUT_ENTER' : transition.to === 'skills' ? 'SKILLS_ENTER' : transition.to === 'projects' ? 'PROJECTS_ENTER' : 'MAIN_MENU_RETURN'); }, 280));
       } else if (transition.to === 'experience') {
         schedule(SCENE_MOTION.forward.anticipation, () => setPhase('MAIN_TO_STATS_TRANSITION'));
         schedule(SCENE_MOTION.forward.reveal, () => { commit(); setPhase('STATS_ENTER'); });
@@ -114,7 +114,7 @@ export default function useSceneNavigation() {
   }, [transition, navigate]);
   useEffect(() => {
     if (transition) return;
-    const target = route === 'skills' ? '.skills-heading h1' : route === 'experience' ? '.experience-header h1' : route === 'projects' ? '.projects-toolbar h1' : lastDestination.current === 'skills' ? '.menu-entry-skills button' : lastDestination.current === 'projects' ? '.menu-entry-projects button' : '.menu-entry-experience button';
+    const target = route === 'about' ? '.profile-identity h1' : route === 'skills' ? '.skills-heading h1' : route === 'experience' ? '.experience-header h1' : route === 'projects' ? '.projects-toolbar h1' : lastDestination.current === 'about' ? '.menu-entry-about button' : lastDestination.current === 'skills' ? '.menu-entry-skills button' : lastDestination.current === 'projects' ? '.menu-entry-projects button' : '.menu-entry-experience button';
     if (route !== 'home') lastDestination.current = route;
     // Do not steal initial focus from the main menu's page-entry sequence.
     if (route !== 'home' || hasNavigated.current) root.current.querySelector(target)?.focus({ preventScroll: true });
