@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { LuArrowLeft, LuPause, LuPlay } from 'react-icons/lu';
+import { LuPause, LuPlay } from 'react-icons/lu';
 import { about, aboutPhotos } from '../../data/about';
+import MainMenuButton from '../scene/MainMenuButton';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
 import './about.css';
@@ -53,13 +54,13 @@ export default function AboutPage({ active, onBack, paused, onToggleMotion }) {
   }, [active, onBack]);
 
   return <main id="about" className="underwater-stage about-page" data-intro="complete" data-motion={!active || hidden || paused ? 'paused' : 'running'} style={LANDING_MOTION_STYLE}>
+      <MainMenuButton className="profile-back" onClick={onBack} />
     <UnderwaterBackground />
     <div className="profile-wash" aria-hidden="true" />
     <div className="profile-white-field" aria-hidden="true" />
     <div className="profile-slash" aria-hidden="true" />
     <div className="profile-fragment" aria-hidden="true" />
     <p className="profile-section-label">About <span>/ Player profile</span></p>
-    <button className="profile-quick-back" onClick={onBack} aria-label="Main menu"><LuArrowLeft aria-hidden="true" /> Menu</button>
     <AboutIdentity />
     <figure className="profile-photo" aria-label="Profile photograph">
       <div className="profile-photo-frame"><img src={photo.src} alt={photo.alt} width="900" height="1200" decoding="async" style={{ objectPosition: photo.position }} /></div>
@@ -87,7 +88,6 @@ export default function AboutPage({ active, onBack, paused, onToggleMotion }) {
       <p className="profile-personal">{about.personal}</p>
     </aside>
     <footer className="profile-controls">
-      <button className="profile-back" onClick={onBack}><LuArrowLeft aria-hidden="true" /> Main menu <kbd>Esc</kbd></button>
       <button className="profile-motion" onClick={onToggleMotion} aria-pressed={paused} aria-label={paused ? 'Resume animation' : 'Pause animation'}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />} Motion {paused ? 'off' : 'on'}</button>
     </footer>
   </main>;

@@ -29,17 +29,17 @@ No final project illustrations are supplied. `ProjectIllustration` renders an or
 
 ## Interaction and timing
 
-Clicking or tapping a project row changes selection. “View project details” opens the selected project. Hover provides feedback without changing selection. Previous and Next wrap through all four projects within the details view. Only available case-study, GitHub, and demo links render; external links announce their new-tab behavior.
+Hovering a project row changes the selection and illustration. Clicking or tapping a row opens that project’s details immediately. Previous and Next wrap through all projects within the details view. Only available case-study, GitHub, and demo links render; external links announce their new-tab behavior.
 
 The measured selection backing moves over 180ms. Project content switches after 80ms in selection and 120ms in details, while artwork and dependent text use short opacity/transform transitions. Opening details removes the selection view, brings in the angled header after a 220ms delay, and reveals metadata, technology categories, matrix, purpose, and actions in sequence. The last 160ms reveal begins at 560ms and completes at 720ms. The artwork retains the same DOM anchor between selection and details; its container transforms instead of remounting.
 
-Keyboard behavior is scoped to the active Projects surface. Up/Down browse and focus rows in selection. Enter on a focused project row opens that row, even if focus and selection differ. Left/Right switch projects in details; Escape returns to selection. Native Tab access and visible focus remain available alongside explicit onscreen buttons. Inactive views are `inert` and hidden from assistive technology, and a polite status region announces the displayed project.
+Custom arrow-key and Escape controls are removed. Native Tab access, Enter/Space button activation, and visible focus remain available alongside explicit onscreen buttons. Activating a focused row opens that row even if hover selection differs. Inactive views are `inert` and hidden from assistive technology, and a polite status region announces the displayed project.
 
 Opening details resets document scroll and focuses the details heading after 720ms using `preventScroll`, preserving the mobile header position. Returning restores focus to the selected row after 300ms and scrolls it into view with nearest alignment. Pending focus timers are cleared when leaving. With Motion off or reduced motion, selection changes and focus handoffs are immediate and CSS transitions/animations are disabled. Ambient motion also pauses while the document is hidden or Projects is inactive. `#projects`, main-menu navigation, and browser history use the existing route shell.
 
 ## Responsive behavior
 
-Desktop places the roster on the left and artwork on the right. At 768–1199px the roster and details content widen and row type becomes more compact. Below 768px, selection fills the available width, metadata stacks, the technology matrix becomes one column, and previous/next controls span the lower content area. Keyboard hints are hidden on mobile, while all actions remain available as touch controls.
+Desktop places the roster on the left and artwork on the right. At 768–1199px the roster and details content widen and row type becomes more compact. Below 768px, selection fills the available width, metadata stacks, the technology matrix becomes one column, and previous/next controls span the lower content area. All actions remain available as touch controls; opening details requires a single tap.
 
 Mobile artwork uses a stable 350px-high anchor at `top: 560px`; opening details translates it upward and scales it without changing those base geometry values. This avoids an anchor jump during the view change. The page scrolls naturally for long details, and heading focus does not scroll the user past the header. Return focus brings the chosen row back into view.
 

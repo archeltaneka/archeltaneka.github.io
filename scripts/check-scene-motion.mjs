@@ -21,8 +21,8 @@ try {
   await page.getByRole('button', { name: 'Experience', exact: true }).click();
   const navigationDuration = await page.locator('.portfolio-scene').evaluate(el =>
     Math.max(...el.getAnimations().map(animation => animation.effect.getTiming().duration)));
-  assert.ok(navigationDuration >= 1200, 'Normal navigation should last at least 1.2 seconds');
-  await page.waitForTimeout(400);
+  assert.equal(navigationDuration, 560, 'Forward navigation chains both ripple phases');
+  await page.waitForTimeout(100);
   assert.equal(await page.locator('.portfolio-route:not([hidden])').count(), 2, 'Outgoing and incoming scenes must overlap');
   await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
   assert.equal(await page.evaluate(() => location.hash), '#experience');

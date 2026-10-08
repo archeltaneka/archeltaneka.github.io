@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { LuArrowLeft, LuChevronDown, LuChevronUp, LuPause, LuPlay } from 'react-icons/lu';
+import { LuChevronDown, LuChevronUp, LuPause, LuPlay } from 'react-icons/lu';
 import { experienceEntries as experienceData } from '../../data/portfolio';
 import ExperienceArtwork from './ExperienceArtwork';
+import MainMenuButton from '../scene/MainMenuButton';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { SCENE_MOTION } from '../scene/scene-motion';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
@@ -40,11 +41,11 @@ export default function ExperiencePage({ onBack, active = true, onInteraction })
   }, []);
   return (
     <main className="underwater-stage experience-page" data-effective={selected ?? ""} data-paused={paused} data-intro="complete" data-motion={paused || hidden || !active ? 'paused' : 'running'} style={LANDING_MOTION_STYLE}>
+      <MainMenuButton className="experience-back" onClick={onBack} />
       <UnderwaterBackground />
       <div className="experience-graphic-backdrop" aria-hidden="true"><span /><i /></div>
       <header className="experience-header">
         <div className="experience-header-controls">
-          <button className="experience-back" onClick={onBack}><LuArrowLeft aria-hidden="true" /> Main menu</button>
           <button className="experience-motion" aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />} Motion {paused ? 'off' : 'on'}</button>
         </div>
         <div className="experience-status-graphic"><h1 tabIndex="-1">Experience</h1><p>Career / Education <span aria-hidden="true">↗</span></p></div>

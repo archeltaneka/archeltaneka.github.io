@@ -1,8 +1,8 @@
 // One timeline for the SVG crossing, landing arrivals and ambient handoff (ms).
 export const LANDING_MOTION = Object.freeze({
-  reveal: 400,
-  settle: 780,
-  complete: 980,
+  reveal: 620,
+  settle: 1100,
+  complete: 1250,
   character: 480,
   menu: 420,
   stagger: 18,

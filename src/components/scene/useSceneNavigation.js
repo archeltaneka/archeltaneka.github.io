@@ -79,16 +79,11 @@ export default function useSceneNavigation() {
       if (disposed) return;
       window.scrollTo({ top: 0, behavior: 'instant' });
       animation = playScene(root.current, transition.to, reduced, transition.from);
-      const schedule = (seconds, callback) => timers.push(setTimeout(callback, seconds * SCENE_MOTION.navigationScale * 1000));
-      if (reduced) { commit(); }
-      else if (['about', 'projects', 'skills'].includes(transition.to) || ['about', 'projects', 'skills'].includes(transition.from)) {
-        timers.push(setTimeout(() => { commit(); setPhase(transition.to === 'about' ? 'ABOUT_ENTER' : transition.to === 'skills' ? 'SKILLS_ENTER' : transition.to === 'projects' ? 'PROJECTS_ENTER' : 'MAIN_MENU_RETURN'); }, 280));
-      } else if (transition.to === 'experience') {
-        schedule(SCENE_MOTION.forward.anticipation, () => setPhase('MAIN_TO_STATS_TRANSITION'));
-        schedule(SCENE_MOTION.forward.reveal, () => { commit(); setPhase('STATS_ENTER'); });
-      } else {
-        schedule(SCENE_MOTION.back.reveal, () => { commit(); setPhase('MAIN_MENU_RETURN'); });
-      }
+      if (reduced) commit();
+      else timers.push(setTimeout(() => {
+        commit();
+        setPhase(transition.to === 'home' ? 'MAIN_MENU_RETURN' : transition.to === 'experience' ? 'STATS_ENTER' : `${transition.to.toUpperCase()}_ENTER`);
+      }, (transition.from === 'home' ? (SCENE_MOTION.forwardNavigation + SCENE_MOTION.rippleSeparation) / 2 : SCENE_MOTION.reveal) * 1000));
       animation.controls.then(finish);
     };
     // Incoming art stays hidden until decoded; selection feedback is already visible.

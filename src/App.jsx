@@ -36,10 +36,21 @@ function App() {
   const [aboutPaused, setAboutPaused] = useState(false);
   // Lives above navigation: a full document reload is the only normal replay.
   const [introPhase, setIntroPhase] = useState(() =>
-    ['#about', '#experience', '#projects', '#skills'].includes(window.location.hash) || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'complete' : 'dive');
   const revealLanding = useCallback(() => setIntroPhase(phase => phase === 'dive' ? 'landing' : phase), []);
   const settleLanding = useCallback(() => setIntroPhase(phase => phase === 'landing' ? 'settled' : phase), []);
   const completeDive = useCallback(() => setIntroPhase('complete'), []);
+
+  // Development only: dispatch new Event('portfolio:replay-intro') from the console.
+  // Route changes never subscribe to or reset the document-entry state.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    const replay = () => {
+      if (route === 'home' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) setIntroPhase(current => current === 'complete' ? 'dive' : current);
+    };
+    window.addEventListener('portfolio:replay-intro', replay);
+    return () => window.removeEventListener('portfolio:replay-intro', replay);
+  }, [route]);
 
   // Web page title change easter egg
   useEffect(() => {
@@ -71,7 +82,7 @@ function App() {
 
   return (
     <>
-      <div ref={root} className="portfolio-scene" data-scene-state={phase} data-transitioning={Boolean(transition)} style={SCENE_STYLE}>
+      <div ref={root} className="portfolio-scene" data-scene-state={phase} data-transitioning={Boolean(transition)} data-returning={transition?.to === 'home'} style={SCENE_STYLE}>
         <div className="portfolio-route" data-scene="home" hidden={transition ? ![transition.from, transition.to].includes('home') : route !== 'home'} data-incoming={transition?.to === 'home'} inert={Boolean(transition) || route !== 'home'}>
           <LandingPage onAbout={() => { setIntroPhase('complete'); navigate('about'); }} onSkills={() => { setIntroPhase('complete'); navigate('skills'); }} onProjects={() => { setIntroPhase('complete'); navigate('projects'); }} introPhase={introPhase} active={route === 'home' && !transition} onExperience={() => { setIntroPhase('complete'); navigate('experience'); }} />
         </div>
@@ -87,7 +98,7 @@ function App() {
         <div className="portfolio-route" data-scene="about" hidden={transition ? ![transition.from, transition.to].includes('about') : route !== 'about'} data-incoming={transition?.to === 'about'} inert={Boolean(transition) || route !== 'about'}>
           {(route === 'about' || transition?.to === 'about' || transition?.from === 'about') && <AboutPage paused={aboutPaused} onToggleMotion={() => setAboutPaused(value => !value)} active={route === 'about' && !transition} onBack={() => navigate('home')} />}
         </div>
-        {transition && <div className="scene-crossing" aria-hidden="true"><i className="scene-blade scene-blade--blue" /><i className="scene-blade scene-blade--white" /><i className="scene-blade scene-blade--ink" /></div>}
+        {transition?.from === 'home' && !transition.paused && <div className="scene-water-lead" aria-hidden="true" />}
       </div>
       {introPhase !== 'complete' && <PageLoadDiveTransition onReveal={revealLanding} onSettle={settleLanding} onComplete={completeDive} />}
     </>

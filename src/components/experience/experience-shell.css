@@ -16,8 +16,8 @@
 
 .experience-header { z-index: 8; display: block; height: 138px; }
 .experience-header-controls { position: relative; z-index: 1; }
-.experience-back, .experience-motion { border: 0; background: #050609; padding: 8px 15px; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%); }
-.experience-back:hover, .experience-motion:hover { background: #173fe8; }
+.experience-motion { border: 0; background: #050609; padding: 8px 15px; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%); }
+.experience-motion:hover { background: #173fe8; }
 .experience-status-graphic { position: absolute; left: 43%; right: -5.55vw; top: -49px; padding: 24px 0 13px 40px; transform: rotate(-9deg); }
 .experience-status-graphic::before { content: ''; position: absolute; z-index: -1; inset: 24% -10% 4% 0; background: #858ec5; clip-path: polygon(3% 0, 100% 11%, 100% 91%, 0 100%); }
 .experience-header h1 { display: inline-block; padding: 0; background: none; color: #fff; font: 700 clamp(48px, 5.5vw, 84px)/1 Antonio,sans-serif; letter-spacing: -.03em; text-shadow: 2px 2px #08090d; }
@@ -84,7 +84,7 @@
   .experience-choice-logo { width: 40px; height: 43px; }
   .experience-choice-company { font-size: 21px; }
   .experience-header-controls { gap: 5px; }
-  .experience-back, .experience-motion { font-size: 12px; padding-inline: 10px; }
+  .experience-motion { font-size: 12px; padding-inline: 10px; }
 }
 .experience-page[data-motion='paused'] :is(.experience-role, .experience-outcomes) { animation: none; }
 @media (prefers-reduced-motion: reduce) {

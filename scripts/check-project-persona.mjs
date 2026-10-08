@@ -22,9 +22,9 @@ try {
   assert.notEqual(await idle.evaluate(el => getComputedStyle(el).transform), before, 'Idle moves');
   assert.deepEqual(await anchor.boundingBox(), bounds, 'Idle never changes layout');
   const rows = page.locator('button.project-choice');
-  await rows.nth(1).click();
+  await rows.nth(1).hover();
   await page.waitForTimeout(350);
-  await rows.first().click();
+  await rows.first().hover();
   await page.waitForTimeout(350);
   const entering = await page.locator('.project-persona-entry').evaluate(el => getComputedStyle(el).transform);
   await page.waitForTimeout(750);
@@ -64,9 +64,9 @@ try {
     const src = projectData[0].persona.image;
     projectData[0].persona = { mode: 'layers', layers: { body: src, core: src, shards: src, energy: src } };
   });
-  await rows.nth(1).click();
+  await rows.nth(1).hover();
   await page.waitForTimeout(100);
-  await rows.first().click();
+  await rows.first().hover();
   await page.waitForTimeout(100);
   assert.equal(await page.locator('.project-persona-layer').count(), 4, 'Layer config renders all four layers');
   assert.equal(await page.locator('.project-persona-entry').evaluate(el => getComputedStyle(el).transform), 'none', 'Reduced motion selection has no entrance transform');
@@ -84,9 +84,9 @@ try {
     return { start, mid: {transform:getComputedStyle(el).transform,opacity:getComputedStyle(el).opacity} };
   }));
   assert.ok(tracks.every(track => JSON.stringify(track.start) !== JSON.stringify(track.mid)), 'Each layer has its own idle motion');
-  await rows.nth(1).click();
-  await rows.nth(2).click();
-  await rows.first().click();
+  await rows.nth(1).hover();
+  await rows.nth(2).hover();
+  await rows.first().hover();
   await page.waitForTimeout(1000);
   assert.equal(await page.locator('.project-persona-entry').count(), 1);
   assert.equal(await page.locator('.project-persona-entry').getAttribute('data-project'), 'experimentos', 'Rapid switches resolve to latest selection');

@@ -53,16 +53,16 @@ try {
   assert.equal(await page.locator('.menu-entry-skills button').evaluate(el => el === document.activeElement), true);
   assert.equal(await page.locator('.skills-page').count(), 0, 'Inactive Skills unmounts');
   await page.getByRole('button', { name: 'Skills', exact: true }).click();
-  await page.waitForFunction(() => document.querySelector('.skills-white-field')?.getAnimations().length > 0);
-  for (const time of [140, 320, 460, 650]) {
+  await page.waitForFunction(() => document.getAnimations().some(a => a.id === 'scene-water-reveal'));
+  for (const time of [80, 180, 280, 380]) {
     await page.evaluate(time => {
-      for (const track of document.getAnimations().filter(track => track.constructor.name === 'Animation')) {
+      for (const track of document.getAnimations().filter(track => track.id === 'scene-water-reveal' || track.id.startsWith('scene-navigation'))) {
         track.pause(); track.currentTime = time;
       }
     }, time);
     await page.screenshot({ path: `${output}/entrance-${time}.png` });
   }
-  await page.evaluate(() => document.getAnimations().filter(track => track.constructor.name === 'Animation').forEach(track => track.play()));
+  await page.evaluate(() => document.getAnimations().filter(track => track.id === 'scene-water-reveal' || track.id.startsWith('scene-navigation')).forEach(track => track.play()));
   await page.locator('[data-scene-state="SKILLS_IDLE"]').waitFor();
   assert.equal(await main.locator('.skills-tool').first().evaluate(el => el.getAnimations().length), 0, 'Tool entrance does not replay after route settles');
   assert.equal(await main.getAttribute('data-category'), 'programming');

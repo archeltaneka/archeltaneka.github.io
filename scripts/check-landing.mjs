@@ -37,7 +37,7 @@ try {
   await menu.getByRole('button', { name: 'Skills', exact: true }).click();
   await page.locator('[data-scene-state="SKILLS_IDLE"]').waitFor();
   assert.equal(await page.locator('.skills-page').getAttribute('data-category'), 'programming');
-  await page.locator('.skills-guide').getByRole('button', { name: 'Main menu' }).click();
+  await page.locator('.skills-page').getByRole('button', { name: 'Main menu' }).click();
   await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   assert.equal(await page.locator('.landing > section').count(), 0, 'Landing does not contain destination sections');
   // Console/title remain live; name/photo are retained in the unmounted AboutIdentity component.

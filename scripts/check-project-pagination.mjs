@@ -22,7 +22,7 @@ try {
     await page.evaluate(() => document.fonts.ready);
     const main = page.locator('.project-compendium');
     const visible = main.locator('button.project-choice:visible');
-    const selected = main.locator('button.project-choice[aria-pressed="true"]');
+    const selected = main.locator('button.project-choice[data-selected="true"]');
     await page.waitForFunction(() => document.querySelector('.project-list-pages span')?.textContent.endsWith('/ 31'));
     const assertFits = async () => {
       assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight && document.documentElement.scrollWidth <= innerWidth), `Viewport fits ${width}x${height}`);
@@ -31,7 +31,7 @@ try {
         const footer = document.querySelector('.project-list-footer').getBoundingClientRect();
         return box.top >= 0 && box.bottom <= footer.top && box.height >= 44;
       })), `Rows remain readable and clear of controls ${width}x${height}`);
-      assert.ok(await main.locator('.project-open').evaluate(el => el.getBoundingClientRect().bottom <= innerHeight), 'Details action is onscreen');
+      assert.ok(await main.locator('.project-list-pages').evaluate(el => el.getBoundingClientRect().bottom <= innerHeight), 'Pagination is onscreen');
     };
     await assertFits();
     const names = new Set();
@@ -45,25 +45,22 @@ try {
       await main.getByRole('button', { name: 'Next project page', exact: true }).click();
     } while (names.size <= 31);
     assert.equal(names.size, 31, 'Pagination exposes every current and future project');
-    // Arrow navigation must reveal the next page before moving focus to its row.
-    await visible.last().focus();
+    await main.getByRole('button', { name: 'Next project page', exact: true }).click();
+    await visible.last().hover();
+    const chosen = await visible.last().locator('.project-choice-name').innerText();
     await visible.last().click();
-    await page.keyboard.press('ArrowDown');
-    assert.ok(await selected.isVisible());
-    assert.ok(await selected.evaluate(el => el === document.activeElement));
-    const chosen = await selected.locator('.project-choice-name').innerText();
-    await page.keyboard.press('Enter');
     assert.equal(await main.locator('.project-detail-name').innerText(), chosen);
     await main.getByRole('button', { name: 'Project list', exact: true }).click();
     await page.waitForFunction(() => document.activeElement?.classList.contains('project-choice'));
     assert.ok(await selected.isVisible());
     await assertFits();
     // Resizing preserves the selected project and keeps it on the visible page.
+    await page.mouse.move(0, 0);
     await page.setViewportSize({ width: 320, height: 568 });
     await page.waitForTimeout(100);
     assert.equal(await selected.locator('.project-choice-name').innerText(), chosen);
     assert.ok(await selected.isVisible());
   }
   assert.deepEqual(errors, []);
-  console.log('PASS: 31 projects, seven viewport sizes, complete pagination, keyboard page crossing, details return and resize preservation.');
+  console.log('PASS: 31 projects, seven viewport sizes, complete pagination, hover and direct row opening, details return and resize preservation.');
 } finally { await browser.close(); }

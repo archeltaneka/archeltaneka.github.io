@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SiPython, SiR, SiScikitlearn, SiPytorch, SiTensorflow, SiPostgresql, SiPandas, SiNumpy, SiFastapi, SiDocker, SiGithubactions } from 'react-icons/si';
-import { LuActivity, LuArrowLeft, LuBrainCircuit, LuChartColumn, LuCodeXml, LuDatabase, LuNetwork, LuWrench, LuGitBranch, LuSearch, LuWorkflow } from 'react-icons/lu';
+import { LuActivity, LuBrainCircuit, LuChartColumn, LuCodeXml, LuDatabase, LuNetwork, LuWrench, LuGitBranch, LuSearch, LuWorkflow } from 'react-icons/lu';
 import { skillCategories } from '../../data/skills';
+import MainMenuButton from '../scene/MainMenuButton';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
 import SkillsCharacter from './SkillsCharacter';
@@ -56,6 +57,7 @@ export default function SkillsPage({ active, onBack }) {
     root.current.querySelector(`#skill-category-${next.id}`)?.focus({ preventScroll: true });
   };
   return <main ref={root} id="skills" className="underwater-stage skills-page" data-intro="complete" data-motion={hidden || !active ? 'paused' : 'running'} data-category={effectiveId} style={LANDING_MOTION_STYLE} onKeyDown={handleKey}>
+    <MainMenuButton className="skills-back" onClick={onBack} />
     <UnderwaterBackground />
     <div className="skills-environment-wash" aria-hidden="true" />
     <div className="skills-white-field" aria-hidden="true" />
@@ -90,7 +92,6 @@ export default function SkillsPage({ active, onBack }) {
     <footer className="skills-guide">
       <p>Which toolkit do you want to inspect?</p>
       <div className="skills-guide-rule"><span>Guide</span></div>
-      <div className="skills-controls"><button className="skills-back" type="button" onClick={onBack}><LuArrowLeft aria-hidden="true" /> Main menu</button></div>
     </footer>
   </main>;
 }

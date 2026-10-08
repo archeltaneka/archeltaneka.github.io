@@ -18,8 +18,8 @@
 .experience-page .carousel-last { color: var(--exp-cyan); }
 .experience-header { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .experience-header-controls { display: flex; flex-wrap: wrap; gap: 10px; }
-.experience-back, .experience-motion { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; font-weight: 600; background: var(--exp-navy); padding: 8px 14px; color: var(--exp-white); border: 1px solid #8bffff66; }
-.experience-back:hover, .experience-motion:hover { background: #1352bb; }
+.experience-motion { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; font-weight: 600; background: var(--exp-navy); padding: 8px 14px; color: var(--exp-white); border: 1px solid #8bffff66; }
+.experience-motion:hover { background: #1352bb; }
 .experience-header h1 { margin: 0; padding: 8px 14px; background: var(--exp-navy); font: 700 clamp(36px,4vw,58px)/1.1 Antonio,sans-serif; letter-spacing: -.03em; text-transform: uppercase; }
 .experience-selector { position: relative; z-index: 3; width: 51%; max-width: 760px; margin: 38px 0 25px -2vw; }
 .experience-selector ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }

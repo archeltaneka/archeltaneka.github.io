@@ -2,18 +2,19 @@
 .portfolio-route[hidden] { display: none; }
 .portfolio-scene[data-transitioning='true'] { height: 100svh; overflow: clip; }
 .portfolio-scene[data-transitioning='true'] > .portfolio-route { position: absolute; inset: 0; overflow: clip; pointer-events: none; }
-.portfolio-route[data-incoming='true'] { z-index: 2; clip-path: polygon(100% 0,100% 0,100% 100%,100% 100%); }
+.portfolio-route[data-incoming='true'] { z-index: 2; clip-path: inset(0 100% 0 0); }
+/* A tinted first front precedes the section reveal; no page cloning or filters. */
+.scene-water-lead { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: #076fe1b8; clip-path: inset(0 100% 0 0); will-change: clip-path; }
+/* Returning contracts the section above an already-visible main menu. */
+.portfolio-scene[data-returning='true'] > .portfolio-route[data-incoming='true'] { z-index: 1; clip-path: none; }
+.portfolio-scene[data-returning='true'] > .portfolio-route[data-incoming='false']:not([hidden]) { z-index: 2; will-change: clip-path; }
 .portfolio-scene[data-transitioning='true'] main *,
 .portfolio-scene[data-transitioning='true'] main *::before,
 .portfolio-scene[data-transitioning='true'] main *::after { animation-play-state: paused !important; }
-/* Promote only the layers participating in the crossing, then release them. */
-.portfolio-scene[data-transitioning='true'] :is(.character-entrance, .experience-art-entrance, .scene-blade, .menu-arrival, .experience-selector > ol > li) { will-change: transform, opacity; }
+/* Only the ripple mask participates in navigation; page compositions stay still. */
+.portfolio-route[data-incoming='true'] { will-change: clip-path; }
+.portfolio-route[data-incoming='true'] > main { will-change: transform; }
 .experience-page[data-motion='running'] .memory-photo[data-visible='true'] { will-change: transform, scale; }
-.scene-crossing { position: fixed; inset: 0; overflow: clip; z-index: 10; pointer-events: none; }
-.scene-blade { position: absolute; inset: -35% -25%; transform: translateX(160%); }
-.scene-blade--blue { background: #083da6; clip-path: polygon(19% 0,100% 0,79% 100%,0 100%); }
-.scene-blade--white { background: #f5fcff; clip-path: polygon(0 37%,100% 10%,100% 63%,0 88%); }
-.scene-blade--ink { background: #050609; clip-path: polygon(0 62%,100% 30%,100% 39%,0 75%); }
 /* Idle layers use unequal periods and pauses; wrapper transforms belong to the timeline. */
 .experience-art { animation: stats-drift 7.8s cubic-bezier(.45,0,.55,1) infinite; }
 .experience-graphic-backdrop span { animation: shard-drift 9.1s ease-in-out infinite; }
@@ -35,7 +36,7 @@
 @keyframes reflection-breathe { 0%,100% { scale: 1; } 64% { scale: 1.015; } }
 @media (max-width: 900px) { .experience-graphic-backdrop :is(span,i), .experience-status-graphic p { animation: none; } }
 @media (prefers-reduced-motion: reduce) {
+  .scene-water-lead { display: none; }
   .portfolio-route[data-incoming='true'] { clip-path: none; }
-  .scene-crossing { display: none; }
   .portfolio-scene *, .portfolio-scene *::before, .portfolio-scene *::after { animation: none !important; transition: none !important; }
 }

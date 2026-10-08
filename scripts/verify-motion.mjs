@@ -5,7 +5,7 @@ const server = await createServer({ server: { host: '127.0.0.1', port: 5173, str
 await server.listen();
 try {
   const checks = process.argv.slice(2);
-  for (const check of checks.length ? checks : ['check-scene-continuity', 'check-scene-motion', 'check-experience', 'check-landing', 'check-menu-motion', 'check-page-load-dive']) {
+  for (const check of checks.length ? checks : ['check-water-transition', 'check-scene-continuity', 'check-scene-motion', 'check-experience', 'check-landing', 'check-menu-motion', 'check-page-load-dive']) {
     const code = await new Promise((resolve, reject) => {
       const child = spawn(process.execPath, [`scripts/${check}.mjs`], { stdio: 'inherit', env: process.env });
       child.on('error', reject);

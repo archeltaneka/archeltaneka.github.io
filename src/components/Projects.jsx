@@ -3,6 +3,7 @@ import { LuArrowLeft, LuArrowRight, LuArrowUpRight, LuChevronLeft, LuChevronRigh
 import { projectData } from '../data/portfolio';
 import { UnderwaterBackground } from './landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from './landing/landing-motion';
+import MainMenuButton from './scene/MainMenuButton';
 import ProjectPersona from './projects/ProjectPersona';
 import TechnologyMatrix, { TechnologyCategories } from './projects/TechnologyMatrix';
 import './projects/projects.css';
@@ -20,7 +21,6 @@ export default function Projects({ active = true, present = active, onBack }) {
   const root = useRef(null);
   const roster = useRef(null);
   const measurements = useRef(null);
-  const pendingFocus = useRef(false);
   const rows = useRef([]);
   const heading = useRef(null);
   const swapTimer = useRef(null);
@@ -69,10 +69,6 @@ export default function Projects({ active = true, present = active, onBack }) {
       if (row) setHighlight({ y: row.offsetTop, height: row.offsetHeight });
     };
     measure();
-    if (pendingFocus.current) {
-      rows.current[selected]?.focus({ preventScroll: true });
-      pendingFocus.current = false;
-    }
     const observer = new ResizeObserver(measure);
     rows.current.forEach(row => row && observer.observe(row));
     return () => observer.disconnect();
@@ -103,26 +99,13 @@ export default function Projects({ active = true, present = active, onBack }) {
       rows.current[selected]?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
     }, instant ? 0 : 300);
   };
-  const keyDown = event => {
-    if (!active || event.altKey || event.ctrlKey || event.metaKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
-    if (view === 'select' && ['ArrowUp', 'ArrowDown'].includes(event.key)) {
-      event.preventDefault();
-      const next = (selected + (event.key === 'ArrowDown' ? 1 : -1) + projectData.length) % projectData.length;
-      pendingFocus.current = true;
-      choose(next);
-    } else if (view === 'select' && event.key === 'Enter' && event.target.classList.contains('project-choice')) {
-      event.preventDefault(); openDetails(rows.current.indexOf(event.target));
-    } else if (view === 'details' && ['ArrowLeft', 'ArrowRight'].includes(event.key)) {
-      event.preventDefault(); choose(selected + (event.key === 'ArrowRight' ? 1 : -1));
-    } else if (view === 'details' && event.key === 'Escape') { event.preventDefault(); closeDetails(); }
-  };
   const actions = [['caseStudy', 'View case study'], ['github', 'GitHub'], [project.demo ? 'demo' : 'live', 'Live demo']].filter(([key]) => project[key]);
   return (
-    <main ref={root} id="projects" className="project-compendium underwater-stage" data-view={view} data-swapping={swapping} data-instant={instant} data-motion={paused || hidden || !active ? 'paused' : 'running'} style={LANDING_MOTION_STYLE} onKeyDown={keyDown}>
+    <main ref={root} id="projects" className="project-compendium underwater-stage" data-view={view} data-swapping={swapping} data-instant={instant} data-motion={paused || hidden || !active ? 'paused' : 'running'} style={LANDING_MOTION_STYLE}>
+      <MainMenuButton onClick={() => { clearTimeout(focusTimer.current); onBack?.(); }} />
       <UnderwaterBackground />
       <div className="projects-wash" aria-hidden="true" />
       <header className="projects-toolbar">
-        <button onClick={() => { clearTimeout(focusTimer.current); onBack?.(); }}><LuArrowLeft aria-hidden="true" />Main menu</button>
         <h1 className="sr-only" tabIndex="-1">Projects</h1>
         <button onClick={() => setPaused(value => !value)} aria-pressed={paused}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />}Motion {paused ? 'off' : 'on'}</button>
       </header>
@@ -145,7 +128,7 @@ export default function Projects({ active = true, present = active, onBack }) {
               <svg viewBox="0 0 36 52" fill="none"><path d="M2 2h32v48H2z" /><path d="m18 11 10 15-10 15L8 26Z" /><path d="M8 7h7M21 45h7M18 18v16M13 26h10" /></svg>
             </span>
           </div>
-          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} aria-pressed={selected === index} onClick={() => choose(index)}>
+          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} data-selected={selected === index} onMouseEnter={() => choose(index)} onClick={() => openDetails(index)}>
             <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
           </button>)}
         </div>
@@ -155,8 +138,6 @@ export default function Projects({ active = true, present = active, onBack }) {
             <span aria-live="polite">{pageStart + 1}–{pageEnd} / {projectData.length}</span>
             <button aria-label="Next project page" disabled={pageStarts.length === 1} onClick={() => choose(pageStarts[(pageIndex + 1) % pageStarts.length])}><LuChevronRight aria-hidden="true" /></button>
           </nav>
-          <button className="project-open" onClick={() => openDetails()}>View project details<LuArrowRight aria-hidden="true" /></button>
-          <p className="project-keyboard-hint">↑ ↓ Browse <span>Enter Open details</span></p>
         </div>
       </section>
       <section className="project-details" aria-label="Project details" inert={view !== 'details'} aria-hidden={view !== 'details'}>

@@ -48,9 +48,9 @@ function MainMenu({ selected, onSelect, onActivate }) {
             <li key={label} className={`menu-entry menu-entry-${label.toLowerCase()}`} style={{ '--entry-index': index }}>
               <div className="menu-arrival">
                 {label === 'Resume' ? (
-                  <a {...shared} href={RESUME} target="_blank" rel="noreferrer"><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}</span><LuArrowRight className="menu-arrow" aria-hidden="true" /></a>
+                  <a {...shared} href={RESUME} target="_blank" rel="noreferrer"><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}<span className="menu-label-accent" aria-hidden="true">{label}</span></span></a>
                 ) : (
-                  <button {...shared} onClick={() => onActivate(index)}><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}</span><LuArrowRight className="menu-arrow" aria-hidden="true" /></button>
+                  <button {...shared} onClick={() => onActivate(index)}><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}<span className="menu-label-accent" aria-hidden="true">{label}</span></span></button>
                 )}
               </div>
             </li>

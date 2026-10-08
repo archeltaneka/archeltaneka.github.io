@@ -65,12 +65,12 @@ try {
   assert.equal(await page.locator('#about').count(), 0, 'About unmounts');
   assert.equal(await page.locator('.menu-entry-about button').evaluate(el => el === document.activeElement), true);
   await page.getByRole('button', { name: 'About', exact: true }).click();
-  await page.waitForFunction(() => document.querySelector('.profile-photo')?.getAnimations().length > 0);
-  for (const time of [140,320,460,650]) {
-    await page.evaluate(time => document.getAnimations().filter(a => a.constructor.name === 'Animation').forEach(a => { a.pause(); a.currentTime=time; }),time);
+  await page.waitForFunction(() => document.getAnimations().some(a => a.id === 'scene-water-reveal'));
+  for (const time of [80,180,280,380]) {
+    await page.evaluate(time => document.getAnimations().filter(a => a.id === 'scene-water-reveal' || a.id.startsWith('scene-navigation')).forEach(a => { a.pause(); a.currentTime=time; }),time);
     await page.screenshot({path:`${output}/entry-${time}.png`});
   }
-  await page.evaluate(() => document.getAnimations().filter(a => a.constructor.name === 'Animation').forEach(a => a.play()));
+  await page.evaluate(() => document.getAnimations().filter(a => a.id === 'scene-water-reveal' || a.id.startsWith('scene-navigation')).forEach(a => a.play()));
   await idle('ABOUT_IDLE');
   assert.equal(await page.locator('.page-load-dive').count(),0,'Dive never replays');
   assert.equal(await main.locator('h1').evaluate(el => el === document.activeElement),true);
@@ -95,7 +95,7 @@ try {
   await touch.goto(`${url}/#about`);
   await touch.locator('.profile-name').tap();
   assert.equal(await touch.locator('.profile-name').getAttribute('aria-pressed'),'true');
-  await touch.locator('.profile-quick-back').tap();
+  await touch.locator('.profile-back').tap();
   await touch.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   await touch.close();
   assert.deepEqual(errors,[]);
