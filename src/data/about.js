@@ -1,12 +1,11 @@
-import { educationData } from './portfolio';
-
-const monash = educationData.find(item => item.id === 'monash');
-
 export const about = {
   name: ['Archel', 'Taneka', 'Sutanto'],
   chineseName: '陈文群',
   role: 'Product Data Scientist',
-  location: monash.location,
+  locations: [
+    { city: 'Bandung', country: 'Indonesia', flag: '🇮🇩' },
+    { city: 'Melbourne', country: 'Australia', flag: '🇦🇺' },
+  ],
   experience: '3+ years in professional data science',
   achievements: [
     {

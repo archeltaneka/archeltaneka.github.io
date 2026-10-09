@@ -25,8 +25,10 @@
   .profile-name[aria-pressed='true']:hover .profile-chinese { clip-path: inset(-8px); }
 }
 .profile-profession { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 20px; row-gap: 5px; margin-top: 9px; }
-.profile-profession p { margin: 0; font: 700 clamp(21px,2vw,36px)/1.2 Antonio,sans-serif; text-transform: uppercase; }
-.profile-profession > span { font-size: 12px; font-weight: 600; }
+.profile-profession p { color: #006675; margin: 0; font: 700 clamp(21px,2vw,36px)/1.2 Antonio,sans-serif; text-transform: uppercase; }
+.profile-locations { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 0; padding: 0; list-style: none; color: #f5fcff; font: 600 12px/1.5 Inter,sans-serif; }
+.profile-locations li { display: inline-flex; align-items: center; gap: 6px; padding: 3px 7px; background: #061632; white-space: nowrap; }
+.profile-locations [role='img'] { font-size: 18px; line-height: 1; }
 .profile-photo { position: absolute; top: 6%; right: -3%; width: 40%; height: 69%; margin: 0; z-index: 1; }
 .profile-photo::before { content: ''; position: absolute; inset: -12px 5px 3px -18px; background: #061632; clip-path: polygon(23% 0,100% 5%,100% 88%,0 100%); }
 .profile-photo-frame { width: 100%; height: 100%; clip-path: polygon(23% 0,100% 5%,100% 88%,0 100%); }
@@ -106,7 +108,7 @@
   .profile-name-line--1 { margin-left: .6em; font-size: clamp(38px,10.6vw,62px); }
   .profile-name-line--2 { font-size: clamp(64px,18.8vw,110px); }
   .profile-profession p { font-size: 24px; }
-  .profile-profession > span { font-size: 11px; }
+  .profile-locations { font-size: 11px; }
   .profile-photo { position: relative; top: auto; right: auto; width: 88%; height: 250px; margin: 30px -24px 0 auto; }
   .profile-photo figcaption { bottom: 0; }
   .profile-slash { height: 650px; clip-path: polygon(100% 30%,100% 62%,23% 95%,31% 77%); }

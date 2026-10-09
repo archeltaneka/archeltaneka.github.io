@@ -23,7 +23,14 @@ function AboutIdentity() {
         <span className="profile-chinese" lang="zh" aria-hidden="true">{[...about.chineseName].map((character, index) => <span className={`profile-name-line profile-name-line--${index}`} key={character}>{character}</span>)}</span>
       </button>
     </h1>
-    <div className="profile-profession"><p>{about.role}</p><span>{about.location}</span></div>
+    <div className="profile-profession">
+      <p>{about.role}</p>
+      <ul className="profile-locations" aria-label="Cities">
+        {about.locations.map(({ city, country, flag }) => <li key={city}>
+          <span role="img" aria-label={country}>{flag}</span> {city}
+        </li>)}
+      </ul>
+    </div>
     <span className="sr-only" role="status">{revealed ? `Chinese name: ${about.chineseName}` : ''}</span>
   </header>;
 }
@@ -61,7 +68,7 @@ export default function AboutPage({ active, onBack, paused, onToggleMotion }) {
     <div className="profile-white-field" aria-hidden="true" />
     <div className="profile-slash" aria-hidden="true" />
     <div className="profile-fragment" aria-hidden="true" />
-    <p className="profile-section-label">About <span>/ Player profile</span></p>
+    <p className="profile-section-label">About <span>/ Profile</span></p>
     <AboutIdentity />
     <figure className="profile-photo" aria-label="Profile photograph">
       <div className="profile-photo-frame"><img src={photo.src} alt={photo.alt} width="900" height="1200" decoding="async" style={{ objectPosition: photo.position }} /></div>
