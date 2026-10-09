@@ -3,8 +3,10 @@ import { SiPython, SiR, SiScikitlearn, SiPytorch, SiTensorflow, SiPostgresql, Si
 import { LuActivity, LuBrainCircuit, LuChartColumn, LuCodeXml, LuDatabase, LuNetwork, LuWrench, LuGitBranch, LuSearch, LuWorkflow } from 'react-icons/lu';
 import { skillCategories } from '../../data/skills';
 import MainMenuButton from '../scene/MainMenuButton';
+import RecruitingActions from '../RecruitingActions';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
+import useCompactLayout from '../../hooks/useCompactLayout';
 import SkillsCharacter from './SkillsCharacter';
 import './skills.css';
 
@@ -13,6 +15,7 @@ const categorySymbols = { code: LuCodeXml, network: LuNetwork, brain: LuBrainCir
 const icons = { python: SiPython, r: SiR, scikit: SiScikitlearn, pytorch: SiPytorch, tensorflow: SiTensorflow, postgres: SiPostgresql, pandas: SiPandas, numpy: SiNumpy, tableau: LuChartColumn, fastapi: SiFastapi, docker: SiDocker, github: SiGithubactions, database: LuDatabase, branches: LuGitBranch, workflow: LuWorkflow, search: LuSearch, activity: LuActivity, chart: LuChartColumn };
 
 export default function SkillsPage({ active, onBack }) {
+  const compact = useCompactLayout();
   const [selectedCategory, setSelectedCategory] = useState('programming');
   const [hidden, setHidden] = useState(() => document.hidden);
   const root = useRef(null);
@@ -70,7 +73,7 @@ export default function SkillsPage({ active, onBack }) {
         return <li key={item.id} className="skills-row" style={{ '--category-accent': item.accent }}>
         <button id={`skill-category-${item.id}`} type="button" className="skills-category" aria-pressed={selectedCategory === item.id} aria-controls="skills-tool-panel" data-active={effectiveId === item.id} data-committed={selectedCategory === item.id}
           onPointerEnter={event => { if (event.pointerType !== 'touch') setSelectedCategory(item.id); }}
-          onFocus={() => setSelectedCategory(item.id)}>
+          onFocus={() => setSelectedCategory(item.id)} onClick={() => setSelectedCategory(item.id)}>
           <span className="skills-category-mark" aria-hidden="true"><CategorySymbol /></span>
           <span className="skills-category-label">{item.label}</span>
           <span className="skills-category-indicator" aria-hidden="true">{selectedCategory === item.id ? '+' : '·'}</span>
@@ -86,9 +89,10 @@ export default function SkillsPage({ active, onBack }) {
           <dt>{tool.type}</dt><dd><span className="skills-tool-icon" aria-hidden="true"><Icon /></span><span>{tool.name}</span></dd>
         </div>;
       })}</dl>
+      <RecruitingActions />
     </section>
     <p className="sr-only" role="status">{skillCategories.find(item => item.id === selectedCategory).label} selected</p>
-    <SkillsCharacter />
+    {!compact && <SkillsCharacter />}
     <footer className="skills-guide">
       <p>Which toolkit do you want to inspect?</p>
       <div className="skills-guide-rule"><span>Guide</span></div>

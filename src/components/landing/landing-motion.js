@@ -20,3 +20,8 @@ export const LANDING_MOTION = Object.freeze({
 export const LANDING_MOTION_STYLE = Object.fromEntries(
   Object.entries(LANDING_MOTION).map(([name, duration]) => [`--motion-${name}`, `${duration}ms`]),
 );
+
+export const COMPACT_LANDING_MOTION = Object.freeze({ ...LANDING_MOTION, reveal: 400, settle: 720, complete: 850 });
+export const COMPACT_LANDING_STYLE = Object.fromEntries(
+  Object.entries(COMPACT_LANDING_MOTION).map(([name, duration]) => [`--motion-${name}`, `${duration}ms`]),
+);

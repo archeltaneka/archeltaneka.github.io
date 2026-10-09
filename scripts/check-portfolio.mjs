@@ -15,8 +15,8 @@ try {
  await page.waitForTimeout(150);
  assert.equal(await page.locator('nav a[aria-current="location"]').count(),1);
  assert.equal(await page.locator('nav a[aria-current="location"]').textContent(),'Overview');
- assert.ok(logs.some(s=>s.includes('not a typical HR guy')),'Console easter egg');
- const title=await page.title(); await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await page.title(),'Still reviewing data science candidates?');await page.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.equal(await page.title(),title);
+ assert.ok(logs.some(s=>s.includes('█▀▀█ █░█ █▀▀ █▀▀▄') && s.replace(/\s*color: #E6E6FA; font-weight: bold;$/, '').trim().split('\n').length === 4),'Console art only');
+ const title='Archel Taneka Sutanto';assert.equal(await page.title(),title); await page.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await page.title(),title);await page.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.equal(await page.title(),title);
  await page.keyboard.type('australia');assert.match(await page.locator('.hero-portrait img').getAttribute('src'),/profile-au/);await page.keyboard.type('uk');assert.match(await page.locator('.hero-portrait img').getAttribute('src'),/profile-uk/);await page.keyboard.type('reset');assert.match(await page.locator('.hero-portrait img').getAttribute('src'),/profile.webp/);
  await page.locator('.name-reveal').hover();assert.equal(await page.locator('.chinese-name').evaluate(el=>getComputedStyle(el).opacity),'1');await page.mouse.move(1500,0);
  await page.locator('.name-reveal').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.name-reveal').getAttribute('aria-pressed'),'true');await page.keyboard.press('Enter');
@@ -63,7 +63,7 @@ try {
  await page.waitForTimeout(150);
  assert.equal(await page.locator('nav a[aria-current="location"]').textContent(),'Contact','Contact is active at the bottom of the page');
  assert.deepEqual(errors,[]);
- await fs.writeFile(output+'/verification.json',JSON.stringify({checks:'Navigation and sliding tab, projects, PDF, mobile menu, reduced motion, all four easter eggs, 200% equivalent reflow checked',errors,viewports:findings},null,2));
+ await fs.writeFile(output+'/verification.json',JSON.stringify({checks:'Navigation and sliding tab, projects, PDF, mobile menu, reduced motion, three easter eggs and static title, 200% equivalent reflow checked',errors,viewports:findings},null,2));
  assert.deepEqual(findings.filter(view => view.scroll > view.width), [], 'No horizontal page overflow at any tested viewport');
  console.log(JSON.stringify({checks:'PASS',errors,viewports:findings.map(({width,scroll})=>({width,scroll}))},null,2));
 } finally { await browser.close(); }

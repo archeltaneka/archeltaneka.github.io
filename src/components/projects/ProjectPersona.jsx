@@ -1,5 +1,6 @@
 import { useState, useSyncExternalStore } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { COMPACT_QUERY } from '../../hooks/useCompactLayout';
 import ProjectIllustration from './ProjectIllustration';
 import { projectCategoryPhrases } from '../../data/portfolio';
 import './project-persona.css';
@@ -46,7 +47,10 @@ function PersonaArtwork({ project, instant }) {
     {layers.length ? layers.map(([name, src]) => (
       <div key={name} className={`project-persona-layer project-persona-layer--${name}`}>
         <div className={`project-persona-idle project-persona-idle--${name}`}>
-          <img src={src} alt="" draggable="false" decoding="async" />
+          <picture>
+            <source media={COMPACT_QUERY} srcSet={src.replace(/\.png$/, '-compact.webp')} />
+            <img src={src} alt="" draggable="false" decoding="async" />
+          </picture>
         </div>
       </div>
     )) : <ProjectIllustration project={project} />}

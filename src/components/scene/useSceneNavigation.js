@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { COMPACT_QUERY } from '../../hooks/useCompactLayout';
 import { experienceArt, reflectionSource } from '../experience/experience-art';
 import { experienceEntries } from '../../data/portfolio';
 import { playScene, SCENE_MOTION } from './scene-motion';
@@ -7,6 +8,7 @@ const readRoute = () => ['about', 'experience', 'projects', 'skills'].includes(w
 const idleState = route => route === 'about' ? 'ABOUT_IDLE' : route === 'skills' ? 'SKILLS_IDLE' : route === 'home' ? 'MAIN_MENU_IDLE' : route === 'projects' ? 'PROJECTS_IDLE' : 'STATS_IDLE';
 let assets;
 function preloadExperience() {
+  if (window.matchMedia(COMPACT_QUERY).matches) return Promise.resolve();
   assets ??= Promise.allSettled([experienceArt.character, experienceArt.mirror.mask,
     ...experienceEntries.map(reflectionSource).filter(Boolean)].map(src => {
     const image = new Image();

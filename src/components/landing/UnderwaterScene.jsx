@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import useCompactLayout from '../../hooks/useCompactLayout';
 
 // Fixed seeds keep the water stable across renders and menu selection changes.
 const BUBBLES = Array.from({ length: 10 }, (_, index) => ({
@@ -12,6 +13,7 @@ const BUBBLES = Array.from({ length: 10 }, (_, index) => ({
 
 export function UnderwaterBackground() {
   const reflectionId = useId();
+  const compact = useCompactLayout();
   return (
     <div className="landing-environment" aria-hidden="true">
       <div className="environment-light" />
@@ -26,7 +28,7 @@ export function UnderwaterBackground() {
         <rect width="1440" height="320" fill={`url(#${reflectionId})`} />
       </svg>
       <div className="water-bubbles">
-        {BUBBLES.map((bubble, index) => <i key={index} className="water-bubble" style={{ '--bubble-left': bubble.left, '--bubble-size': bubble.size, '--bubble-duration': bubble.duration, '--bubble-delay': bubble.delay, '--bubble-drift': bubble.drift, '--bubble-sway': bubble.sway }} />)}
+        {(compact ? BUBBLES.slice(0, 3) : BUBBLES).map((bubble, index) => <i key={index} className="water-bubble" style={{ '--bubble-left': bubble.left, '--bubble-size': bubble.size, '--bubble-duration': bubble.duration, '--bubble-delay': bubble.delay, '--bubble-drift': bubble.drift, '--bubble-sway': bubble.sway }} />)}
       </div>
     </div>
   );
@@ -36,7 +38,7 @@ function NameCarousel() {
   return (
     <div className="name-carousel" aria-hidden="true">
       <div className="name-carousel-track">
-        {[0, 1].map(copy => <div className="name-carousel-copy" key={copy}>{[0, 1].map(repeat => <span className="carousel-name" key={repeat}><span className="carousel-first">ARCHEL</span>{' '}<span className="carousel-last">SUTANTO</span></span>)}</div>)}
+        {[0, 1].map(copy => <div className="name-carousel-copy" key={copy}>{[0, 1].map(repeat => <span className="carousel-name" key={repeat}><span className="carousel-first">ARCHEL TANEKA</span>{' '}<span className="carousel-last">SUTANTO</span></span>)}</div>)}
       </div>
     </div>
   );

@@ -3,12 +3,14 @@ import { LuArrowLeft, LuArrowRight, LuArrowUpRight, LuChevronLeft, LuChevronRigh
 import { projectData } from '../data/portfolio';
 import { UnderwaterBackground } from './landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from './landing/landing-motion';
+import useCompactLayout from '../hooks/useCompactLayout';
 import MainMenuButton from './scene/MainMenuButton';
 import ProjectPersona from './projects/ProjectPersona';
 import TechnologyMatrix, { TechnologyCategories } from './projects/TechnologyMatrix';
 import './projects/projects.css';
 
 export default function Projects({ active = true, present = active, onBack }) {
+  const compact = useCompactLayout();
   const [selected, setSelected] = useState(0);
   const [displayed, setDisplayed] = useState(0);
   const [view, setView] = useState('select');
@@ -28,8 +30,8 @@ export default function Projects({ active = true, present = active, onBack }) {
   const project = projectData[displayed];
   const instant = reduced || paused;
   const pageIndex = Math.max(0, pageStarts.findLastIndex(start => start <= selected));
-  const pageStart = pageStarts[pageIndex];
-  const pageEnd = pageStarts[pageIndex + 1] ?? projectData.length;
+  const pageStart = compact ? 0 : pageStarts[pageIndex];
+  const pageEnd = compact ? projectData.length : pageStarts[pageIndex + 1] ?? projectData.length;
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => setReduced(media.matches);
@@ -39,7 +41,7 @@ export default function Projects({ active = true, present = active, onBack }) {
     return () => { media.removeEventListener('change', sync); document.removeEventListener('visibilitychange', visibility); clearTimeout(swapTimer.current); clearTimeout(focusTimer.current); };
   }, []);
   useLayoutEffect(() => {
-    if (!present || view !== 'select') return;
+    if (compact || !present || view !== 'select') return;
     // Measure real copy, including wrapping and loaded fonts. Pagination stays
     // independent of project count, device breakpoints and title length.
     const measure = () => {
@@ -62,7 +64,7 @@ export default function Projects({ active = true, present = active, onBack }) {
     observer.observe(roster.current);
     [...measurements.current.children].forEach(row => observer.observe(row));
     return () => observer.disconnect();
-  }, [present, view]);
+  }, [present, view, compact]);
   useLayoutEffect(() => {
     const measure = () => {
       const row = rows.current[selected];
@@ -100,6 +102,10 @@ export default function Projects({ active = true, present = active, onBack }) {
     }, instant ? 0 : 300);
   };
   const actions = [['caseStudy', 'View case study'], ['github', 'GitHub'], [project.demo ? 'demo' : 'live', 'Live demo']].filter(([key]) => project[key]);
+  const overview = <>
+    <p className="project-purpose">{project.description}</p>
+    <div className="project-actions">{actions.map(([key, label]) => <a key={key} href={project[key]} target="_blank" rel="noopener noreferrer">{label}<LuArrowUpRight aria-hidden="true" /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
+  </>;
   return (
     <main ref={root} id="projects" className="project-compendium underwater-stage" data-view={view} data-swapping={swapping} data-instant={instant} data-motion={paused || hidden || !active ? 'paused' : 'running'} style={LANDING_MOTION_STYLE}>
       <MainMenuButton onClick={() => { clearTimeout(focusTimer.current); onBack?.(); }} />
@@ -115,7 +121,7 @@ export default function Projects({ active = true, present = active, onBack }) {
         <path className="persona-diamond-desktop" d="M76 26 98 64 76 102 54 64Z" />
         <path className="persona-diamond-mobile" d="M50 1 99 50 50 99 1 50Z" />
       </svg>
-      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={present} paused={!active || paused || hidden} /></div>
+      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={present && (!compact || view === 'details')} paused={!active || paused || hidden} /></div>
       <section className="project-selection" aria-label="Project selection" inert={view !== 'select'} aria-hidden={view !== 'select'}>
         <div className="project-roster" ref={roster}>
           <div className="project-roster-measure" ref={measurements} aria-hidden="true" inert>
@@ -128,7 +134,7 @@ export default function Projects({ active = true, present = active, onBack }) {
               <svg viewBox="0 0 36 52" fill="none"><path d="M2 2h32v48H2z" /><path d="m18 11 10 15-10 15L8 26Z" /><path d="M8 7h7M21 45h7M18 18v16M13 26h10" /></svg>
             </span>
           </div>
-          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} data-selected={selected === index} onMouseEnter={() => choose(index)} onClick={() => openDetails(index)}>
+          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} data-selected={selected === index} aria-current={selected === index ? 'true' : undefined} onPointerEnter={event => { if (event.pointerType !== 'touch') choose(index); }} onClick={() => openDetails(index)}>
             <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
           </button>)}
         </div>
@@ -151,9 +157,9 @@ export default function Projects({ active = true, present = active, onBack }) {
           </div>
         </div>
         <div className="project-detail-content project-dependent">
+          {compact && overview}
           <TechnologyMatrix technologies={project.technologies} />
-          <p className="project-purpose">{project.description}</p>
-          <div className="project-actions">{actions.map(([key, label]) => <a key={key} href={project[key]} target="_blank" rel="noopener noreferrer">{label}<LuArrowUpRight aria-hidden="true" /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
+          {!compact && overview}
         </div>
         <nav className="project-detail-nav" aria-label="Switch project">
           <button onClick={() => choose(selected - 1)} aria-label="Previous project"><LuChevronLeft aria-hidden="true" /><span>Previous</span></button>

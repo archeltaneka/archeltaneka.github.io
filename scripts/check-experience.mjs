@@ -76,17 +76,21 @@ try {
       const bar = row.querySelector('.experience-choice-stat--years i').getBoundingClientRect();
       return bar.right <= strip.x + strip.width * .95 && bar.left >= strip.left;
     })), `Year bars stay inside the diagonal strip at ${width}`);
-    const art = await page.locator('.experience-character').boundingBox();
-    const stage = await page.locator('.experience-page').boundingBox();
-    assert.ok(art.y + art.height <= stage.y + stage.height + 5, `Illustration stays within the page vertically at ${width}`);
     if (width > 900) {
+      const art = await page.locator('.experience-character').boundingBox();
+      const stage = await page.locator('.experience-page').boundingBox();
+      assert.ok(art.y + art.height <= stage.y + stage.height + 5, `Illustration stays within the page vertically at ${width}`);
       assert.ok(art.x + art.width <= width, 'Desktop artwork stays within the right edge');
       assert.ok(Math.abs(art.width - Math.min(width * .675, (height - 160) * 2.25)) < 4, 'Artwork enlarged by 1.5x');
       assert.ok(art.y >= 0 && art.y + art.height <= height, 'Complete illustration fits in the viewport');
       assert.ok(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight), 'Desktop page does not scroll');
+    } else {
+      assert.equal(await page.locator('.experience-character').count(), 0, `Compact layout omits decorative artwork at ${width}`);
     }
     await page.screenshot({ path: `.impeccable/review/experience/${width}.png`, fullPage: true });
   }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.locator('.experience-art').waitFor();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   assert.equal(await page.locator('.experience-art').evaluate(el => getComputedStyle(el).animationName), 'none');
   await sayurbox.click();

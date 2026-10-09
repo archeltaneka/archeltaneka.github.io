@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { LuChevronDown, LuChevronUp, LuPause, LuPlay } from 'react-icons/lu';
 import { experienceEntries as experienceData } from '../../data/portfolio';
+import useCompactLayout from '../../hooks/useCompactLayout';
 import ExperienceArtwork from './ExperienceArtwork';
 import MainMenuButton from '../scene/MainMenuButton';
+import RecruitingActions from '../RecruitingActions';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { SCENE_MOTION } from '../scene/scene-motion';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
@@ -12,7 +14,7 @@ import './experience-shell.css';
 
 // Compact highlights reflect the user-confirmed career and education claims.
 function recordAchievement(item) {
-  if (item.id === 'tiket') return { value: '$8.3M (IDR 149B+)', label: 'Total measured impact' };
+  if (item.id === 'tiket') return { value: '$8.3M (IDR 149B+)', label: 'Combined GBV & revenue outcomes' };
   if (item.id === 'nottingham') return { value: 'First class honours', label: '' };
   if (item.id === 'monash') return { value: item.indicatorLabel, label: 'Completion' };
   if (item.id === 'binus') return { value: 'GPA 3.74', label: '' };
@@ -20,6 +22,7 @@ function recordAchievement(item) {
 }
 
 export default function ExperiencePage({ onBack, active = true, onInteraction }) {
+  const compact = useCompactLayout();
   const [selected, setSelected] = useState(null);
   const [paused, setPaused] = useState(false);
   const [hidden, setHidden] = useState(() => document.hidden);
@@ -94,9 +97,10 @@ export default function ExperiencePage({ onBack, active = true, onInteraction })
           </li>)}
         </ol>
       </div>
-      <ExperienceArtwork experience={experience} />
+      {!compact && <ExperienceArtwork experience={experience} />}
       <footer className="experience-footer">
         <p className="experience-selection-status" role="status">{selected ? `${experience.company} expanded` : 'Select an experience to view details'}</p>
+        <RecruitingActions />
       </footer>
     </main>
   );

@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LuArrowRight, LuGithub, LuLinkedin, LuMail, LuPause, LuPlay } from 'react-icons/lu';
 import './landing.css';
+import useCompactLayout from '../../hooks/useCompactLayout';
+import BuoyantIdentity from './BuoyantIdentity';
 import UnderwaterScene from './UnderwaterScene';
-import { LANDING_MOTION_STYLE } from './landing-motion';
+import DesktopRecommendation from './DesktopRecommendation';
+import { LANDING_MOTION_STYLE, COMPACT_LANDING_STYLE } from './landing-motion';
 
 const RESUME = '/assets/resume/Resume - Archel Sutanto.pdf';
-const MENU = ['About', 'Experience', 'Projects', 'Skills', 'Resume'];
+const MENU = ['About', 'Experience', 'Projects', 'Skills', 'Resume', 'Contact'];
 const CONTACTS = [
   { label: 'Email', href: 'mailto:archeltaneka@gmail.com', icon: LuMail },
   { label: 'GitHub', href: 'https://github.com/archeltaneka', icon: LuGithub },
@@ -28,7 +31,7 @@ function ImpactCard() {
     <aside className="impact-card" aria-label="Total measured impact">
       <p className="impact-amount">$8.3M <span>/ IDR 149B+</span></p>
       <p className="impact-label">Total measured impact</p>
-      <p className="impact-definition">Across incremental GBV and revenue outcomes</p>
+      <p className="impact-definition">Combined incremental gross booking value (GBV) and revenue outcomes; not total revenue.</p>
     </aside>
   );
 }
@@ -47,8 +50,8 @@ function MainMenu({ selected, onSelect, onActivate }) {
           return (
             <li key={label} className={`menu-entry menu-entry-${label.toLowerCase()}`} style={{ '--entry-index': index }}>
               <div className="menu-arrival">
-                {label === 'Resume' ? (
-                  <a {...shared} href={RESUME} target="_blank" rel="noreferrer"><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}<span className="menu-label-accent" aria-hidden="true">{label}</span></span></a>
+                {label === 'Resume' || label === 'Contact' ? (
+                  <a {...shared} href={label === 'Resume' ? RESUME : '#landing-contact'} target={label === 'Resume' ? '_blank' : undefined} rel="noreferrer"><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}<span className="menu-label-accent" aria-hidden="true">{label}</span></span></a>
                 ) : (
                   <button {...shared} onClick={() => onActivate(index)}><span className="menu-backing" aria-hidden="true" /><span className="menu-label">{label}<span className="menu-label-accent" aria-hidden="true">{label}</span></span></button>
                 )}
@@ -70,6 +73,8 @@ function InteractionHints({ paused, onToggleMotion }) {
 }
 
 export default function LandingPage({ introPhase = 'complete', onAbout, onExperience, onProjects, onSkills, active = true }) {
+  const compact = useCompactLayout();
+  const contactLink = useRef(null);
   const [selected, setSelected] = useState(0);
   const [notice, setNotice] = useState('');
   const [paused, setPaused] = useState(false);
@@ -95,24 +100,26 @@ export default function LandingPage({ introPhase = 'complete', onAbout, onExperi
     setNotice(`${MENU[index]} section coming next. Explore the resume or get in touch in the meantime.`);
   };
   return (
-    <main id="home" className="landing" data-intro={introPhase} data-menu-phase={introPhase === 'complete' ? 'idle' : introPhase === 'settled' ? 'settled' : 'entry'} data-motion={paused || hidden || !active ? 'paused' : 'running'} data-interacted={interacted} style={{ ...LANDING_MOTION_STYLE, '--selection-index': selected }}>
+    <main id="home" className="landing" data-intro={introPhase} data-menu-phase={introPhase === 'complete' ? 'idle' : introPhase === 'settled' ? 'settled' : 'entry'} data-motion={paused || hidden || !active ? 'paused' : 'running'} data-interacted={interacted} style={{ ...(compact ? COMPACT_LANDING_STYLE : LANDING_MOTION_STYLE), '--selection-index': selected }}>
       <a className="landing-skip" href="#landing-menu">Skip to navigation</a>
       <UnderwaterScene />
-      <CharacterLayer />
+      {!compact && <CharacterLayer />}
+      <BuoyantIdentity compact={compact} paused={paused || hidden || !active || introPhase !== 'complete'} />
       <ImpactCard />
       <div id="landing-menu" className="menu-position" tabIndex="-1"><MainMenu selected={selected} onSelect={select} onActivate={activate} /></div>
       <div className="landing-context">
         <p className="landing-notice" role="status" aria-live="polite">{notice}</p>
       </div>
       <footer className="landing-footer">
-        <div className="contact-links" aria-label="Contact links">
+        <div id="landing-contact" className="contact-links" aria-label="Contact links">
           {CONTACTS.map(({ label, href, icon }) => {
             const Icon = icon;
-            return <a key={label} href={href} {...(href.startsWith('https') ? { target: '_blank', rel: 'noreferrer' } : {})}><Icon aria-hidden="true" /><span>{label}</span><LuArrowRight className="contact-arrow" aria-hidden="true" /></a>;
+            return <a ref={label === 'Email' ? contactLink : undefined} key={label} href={href} {...(href.startsWith('https') ? { target: '_blank', rel: 'noreferrer' } : {})}><Icon aria-hidden="true" /><span>{label}</span><LuArrowRight className="contact-arrow" aria-hidden="true" /></a>;
           })}
         </div>
         <InteractionHints paused={paused} onToggleMotion={() => setPaused(value => !value)} />
       </footer>
+      <DesktopRecommendation compact={compact} active={active} introPhase={introPhase} returnFocusRef={contactLink} />
     </main>
   );
 }

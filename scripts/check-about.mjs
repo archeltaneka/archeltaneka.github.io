@@ -55,10 +55,19 @@ try {
     await page.keyboard.type(command);
     assert.ok((await main.locator('img').getAttribute('src')).endsWith(file));
   }
-  assert.ok(logs.some(log => log.includes('not a typical HR')));
-  const title = await page.title();
+  assert.ok(logs.some(log => log.includes('█▀▀█ █░█ █▀▀ █▀▀▄') && log.replace(/\s*color: #E6E6FA; font-weight: bold;$/, '').trim().split('\n').length === 4), 'Console contains only the three-row art and formatting marker');
+  const title = 'Archel Taneka Sutanto';
+  assert.equal(await page.title(), title);
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
-  assert.equal(await page.title(), 'Still reviewing data science candidates?');
+  assert.equal(await page.title(), title);
+  for (const hidden of [true, false]) {
+    await page.evaluate(hidden => {
+      Object.defineProperty(document, 'hidden', { configurable: true, value: hidden });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }, hidden);
+    assert.equal(await page.title(), title);
+  }
+  await page.evaluate(() => delete document.hidden);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   assert.equal(await page.title(), title);
   await page.keyboard.press('Escape'); await idle('MAIN_MENU_IDLE');
@@ -99,5 +108,5 @@ try {
   await touch.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   await touch.close();
   assert.deepEqual(errors,[]);
-  console.log('About passed: 8 viewports, navigation/history/focus, all four easter eggs, touch, pause, reduced motion; captures:',output);
+  console.log('About passed: 8 viewports, navigation/history/focus, three easter eggs and static title, touch, pause, reduced motion; captures:',output);
 } finally { await browser.close(); }

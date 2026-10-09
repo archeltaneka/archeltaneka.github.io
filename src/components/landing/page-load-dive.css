@@ -92,3 +92,8 @@
   .page-load-dive { display: none; }
   .page-load-dive * { animation: none; }
 }
+
+/* Same organic sheet and cyan foam, with fewer mobile paint layers. */
+.page-load-dive[data-compact='true'] :is(.page-dive-sheet--far, .page-dive-foam--center, .page-dive-foam--lower, .page-dive-fragments, .page-dive-contours) { display: none; animation: none; }
+.page-load-dive[data-compact='true'] .page-dive-sheet { animation-duration: 360ms; }
+.page-load-dive[data-compact='true'] .page-dive-drop { animation-duration: 360ms; }

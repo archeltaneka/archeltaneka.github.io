@@ -40,17 +40,26 @@ try {
   await page.locator('.skills-page').getByRole('button', { name: 'Main menu' }).click();
   await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   assert.equal(await page.locator('.landing > section').count(), 0, 'Landing does not contain destination sections');
-  // Console/title remain live; name/photo are retained in the unmounted AboutIdentity component.
-  assert.ok(logs.some(text => text.includes('not a typical HR guy')));
-  const title = await page.title();
+  // Console output and static title remain; name/photo are retained in the unmounted AboutIdentity component.
+  assert.ok(logs.some(text => text.includes('█▀▀█ █░█ █▀▀ █▀▀▄') && text.replace(/\s*color: #E6E6FA; font-weight: bold;$/, '').trim().split('\n').length === 4), 'Console contains only the three-row art and formatting marker');
+  const title = 'Archel Taneka Sutanto';
+  assert.equal(await page.title(), title);
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
-  assert.notEqual(await page.title(), title);
+  assert.equal(await page.title(), title);
+  for (const hidden of [true, false]) {
+    await page.evaluate(hidden => {
+      Object.defineProperty(document, 'hidden', { configurable: true, value: hidden });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }, hidden);
+    assert.equal(await page.title(), title);
+  }
+  await page.evaluate(() => delete document.hidden);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   assert.equal(await page.title(), title);
   assert.match(await page.getByRole('complementary', { name: 'Total measured impact' }).textContent(), /\$8\.3M.*IDR 149B\+/);
   assert.equal(await page.locator('.name-reveal').count(), 0, 'Identity easter eggs are reserved for the future About section');
-  // Resume must stay reachable through the menu after removing its duplicate actions.
-  assert.equal(await page.locator('a[href$=".pdf"]').count(), 1, 'One clear resume action');
+  // Other mounted routes also offer Resume; the landing keeps one menu action.
+  assert.equal(await page.locator('.landing a[href$=".pdf"]').count(), 1, 'One clear landing resume action');
   assert.match(await menu.getByRole('link', { name: 'Resume', exact: true }).getAttribute('href'), /Resume.*pdf$/);
   const resume = await page.request.get(new URL('/assets/resume/Resume%20-%20Archel%20Sutanto.pdf', baseURL).href);
   assert.equal(resume.status(), 200);
@@ -131,5 +140,5 @@ try {
   await touch.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
   await touchContext.close();
   assert.deepEqual(errors, []);
-  console.log('PASS: menu, early input, contact/resume, console/title easter eggs, native keyboard access, reduced motion, 12 viewport sizes; no browser exceptions.');
+  console.log('PASS: menu, early input, contact/resume, console easter egg and static title, native keyboard access, reduced motion, 12 viewport sizes; no browser exceptions.');
 } finally { await browser.close(); }

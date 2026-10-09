@@ -236,3 +236,41 @@ Lint, production build, and diff whitespace checks passed. `check-water-transiti
 A local headless Chromium performance sample recorded a 76ms long task on first entry and 51ms on a later entry; return navigation recorded none. These measurements include the existing scene rendering and are not a device-independent frame-rate guarantee.
 
 The main-menu suite also passed at twelve viewport sizes after updating its stale Skills footer locator to the shared return button's page scope.
+
+
+### Mobile desktop recommendation — 2026-10-08
+
+Added `DesktopRecommendation` after the landing footer, using the existing compact-layout boundary and entrance-complete signal. The exact requested copy uses cobalt, cyan, Antonio and Inter, with a single angular corner accent. Normal document flow and the landing safe-area padding prevent overlap with controls at short heights or enlarged text sizes. The notice has no animation or live announcement. Its 44px dismiss button restores focus to the visible Email link and saves dismissal in sessionStorage; unavailable storage falls back to in-memory dismissal. Leaving the landing retires the notice for that document, so section returns do not replay it. Desktop geometry, water-dive choreography, content and easter eggs are unchanged by this addition.
+
+Validation: lint, production build and whitespace checks passed. `check-desktop-recommendation.mjs` passed eight viewport sizes (320×568 through 1440×900, including phone landscape), entrance timing, reload persistence, focus restoration, breakpoint resizing, enlarged text, section return, reduced motion and unavailable storage. Existing responsive checks passed twelve viewports across all five sections and project details; Landing passed twelve viewports; About passed eight and all four easter eggs; page-load-dive checks passed. Local Chromium screenshots were reviewed at `/tmp/desktop-recommendation-review/`. These are emulated browser checks, not physical-device certification.
+
+Impeccable review removed an unnecessary side accent border; the post-edit design hook found no deterministic issues. Independent code review found no substantive issues. The pre-existing DESIGN.md/design.json sidecar drift remains outside this change.
+
+
+## Static document title — 2026-10-09
+
+At the user’s request, the document title is now exactly `Archel Taneka Sutanto`. Removed the blur/focus/visibility title-change easter egg. The Chinese-name reveal, keyboard photo changes, and console output remain. Existing title checks now assert the exact name after blur, focus, and hidden/visible events.
+
+Validation: lint, production build, and whitespace checks passed. Landing checks passed at twelve viewport sizes; About checks passed at eight, including the three retained easter eggs and static title.
+
+## Metric definitions and desktop identity — 2026-10-09
+
+The user confirmed that the hotel recommendation result of approximately $440K / IDR 8B represents incremental gross booking value (GBV), and that the payment conversion improvement is a 4.8% relative increase. About, Experience, and the legacy impact records now use these definitions consistently. The existing combined-outcomes figure remains qualified as mixed GBV and revenue; it is not total revenue. No measurement period or additional attribution claim was inferred.
+
+Added upright name, Product Data Scientist role, and experimentation / causal inference / product ML specialization above the desktop menu using the existing composition. Compact layouts retain their existing name and role treatment.
+
+Validation: lint, production build, Landing (12 viewports), About (8 viewports), and Experience (7 viewports) passed. About covers the three retained easter eggs and static title. Updated the Experience suite's stale mobile-artwork assertion to match the existing compact layout, then reran it successfully. Desktop/mobile screenshots were reviewed in `/tmp/portfolio-content-review` and `/tmp/about-review`.
+
+## Direct recruiting actions — 2026-10-09
+
+Added a shared Resume PDF / Email link group to About's bottom controls, Experience's footer, and immediately after the Skills toolkit. Native links use the existing PDF and email address, with 44px minimum targets, wrapping, and visible focus. Skills links sit outside the keyed tool list to preserve focus during category changes and inside the panel to retain ordinary arrow-key behavior. Experience keeps these actions outside its scrolling record list.
+
+Validation: lint, production build, whitespace checks, and About/Experience/Skills browser suites passed. A targeted check covered all three sections at 1440×900, 1280×720, 768×1024, 390×844, 320×568, and 960×450, including pointer reachability, focus, link destinations, and no horizontal overflow. The Resume action opened the PDF; Email's mailto target was checked without sending a message. Desktop/mobile captures in `/tmp/cta-review` were visually inspected. Layout detector returned zero findings; pre-existing design-sidecar drift remains unchanged.
+
+## Buoyant landing identity — 2026-10-09
+
+Removed the visible static desktop name and expanded the decorative carousel to ARCHEL TANEKA SUTANTO. The accessible name heading remains; compact layouts retain their single visible name because they hide the carousel. Role and specializations use independent slow drift tracks and a directional, damped hover impulse. Stable hit regions prevent the moving text from repeatedly triggering itself. CSS handles ambient motion; a sampled Web Animations transform sequence handles each push without per-frame JavaScript or React updates.
+
+Pause, hidden document, inactive route, and reduced-motion changes cancel hover impulses; ambient motion follows the existing pause policy. Compact layouts keep the role static. Validation: lint, build, whitespace, Landing's twelve viewports, About's eight viewports and retained easter eggs, plus targeted drift/hover/settling/pause/dynamic-reduced-motion checks passed. The targeted script is `scripts/check-buoyant-identity.mjs`; screenshots at `/tmp/buoyant-review` and `/tmp/buoyant-hover.png` were visually inspected. Detector found no issues in the new component. Landing's resume-count assertion now scopes to its own route, accommodating the previously added section recruiting links.
+
+Follow-up typography refinement replaces the dark underlined text with a larger Antonio role title, cyan/white lettering on an angled navy shape, and three compact colored specialization labels. Independent drift and hover impulses are retained. Compact layouts keep upright Inter text. Lint, build, Landing's twelve-viewports suite, and the buoyancy checks passed; desktop/tablet/mobile screenshots were inspected and the type detector reported no findings.

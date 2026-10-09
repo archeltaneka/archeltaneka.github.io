@@ -1,3 +1,5 @@
+import { COMPACT_QUERY } from '../../hooks/useCompactLayout';
+
 // Navigation uses one water reveal for every section. Local interaction timings
 // remain independent so switching pages does not change any in-page animation.
 export const SCENE_MOTION = Object.freeze({
@@ -41,7 +43,8 @@ function waterFrames(width, height, returning) {
 export function playScene(root, destination, reduced, source = destination === 'home' ? 'experience' : 'home') {
   const incoming = root.querySelector(`[data-scene="${destination}"]`);
   const outgoing = root.querySelector(`[data-scene="${source}"]`);
-  const duration = (reduced ? SCENE_MOTION.reduced : source === 'home' ? SCENE_MOTION.forwardNavigation : SCENE_MOTION.navigation) * 1000;
+  const compact = window.matchMedia(COMPACT_QUERY).matches;
+  const duration = (reduced ? SCENE_MOTION.reduced : compact ? .3 : source === 'home' ? SCENE_MOTION.forwardNavigation : SCENE_MOTION.navigation) * 1000;
   const tracks = [];
   if (reduced) {
     // Motion off and reduced motion never expand a mask or displace content.
@@ -50,6 +53,15 @@ export function playScene(root, destination, reduced, source = destination === '
     const hide = outgoing.animate({ opacity: [1, 0] }, { duration, fill: 'both' });
     hide.id = 'scene-navigation-fade-out';
     tracks.push(reveal, hide);
+  } else if (compact) {
+    // A single diagonal front avoids constructing/rasterizing 25 compound paths.
+    const returning = destination === 'home';
+    const frames = ['polygon(0 0, 0 0, 0 100%, 0 100%)', 'polygon(0 0, 110% 0, 100% 100%, 0 100%)'];
+    const reveal = (returning ? outgoing : incoming).animate({ clipPath: returning ? [...frames].reverse() : frames }, {
+      duration, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both',
+    });
+    reveal.id = 'scene-compact-reveal';
+    tracks.push(reveal);
   } else {
     const returning = destination === 'home';
     const surface = returning ? outgoing : incoming;

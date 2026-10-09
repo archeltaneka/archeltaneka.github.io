@@ -14,7 +14,7 @@ export const impactCases = [
         metricLabel: 'incremental GBV',
         context: 'Payment teams needed to improve checkout conversion across 15+ payment methods.',
         method: 'Built a Scikit-learn recommendation engine using behavioral and payment-method signals.',
-        decision: 'Prioritized payment options by conversion propensity, lifting conversion by 4.8%.',
+        decision: 'Prioritized payment options by conversion propensity, increasing conversion by 4.8% relative to the comparison baseline.',
     },
     {
         title: 'Hotel Image Quality Classifier',
@@ -27,7 +27,7 @@ export const impactCases = [
     {
         title: 'Hotel Recommendation Optimization',
         metric: '~$440K (IDR 8B)',
-        metricLabel: 'revenue uplift',
+        metricLabel: 'incremental GBV',
         context: 'Hotel discovery needed stronger ranking logic across location and user preference signals.',
         method: 'Combined ensemble models with geospatial analytics and baseline comparison.',
         decision: 'Improved recommendation ranking and outperformed existing baselines.',
@@ -191,7 +191,7 @@ export const projectData = [
         persona: { mode: 'image', image: '/assets/projects/pokemon-battle-analysis/pokemon-battle-analysis.png' },
         name: 'Pokemon Battle Analysis',
         category: 'DATA ANALYSIS',
-        description: 'An interactive dashboard showing insights, pricing intelligence, and trend visualizations.',
+        description: 'An interactive R Shiny app for comparing Pokémon type matchups, strengths, weaknesses, and available moves.',
         technologies: [
             { name: 'R', category: 'language', role: 'core' },
             { name: 'RShiny', category: 'visualization', role: 'core' },
@@ -213,10 +213,10 @@ export const experienceData = [
         reflectionImage: '/assets/img/tiket.webp',
         reflectionPosition: '50% 40%',
         metrics: [
-            { value: '+4.8%', label: 'Payment conversion', detail: 'Personalised payment recommendations · controlled experimentation' },
+            { value: '+4.8%', label: 'Relative conversion lift', detail: 'Payment recommendations · controlled experimentation' },
             { value: '+2.3%', label: 'Booking conversion', detail: 'Computer vision (YOLOv10 with TensorRT inference) · quality across 15,000+ hotel listings' },
             { value: '12K+', label: 'Properties processed', detail: 'Entity matching · 34% less duplicate inventory' },
-            { value: '$440K', label: 'GBV delivered', detail: 'Personalized recommendations · traveller behaviour analysis' },
+            { value: '$440K', label: 'Incremental GBV', detail: 'Personalized recommendations · traveller behaviour analysis' },
         ],
         role: "Associate Data Scientist",
         company: "tiket.com",

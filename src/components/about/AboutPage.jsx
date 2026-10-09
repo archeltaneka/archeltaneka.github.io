@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { LuPause, LuPlay } from 'react-icons/lu';
 import { about, aboutPhotos } from '../../data/about';
 import MainMenuButton from '../scene/MainMenuButton';
+import RecruitingActions from '../RecruitingActions';
 import { UnderwaterBackground } from '../landing/UnderwaterScene';
 import { LANDING_MOTION_STYLE } from '../landing/landing-motion';
 import './about.css';
@@ -88,6 +89,7 @@ export default function AboutPage({ active, onBack, paused, onToggleMotion }) {
       <p className="profile-personal">{about.personal}</p>
     </aside>
     <footer className="profile-controls">
+      <RecruitingActions />
       <button className="profile-motion" onClick={onToggleMotion} aria-pressed={paused} aria-label={paused ? 'Resume animation' : 'Pause animation'}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />} Motion {paused ? 'off' : 'on'}</button>
     </footer>
   </main>;

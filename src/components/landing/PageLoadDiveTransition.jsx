@@ -1,6 +1,7 @@
+import useCompactLayout from '../../hooks/useCompactLayout';
 import { useEffect } from 'react';
 import './page-load-dive.css';
-import { LANDING_MOTION, LANDING_MOTION_STYLE } from './landing-motion';
+import { LANDING_MOTION, LANDING_MOTION_STYLE, COMPACT_LANDING_MOTION, COMPACT_LANDING_STYLE } from './landing-motion';
 
 // Original contours, authored for this transition. No reference media is shipped.
 // A broad descending volume, with unequal shoulders and a narrow trailing tongue.
@@ -21,7 +22,9 @@ const DROPS = [
 ];
 
 export default function PageLoadDiveTransition({ onReveal, onSettle, onComplete }) {
+  const compact = useCompactLayout();
   useEffect(() => {
+    const timing = compact ? COMPACT_LANDING_MOTION : LANDING_MOTION;
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const finish = () => onComplete();
     const handlePreference = () => { if (preference.matches) finish(); };
@@ -32,9 +35,9 @@ export default function PageLoadDiveTransition({ onReveal, onSettle, onComplete 
     let settling;
     let completion;
     const firstFrame = window.requestAnimationFrame(() => {
-      handoff = window.setTimeout(onReveal, LANDING_MOTION.reveal);
-      settling = window.setTimeout(onSettle, LANDING_MOTION.settle);
-      completion = window.setTimeout(finish, LANDING_MOTION.complete);
+      handoff = window.setTimeout(onReveal, timing.reveal);
+      settling = window.setTimeout(onSettle, timing.settle);
+      completion = window.setTimeout(finish, timing.complete);
     });
     preference.addEventListener('change', handlePreference);
     document.addEventListener('visibilitychange', handleVisibility);
@@ -48,10 +51,10 @@ export default function PageLoadDiveTransition({ onReveal, onSettle, onComplete 
       document.removeEventListener('visibilitychange', handleVisibility);
       for (const event of ['pointerdown', 'keydown', 'focusin']) document.removeEventListener(event, finish, true);
     };
-  }, [onReveal, onSettle, onComplete]);
+  }, [onReveal, onSettle, onComplete, compact]);
 
   return (
-    <div className="page-load-dive" style={LANDING_MOTION_STYLE} aria-hidden="true">
+    <div className="page-load-dive" data-compact={compact} style={compact ? COMPACT_LANDING_STYLE : LANDING_MOTION_STYLE} aria-hidden="true">
       <svg className="page-dive-water" viewBox="0 0 1600 1000" preserveAspectRatio="none" fill="none" focusable="false">
         <defs>
           <linearGradient id="entry-water-depth" x1="600" y1="0" x2="1000" y2="1000" gradientUnits="userSpaceOnUse">
@@ -90,7 +93,7 @@ export default function PageLoadDiveTransition({ onReveal, onSettle, onComplete 
         </g>
       </svg>
       <div className="page-dive-spray">
-        {DROPS.map(([x, y, dx, dy, size, delay], index) => (
+        {(compact ? DROPS.slice(0, 3) : DROPS).map(([x, y, dx, dy, size, delay], index) => (
           <svg focusable="false" key={index} className="page-dive-drop" viewBox="0 0 40 52" style={{
             '--x': `${x}%`, '--y': `${y}%`, '--dx': `${dx}vw`, '--dy': `${dy}vh`,
             '--size': `${size}px`, '--delay': `${delay}ms`,
