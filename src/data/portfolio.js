@@ -38,7 +38,7 @@ export const impactCases = [
 export const projectData = [
     {
         id: 'experimentos',
-        persona: { mode: 'image', image: '/assets/projects/experimentos/experimentos-persona.png' },
+        persona: { mode: 'image', image: '/assets/projects/experimentos/experimentos-persona.webp' },
         name: 'ExperimentOS AI',
         title: 'ExperimentOS AI',
         category: 'AGENTIC AI',
@@ -57,7 +57,7 @@ export const projectData = [
     },
     {
         id: 'cherebowl',
-        persona: { mode: 'image', image: '/assets/projects/cherebowl/cherebowl.png' },
+        persona: { mode: 'image', image: '/assets/projects/cherebowl/cherebowl.webp' },
         name: 'Cherébowl',
         category: 'DATA PLATFORM',
         description: 'A unified data platform connecting food insecurity, access barriers and emergency relief across Victoria.',
@@ -94,7 +94,7 @@ export const projectData = [
     },
     {
         id: 'slot-filling',
-        persona: { mode: 'image', image: '/assets/projects/slot-filling/slot-filling.png' },
+        persona: { mode: 'image', image: '/assets/projects/slot-filling/slot-filling.webp' },
         name: 'Joint Intent & Slot Detection',
         category: 'NLP',
         description: 'A comparative NLP benchmark for recognizing user intent and extracting slots in conversational agents.',
@@ -118,7 +118,7 @@ export const projectData = [
     },
     {
         id: 'dag-nabit',
-        persona: { mode: 'image', image: '/assets/projects/dag-nabit/dag-nabit.png' },
+        persona: { mode: 'image', image: '/assets/projects/dag-nabit/dag-nabit.webp' },
         name: 'DAG-nabit',
         category: 'CAUSAL INFERENCE',
         description: 'An interactive causal inference workflow for exploring how marketing strategies affect customer purchase behavior.',
@@ -142,7 +142,7 @@ export const projectData = [
     },
     {
         id: 'melbourne-air-quality-analysis',
-        persona: { mode: 'image', image: '/assets/projects/melbourne-air-quality-analysis/melbourne-air-quality-analysis.png' },
+        persona: { mode: 'image', image: '/assets/projects/melbourne-air-quality-analysis/melbourne-air-quality-analysis.webp' },
         name: 'Melbourne Air Quality Pedestrian Traffic Analysis',
         category: 'DATA ANALYSIS',
         description: 'An interactive dashboard enables users to explore environmental and pedestrian traffic data across multiple time scales',
@@ -164,7 +164,7 @@ export const projectData = [
     },
     {
         id: 'mobiles-dataset-analysis',
-        persona: { mode: 'image', image: '/assets/projects/mobiles-dataset-analysis/mobiles-dataset-analysis.png' },
+        persona: { mode: 'image', image: '/assets/projects/mobiles-dataset-analysis/mobiles-dataset-analysis.webp' },
         name: 'Mobiles Dataset Analysis',
         category: 'DATA ANALYSIS',
         description: 'An interactive dashboard showing insights, pricing intelligence, and trend visualizations for mobile devices released before the year 2025.',
@@ -188,7 +188,7 @@ export const projectData = [
     },
     {
         id: 'pokemon-battle-analysis',
-        persona: { mode: 'image', image: '/assets/projects/pokemon-battle-analysis/pokemon-battle-analysis.png' },
+        persona: { mode: 'image', image: '/assets/projects/pokemon-battle-analysis/pokemon-battle-analysis.webp' },
         name: 'Pokemon Battle Analysis',
         category: 'DATA ANALYSIS',
         description: 'An interactive R Shiny app for comparing Pokémon type matchups, strengths, weaknesses, and available moves.',
@@ -235,7 +235,7 @@ export const experienceData = [
     },
     {
         id: 'sayurbox',
-        reflectionImage: '/assets/img/sayurbox.jpeg',
+        reflectionImage: '/assets/img/sayurbox.webp',
         reflectionKind: 'logo', // No Sayurbox photograph is supplied.
         reflectionPosition: '50% 50%',
         metrics: [],
@@ -251,7 +251,7 @@ export const experienceData = [
             "Automated workforce scheduling inputs for order preparation operations.",
             "Developed route-assignment logic to improve driver deployment decisions."
         ],
-        image: "/assets/img/sayurbox.jpeg"
+        image: "/assets/img/sayurbox.webp"
     }
 ];
 

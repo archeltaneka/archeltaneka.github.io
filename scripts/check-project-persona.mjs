@@ -11,7 +11,7 @@ try {
   await page.waitForTimeout(1000);
   const image = page.locator('.project-persona img');
   assert.ok(await image.evaluate(el => el.complete && el.naturalWidth > 0), 'Final artwork loads');
-  assert.ok((await image.getAttribute('src')).endsWith('/experimentos-persona.png'));
+  assert.ok((await image.getAttribute('src')).endsWith('/experimentos-persona.webp'));
   assert.equal(await page.locator('.project-persona img').count(), 1, 'Single-image artwork');
   assert.equal(await image.evaluate(el => getComputedStyle(el).pointerEvents), 'none');
   const anchor = page.locator('.project-art-anchor');

@@ -48,7 +48,7 @@ function PersonaArtwork({ project, instant }) {
       <div key={name} className={`project-persona-layer project-persona-layer--${name}`}>
         <div className={`project-persona-idle project-persona-idle--${name}`}>
           <picture>
-            <source media={COMPACT_QUERY} srcSet={src.replace(/\.png$/, '-compact.webp')} />
+            <source media={COMPACT_QUERY} srcSet={src.replace(/\.webp$/, '-compact.webp')} />
             <img src={src} alt="" draggable="false" decoding="async" />
           </picture>
         </div>
