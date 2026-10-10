@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { about } from '../../data/about';
 import './buoyant-identity.css';
 
 function FloatingPhrase({ children, index, disabled }) {
@@ -49,7 +48,6 @@ export default function BuoyantIdentity({ compact, paused }) {
   }, []);
   const disabled = compact || paused || reduced;
   return <header className="landing-identity" data-buoyancy={disabled ? 'off' : 'on'}>
-    <h1 className={compact ? undefined : 'sr-only'}>{about.name.join(' ')}</h1>
     <p className="landing-role"><FloatingPhrase index={0} disabled={disabled}><span className="role-product">Product</span>{' '}Data Scientist</FloatingPhrase></p>
     <p className="landing-specialization">{['Experimentation', 'Causal inference', 'Product ML'].map((phrase, index) =>
       <FloatingPhrase key={phrase} index={index + 1} disabled={disabled}>{phrase}</FloatingPhrase>)}</p>

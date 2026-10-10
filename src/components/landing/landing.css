@@ -43,22 +43,15 @@
 .water-bubbles { position: absolute; inset: 0; }
 .water-bubble { position: absolute; bottom: -30px; left: var(--bubble-left); width: var(--bubble-size); height: var(--bubble-size); border-radius: 50%; border: 1px solid #c7ffff75; background: radial-gradient(circle at 30% 25%, #edffffc9 0 6%, #bcffff18 18%, transparent 60%); animation: bubble-rise var(--bubble-duration) linear var(--bubble-delay) infinite, bubble-sway var(--bubble-sway) ease-in-out var(--bubble-delay) infinite alternate; }
 
-/* White left field follows the composition behind the character and name ribbon. */
+/* White left field follows the composition behind the character. */
 .character-backdrop { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: #fff; clip-path: polygon(0 0, 44% 0, 34% 48%, 24% 78%, 16% 100%, 0 100%); }
-.name-carousel { animation: ribbon-arrival var(--motion-decoration) var(--entry-ease) both; position: absolute; z-index: -2; inset: 0 auto 0 0; width: 210px; overflow: hidden; background: #fff; color: #000; pointer-events: none; }
-.name-carousel-track { width: 100%; animation: name-scroll var(--motion-ribbon) linear infinite; }
-.name-carousel-copy { display: flex; flex-direction: column; align-items: center; gap: 48px; padding-bottom: 48px; }
-.name-carousel .carousel-name { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; font: 700 176px/.95 Antonio, sans-serif; letter-spacing: -.035em; }
-.carousel-first { color: #808080; }
-.carousel-last { color: #000; }
+.landing-section-label { position: absolute; top: 0; left: 0; z-index: -1; width: max-content; margin: 0; pointer-events: none; color: #000; font: 700 32svh/1 Antonio, sans-serif; text-transform: uppercase; white-space: nowrap; letter-spacing: -.035em; transform: rotate(90deg) translateY(-100%); transform-origin: top left; }
+.landing-section-number { color: #808080; }
 .character-entrance { position: absolute; pointer-events: none; z-index: -1; left: 1%; top: -5%; width: 49%; height: 110%; animation: character-dive var(--motion-character) var(--entry-ease) both; }
 .landing-character { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; transform-origin: 42% 62%; animation: character-float var(--motion-float) ease-in-out infinite; }
 
-.impact-card { position: absolute; top: 5%; left: 3%; z-index: 3; width: 240px; min-height: 107px; padding: 10px 13px; border: 1px solid #000; background: #fff; color: #061632; animation: identity-dive var(--motion-accent) var(--entry-ease) 50ms both; }
-.impact-amount { margin: 0; font: 700 29px/1.15 Antonio, sans-serif; white-space: nowrap; letter-spacing: -.025em; }
-.impact-amount span { font-size: 25px; }
-.impact-label { margin: 6px 0 0; font-size: 12px; font-weight: 700; }
-.impact-definition { margin: 5px 0 0; font-size: 10px; line-height: 1.4; }
+.landing-nameplate { position: absolute; top: 5%; left: 3%; z-index: 3; display: flex; align-items: center; width: 240px; min-height: 107px; padding: 10px 13px; border: 1px solid #000; background: #fff; color: #061632; animation: identity-dive var(--motion-accent) var(--entry-ease) 50ms both; }
+.landing-nameplate h1 { margin: 0; font: 700 32px/1.2 Antonio, sans-serif; letter-spacing: -.025em; text-transform: uppercase; }
 
 /* Original identity content and easter eggs retained for the future About section. */
 .about-identity { position: absolute; top: 5%; left: 3%; z-index: 3; width: 480px; padding: 19.5px 25.5px; background: #fff; border: 1px solid #000; color: var(--navy); animation: identity-dive 950ms var(--ease-out) both; }
@@ -125,10 +118,10 @@
 :is(.landing, .underwater-stage)[data-motion="paused"] *, :is(.landing, .underwater-stage)[data-motion="paused"] *::before, :is(.landing, .underwater-stage)[data-motion="paused"] *::after { animation-play-state: paused !important; }
 
 /* Retire entry tracks after settling; preference changes cannot replay them. */
-:is(.landing, .underwater-stage)[data-intro="complete"] :is(.character-entrance, .impact-card, .menu-arrival, .landing-environment, .name-carousel) { animation: none; }
+:is(.landing, .underwater-stage)[data-intro="complete"] :is(.character-entrance, .landing-nameplate, .menu-arrival, .landing-environment) { animation: none; }
 
 /* Arrivals live on wrappers; ambient motion lives on children, with neutral starts. */
-.landing:not([data-intro="complete"]) :is(.landing-character, .environment-light, .water-rays, .water-surface, .water-bubble, .name-carousel-track),
+.landing:not([data-intro="complete"]) :is(.landing-character, .environment-light, .water-rays, .water-surface, .water-bubble),
 .landing:not([data-intro="complete"]) .menu-backing::before,
 .landing:not([data-intro="complete"]) .menu-backing::after { animation-play-state: paused; }
 
@@ -149,10 +142,6 @@
 }
 @keyframes environment-arrival {
   from { transform: translateY(-16px) scale(1.045); }
-  to { transform: none; }
-}
-@keyframes ribbon-arrival {
-  from { transform: translate(-20px, 46px) skewY(-4deg); }
   to { transform: none; }
 }
 @keyframes character-float {
@@ -179,7 +168,6 @@
 }
 @keyframes bubble-rise { 0% { transform: translate(0, 0) scale(.7); opacity: 0; } 10% { opacity: .55; } 80% { opacity: .4; } 100% { transform: translate(var(--bubble-drift), calc(-1 * var(--water-column))) scale(1.2); opacity: 0; } }
 @keyframes bubble-sway { from { translate: -7px 0; } to { translate: 7px 0; } }
-@keyframes name-scroll { to { transform: translateY(-50%); } }
 @keyframes selection-pulse { 0%, 100% { translate: 0 0; } 50% { translate: 1px -2px; } }
 @keyframes selection-edge { 0%, 100% { translate: 0 0; } 50% { translate: -2px 1px; } }
 @media (min-width: 1600px) { .menu-control { font-size: clamp(88px, 5.4vw, 108px); } }
@@ -204,8 +192,6 @@
   .landing { min-height: 900px; }
   .about-identity { left: 3%; top: 4%; }
   .character-entrance { width: 65%; left: -19%; top: -5%; height: 110%; }
-  .name-carousel { width: 140px; }
-  .name-carousel .carousel-name { font-size: 124px; }
   .menu-position { top: 34%; left: 49%; width: 47%; }
   .menu-control { font-size: clamp(44px, 7.3vw, 64px); padding-right: 4px; }
   .menu-entry { margin-bottom: 12px; }
@@ -218,17 +204,13 @@
 @media (max-width: 599px) {
   .underwater-stage { --hair-x: 80%; --hair-y: 76%; }
   .landing { --hair-x: 80%; --hair-y: 76%; height: auto; min-height: 100svh; padding: 24px 24px 20px; }
-  .impact-card { position: relative; inset: auto; width: min(240px, 100%); margin-left: -12px; }
   .about-identity { position: relative; inset: auto; width: min(calc(100% + 12px), 465px); margin-left: -12px; padding: 16.5px 19.5px; }
   .about-identity h1 { font-size: 34.5px; }
   .chinese-name { font-size: 34.5px; }
   .identity-person p { font-size: 16.5px; }
   .identity-photo { width: 54px; height: 67.5px; }
   .specialization { font-size: 15px; gap: 6px 13.5px; }
-  .name-carousel { width: 70px; }
   .character-backdrop { clip-path: polygon(0 0, 75% 0, 70px 330px, 70px 100%, 0 100%); }
-  .name-carousel .carousel-name { font-size: 62px; }
-  .name-carousel-copy { gap: 30px; padding-bottom: 30px; }
   .character-entrance { top: -5%; bottom: auto; left: auto; right: -132px; width: 400px; height: 110%; }
   .landing::after { content: ''; position: absolute; z-index: 0; pointer-events: none; top: 270px; left: 70px; right: 0; height: 560px; background: linear-gradient(90deg, #073984ed, #073984e6 70%, transparent); mask-image: linear-gradient(transparent, #000 15%, #000 78%, transparent); }
   .water-surface { height: 210px; top: -30px; }

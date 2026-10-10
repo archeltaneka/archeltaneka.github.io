@@ -169,3 +169,11 @@ Pointer, keyboard or focus input dismisses the entry without consuming the event
 - Don't hide essential access behind hover or a blocking opening sequence.
 - Don't present the unbuilt menu destinations as completed pages.
 - Don't apply the archived Decision Journal palette or component rules to this landing.
+
+## Approved landing name update — 2026-10-10
+
+The landing's financial impact card is replaced by a single visible heading, “Archel Taneka Sutanto.” Desktop retains the 240px white, black-bordered nameplate in the former card position, with upright Antonio text wrapping naturally. Compact layouts place the heading above the Product Data Scientist role without duplicating the name or retaining the financial card. The decorative vertical name carousel and its animation tracks are removed. The illustration, underwater environment, menu, role/specializations, and About interactions retain their existing behavior. This supersedes the landing impact-card and name-carousel descriptions above; professional outcome content in About and Experience is outside this change.
+
+### Selected section label
+
+The desktop white field carries a single decorative `Number SECTION` label behind the nameplate and character. It rotates 90 degrees clockwise and follows the menu's existing hover/focus selection: `01 ABOUT`, `02 EXPERIENCE`, `03 PROJECTS`, `04 SKILLS`, and `05 RESUME`. Reference typography is translated using the existing self-hosted Antonio bold font, with a gray (`#808080`) number and black section name. The label touches the left edge and spans the viewport from top to bottom; its font size is measured for each section name and recalculated after font loading or resizing. It does not scroll, intercept pointer input, or duplicate the accessible navigation. Compact layouts omit it together with the desktop character composition.

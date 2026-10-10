@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { LuArrowRight, LuGithub, LuLinkedin, LuMail, LuPause, LuPlay } from 'react-icons/lu';
 import './landing.css';
 import useCompactLayout from '../../hooks/useCompactLayout';
 import BuoyantIdentity from './BuoyantIdentity';
 import UnderwaterScene from './UnderwaterScene';
 import DesktopRecommendation from './DesktopRecommendation';
+import { about } from '../../data/about';
 import { LANDING_MOTION_STYLE, COMPACT_LANDING_STYLE } from './landing-motion';
 
 const RESUME = '/assets/resume/Resume - Archel Sutanto.pdf';
@@ -26,14 +27,34 @@ function CharacterLayer() {
   );
 }
 
-function ImpactCard() {
+function Nameplate() {
   return (
-    <aside className="impact-card" aria-label="Total measured impact">
-      <p className="impact-amount">$8.3M <span>/ IDR 149B+</span></p>
-      <p className="impact-label">Total measured impact</p>
-      <p className="impact-definition">Combined incremental gross booking value (GBV) and revenue outcomes; not total revenue.</p>
-    </aside>
+    <header className="landing-nameplate">
+      <h1>{about.name.join(' ')}</h1>
+    </header>
   );
+}
+
+function SectionLabel({ selected }) {
+  const label = useRef(null);
+  useLayoutEffect(() => {
+    let active = true;
+    const fit = () => {
+      if (!active) return;
+      const element = label.current;
+      // Measure at a fixed size so every section spans the viewport after rotation.
+      element.style.fontSize = '100px';
+      element.style.fontSize = `${window.innerHeight * 100 / element.scrollWidth}px`;
+    };
+    fit();
+    document.fonts.ready.then(fit);
+    window.addEventListener('resize', fit);
+    return () => { active = false; window.removeEventListener('resize', fit); };
+  }, [selected]);
+  return <p ref={label} className="landing-section-label" aria-hidden="true">
+    <span className="landing-section-number">{String(selected + 1).padStart(2, '0')}</span>{' '}
+    <span>{MENU[selected]}</span>
+  </p>;
 }
 
 function MainMenu({ selected, onSelect, onActivate }) {
@@ -103,9 +124,10 @@ export default function LandingPage({ introPhase = 'complete', onAbout, onExperi
     <main id="home" className="landing" data-intro={introPhase} data-menu-phase={introPhase === 'complete' ? 'idle' : introPhase === 'settled' ? 'settled' : 'entry'} data-motion={paused || hidden || !active ? 'paused' : 'running'} data-interacted={interacted} style={{ ...(compact ? COMPACT_LANDING_STYLE : LANDING_MOTION_STYLE), '--selection-index': selected }}>
       <a className="landing-skip" href="#landing-menu">Skip to navigation</a>
       <UnderwaterScene />
+      {!compact && <SectionLabel selected={selected} />}
       {!compact && <CharacterLayer />}
+      <Nameplate />
       <BuoyantIdentity compact={compact} paused={paused || hidden || !active || introPhase !== 'complete'} />
-      <ImpactCard />
       <div id="landing-menu" className="menu-position" tabIndex="-1"><MainMenu selected={selected} onSelect={select} onActivate={activate} /></div>
       <div className="landing-context">
         <p className="landing-notice" role="status" aria-live="polite">{notice}</p>

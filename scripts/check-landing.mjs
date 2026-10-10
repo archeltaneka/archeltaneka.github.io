@@ -18,6 +18,7 @@ try {
   assert.equal(await menu.count(), 1, 'Landing main menu exists');
   const about = menu.getByRole('button', { name: 'About', exact: true });
   assert.equal(await about.getAttribute('aria-current'), 'true');
+  assert.equal((await page.locator('.landing-section-label').textContent()).trim(), '01 About');
   await about.focus();
   await page.keyboard.press('ArrowDown');
   assert.equal(await about.getAttribute('aria-current'), 'true', 'Arrow keys no longer change menu selection');
@@ -25,6 +26,7 @@ try {
   await page.keyboard.press('Tab');
   const experience = menu.getByRole('button', { name: 'Experience', exact: true });
   assert.equal(await experience.evaluate(el => el === document.activeElement), true, 'Native Tab access remains');
+  assert.equal((await page.locator('.landing-section-label').textContent()).trim(), '02 Experience');
   await experience.click();
   await page.getByRole('heading', { name: 'Experience', exact: true }).waitFor();
   await page.getByRole('button', { name: /Main menu/ }).click();
@@ -34,6 +36,7 @@ try {
   assert.equal(await experience.evaluate(el => el === document.activeElement), false, 'Enter on the page does not focus or activate a menu item');
   await menu.getByRole('button', { name: 'Projects', exact: true }).hover();
   assert.equal(await menu.getByRole('button', { name: 'Projects', exact: true }).getAttribute('aria-current'), 'true');
+  assert.equal((await page.locator('.landing-section-label').textContent()).trim(), '03 Projects');
   await menu.getByRole('button', { name: 'Skills', exact: true }).click();
   await page.locator('[data-scene-state="SKILLS_IDLE"]').waitFor();
   assert.equal(await page.locator('.skills-page').getAttribute('data-category'), 'programming');
@@ -56,7 +59,8 @@ try {
   await page.evaluate(() => delete document.hidden);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   assert.equal(await page.title(), title);
-  assert.match(await page.getByRole('complementary', { name: 'Total measured impact' }).textContent(), /\$8\.3M.*IDR 149B\+/);
+  assert.equal(await page.locator('.landing-nameplate h1').textContent(), 'Archel Taneka Sutanto');
+  assert.equal(await page.locator('.name-carousel').count(), 0);
   assert.equal(await page.locator('.name-reveal').count(), 0, 'Identity easter eggs are reserved for the future About section');
   // Other mounted routes also offer Resume; the landing keeps one menu action.
   assert.equal(await page.locator('.landing a[href$=".pdf"]').count(), 1, 'One clear landing resume action');
@@ -75,8 +79,8 @@ try {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => window.scrollTo(0, 0));
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${width}x${height}`);
-    const impactBox = await page.locator('.impact-card').boundingBox();
-    assert.ok(impactBox.x >= 0 && impactBox.x + impactBox.width <= width, `Impact card fits at ${width}`);
+    const nameBox = await page.locator('.landing-nameplate').boundingBox();
+    assert.ok(nameBox.x >= 0 && nameBox.x + nameBox.width <= width, `Nameplate fits at ${width}`);
     for (const label of ['About','Experience','Projects','Skills']) {
       const control = menu.getByRole('button', { name: label, exact: true });
       await control.focus();

@@ -8,12 +8,10 @@ export const LANDING_MOTION = Object.freeze({
   stagger: 18,
   accent: 440,
   background: 380,
-  decoration: 460,
   float: 5200,
   light: 12500,
   rays: 16500,
   surface: 10500,
-  ribbon: 52000,
   selection: 6800,
 });
 

@@ -45,3 +45,7 @@ Product Data Scientist specializing in experimentation, causal inference, and pr
 ## Confirmed landing update — 2026-09-29
 
 The user requested a compact “Total measured impact” card showing $8.3M / IDR 149B+. Keep its GBV/revenue qualifier; this is not a pure revenue claim. The old identity card, specializations, and two name/photo easter eggs are reserved for the future About section in AboutIdentity.jsx. Console/title easter eggs remain active. Remove custom keyboard navigation while retaining native accessible controls.
+
+## Confirmed landing update — 2026-10-10
+
+The user replaced the landing $8.3M headline with “Archel Taneka Sutanto” and removed the scrolling name carousel. The landing now presents the name as one visible heading on desktop and compact layouts. This supersedes the landing financial-card requirement above; professional outcome claims elsewhere are preserved.

@@ -34,20 +34,9 @@ export function UnderwaterBackground() {
   );
 }
 
-function NameCarousel() {
-  return (
-    <div className="name-carousel" aria-hidden="true">
-      <div className="name-carousel-track">
-        {[0, 1].map(copy => <div className="name-carousel-copy" key={copy}>{[0, 1].map(repeat => <span className="carousel-name" key={repeat}><span className="carousel-first">ARCHEL TANEKA</span>{' '}<span className="carousel-last">SUTANTO</span></span>)}</div>)}
-      </div>
-    </div>
-  );
-}
-
 export default function UnderwaterScene() {
   return <>
     <UnderwaterBackground />
     <div className="character-backdrop" aria-hidden="true" />
-    <NameCarousel />
   </>;
 }

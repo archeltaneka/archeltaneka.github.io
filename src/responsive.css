@@ -1,6 +1,5 @@
 /* Identity copy uses the open area above the desktop menu. */
 .landing-identity { position: absolute; top: 5%; left: 46%; width: 49%; z-index: 2; color: var(--navy); }
-.landing-identity h1 { margin: 0 0 8px; font: 700 clamp(28px,2.4vw,38px)/1.15 Antonio,sans-serif; text-transform: uppercase; }
 .landing-identity p { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.5; }
 .landing-identity .landing-specialization { margin-top: 6px; font-size: 13px; font-weight: 400; }
 .menu-entry-contact { display: none; }
@@ -23,13 +22,13 @@
     padding: max(24px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
   }
   .landing .landing-environment { background: linear-gradient(#45d6e9, #0872c5 120px, #083da6 240px, #03175c); }
-  .landing::after, .name-carousel { display: none; }
+  .landing::after { display: none; }
   .character-backdrop { clip-path: polygon(0 0,100% 0,100% 110px,0 175px); }
-  .landing-identity { position: relative; inset: auto; width: auto; max-width: 560px; }
-  .landing-identity h1 { font: 700 clamp(29px,6.5vw,46px)/1.1 Antonio,sans-serif; text-transform: uppercase; margin: 0 0 8px; }
+  .landing-identity { position: relative; inset: auto; width: auto; max-width: 560px; margin-top: -12px; }
   .landing-identity p { font-size: 14px; font-weight: 600; margin: 0; }
   .landing-identity .landing-specialization { display: none; }
-  .impact-card { position: relative; inset: auto; order: 3; width: min(100%, 340px); min-height: 0; margin: 0; padding: 12px 14px; }
+  .landing-nameplate { position: relative; inset: auto; width: 100%; max-width: 560px; min-height: 0; margin: 0; padding: 0; border: 0; background: none; }
+  .landing-nameplate h1 { font: 700 clamp(29px,6.5vw,46px)/1.1 Antonio,sans-serif; }
   .menu-position { position: relative; inset: auto; width: 100%; max-width: 540px; margin: 40px 0 0; }
   .menu-entry { --entry-x: 0px; --entry-rotation: -2deg; margin-bottom: 7px; }
   .menu-entry:nth-child(even) { --entry-x: 12px; }

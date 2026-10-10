@@ -13,7 +13,6 @@
 .experience-page h1:focus { outline: none; }
 .experience-page ::selection { background: var(--exp-cyan); color: var(--exp-navy); }
 .experience-page .character-backdrop,
-.experience-page .name-carousel { background: var(--exp-navy); }
 .experience-page .carousel-first { color: #c1e6ff; }
 .experience-page .carousel-last { color: var(--exp-cyan); }
 .experience-header { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 20px; }

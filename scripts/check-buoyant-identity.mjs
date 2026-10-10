@@ -6,8 +6,8 @@ const page=await browser.newPage({viewport:{width:1440,height:900}});
 await page.goto(process.env.PORTFOLIO_URL || 'http://127.0.0.1:5173/');
 await page.locator('.landing[data-intro="complete"]').waitFor();
 await page.evaluate(()=>document.fonts.ready);
-assert.equal(await page.locator('.carousel-name').first().innerText(),'ARCHEL TANEKA SUTANTO');
-assert.equal(await page.locator('.landing-identity h1').getAttribute('class'),'sr-only');
+assert.equal(await page.locator('.name-carousel').count(),0);
+assert.equal(await page.locator('.landing-nameplate h1').textContent(),'Archel Taneka Sutanto');
 const drift=page.locator('.buoyant-drift').first();
 const transform=()=>drift.evaluate(el=>getComputedStyle(el).transform);
 const start=await transform();
@@ -42,7 +42,7 @@ for(const [width,height] of [[1440,900],[1024,768],[390,844],[320,568]]) {
  await page.waitForTimeout(100);
  await page.screenshot({path:`/tmp/buoyant-review/${width}.png`,fullPage:true});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no overflow '+width);
- if(width<900) assert.equal(await page.locator('.landing-identity h1').innerText(),'ARCHEL TANEKA SUTANTO');
+ assert.equal(await page.locator('#home h1').count(),1,'one identity heading');
 }
-console.log('PASS full-name carousel, desktop name removal, ambient drift, directional hover, settling, pause, dynamic reduced motion, four viewport captures');
+console.log('PASS full-name nameplate, carousel removal, ambient drift, directional hover, settling, pause, dynamic reduced motion, four viewport captures');
 await browser.close();
