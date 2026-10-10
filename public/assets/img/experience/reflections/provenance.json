@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "tiket.webp": "public/assets/img/tiket.webp",
+    "monash.webp": "public/assets/img/monash.webp",
+    "nottingham.webp": "public/assets/img/nottingham.webp",
+    "binus.webp": "public/assets/img/binus.webp"
+  },
+  "processing": "ImageMagick proportional downscale, maximum 960px dimension, WebP quality 88. Original photographs unmodified.",
+  "purpose": "Bound reflection decode and raster cost during scene entry."
+}

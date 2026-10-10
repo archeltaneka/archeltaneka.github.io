@@ -1,0 +1,74 @@
+import assert from 'node:assert/strict';
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
+try {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(process.env.PORTFOLIO_URL || 'http://127.0.0.1:5173');
+  await page.locator('.landing[data-intro="complete"]').waitFor();
+  await page.evaluate(() => {
+    window.motionFrames = [];
+    let previous = performance.now();
+    const end = previous + 1500;
+    const sample = now => {
+      if (document.querySelector('[data-transitioning="true"]')) window.motionFrames.push(now - previous);
+      previous = now;
+      if (now < end) requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  });
+  await page.getByRole('button', { name: 'Experience', exact: true }).click();
+  const navigationDuration = await page.locator('.portfolio-scene').evaluate(el =>
+    Math.max(...el.getAnimations().map(animation => animation.effect.getTiming().duration)));
+  assert.equal(navigationDuration, 560, 'Forward navigation chains both ripple phases');
+  await page.waitForTimeout(100);
+  assert.equal(await page.locator('.portfolio-route:not([hidden])').count(), 2, 'Outgoing and incoming scenes must overlap');
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
+  assert.equal(await page.evaluate(() => location.hash), '#experience');
+  const frames = await page.evaluate(() => window.motionFrames.sort((a, b) => a - b));
+  console.log(`Forward frame sampling: ${frames.length} frames, median ${frames[Math.floor(frames.length * .5)]?.toFixed(1)}ms, p95 ${frames[Math.floor(frames.length * .95)]?.toFixed(1)}ms (local Chromium, not a device guarantee).`);
+  assert.equal(await page.locator('.experience-header h1').evaluate(el => el === document.activeElement), true);
+  await page.locator('[data-record="monash"] button').hover();
+  assert.ok((await page.locator('.memory-photo[data-visible="true"]').getAttribute('src')).endsWith('tiket.webp'), 'Hover must not change the mirror');
+  await page.locator('[data-record="monash"] button').focus();
+  assert.ok((await page.locator('.memory-photo[data-visible="true"]').getAttribute('src')).endsWith('tiket.webp'), 'Focus must not change the mirror');
+  assert.equal(await page.locator('.experience-details').count(), 0, 'Preview must not expand details');
+  await page.locator('[data-record="monash"] button').click();
+  assert.ok((await page.locator('.memory-photo[data-visible="true"]').getAttribute('src')).endsWith('monash.webp'), 'Click changes the mirror');
+  await page.locator('[data-record="sayurbox"] button').hover();
+  assert.ok((await page.locator('.memory-photo[data-visible="true"]').getAttribute('src')).endsWith('monash.webp'), 'Hover preserves the clicked reflection');
+  await page.locator('[data-record="sayurbox"] button').click();
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
+  assert.equal(await page.locator('.experience-details').count(), 1);
+  await page.getByRole('button', { name: 'Main menu', exact: true }).click();
+  await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
+  assert.equal(await page.locator('.menu-entry-experience button').evaluate(el => el === document.activeElement), true);
+  await page.goBack();
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor({ timeout: 5000 }).catch(async error => { console.log('Navigation diagnostics', errors, await page.evaluate(() => ({ hash: location.hash, scene: document.querySelector('.portfolio-scene')?.outerHTML.slice(0, 600), routes: [...document.querySelectorAll('.portfolio-route')].map(el => ({ hidden: el.hidden, style: el.getAttribute('style'), box: el.getBoundingClientRect().toJSON() })) }))); throw error; });
+  await page.goBack();
+  await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
+  // Duplicate input must neither create duplicate history entries nor restart choreography.
+  await page.evaluate(() => { window.pushes = 0; const push = history.pushState.bind(history); history.pushState = (...args) => { window.pushes++; return push(...args); }; });
+  await page.locator('.menu-entry-experience button').evaluate(el => { el.click(); el.click(); el.click(); });
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
+  assert.equal(await page.evaluate(() => window.pushes), 1, 'Repeated input creates exactly one history entry');
+  await page.getByRole('button', { name: 'Main menu', exact: true }).click();
+  await page.waitForFunction(() => location.hash === '#home');
+  await page.goBack();
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor({ timeout: 5000 }).catch(async error => { console.log('Navigation diagnostics', errors, await page.evaluate(() => ({ hash: location.hash, scene: document.querySelector('.portfolio-scene')?.outerHTML.slice(0, 600), routes: [...document.querySelectorAll('.portfolio-route')].map(el => ({ hidden: el.hidden, style: el.getAttribute('style'), box: el.getBoundingClientRect().toJSON() })) }))); throw error; });
+  assert.equal(await page.evaluate(() => location.hash), '#experience', 'Back during crossing reconciles URL and scene');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.getByRole('button', { name: 'Main menu', exact: true }).click();
+  await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor();
+  assert.equal(await page.locator('.scene-crossing').count(), 0);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.getByRole('button', { name: 'Experience', exact: true }).click();
+  await page.locator('[data-scene-state="STATS_IDLE"]').waitFor();
+  await page.evaluate(() => { window.visibleFrame = window.requestAnimationFrame.bind(window); window.requestAnimationFrame = callback => document.hidden ? 0 : window.visibleFrame(callback); Object.defineProperty(document, 'hidden', { configurable: true, value: true }); document.dispatchEvent(new Event('visibilitychange')); });
+  await page.goBack();
+  await page.locator('[data-scene-state="MAIN_MENU_IDLE"]').waitFor({ timeout: 300 });
+  await page.evaluate(() => { delete document.hidden; window.requestAnimationFrame = window.visibleFrame; document.dispatchEvent(new Event('visibilitychange')); });
+  assert.deepEqual(errors, []);
+  console.log('Scene overlap, click-only reflections, focus, duplicate input, Back during motion and reduced motion passed.');
+} finally { await browser.close(); }

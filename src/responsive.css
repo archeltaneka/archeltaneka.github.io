@@ -1,0 +1,189 @@
+/* Identity copy uses the open area above the desktop menu. */
+.landing-identity { position: absolute; top: 5%; left: 46%; width: 49%; z-index: 2; color: var(--navy); }
+.landing-identity p { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.5; }
+.landing-identity .landing-specialization { margin-top: 6px; font-size: 13px; font-weight: 400; }
+.menu-entry-contact { display: none; }
+
+@media (max-width: 899px), (max-width: 1023px) and (max-height: 500px) {
+  .landing, .underwater-stage { --water-column: max(100svh, 900px); overflow: clip; }
+  .underwater-stage > .section-back {
+    position: fixed; top: max(16px, env(safe-area-inset-top));
+    right: max(18px, env(safe-area-inset-right)); z-index: 20;
+  }
+  .portfolio-scene[data-transitioning='true'] .section-back { visibility: hidden; }
+  .underwater-stage { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  .underwater-stage :is(button, a), .landing :is(button, a) { touch-action: manipulation; }
+  .water-rays, .environment-light, .water-surface { animation: none; }
+  .water-surface { opacity: .25; }
+
+  /* The menu becomes the foreground; angular white/cyan fields remain. */
+  .landing {
+    display: flex; flex-direction: column; gap: 20px; height: auto; min-height: 100svh;
+    padding: max(24px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
+  }
+  .landing .landing-environment { background: linear-gradient(#45d6e9, #0872c5 120px, #083da6 240px, #03175c); }
+  .landing::after { display: none; }
+  .character-backdrop { clip-path: polygon(0 0,100% 0,100% 110px,0 175px); }
+  .landing-identity { position: relative; inset: auto; width: auto; max-width: 560px; margin-top: -12px; }
+  .landing-identity p { font-size: 14px; font-weight: 600; margin: 0; }
+  .landing-identity .landing-specialization { display: none; }
+  .landing-nameplate { position: relative; inset: auto; width: 100%; max-width: 560px; min-height: 0; margin: 0; padding: 0; border: 0; background: none; }
+  .landing-nameplate h1 { font: 700 clamp(29px,6.5vw,46px)/1.1 Antonio,sans-serif; }
+  .menu-position { position: relative; inset: auto; width: 100%; max-width: 540px; margin: 40px 0 0; }
+  .menu-entry { --entry-x: 0px; --entry-rotation: -2deg; margin-bottom: 7px; }
+  .menu-entry:nth-child(even) { --entry-x: 12px; }
+  .menu-entry-contact { display: list-item; }
+  .menu-control { font-size: clamp(34px,7.5vw,56px); min-height: 48px; padding: 2px 12px 6px; }
+  .menu-control[aria-current='true'] { transform: translateX(3px); }
+  .landing-context { display: none; }
+  .landing-footer { position: relative; inset: auto; width: 100%; margin: 0; order: 4; }
+  .contact-links { display: flex; justify-content: flex-start; gap: 8px 18px; flex-wrap: wrap; margin: 0; scroll-margin-top: 24px; }
+  .contact-links a { min-height: 44px; font-size: 13px; gap: 8px; }
+  .interaction-hints { justify-content: flex-start; margin-top: 8px; }
+  .motion-toggle { min-height: 44px; }
+
+  .underwater-stage.about-page { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  .profile-statement h2 { transform: none; }
+  .profile-achievement dd, .profile-principle dd { font-size: 15px; line-height: 1.6; }
+  .profile-photo { width: 36%; right: 0; height: 290px; }
+  .profile-slash { display: none; }
+
+  .experience-page { height: auto; min-height: 100svh; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  .experience-header { height: auto; padding-bottom: 24px; }
+  .experience-status-graphic { position: relative; inset: auto; margin-top: 30px; padding: 12px 18px; transform: rotate(-3deg); }
+  .experience-choice { min-height: 112px; }
+  .experience-choice-role, .experience-choice-stat > span { font-size: 12px; }
+  .experience-choice-company { overflow-wrap: anywhere; }
+  .experience-details { max-height: none; overflow: visible; }
+  .experience-focus, .experience-contributions { font-size: 15px; line-height: 1.6; }
+  .experience-footer { margin-top: 20px; }
+
+  .underwater-stage.skills-page { min-height: 100svh; padding-bottom: 28px; }
+  .skills-white-field { clip-path: polygon(13% 0,80% 0,100% 100%,0 100%,0 28%); }
+  .skills-watermark, .skills-corner-shard { display: none; }
+  .skills-guide { position: relative; inset: auto; width: 100%; grid-column: 1 / -1; margin-top: 32px; padding: 20px 0 0; color: #17235b; }
+  .skills-guide > p { color: #17235b; font-size: 22px; }
+  .skills-guide-rule::after { background: #17235b; }
+  .skills-category-label { padding-right: 16px; }
+  .skills-tools h2 { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; margin: 0 0 20px; font: 700 26px/1.2 Antonio,sans-serif; text-transform: uppercase; }
+  .skills-tool dt { font-style: normal; }
+  .skills-tool dd { font-size: clamp(27px,4vw,34px); }
+}
+
+@media (max-width: 767px) {
+  .underwater-stage.about-page { display: block; padding: 78px max(24px, env(safe-area-inset-right)) 28px max(24px, env(safe-area-inset-left)); }
+  .profile-identity { padding: 0; }
+  .profile-white-field { height: 345px; clip-path: polygon(0 0,100% 0,100% 80%,0 100%); }
+  .profile-section-label { left: 24px; font-size: 23px; }
+  .profile-section-label span { display: block; margin: 6px 0 0; font-size: 10px; }
+  .profile-name-line { font-size: clamp(48px,11vw,70px); }
+  .profile-name-line--1 { font-size: clamp(36px,8vw,53px); margin-left: .6em; }
+  .profile-name-line--2 { font-size: clamp(60px,14vw,90px); }
+  .profile-profession p { font-size: 23px; }
+  .profile-photo { position: relative; inset: auto; width: min(78%, 280px); height: 210px; margin: 28px 0 0 auto; }
+  .profile-photo-frame { clip-path: polygon(8% 0,100% 0,95% 100%,0 94%); }
+  .profile-photo::before { display: none; }
+  .profile-photo figcaption { right: 4%; bottom: -8px; padding: 7px 12px; font-size: 13px; }
+  .profile-statement { margin: 36px 0; }
+  .profile-principles { margin: 0 0 32px; padding-left: 12px; }
+  .profile-principle { margin-bottom: 24px; }
+  .profile-principle dd { max-width: 40ch; }
+  .profile-principle:nth-child(n) { margin-left: 0; }
+  .profile-arc { margin: 0; }
+  .profile-controls { margin-top: 24px; }
+
+  .underwater-stage.skills-page { display: block; padding: 80px 20px 28px; }
+  .skills-selector { width: 100%; }
+  .skills-selector ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  .skills-row { height: auto; min-height: 64px; margin: 0; }
+  .skills-category { min-height: 64px; padding-right: 12px; }
+  .skills-category-mark { width: 25%; }
+  .skills-category-label { font-size: clamp(17px,4.5vw,24px); padding-left: 7px; padding-right: 9px; }
+  .skills-category-indicator { right: 5px; font-size: 18px; }
+  .skills-tools { width: 100%; margin: 30px 0 0; }
+  .skills-tool dt { width: 70%; font-size: 12px; }
+  .skills-tool dd { min-height: 42px; margin-left: 4%; font-size: 32px; }
+  .skills-white-field { clip-path: polygon(0 65px,100% 120px,100% 100%,0 100%); }
+  .skills-guide { margin-top: 24px; }
+}
+
+/* Project information follows document flow; illustration keeps its own space. */
+@media (max-width: 899px), (max-width: 1023px) and (max-height: 500px) {
+  .project-compendium.underwater-stage[data-view='select'] { height: auto; min-height: 100svh; padding-bottom: 24px; }
+  .projects-environment-title { top: 78px; width: 100%; padding: 0 24px 18px; font-size: clamp(64px,12vw,96px); color: #596677; }
+  .project-compendium[data-view='select'] .project-art-anchor { display: none; }
+  .project-selection { position: relative; inset: auto; width: calc(100% - 48px); padding: 0; margin: 120px 24px 24px; }
+  .project-roster { flex: auto; height: auto; min-height: 0; }
+  .project-choice { grid-template-columns: 100px minmax(0,1fr) 16px; min-height: 60px; gap: 12px; }
+  .project-choice-category { font-size: 18px; min-height: 44px; overflow-wrap: normal; }
+  .project-choice-name { font-size: 14px; }
+  .project-list-pages { display: none; }
+  .project-ai-note, .project-compendium[data-view='details'] .project-ai-note { position: relative; inset: auto; max-width: none; margin: 16px 24px 0; text-align: left; }
+  .project-selection-highlight { left: -12px; right: -8px; }
+  .project-selection-card { display: none; }
+  .project-compendium[data-view='select'] .project-details { display: none; }
+  .project-compendium.underwater-stage[data-view='details'] { display: flex; flex-direction: column; height: auto; min-height: 100svh; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+  .project-compendium[data-view='details'] .project-selection { display: none; }
+  .project-compendium[data-view='details'] .project-details { display: contents; }
+  .project-compendium[data-view='details'] .project-header-plane { position: relative; inset: auto; order: 1; width: 100%; min-height: 0; transform: none; margin-top: 12px; }
+  .project-metadata { width: auto; margin: 0; padding: 20px 24px; display: block; }
+  .project-category strong { font-size: 28px; white-space: normal; transform: none; }
+  .project-heading { margin: 8px 0 0; }
+  .project-detail-name { font-size: clamp(29px,6vw,40px); overflow-wrap: anywhere; }
+  .project-technology-band { display: none; }
+  .project-compendium[data-view='details'] .project-art-anchor { position: relative; inset: auto; order: 2; width: 100%; height: 210px; margin: 12px 0; transform: none; opacity: 1; }
+  .project-persona img { object-position: center; }
+  .project-persona-phrase, .project-persona-diamond { display: none; }
+  .project-persona-idle { animation: none; }
+  .project-compendium[data-view='details'] .project-detail-content { position: relative; order: 3; width: auto; max-width: none; margin: 0 24px; padding: 0; display: flex; flex-direction: column; }
+  .project-purpose { order: 0; font-size: 15px; line-height: 1.65; margin: 0 0 20px; }
+  .project-actions { order: 1; margin-bottom: 28px; }
+  .project-actions a { font-size: 12px; }
+  .technology-panel { order: 2; }
+  .technology-matrix { grid-template-columns: 1fr; }
+  .technology-entry { font-size: 15px; min-height: 44px; overflow-wrap: anywhere; }
+  .technology-legend { flex-wrap: wrap; gap: 12px 20px; }
+  .project-detail-nav { position: relative; inset: auto; order: 4; margin: 24px; justify-content: space-between; }
+  .project-return { position: relative; inset: auto; order: 5; align-self: flex-start; margin: 0 24px; }
+  .project-ai-note { order: 6; }
+  .project-compendium[data-view='details'] .project-dependent { animation-delay: 0s; }
+}
+
+@media (max-width: 389px) {
+  .experience-choice { grid-template-columns: 32px minmax(0,1fr) 6px minmax(0,1fr); gap: 7px; }
+  .experience-choice-stat strong { font-size: 18px; }
+  .skills-category { padding-right: 4px; }
+  .skills-category-mark { width: 20%; }
+  .skills-category-label { font-size: 16px; padding-left: 5px; padding-right: 10px; }
+  .skills-category-indicator { right: 3px; font-size: 14px; }
+  .landing-identity p { font-size: 13px; }
+}
+@media (max-width: 1023px) and (max-height: 500px) {
+  .landing { gap: 16px; }
+  .menu-position { margin-top: 24px; }
+  .main-menu ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 24px; }
+  .menu-entry:nth-child(n) { --entry-x: 0px; }
+  .menu-control { font-size: 34px; }
+  .profile-photo { height: 180px; }
+}
+
+/* Wide phones in landscape need the compact composition despite their width. */
+@media (min-width: 900px) and (max-width: 1023px) and (max-height: 500px) {
+  .underwater-stage.about-page { height: auto; min-height: 100svh; padding: 80px 5% 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .profile-white-field { height: 380px; clip-path: polygon(0 0,100% 0,100% 80%,0 100%); }
+  .profile-section-label { top: 24px; }
+  .profile-identity, .profile-statement, .profile-principles, .profile-arc, .profile-controls { position: relative; inset: auto; width: auto; }
+  .profile-statement { grid-column: 1 / -1; }
+  .profile-photo { position: relative; inset: auto; width: 75%; height: 260px; margin-left: auto; }
+  .profile-fragment { display: none; }
+  .profile-name-line { font-size: 60px; }
+  .profile-name-line--1 { font-size: 46px; }
+  .profile-name-line--2 { font-size: 84px; }
+  .experience-selector { width: 100%; }
+  .underwater-stage.skills-page { height: auto; padding: 80px 24px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .skills-heading { top: 24px; }
+  .skills-selector, .skills-tools { position: relative; inset: auto; width: 100%; }
+  .skills-row { height: 64px; margin-bottom: 8px; }
+  .skills-tool { margin-bottom: 18px; }
+  .skills-tool dt { width: 80%; }
+}

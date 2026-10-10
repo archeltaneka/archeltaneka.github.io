@@ -26,4 +26,17 @@ dist-ssr
 .vite
 
 AGENTS.md
-docs/
+/docs/*
+!/docs/assets/
+/docs/assets/*
+!/docs/assets/archel_main.png
+!/docs/assets/archel-main-source.png
+!/docs/assets/archel-main-cutout.png
+!/docs/assets/archel-main-cutout.png.json
+!/docs/design/
+/docs/design/*
+!/docs/design/landing-implementation.md
+!/docs/design/verification.md
+
+# Local visual verification recordings and screenshots
+/.impeccable/review/landing/

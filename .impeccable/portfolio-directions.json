@@ -1,0 +1,222 @@
+{
+  "title": "Archel \u2014 portfolio design direction",
+  "question": "Choose the original visual system to develop. All options preserve the confirmed recruiting story and easter eggs.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Evidence Index",
+      "thesis": "A bold section index frames a readable record of product decisions and outcomes.",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "flat ink",
+        "crisp diagonal framing",
+        "readable editorial typography"
+      ],
+      "viewport": "Left: numbered section navigation. Center: name, specialization, Projects and Resume. Bottom: three precisely labeled professional outcomes.",
+      "risk": "The index must collapse cleanly on phones and never hide essential evidence.",
+      "comp": ".impeccable/mocks/decision/assigned.png",
+      "raised": [
+        {
+          "from": "One-bit desktop",
+          "raise": "Selected controls must remain unmistakable without color."
+        },
+        {
+          "from": "Teletext",
+          "raise": "Every destination gets a stable, directly accessible address."
+        },
+        {
+          "from": "Monochrome marketing",
+          "raise": "Keep every claim adjacent to its supporting project or context."
+        },
+        {
+          "from": "Swiss grid",
+          "raise": "Use one consistent alignment grid beneath the expressive framing."
+        },
+        {
+          "from": "Neon circuit",
+          "raise": "Give active navigation one continuous, restrained motion cue."
+        },
+        {
+          "from": "Provenance ribbon",
+          "raise": "Keep dates and metric qualifications attached to their evidence."
+        }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Decision Journal",
+      "thesis": "An editorial opening pairs Archel\u2019s identity with one lead professional case.",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "flat ink",
+        "crisp diagonal framing",
+        "readable editorial typography"
+      ],
+      "viewport": "Large name and direct actions on the left; payment conversion case on the right; secondary outcomes below.",
+      "risk": "More familiar portfolio composition; navigation carries less of the reference\u2019s personality.",
+      "comp": ".impeccable/mocks/decision/model-pick.png",
+      "kicker": "IMPECCABLE\u2019S PICK"
+    },
+    {
+      "id": "medium-native-one-bit-desktop",
+      "label": "One-bit desktop",
+      "thesis": "Overlapping case windows",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "Overlapping case windows",
+      "risk": "Window management adds work to a short recruiting visit.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Unambiguous selection",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-one-bit-desktop-hero.webp"
+    },
+    {
+      "id": "broadcast-programming-teletext-service",
+      "label": "Teletext",
+      "thesis": "Numbered pages of professional evidence",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "Numbered pages of professional evidence",
+      "risk": "Bitmap density and page-key input weaken quick reading.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Stable section addresses",
+      "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp"
+    },
+    {
+      "id": "digital-design-canon-monochrome-product-marketing",
+      "label": "Monochrome marketing",
+      "thesis": "Alternating claims and project proof",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "Alternating claims and project proof",
+      "risk": "Clear but less aligned with the explicitly requested interaction identity.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Proof beside claims",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-monochrome-product-marketing-hero.webp"
+    },
+    {
+      "id": "design-canon-swiss-grid-poster-wall",
+      "label": "Swiss poster grid",
+      "thesis": "A modular wall of outcomes",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "A modular wall of outcomes",
+      "risk": "Strong hierarchy, but a poster wall gives professional narrative less continuity.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Disciplined underlying grid",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-swiss-grid-poster-wall-hero.webp"
+    },
+    {
+      "id": "magnetism-electricity-plasma-hand-bent-neon-circuit",
+      "label": "Neon circuit",
+      "thesis": "An illuminated path through product decisions",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "An illuminated path through product decisions",
+      "risk": "Circuit controls and luminous lettering distract from readable professional evidence.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Continuous active-state cue",
+      "hero": "https://impeccable.style/worlds/cards/magnetism-electricity-plasma-hand-bent-neon-circuit-hero.webp"
+    },
+    {
+      "id": "exhibition-museum-curation-provenance-ribbon",
+      "label": "Provenance ribbon",
+      "thesis": "Dated evidence along a continuous career line",
+      "verdict": "declined",
+      "palette": [
+        "#101D35",
+        "#F5F3EB",
+        "#1357D6",
+        "#6BE5DB"
+      ],
+      "materials": [
+        "Translated into portfolio evidence"
+      ],
+      "viewport": "Dated evidence along a continuous career line",
+      "risk": "Chronology delays the strongest outcomes and immediate project access.",
+      "case": "Declined: weaker fit for this reference-led recruiting brief on audience identification and immediate product clarity.",
+      "kept": "Qualifications travel with evidence",
+      "hero": "https://impeccable.style/worlds/cards/exhibition-museum-curation-provenance-ribbon-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "id": "canon-preview",
+    "label": "Conventional portfolio",
+    "thesis": "A familiar professional introduction followed by project cards.",
+    "palette": [
+      "#101D35",
+      "#F5F3EB",
+      "#1357D6",
+      "#6BE5DB"
+    ],
+    "materials": [
+      "flat ink",
+      "crisp diagonal framing",
+      "readable editorial typography"
+    ],
+    "viewport": "Top navigation, name and summary, two direct actions, three outcome cards.",
+    "risk": "Easy to scan, but much less distinctive.",
+    "comp": ".impeccable/mocks/decision/canon-preview.png"
+  },
+  "steer": true
+}

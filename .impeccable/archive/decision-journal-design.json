@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T12:40:17.118088+00:00",
+  "title": "Design System: Archel Taneka Sutanto",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Midnight navy",
+        "tonalRamp": [
+          "oklch(15% 0.05008 261.75)",
+          "oklch(26.43% 0.05008 261.75)",
+          "oklch(37.86% 0.05008 261.75)",
+          "oklch(49.29% 0.05008 261.75)",
+          "oklch(60.71% 0.05008 261.75)",
+          "oklch(72.14% 0.05008 261.75)",
+          "oklch(83.57% 0.05008 261.75)",
+          "oklch(95% 0.05008 261.75)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm paper",
+        "tonalRamp": [
+          "oklch(15% 0.01081 95.16)",
+          "oklch(26.43% 0.01081 95.16)",
+          "oklch(37.86% 0.01081 95.16)",
+          "oklch(49.29% 0.01081 95.16)",
+          "oklch(60.71% 0.01081 95.16)",
+          "oklch(72.14% 0.01081 95.16)",
+          "oklch(83.57% 0.01081 95.16)",
+          "oklch(95% 0.01081 95.16)"
+        ]
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(15% 0.20583 261.69)",
+          "oklch(26.43% 0.20583 261.69)",
+          "oklch(37.86% 0.20583 261.69)",
+          "oklch(49.29% 0.20583 261.69)",
+          "oklch(60.71% 0.20583 261.69)",
+          "oklch(72.14% 0.20583 261.69)",
+          "oklch(83.57% 0.20583 261.69)",
+          "oklch(95% 0.20583 261.69)"
+        ]
+      },
+      "aqua": {
+        "role": "secondary",
+        "displayName": "Turquoise",
+        "tonalRamp": [
+          "oklch(15% 0.11057 188.08)",
+          "oklch(26.43% 0.11057 188.08)",
+          "oklch(37.86% 0.11057 188.08)",
+          "oklch(49.29% 0.11057 188.08)",
+          "oklch(60.71% 0.11057 188.08)",
+          "oklch(72.14% 0.11057 188.08)",
+          "oklch(83.57% 0.11057 188.08)",
+          "oklch(95% 0.11057 188.08)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted ink",
+        "tonalRamp": [
+          "oklch(15% 0.03816 254.20)",
+          "oklch(26.43% 0.03816 254.20)",
+          "oklch(37.86% 0.03816 254.20)",
+          "oklch(49.29% 0.03816 254.20)",
+          "oklch(60.71% 0.03816 254.20)",
+          "oklch(72.14% 0.03816 254.20)",
+          "oklch(83.57% 0.03816 254.20)",
+          "oklch(95% 0.03816 254.20)"
+        ]
+      },
+      "on-dark-muted": {
+        "role": "neutral",
+        "displayName": "Muted light",
+        "tonalRamp": [
+          "oklch(15% 0.03012 257.77)",
+          "oklch(26.43% 0.03012 257.77)",
+          "oklch(37.86% 0.03012 257.77)",
+          "oklch(49.29% 0.03012 257.77)",
+          "oklch(60.71% 0.03012 257.77)",
+          "oklch(72.14% 0.03012 257.77)",
+          "oklch(83.57% 0.03012 257.77)",
+          "oklch(95% 0.03012 257.77)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Light rule",
+        "tonalRamp": [
+          "oklch(15% 0.01051 238.55)",
+          "oklch(26.43% 0.01051 238.55)",
+          "oklch(37.86% 0.01051 238.55)",
+          "oklch(49.29% 0.01051 238.55)",
+          "oklch(60.71% 0.01051 238.55)",
+          "oklch(72.14% 0.01051 238.55)",
+          "oklch(83.57% 0.01051 238.55)",
+          "oklch(95% 0.01051 238.55)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Deep cobalt",
+        "tonalRamp": [
+          "oklch(15% 0.18368 261.95)",
+          "oklch(26.43% 0.18368 261.95)",
+          "oklch(37.86% 0.18368 261.95)",
+          "oklch(49.29% 0.18368 261.95)",
+          "oklch(60.71% 0.18368 261.95)",
+          "oklch(72.14% 0.18368 261.95)",
+          "oklch(83.57% 0.18368 261.95)",
+          "oklch(95% 0.18368 261.95)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "skills-surface": {
+        "role": "neutral",
+        "displayName": "Gray-green paper",
+        "tonalRamp": [
+          "oklch(15% 0.00574 128.53)",
+          "oklch(26.43% 0.00574 128.53)",
+          "oklch(37.86% 0.00574 128.53)",
+          "oklch(49.29% 0.00574 128.53)",
+          "oklch(60.71% 0.00574 128.53)",
+          "oklch(72.14% 0.00574 128.53)",
+          "oklch(83.57% 0.00574 128.53)",
+          "oklch(95% 0.00574 128.53)"
+        ]
+      },
+      "dark-rule": {
+        "role": "neutral",
+        "displayName": "Dark rule",
+        "tonalRamp": [
+          "oklch(15% 0.03954 259.35)",
+          "oklch(26.43% 0.03954 259.35)",
+          "oklch(37.86% 0.03954 259.35)",
+          "oklch(49.29% 0.03954 259.35)",
+          "oklch(60.71% 0.03954 259.35)",
+          "oklch(72.14% 0.03954 259.35)",
+          "oklch(83.57% 0.03954 259.35)",
+          "oklch(95% 0.03954 259.35)"
+        ]
+      },
+      "evidence-rule": {
+        "role": "neutral",
+        "displayName": "Evidence rule",
+        "tonalRamp": [
+          "oklch(15% 0.03706 258.37)",
+          "oklch(26.43% 0.03706 258.37)",
+          "oklch(37.86% 0.03706 258.37)",
+          "oklch(49.29% 0.03706 258.37)",
+          "oklch(60.71% 0.03706 258.37)",
+          "oklch(72.14% 0.03706 258.37)",
+          "oklch(83.57% 0.03706 258.37)",
+          "oklch(95% 0.03706 258.37)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Large identity name."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Uppercase section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Case descriptions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase case labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "mobile-navigation",
+        "value": "0 14px 24px #101d3524",
+        "purpose": "Separate the open navigation overlay from page content."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fast",
+        "value": "180ms",
+        "purpose": "Control colors and directional arrow states."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Directional control and navigation motion."
+      },
+      {
+        "name": "navigation",
+        "value": "240ms",
+        "purpose": "Shared active-indicator transform and dimensions."
+      },
+      {
+        "name": "name-reveal",
+        "value": "200ms",
+        "purpose": "English/Chinese name opacity."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none !important; transition: none !important; scroll-behavior: auto",
+        "purpose": "Remove motion under prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "599px"
+      },
+      {
+        "name": "collapsed-navigation-max",
+        "value": "899px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1199px"
+      },
+      {
+        "name": "wide-min",
+        "value": "1800px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Implemented primary action control.",
+      "html": "<a class=\"ds-button ds-primary\" href=\"#projects\">View projects<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:60px;padding:16px 30px;border:1px solid transparent;border-radius:2px;font:700 16px Inter,sans-serif;text-decoration:none;transition:background 180ms,color 180ms}.ds-button svg{width:23px;height:23px;transition:transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button:hover svg{transform:translateX(3px)}.ds-button:focus-visible{outline:3px solid var(--color-cobalt,#1357d6);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg{transition:none}}.ds-primary{background:var(--color-cobalt,#1357d6);color:white}.ds-primary:hover{background:#0842b0}"
+    },
+    {
+      "name": "Outline button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Implemented outline action control.",
+      "html": "<a class=\"ds-button ds-outline\" href=\"#projects\">Resume PDF<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:60px;padding:16px 30px;border:1px solid transparent;border-radius:2px;font:700 16px Inter,sans-serif;text-decoration:none;transition:background 180ms,color 180ms}.ds-button svg{width:23px;height:23px;transition:transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button:hover svg{transform:translateX(3px)}.ds-button:focus-visible{outline:3px solid var(--color-cobalt,#1357d6);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg{transition:none}}.ds-outline{background:transparent;color:var(--color-ink,#101d35);border-color:var(--color-cobalt,#1357d6)}.ds-outline:hover{background:var(--color-cobalt,#1357d6);color:white}"
+    },
+    {
+      "name": "Light button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "Implemented light action control.",
+      "html": "<a class=\"ds-button ds-light\" href=\"#projects\">Get in touch<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:60px;padding:16px 30px;border:1px solid transparent;border-radius:2px;font:700 16px Inter,sans-serif;text-decoration:none;transition:background 180ms,color 180ms}.ds-button svg{width:23px;height:23px;transition:transform 180ms cubic-bezier(.16,1,.3,1)}.ds-button:hover svg{transform:translateX(3px)}.ds-button:focus-visible{outline:3px solid var(--color-cobalt,#1357d6);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button,.ds-button svg{transition:none}}.ds-light{background:var(--color-paper,#f5f3eb);color:var(--color-ink,#101d35)}.ds-light:hover{background:var(--color-aqua,#6be5db)}"
+    },
+    {
+      "name": "Angled navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Shared paper indicator behind the active upright label; production JS measures and moves this single element.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Section navigation\"><span class=\"ds-indicator\" aria-hidden=\"true\"></span><a href=\"#home\" aria-current=\"location\">Overview</a><a href=\"#impact\">Impact</a><a href=\"#projects\">Projects</a></nav>",
+      "css": ".ds-nav{position:relative;isolation:isolate;display:flex;height:72px;background:var(--color-ink,#101d35);color:var(--color-paper,#f5f3eb);font:15px Inter,sans-serif}.ds-nav a{display:flex;align-items:center;padding:0 24px;text-decoration:none;color:inherit}.ds-nav a:hover{color:var(--color-aqua,#6be5db)}.ds-nav a[aria-current]{color:var(--color-ink,#101d35);font-weight:700}.ds-indicator{position:absolute;left:0;top:14px;width:118px;height:58px;background:var(--color-paper,#f5f3eb);transform:skew(-20deg);z-index:-1;transition:transform 240ms cubic-bezier(.16,1,.3,1)}.ds-nav a:focus-visible{outline:3px solid var(--color-aqua,#6be5db);outline-offset:-5px}@media(prefers-reduced-motion:reduce){.ds-indicator{transition:none}}"
+    },
+    {
+      "name": "Project disclosure",
+      "kind": "custom",
+      "refersTo": "project-disclosure",
+      "description": "Native expandable row with visible project identity and optional case narrative.",
+      "html": "<details class=\"ds-project\"><summary><span class=\"ds-number\">01</span><span class=\"ds-title\">DAG-nabit \u2014 causal inference</span><span class=\"ds-arrow\">\u2198</span></summary><p>Causal inference, treatment-effect estimation, and model diagnostics.</p></details>",
+      "css": ".ds-project{border-bottom:1px solid var(--rule,#b9c0c5);color:var(--color-ink,#101d35);font:15px/1.65 Inter,sans-serif}.ds-project summary{display:flex;gap:28px;align-items:center;padding:25px 0;cursor:pointer;list-style:none}.ds-project summary::-webkit-details-marker{display:none}.ds-number{font:700 48px/1 Antonio,sans-serif;color:#697787}.ds-title{flex:1;font-size:23px;font-weight:700;letter-spacing:-.035em}.ds-arrow{font-size:28px;transition:transform 180ms cubic-bezier(.16,1,.3,1)}.ds-project summary:hover .ds-title,.ds-project[open] summary{color:var(--color-cobalt,#1357d6)}.ds-project[open] .ds-arrow{transform:rotate(180deg)}.ds-project p{padding:12px 0 42px;color:var(--muted,#4c5c70)}.ds-project summary:focus-visible{outline:3px solid var(--color-cobalt,#1357d6);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-arrow{transition:none}}"
+    },
+    {
+      "name": "Career disclosure",
+      "kind": "custom",
+      "refersTo": "career-disclosure",
+      "description": "Optional responsibility detail beneath visible career context.",
+      "html": "<details class=\"ds-career\"><summary>Responsibilities &amp; outcomes</summary><p>Product data science in practice.</p></details>",
+      "css": ".ds-career{font:14px/1.7 Inter,sans-serif;color:var(--muted,#4c5c70)}.ds-career summary{padding:10px 0;color:var(--color-ink,#101d35);font-weight:600;cursor:pointer}.ds-career summary:focus-visible{outline:3px solid var(--color-cobalt,#1357d6);outline-offset:5px}"
+    },
+    {
+      "name": "Business metric",
+      "kind": "custom",
+      "refersTo": "business-metric",
+      "description": "Aqua evidence on a navy plane with a persistent metric definition.",
+      "html": "<div class=\"ds-evidence\"><strong>4.8%</strong><span>checkout conversion lift</span></div>",
+      "css": ".ds-evidence{display:flex;flex-direction:column;gap:5px;padding:24px;background:var(--color-ink,#101d35);color:var(--color-paper,#f5f3eb);font:13px Inter,sans-serif}.ds-evidence strong{color:var(--color-aqua,#6be5db);font-size:40px;line-height:1.2;letter-spacing:-.03em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Decision Journal",
+    "overview": "Decision Journal combines warm paper and midnight navy planes with condensed display type, upright reading text, and precise cobalt geometry. Turquoise marks selected evidence and contact emphasis. The result is editorial, direct, and grounded in professional work.\n\nFlat surfaces, thin rules, and typographic hierarchy keep detailed evidence readable. Motion follows navigation or interaction state; content is visible immediately, and reduced-motion preferences remove transitions.",
+    "keyCharacteristics": [
+      "Condensed display typography with upright, readable body text.",
+      "Warm paper and navy surfaces with cobalt geometry and turquoise emphasis.",
+      "Ruled indexes and optional native disclosures.",
+      "Short directional motion and visible keyboard focus."
+    ],
+    "rules": [
+      {
+        "name": "The Upright Reading Rule",
+        "body": "Keep body copy and factual evidence upright; reserve condensed typography for identity and headings.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do use the original portrait and existing WebP project imagery.",
+      "Do keep labels, metric definitions, and reading text upright and legible.",
+      "Do preserve native links, details/summary, visible focus, and reduced-motion behavior.",
+      "Do preserve all four optional easter eggs: Chinese name, keyboard photos, console output, and tab/window title."
+    ],
+    "donts": [
+      "Don't recreate reference game artwork, logos, characters, or icons.",
+      "Don't hide essential content behind hover or a blocking introduction.",
+      "Don't combine incremental GBV and revenue into an aggregate claim.",
+      "Don't replace the flat ruled layout with generic rounded card grids."
+    ]
+  }
+}

@@ -1,200 +1,175 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { LuArrowLeft, LuArrowRight, LuArrowUpRight, LuChevronLeft, LuChevronRight, LuPause, LuPlay } from 'react-icons/lu';
+import { projectData } from '../data/portfolio';
+import { UnderwaterBackground } from './landing/UnderwaterScene';
+import { LANDING_MOTION_STYLE } from './landing/landing-motion';
+import useCompactLayout from '../hooks/useCompactLayout';
+import MainMenuButton from './scene/MainMenuButton';
+import ProjectPersona from './projects/ProjectPersona';
+import TechnologyMatrix, { TechnologyCategories } from './projects/TechnologyMatrix';
+import './projects/projects.css';
 
-const projectData = [
-    {
-        id: 'cherebowl',
-        title: 'ChèreBowl',
-        problem: "Food insecurity data and emergency relief service information were scattered across multiple public sources, making it difficult to identify where need, access barriers, and available support overlap.",
-        method: "Designed an end-to-end unified data pipeline including schema-backed loading, Victorian LGA geospatial joins, food-insecurity metric aggregation, and interactive Mapbox/D3 visual analytics.",
-        result: "Cleaned, wrangled, and transformed raw public datasets from 10+ different sources into translatable, easy-to-digest, and communicable insights",
-        stack_details: [
-            "Python",
-            "Pandas",
-            "GeoPandas",
-            "FastAPI",
-            "SQLAlchemy",
-            "PostgreSQL/PostGIS",
-            "Nuxt",
-            "Vue",
-            "Mapbox GL",
-            "D3.js"
-        ],
-        image: '/assets/img/cherebowl.webp',
-        github: 'https://github.com/TP14-5201/aegis',
-        live: 'https://cherebowl.vercel.app/',
-        type: 'app'
-    },
-    {
-        id: 'dag-nabit',
-        title: 'DAG-nabit',
-        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
-        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
-        result: "+3.88% estimated purchase probability lift with 1.05% error.",
-        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
-        image: '/assets/img/dag-nabit.webp',
-        github: 'https://github.com/archeltaneka/DAG-nabit',
-        live: 'https://dag-nabit.streamlit.app/',
-        type: 'app'
-    },
-    {
-        id: 'slot-filling',
-        title: 'NLU Intent Detection & Slot Filling',
-        problem: "Conversational agents need reliable intent and slot extraction before downstream automation can be trusted.",
-        method: "Benchmarked CRF, Joint Bi-LSTM, attention-based Bi-LSTM, and BERT models with consistent evaluation.",
-        result: "Achieved 90%+ F1-score across the strongest NLU architectures.",
-        stack_details: ["Python", "Streamlit", "PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
-        image: '/assets/img/slot-filling-intent-detection.webp',
-        github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
-        live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
-        type: 'app'
-    }
-];
-
-const ProjectCard = ({ project }) => {
-    return (
-        <motion.div
-            variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: "easeOut" }
-                }
-            }}
-            className="group relative bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
-        >
-            {/* Image Section */}
-            <div className="relative h-48 sm:h-64 overflow-hidden bg-slate-100">
-                <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors z-10" />
-                <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                />
-
-                {/* Type Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                    <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-slate-800 rounded-full shadow-sm">
-                        {project.type === 'app' ? 'Web App' : 'Notebook'}
-                    </span>
-                </div>
-            </div>
-
-            {/* Content Section */}
-            <div className="p-6 md:p-8 flex flex-col flex-1">
-                <div className="mb-4">
-                    <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
-                        {project.title}
-                    </h3>
-                </div>
-
-                <div className="space-y-4 mb-6">
-                    <div>
-                        <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Problem</div>
-                        <p className="text-sm text-slate-600 leading-relaxed">{project.problem}</p>
-                    </div>
-                    <div>
-                        <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Method</div>
-                        <p className="text-sm text-slate-600 leading-relaxed">{project.method}</p>
-                    </div>
-                    <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3">
-                        <div className="text-[10px] font-black uppercase tracking-wider text-blue-500 mb-1">Result</div>
-                        <p className="text-sm font-bold text-blue-900">{project.result}</p>
-                    </div>
-                </div>
-
-                {/* Tech Stack */}
-                <div className="mt-auto">
-                    <div className="flex flex-wrap gap-2 mb-6">
-                        {project.stack_details.map(tech => (
-                            <span key={tech} className="px-2.5 py-1 bg-slate-100 text-slate-500 text-[10px] uppercase font-bold tracking-wider rounded-md">
-                                {tech}
-                            </span>
-                        ))}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
-                        <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors"
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                            Code
-                        </a>
-                        {project.live && (
-                            <a
-                                href={project.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors"
-                            >
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                                Live Demo
-                            </a>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </motion.div>
-    );
-};
-
-const Projects = () => {
-    return (
-        <section id="projects" className="py-32 bg-white">
-            <div className="container mx-auto px-6 max-w-7xl">
-
-                {/* Header  */}
-                <div className="flex flex-col items-center justify-center text-center mb-16 md:mb-24 gap-6">
-                    <div className="max-w-3xl px-4">
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-                            Selected Case Studies
-                        </h2>
-                        <p className="text-lg md:text-xl text-slate-500 font-light leading-relaxed">
-                            Projects selected for decision quality: causal reasoning, model evaluation,
-                            deployment-minded interfaces, and measurable business or user impact.
-                        </p>
-                    </div>
-
-                    {/* Github Stat*/}
-                    <div className="flex flex-col items-center">
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
-                            Public Repositories
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="h-[1px] w-8 bg-slate-200" />
-                            <div className="text-2xl font-black text-slate-800">25+</div>
-                            <div className="h-[1px] w-8 bg-slate-200" />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Grid Layout */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={{
-                        visible: {
-                            transition: {
-                                staggerChildren: 0.1
-                            }
-                        }
-                    }}
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                    {projectData.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </motion.div>
-
-            </div>
-        </section>
-    );
-};
-
-export default Projects;
+export default function Projects({ active = true, present = active, onBack }) {
+  const compact = useCompactLayout();
+  const [selected, setSelected] = useState(0);
+  const [displayed, setDisplayed] = useState(0);
+  const [view, setView] = useState('select');
+  const [swapping, setSwapping] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [hidden, setHidden] = useState(() => document.hidden);
+  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [highlight, setHighlight] = useState({ y: 0, height: 76 });
+  const [pageStarts, setPageStarts] = useState([0]);
+  const root = useRef(null);
+  const roster = useRef(null);
+  const measurements = useRef(null);
+  const rows = useRef([]);
+  const heading = useRef(null);
+  const swapTimer = useRef(null);
+  const focusTimer = useRef(null);
+  const project = projectData[displayed];
+  const instant = reduced || paused;
+  const pageIndex = Math.max(0, pageStarts.findLastIndex(start => start <= selected));
+  const pageStart = compact ? 0 : pageStarts[pageIndex];
+  const pageEnd = compact ? projectData.length : pageStarts[pageIndex + 1] ?? projectData.length;
+  useEffect(() => {
+    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduced(media.matches);
+    const visibility = () => setHidden(document.hidden);
+    media.addEventListener('change', sync);
+    document.addEventListener('visibilitychange', visibility);
+    return () => { media.removeEventListener('change', sync); document.removeEventListener('visibilitychange', visibility); clearTimeout(swapTimer.current); clearTimeout(focusTimer.current); };
+  }, []);
+  useLayoutEffect(() => {
+    if (compact || !present || view !== 'select') return;
+    // Measure real copy, including wrapping and loaded fonts. Pagination stays
+    // independent of project count, device breakpoints and title length.
+    const measure = () => {
+      const available = roster.current.clientHeight;
+      if (!available) return;
+      const starts = [0];
+      let used = 0;
+      [...measurements.current.children].forEach((row, index) => {
+        const height = row.getBoundingClientRect().height;
+        if (index > starts.at(-1) && used + height > available) {
+          starts.push(index);
+          used = 0;
+        }
+        used += height;
+      });
+      setPageStarts(previous => previous.join(',') === starts.join(',') ? previous : starts);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(roster.current);
+    [...measurements.current.children].forEach(row => observer.observe(row));
+    return () => observer.disconnect();
+  }, [present, view, compact]);
+  useLayoutEffect(() => {
+    const measure = () => {
+      const row = rows.current[selected];
+      if (row) setHighlight({ y: row.offsetTop, height: row.offsetHeight });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    rows.current.forEach(row => row && observer.observe(row));
+    return () => observer.disconnect();
+  }, [selected, pageStart, pageEnd, active, view]);
+  const choose = index => {
+    const next = (index + projectData.length) % projectData.length;
+    setSelected(next);
+    clearTimeout(swapTimer.current);
+    if (instant) { setDisplayed(next); setSwapping(false); return; }
+    setSwapping(true);
+    swapTimer.current = setTimeout(() => { setDisplayed(next); setSwapping(false); }, view === 'details' ? 120 : 80);
+  };
+  const openDetails = (index = selected) => {
+    clearTimeout(swapTimer.current);
+    clearTimeout(focusTimer.current);
+    setSelected(index);
+    setDisplayed(index);
+    setSwapping(false);
+    setView('details');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    focusTimer.current = setTimeout(() => heading.current?.focus({ preventScroll: true }), instant ? 0 : 720);
+  };
+  const closeDetails = () => {
+    clearTimeout(focusTimer.current);
+    setView('select');
+    focusTimer.current = setTimeout(() => {
+      rows.current[selected]?.focus({ preventScroll: true });
+      rows.current[selected]?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+    }, instant ? 0 : 300);
+  };
+  const actions = [['caseStudy', 'View case study'], ['github', 'GitHub'], [project.demo ? 'demo' : 'live', 'Live demo']].filter(([key]) => project[key]);
+  const overview = <>
+    <p className="project-purpose">{project.description}</p>
+    <div className="project-actions">{actions.map(([key, label]) => <a key={key} href={project[key]} target="_blank" rel="noopener noreferrer">{label}<LuArrowUpRight aria-hidden="true" /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
+  </>;
+  return (
+    <main ref={root} id="projects" className="project-compendium underwater-stage" data-view={view} data-swapping={swapping} data-instant={instant} data-motion={paused || hidden || !active ? 'paused' : 'running'} style={LANDING_MOTION_STYLE}>
+      <MainMenuButton onClick={() => { clearTimeout(focusTimer.current); onBack?.(); }} />
+      <UnderwaterBackground />
+      <div className="projects-wash" aria-hidden="true" />
+      <header className="projects-toolbar">
+        <h1 className="sr-only" tabIndex="-1">Projects</h1>
+        <button onClick={() => setPaused(value => !value)} aria-pressed={paused}>{paused ? <LuPlay aria-hidden="true" /> : <LuPause aria-hidden="true" />}Motion {paused ? 'off' : 'on'}</button>
+      </header>
+      <div className="projects-environment-title" aria-hidden="true">PROJECTS</div>
+      <div className="projects-blue-wedge" aria-hidden="true" />
+      <svg className="project-persona-diamond" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path className="persona-diamond-desktop" d="M76 26 98 64 76 102 54 64Z" />
+        <path className="persona-diamond-mobile" d="M50 1 99 50 50 99 1 50Z" />
+      </svg>
+      <div className="project-art-anchor"><ProjectPersona project={projectData[selected]} active={present && (!compact || view === 'details')} paused={!active || paused || hidden} /></div>
+      <section className="project-selection" aria-label="Project selection" inert={view !== 'select'} aria-hidden={view !== 'select'}>
+        <div className="project-roster" ref={roster}>
+          <div className="project-roster-measure" ref={measurements} aria-hidden="true" inert>
+            {projectData.map(item => <div key={item.id} className="project-choice">
+              <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
+            </div>)}
+          </div>
+          <div className="project-selection-highlight" aria-hidden="true" style={{ transform: `translateY(${highlight.y}px)`, height: highlight.height }}>
+            <span className="project-selection-card">
+              <svg viewBox="0 0 36 52" fill="none"><path d="M2 2h32v48H2z" /><path d="m18 11 10 15-10 15L8 26Z" /><path d="M8 7h7M21 45h7M18 18v16M13 26h10" /></svg>
+            </span>
+          </div>
+          {projectData.map((item, index) => <button key={item.id} ref={el => { rows.current[index] = el; }} className="project-choice" hidden={index < pageStart || index >= pageEnd} data-selected={selected === index} aria-current={selected === index ? 'true' : undefined} onPointerEnter={event => { if (event.pointerType !== 'touch') choose(index); }} onClick={() => openDetails(index)}>
+            <span className="project-choice-category">{item.category}</span><span className="project-choice-name">{item.name}</span><LuArrowRight aria-hidden="true" />
+          </button>)}
+        </div>
+        <div className="project-list-footer">
+          <nav className="project-list-pages" aria-label="Project list pages">
+            <button aria-label="Previous project page" disabled={pageStarts.length === 1} onClick={() => choose(pageStarts[(pageIndex - 1 + pageStarts.length) % pageStarts.length])}><LuChevronLeft aria-hidden="true" /></button>
+            <span aria-live="polite">{pageStart + 1}–{pageEnd} / {projectData.length}</span>
+            <button aria-label="Next project page" disabled={pageStarts.length === 1} onClick={() => choose(pageStarts[(pageIndex + 1) % pageStarts.length])}><LuChevronRight aria-hidden="true" /></button>
+          </nav>
+        </div>
+      </section>
+      <section className="project-details" aria-label="Project details" inert={view !== 'details'} aria-hidden={view !== 'details'}>
+        <div className="project-header-plane">
+          <div className="project-metadata project-dependent">
+            <div className="project-category"><span>Category</span><strong>{project.category}</strong></div>
+            <div className="project-heading"><h2 ref={heading} tabIndex="-1" className="project-detail-name">{project.name}</h2></div>
+          </div>
+          <div className="project-technology-band">
+            <div className="project-dependent"><TechnologyCategories technologies={project.technologies} /></div>
+          </div>
+        </div>
+        <div className="project-detail-content project-dependent">
+          {compact && overview}
+          <TechnologyMatrix technologies={project.technologies} />
+          {!compact && overview}
+        </div>
+        <nav className="project-detail-nav" aria-label="Switch project">
+          <button onClick={() => choose(selected - 1)} aria-label="Previous project"><LuChevronLeft aria-hidden="true" /><span>Previous</span></button>
+          <span>{String(selected + 1).padStart(2, '0')} / {String(projectData.length).padStart(2, '0')}</span>
+          <button onClick={() => choose(selected + 1)} aria-label="Next project"><span>Next</span><LuChevronRight aria-hidden="true" /></button>
+        </nav>
+        <button className="project-return" onClick={closeDetails}><LuArrowLeft aria-hidden="true" />Project list</button>
+      </section>
+      <p className="project-ai-note">AI-generated artwork. For illustration only.</p>
+      <div className="sr-only" role="status" aria-live="polite">{project.name}{view === 'details' ? ', project details' : ', selected'}</div>
+    </main>
+  );
+}

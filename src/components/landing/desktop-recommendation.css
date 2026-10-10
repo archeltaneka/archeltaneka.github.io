@@ -1,0 +1,55 @@
+.desktop-recommendation { display: none; }
+
+@media (max-width: 899px), (max-width: 1023px) and (max-height: 500px) {
+  /* Natural flow guarantees clearance from navigation at short heights and
+     enlarged text sizes. Landing's padding supplies all four safe-area insets. */
+  .desktop-recommendation {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 4px;
+    order: 5;
+    width: min(100%, 440px);
+    margin-top: auto;
+    padding: 14px 8px 14px 16px;
+    background: var(--cobalt);
+    color: var(--white);
+  }
+  .desktop-recommendation::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background: var(--cyan);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    pointer-events: none;
+  }
+  .desktop-recommendation h2 {
+    margin: 0 0 8px;
+    font: 700 22px/1.2 Antonio, sans-serif;
+    color: var(--cyan);
+    text-wrap: balance;
+  }
+  .desktop-recommendation p {
+    margin: 0;
+    font: 400 13px/1.6 Inter, sans-serif;
+  }
+  .desktop-recommendation button {
+    display: grid;
+    place-items: center;
+    align-self: start;
+    width: 44px;
+    min-height: 44px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--cyan);
+    cursor: pointer;
+  }
+  .desktop-recommendation button svg { width: 20px; height: 20px; }
+  .desktop-recommendation button:hover { background: var(--navy); }
+  .desktop-recommendation button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+}

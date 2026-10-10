@@ -1,0 +1,99 @@
+/* Original graphic water. One bounded document-entry timeline; no idle resources. */
+.page-load-dive {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+}
+.page-dive-water { position: absolute; inset: -3%; width: 106%; height: 106%; }
+.page-dive-sheet, .page-dive-foam, .page-dive-contours, .page-dive-fragments { transform-origin: 800px 0; }
+.page-dive-volume { animation: page-dive-mask var(--motion-complete) linear both; }
+.page-dive-sheet { animation: page-dive-surge 540ms cubic-bezier(.32,.04,.6,1) both; }
+.page-dive-sheet--far { animation-duration: 590ms; }
+.page-dive-sheet--near { animation-delay: 24ms; }
+.page-dive-submerged { animation: page-dive-depth var(--motion-complete) linear both; }
+.page-dive-opening { transform-origin: 840px 1050px; animation: page-dive-clear var(--motion-complete) linear both; }
+.page-dive-foam { animation: page-dive-foam var(--motion-complete) linear both; }
+.page-dive-foam--left { --drift: -190px; --stretch: 1.26; --tilt: -7deg; }
+.page-dive-foam--center { --drift: -35px; --stretch: 1.13; --tilt: 3deg; }
+.page-dive-foam--right { --drift: 240px; --stretch: 1.34; --tilt: 8deg; }
+.page-dive-foam--lower { --drift: 50px; --stretch: 1.7; --tilt: -4deg; animation-name: page-dive-lower; }
+.page-dive-fragments { animation: page-dive-fragments 830ms cubic-bezier(.4,0,.75,.55) 40ms both; }
+.page-dive-contours { animation: page-dive-contours 740ms cubic-bezier(.4,0,.8,.5) 90ms both; }
+.page-dive-drop {
+  position: absolute; left: var(--x); top: var(--y); width: var(--size); height: calc(var(--size) * 1.3);
+  overflow: visible; fill: #65e4f5; stroke: #c1faff; stroke-width: 2; stroke-linecap: round;
+  animation: page-dive-spray 620ms cubic-bezier(.45,.02,.85,.45) var(--delay) both;
+}
+.page-dive-drop:nth-child(3n + 1) { fill: none; stroke-width: 3; }
+.page-dive-drop:nth-child(4n) { fill: #bafaff; stroke: none; }
+/* Pay the mask rasterization cost only while the opening crosses the viewport. */
+@keyframes page-dive-mask {
+  0%, 49.5% { mask: none; }
+  49.6%, 100% { mask: url(#entry-water-clear); }
+}
+@keyframes page-dive-surge {
+  0% { transform: translate(50px,-420px) scale(.24,.32) rotate(-8deg); }
+  40% { transform: translate(10px,-120px) scale(.83,.86) rotate(-3deg); }
+  72% { transform: translate(-20px,-20px) scale(1.25,1.3); }
+  100% { transform: translate(-60px,40px) scale(2.25,1.9) rotate(3deg); }
+}
+@keyframes page-dive-depth {
+  0%, 28% { opacity: 0; }
+  38%, 100% { opacity: 1; }
+}
+@keyframes page-dive-foam {
+  0% { transform: translate(30px,-450px) scale(.22,.28) rotate(-8deg); }
+  16% { transform: translate(0,-200px) scale(.68,.7) rotate(-4deg); }
+  30% { transform: translate(0,-10px) scale(1,1); }
+  43% { transform: translate(var(--drift),20px) scale(var(--stretch),1.12) rotate(var(--tilt)); }
+  59% { transform: translate(var(--drift),-150px) scale(1.6,1.18) rotate(var(--tilt)); }
+  79%, 100% { transform: translate(var(--drift),-1400px) scale(2,1.3) rotate(var(--tilt)); }
+}
+@keyframes page-dive-lower {
+  0%, 9% { transform: translate(0,-560px) scale(.12,.15); }
+  28% { transform: translate(0,-140px) scale(.8,.76); }
+  47% { transform: translate(0,150px) scale(1.5,1.35); }
+  68%, 100% { transform: translate(0,1000px) scale(2.3,2); }
+}
+@keyframes page-dive-clear {
+  0%, 49.6% { transform: translate(0,160px) scale(0); }
+  55% { transform: translate(0,50px) scale(.9,1.1); animation-timing-function: cubic-bezier(.25,.1,.32,1); }
+  65% { transform: translate(-60px,-100px) scale(3.6,2.6); }
+  78%, 100% { transform: translate(-140px,-320px) scale(12,6); }
+}
+@keyframes page-dive-fragments {
+  0% { transform: translate(0,-240px) scale(.22,.3); opacity: 0; }
+  18% { opacity: 1; }
+  76% { opacity: 1; }
+  100% { transform: translate(-80px,-160px) scale(2.7,1.9); opacity: 0; }
+}
+@keyframes page-dive-contours {
+  0% { transform: translate(0,-150px) scale(.4); opacity: 0; }
+  20% { opacity: .65; }
+  70% { opacity: .85; }
+  100% { transform: translate(0,-250px) scale(2.6,1.5); opacity: 0; }
+}
+@keyframes page-dive-spray {
+  0% { transform: translate(0,0) rotate(-24deg) scale(.15,.3); opacity: 0; }
+  15% { opacity: .9; }
+  80% { opacity: .85; }
+  100% { transform: translate(var(--dx),var(--dy)) rotate(48deg) scale(4,5); opacity: 0; }
+}
+@media (max-aspect-ratio: 3/4) {
+  .page-dive-water { left: -40%; width: 180%; }
+  .page-dive-foam--center { translate: 85px 0; }
+  .page-dive-fragments { translate: 70px 0; }
+  .page-dive-drop { width: calc(var(--size) * .7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-load-dive { display: none; }
+  .page-load-dive * { animation: none; }
+}
+
+/* Same organic sheet and cyan foam, with fewer mobile paint layers. */
+.page-load-dive[data-compact='true'] :is(.page-dive-sheet--far, .page-dive-foam--center, .page-dive-foam--lower, .page-dive-fragments, .page-dive-contours) { display: none; animation: none; }
+.page-load-dive[data-compact='true'] .page-dive-sheet { animation-duration: 360ms; }
+.page-load-dive[data-compact='true'] .page-dive-drop { animation-duration: 360ms; }

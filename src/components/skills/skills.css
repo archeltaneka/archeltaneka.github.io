@@ -1,0 +1,94 @@
+/* Equip composition: all reference media remain outside the production graph. */
+.underwater-stage.skills-page {
+  --skills-ink: #050609;
+  --skills-navy: #17235b;
+  --skills-cyan: #8bffff;
+  position: relative; isolation: isolate; height: 100svh; min-height: 650px;
+  overflow: clip; color: var(--skills-ink); background: #0735bb;
+}
+.skills-page .landing-environment { z-index: -5; }
+.skills-environment-wash { position: absolute; inset: 0; z-index: -4; background: linear-gradient(180deg,#02ffff44,transparent 60%,#080a8855); pointer-events: none; }
+.skills-white-field { position: absolute; inset: 0; z-index: -2; background: #fff; clip-path: polygon(23.5% 0,61.5% 0,73% 24%,84% 43%,91% 50%,93% 64%,80% 79%,69% 100%,6% 100%,0 89%,0 45%); }
+.skills-corner-shard { position: absolute; inset: -2% 3.5% auto auto; width: 23%; height: 28%; background: #fff; clip-path: polygon(0 0,100% 0,96% 100%,34% 38%); filter: drop-shadow(-12px 14px 0 #a8b2c7); z-index: -1; }
+.skills-watermark { position: absolute; left: 4%; bottom: -6%; font: 700 26vw/.9 Antonio,sans-serif; letter-spacing: -.04em; color: #aeb0b2; transform: skewX(-13deg); z-index: -1; pointer-events: none; }
+.skills-heading { position: absolute; top: 2%; left: 3.2%; }
+.skills-heading h1 { font: 700 clamp(23px,2.1vw,40px)/1 Antonio,sans-serif; text-transform: uppercase; color: #101c53; }
+.skills-heading h1 span { font: 600 12px/1 Inter,sans-serif; letter-spacing: .12em; vertical-align: middle; }
+.skills-selector { position: absolute; left: 0; top: 8%; width: 33%; z-index: 4; }
+.skills-selector ol { padding: 0; margin: 0; list-style: none; }
+.skills-row { height: 8.35svh; min-height: 62px; margin-bottom: .5svh; }
+.skills-category { position: relative; display: flex; align-items: center; width: 97%; height: 100%; padding: 0 8% 0 0; border: 0; background: transparent; color: #fff; text-align: left; cursor: pointer; transition: transform 170ms cubic-bezier(.16,1,.3,1), color 100ms; transform-origin: left center; }
+.skills-category::before { content: ''; position: absolute; inset: 0; background: var(--skills-ink); clip-path: polygon(0 0,100% 0,97% 100%,0 100%); z-index: -1; }
+.skills-category::after { content: ''; position: absolute; inset: 0; border-top: 3px solid transparent; border-right: 3px solid transparent; transform: skewX(-12deg); pointer-events: none; }
+.skills-category[data-active='true'] { color: var(--skills-ink); transform: translateX(2%); }
+.skills-category[data-active='true']::before { background: #fff; }
+.skills-category[data-active='true']::after { border-color: #c92d43; }
+.skills-category-mark { display: grid; place-items: center; width: 29%; height: 100%; flex-shrink: 0; font: 700 clamp(27px,3.3vw,64px)/1 Antonio,sans-serif; color: #fff; background: linear-gradient(150deg,color-mix(in srgb,var(--category-accent),black 28%) 35%,var(--category-accent) 36%,var(--category-accent) 61%,color-mix(in srgb,var(--category-accent),white 18%) 62%); clip-path: polygon(0 0,100% 0,72% 42%,100% 100%,0 100%,13% 56%); }
+.skills-category-mark svg { width: 52%; height: 62%; max-height: 56px; stroke-width: 1.8; }
+.skills-category-label { flex: 1; padding-left: 5%; font: 700 clamp(19px,2vw,38px)/1.1 Antonio,sans-serif; }
+.skills-category-indicator { position: absolute; right: 5%; font: 400 24px/1 Inter,sans-serif; }
+.skills-category:focus-visible { outline: 3px solid #00b7d0; outline-offset: 3px; }
+.skills-category:focus-visible .skills-category-label { text-decoration: underline; text-underline-offset: 6px; }
+.skills-tools { position: absolute; top: 13.7%; left: 36.4%; width: 32%; z-index: 3; outline-offset: 8px; }
+.skills-tools dl { margin: 0; color: var(--skills-ink); }
+.skills-tool { margin-bottom: 1.05svh; }
+.skills-tool dt { font-synthesis: style;  width: 46%; min-height: 23px; border-radius: 100px; padding: 2px 8px; text-align: center; color: #b8eaff; background: var(--skills-navy); font: italic 600 clamp(11px,1.05vw,20px)/1.25 Inter,sans-serif; }
+.skills-tool dd { display: flex; align-items: center; gap: 10px; min-height: 4.5svh; margin: .7svh 0 0 6%; font: 700 clamp(25px,2.25vw,46px)/1.12 Antonio,sans-serif; }
+.skills-tool dd > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.skills-tool-icon { display: grid; place-items: center; width: 22%; height: 3.35svh; min-height: 26px; flex-shrink: 0; background: linear-gradient(155deg,#182456 50%,#0637f9 51%); color: #aaffff; transform: skewX(-18deg); }
+.skills-tool-icon svg { width: 65%; height: 95%; transform: skewX(18deg); }
+.skills-character-anchor { position: absolute; right: -2%; bottom: -4%; width: 51%; height: 78%; z-index: 1; pointer-events: none; overflow: hidden; }
+.skills-character { width: 100%; height: 100%; animation: character-float var(--motion-float) ease-in-out infinite; }
+.skills-character img { width: 100%; height: 100%; object-fit: contain; object-position: right bottom; }
+.skills-character-placeholder { position: absolute; right: 12%; bottom: 30%; width: 49%; height: 25%; display: grid; place-items: center; color: #153570; opacity: .4; }
+.skills-character-placeholder::before, .skills-character-placeholder::after { content: ''; position: absolute; width: 25px; height: 25px; border-color: currentColor; }
+.skills-character-placeholder::before { top: 0; left: 0; border-top: 1px solid; border-left: 1px solid; }
+.skills-character-placeholder::after { bottom: 0; right: 0; border-bottom: 1px solid; border-right: 1px solid; }
+.skills-character-placeholder span { font: 600 11px/1 Inter,sans-serif; letter-spacing: .1em; }
+.skills-guide { position: absolute; right: 0; bottom: 0; width: 46%; z-index: 5; padding: 28px 3% 18px 2%; color: #fff; }
+.skills-guide > p { font-synthesis: style;  font: italic 700 clamp(19px,1.95vw,36px)/1.2 Antonio,sans-serif; margin: 0; color: #dcebff; }
+.skills-guide-rule { display: flex; gap: 8px; align-items: center; margin: 3px -8% 8px 0; font: 600 11px/1 Inter,sans-serif; }
+.skills-guide-rule::after { content: ''; height: 2px; background: #93d2ff; flex: 1; }
+
+@media (max-width: 1100px) and (min-width: 900px) {
+  .skills-category-label { font-size: 20px; }
+  .skills-tools { width: 37%; }
+  .skills-guide { width: 53%; }
+}
+@media (max-width: 899px) {
+  .underwater-stage.skills-page { min-height: max(760px, 100svh); height: auto; padding: 82px 24px 190px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px; }
+  .skills-heading { top: 25px; left: 24px; }
+  .skills-selector { position: relative; top: auto; left: auto; width: 100%; }
+  .skills-row { height: 76px; margin-bottom: 6px; }
+  .skills-category { width: 100%; }
+  .skills-category-label { font-size: 22px; }
+  .skills-category-mark { font-size: 30px; width: 24%; }
+  .skills-tools { position: relative; left: auto; top: auto; width: 100%; margin-top: 32px; }
+  .skills-tool { margin-bottom: 14px; }
+  .skills-tool dt { width: 100%; font-size: 12px; }
+  .skills-tool dd { font-size: 30px; margin-top: 8px; min-height: 38px; }
+  .skills-tool-icon { height: 30px; }
+  .skills-white-field { clip-path: polygon(14% 0,72% 0,100% 40%,100% 84%,40% 100%,0 89%,0 30%); }
+  .skills-watermark { bottom: 8%; font-size: 32vw; }
+  .skills-character-anchor { display: none; }
+  .skills-guide { width: 72%; padding: 25px 24px 16px; }
+  .skills-guide > p { font-size: 25px; }
+}
+@media (max-width: 599px) {
+  .underwater-stage.skills-page { display: block; min-height: 100svh; padding: 78px 20px 185px; }
+  .skills-selector { width: 94%; }
+  .skills-row { height: 54px; margin-bottom: 5px; }
+  .skills-category-mark { width: 24%; font-size: 29px; }
+  .skills-category-label { font-size: 24px; }
+  .skills-tools { margin: 32px 0 0 8%; width: 88%; }
+  .skills-tool dt { width: 80%; }
+  .skills-tool dd { font-size: 34px; }
+  .skills-white-field { clip-path: polygon(30% 0,80% 0,100% 15%,100% 85%,70% 100%,0 90%,0 24%); }
+  .skills-corner-shard { display: none; }
+  .skills-watermark { display: none; }
+  .skills-guide { width: 100%; padding: 28px 20px 12px; }
+  .skills-guide > p { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-page *, .skills-page *::before, .skills-page *::after { animation: none !important; transition: none !important; }
+}

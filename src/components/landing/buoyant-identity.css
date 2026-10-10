@@ -1,0 +1,27 @@
+.landing-identity .buoyant-zone { display: inline-block; padding: 8px 0; }
+.buoyant-drift, .buoyant-text { display: inline-block; }
+.buoyant-text { pointer-events: none; transform-origin: 50% 60%; }
+.buoyant-drift { pointer-events: none; animation: identity-current calc(7200ms + var(--phrase) * 1100ms) ease-in-out calc(var(--phrase) * -1700ms) infinite; }
+.landing-identity[data-buoyancy='off'] .buoyant-drift { animation-play-state: paused; }
+.landing-identity .landing-role { font: 700 clamp(34px, 3.4vw, 52px)/1.15 Antonio, sans-serif; text-transform: uppercase; letter-spacing: -.025em; }
+.landing-role .buoyant-text { padding: 10px 24px 14px 18px; background: #061632; color: #f5fcff; clip-path: polygon(3% 0, 100% 0, 97% 100%, 0 100%); rotate: -2deg; }
+.role-product { color: #8bffff; }
+.landing-identity .landing-specialization { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.landing-specialization .buoyant-text { padding: 8px 16px 10px 12px; font: 700 clamp(16px, 1.35vw, 20px)/1.15 Antonio, sans-serif; text-transform: uppercase; letter-spacing: .025em; color: #8bffff; background: #083da6; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%); rotate: -2deg; }
+.landing-specialization .buoyant-zone:nth-child(2) .buoyant-text { background: #f5fcff; color: #083da6; rotate: 1deg; }
+.landing-specialization .buoyant-zone:nth-child(3) .buoyant-text { background: #061632; color: #f5fcff; rotate: -1deg; }
+@keyframes identity-current {
+  0%, 100% { transform: translate(0, 0) rotate(-1deg); }
+  30% { transform: translate(7px, -6px) rotate(.8deg); }
+  65% { transform: translate(-5px, 5px) rotate(-.5deg); }
+}
+@media (max-width: 899px), (max-width: 1023px) and (max-height: 500px) {
+  .landing-identity .landing-role { font: 600 14px/1.5 Inter, sans-serif; text-transform: none; letter-spacing: normal; }
+  .landing-role .buoyant-text { padding: 0; background: none; color: #061632; clip-path: none; rotate: none; }
+  .role-product { color: inherit; }
+  .landing-identity .buoyant-zone { padding: 0; }
+  .buoyant-drift { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .buoyant-drift { animation: none; }
+}

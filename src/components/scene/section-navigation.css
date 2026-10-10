@@ -1,0 +1,26 @@
+/* Every section owns one return action, anchored to the same page corner. */
+.underwater-stage > .section-back {
+  position: absolute;
+  z-index: 9;
+  top: max(22px, env(safe-area-inset-top));
+  right: max(4vw, env(safe-area-inset-right));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 116px;
+  height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  background: var(--navy);
+  color: var(--white);
+  font: 600 12px/1.4 Inter, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.underwater-stage > .section-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+.underwater-stage > .section-back:hover { background: var(--cobalt); }
+.underwater-stage > .section-back:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+@media (max-width: 899px) {
+  .underwater-stage > .section-back { top: max(16px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); }
+}

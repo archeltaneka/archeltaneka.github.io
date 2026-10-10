@@ -1,0 +1,11 @@
+.recruiting-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.recruiting-actions a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 12px 16px; font: 600 13px/1.4 Inter, sans-serif; text-decoration: none; border: 1px solid #8bffff; }
+.recruiting-actions .recruiting-resume { background: #8bffff; color: #061632; }
+.recruiting-actions .recruiting-email { background: #061632; color: #f5fcff; }
+.recruiting-actions a:hover { background: #f5fcff; color: #061632; }
+.recruiting-actions a:focus-visible { outline: 3px solid #f5fcff; outline-offset: 3px; }
+.recruiting-actions svg { width: 16px; height: 16px; flex: none; }
+.about-page .profile-controls { flex-wrap: wrap; gap: 16px; }
+.experience-page .experience-footer { align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+.skills-tools .recruiting-actions { margin-top: 24px; }
+.skills-tools .recruiting-actions a:focus-visible { outline-color: #061632; }

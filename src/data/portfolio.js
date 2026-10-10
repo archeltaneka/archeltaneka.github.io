@@ -1,0 +1,307 @@
+// Decorative category mottos for the project selection artwork.
+export const projectCategoryPhrases = {
+    'AGENTIC AI': ['THOUGHT INTO', 'MOTION'],
+    'DATA PLATFORM': ['MANY STREAMS,', 'ONE FLOW'],
+    'NLP': ['MEANING', 'BETWEEN WORDS'],
+    'CAUSAL INFERENCE': ['BEYOND', 'COINCIDENCE'],
+    'DATA ANALYSIS': ['PATTERNS BENEATH', 'THE SURFACE'],
+};
+
+export const impactCases = [
+    {
+        title: 'Payment Recommendation Engine',
+        metric: '~$5.2M (IDR 94B+)',
+        metricLabel: 'incremental GBV',
+        context: 'Payment teams needed to improve checkout conversion across 15+ payment methods.',
+        method: 'Built a Scikit-learn recommendation engine using behavioral and payment-method signals.',
+        decision: 'Prioritized payment options by conversion propensity, increasing conversion by 4.8% relative to the comparison baseline.',
+    },
+    {
+        title: 'Hotel Image Quality Classifier',
+        metric: '~$2.6M (IDR 47B)',
+        metricLabel: 'annual revenue impact',
+        context: 'Low-quality hotel images were hurting user trust and increasing listing bounce rates.',
+        method: 'Trained a deep learning classifier to detect and filter low-quality hotel imagery.',
+        decision: 'Improved listing quality controls and reduced bounce rates by 18%.',
+    },
+    {
+        title: 'Hotel Recommendation Optimization',
+        metric: '~$440K (IDR 8B)',
+        metricLabel: 'incremental GBV',
+        context: 'Hotel discovery needed stronger ranking logic across location and user preference signals.',
+        method: 'Combined ensemble models with geospatial analytics and baseline comparison.',
+        decision: 'Improved recommendation ranking and outperformed existing baselines.',
+    },
+];
+
+// Project compendium: canonical facts plus a deliberately curated architecture snapshot.
+export const projectData = [
+    {
+        id: 'experimentos',
+        persona: { mode: 'image', image: '/assets/projects/experimentos/experimentos-persona.webp' },
+        name: 'ExperimentOS AI',
+        title: 'ExperimentOS AI',
+        category: 'AGENTIC AI',
+        description: 'Agentic experimentation and decision-intelligence platform combining RAG, multi-agent workflows, LLM evaluation and observability.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'LangGraph', category: 'ai', role: 'core' },
+            { name: 'FastAPI', category: 'backend', role: 'core' },
+            { name: 'PostgreSQL / pgvector', category: 'database', role: 'core' },
+            { name: 'Docker', category: 'infrastructure', role: 'support' },
+            { name: 'OpenTelemetry', category: 'observability', role: 'support' },
+            { name: 'Phoenix', category: 'observability', role: 'support' },
+            { name: 'GitHub Actions', category: 'infrastructure', role: 'support' },
+        ],
+        github: 'https://github.com/archeltaneka/ExperimentOS-AI',
+    },
+    {
+        id: 'cherebowl',
+        persona: { mode: 'image', image: '/assets/projects/cherebowl/cherebowl.webp' },
+        name: 'Cherébowl',
+        category: 'DATA PLATFORM',
+        description: 'A unified data platform connecting food insecurity, access barriers and emergency relief across Victoria.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'GeoPandas', category: 'other', role: 'core' },
+            { name: 'FastAPI', category: 'backend', role: 'core' },
+            { name: 'PostgreSQL / PostGIS', category: 'database', role: 'core' },
+            { name: 'Pandas', category: 'other', role: 'used' },
+            { name: 'Nuxt / Vue', category: 'other', role: 'core' },
+            { name: 'Mapbox GL', category: 'visualization', role: 'core' },
+            { name: 'D3.js', category: 'visualization', role: 'used' },
+        ],
+        title: 'ChèreBowl',
+        problem: "Food insecurity data and emergency relief service information were scattered across multiple public sources, making it difficult to identify where need, access barriers, and available support overlap.",
+        method: "Designed an end-to-end unified data pipeline including schema-backed loading, Victorian LGA geospatial joins, food-insecurity metric aggregation, and interactive Mapbox/D3 visual analytics.",
+        result: "Cleaned, wrangled, and transformed raw public datasets from 10+ different sources into translatable, easy-to-digest, and communicable insights",
+        stack_details: [
+            "Python",
+            "Pandas",
+            "GeoPandas",
+            "FastAPI",
+            "SQLAlchemy",
+            "PostgreSQL/PostGIS",
+            "Nuxt",
+            "Vue",
+            "Mapbox GL",
+            "D3.js"
+        ],
+        image: '/assets/img/cherebowl.webp',
+        github: 'https://github.com/TP14-5201/aegis',
+        live: 'https://cherebowl.vercel.app/',
+        type: 'app'
+    },
+    {
+        id: 'slot-filling',
+        persona: { mode: 'image', image: '/assets/projects/slot-filling/slot-filling.webp' },
+        name: 'Joint Intent & Slot Detection',
+        category: 'NLP',
+        description: 'A comparative NLP benchmark for recognizing user intent and extracting slots in conversational agents.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'PyTorch', category: 'ai', role: 'core' },
+            { name: 'Transformers (BERT)', category: 'ai', role: 'core' },
+            { name: 'CRF', category: 'ai', role: 'used' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+            { name: 'Streamlit', category: 'other', role: 'support' },
+        ],
+        title: 'NLU Intent Detection & Slot Filling',
+        problem: "Conversational agents need reliable intent and slot extraction before downstream automation can be trusted.",
+        method: "Benchmarked CRF, Joint Bi-LSTM, attention-based Bi-LSTM, and BERT models with consistent evaluation.",
+        result: "Achieved 90%+ F1-score across the strongest NLU architectures.",
+        stack_details: ["Python", "Streamlit", "PyTorch", "Transformers (BERT)", "Scikit-learn", "CRF"],
+        image: '/assets/img/slot-filling-intent-detection.webp',
+        github: 'https://github.com/archeltaneka/slot-filling-intent-detection',
+        live: 'https://archeltaneka-slot-filling-intent-detection-app-vcbymi.streamlit.app/',
+        type: 'app'
+    },
+    {
+        id: 'dag-nabit',
+        persona: { mode: 'image', image: '/assets/projects/dag-nabit/dag-nabit.webp' },
+        name: 'DAG-nabit',
+        category: 'CAUSAL INFERENCE',
+        description: 'An interactive causal inference workflow for exploring how marketing strategies affect customer purchase behavior.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'EconML', category: 'ai', role: 'core' },
+            { name: 'CausalML', category: 'ai', role: 'core' },
+            { name: 'Streamlit', category: 'other', role: 'core' },
+            { name: 'Plotly', category: 'visualization', role: 'used' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+        ],
+        title: 'DAG-nabit',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/DAG-nabit',
+        live: 'https://dag-nabit.streamlit.app/',
+        type: 'app'
+    },
+    {
+        id: 'melbourne-air-quality-analysis',
+        persona: { mode: 'image', image: '/assets/projects/melbourne-air-quality-analysis/melbourne-air-quality-analysis.webp' },
+        name: 'Melbourne Air Quality Pedestrian Traffic Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive dashboard enables users to explore environmental and pedestrian traffic data across multiple time scales',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'D3.js', category: 'visualization', role: 'core' },
+            { name: 'HTML', category: 'visualization', role: 'core' },
+            { name: 'CSS', category: 'visualization', role: 'core' },
+        ],
+        title: 'DAG-nabit',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/melbourne-air-quality-pedestrian-traffic-analysis',
+        live: 'https://melbourne-air-quality-pedestrian-tr.vercel.app/',
+        type: 'app'
+    },
+    {
+        id: 'mobiles-dataset-analysis',
+        persona: { mode: 'image', image: '/assets/projects/mobiles-dataset-analysis/mobiles-dataset-analysis.webp' },
+        name: 'Mobiles Dataset Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive dashboard showing insights, pricing intelligence, and trend visualizations for mobile devices released before the year 2025.',
+        technologies: [
+            { name: 'Python', category: 'language', role: 'core' },
+            { name: 'Streamlit', category: 'visualization', role: 'core' },
+            { name: 'Plotly', category: 'visualization', role: 'core' },
+            { name: 'Pandas', category: 'other', role: 'core' },
+            { name: 'Numpy', category: 'other', role: 'core' },
+            { name: 'Scikit-learn', category: 'ai', role: 'used' },
+        ],
+        title: 'mobiles-dataset-analysis',
+        problem: "Marketing teams needed a clearer way to compare how different strategies could affect customer purchase behavior.",
+        method: "Built an interactive causal inference workflow with DAG exploration, treatment-effect estimation, and model diagnostics.",
+        result: "+3.88% estimated purchase probability lift with 1.05% error.",
+        stack_details: ["Python", "Streamlit", "Plotly", "Scikit-learn", "EconML", "CausalML"],
+        image: '/assets/img/dag-nabit.webp',
+        github: 'https://github.com/archeltaneka/mobiles-dataset-2025-analysis',
+        live: 'https://archeltaneka-mobiles-dataset-2025-analysis-app-fz8tnw.streamlit.app/',
+        type: 'app'
+    },
+    {
+        id: 'pokemon-battle-analysis',
+        persona: { mode: 'image', image: '/assets/projects/pokemon-battle-analysis/pokemon-battle-analysis.webp' },
+        name: 'Pokemon Battle Analysis',
+        category: 'DATA ANALYSIS',
+        description: 'An interactive R Shiny app for comparing Pokémon type matchups, strengths, weaknesses, and available moves.',
+        technologies: [
+            { name: 'R', category: 'language', role: 'core' },
+            { name: 'RShiny', category: 'visualization', role: 'core' },
+            { name: 'tidyr', category: 'other', role: 'core' },
+            { name: 'stringr', category: 'other', role: 'core' },
+            { name: 'dplyr', category: 'other', role: 'core' },
+            { name: 'xgboost', category: 'ai', role: 'core' },
+        ],
+        github: 'https://github.com/archeltaneka/pokemon-battle-analysis',
+        live: 'https://archeltaneka.shinyapps.io/pokemon-battle-analysis/',
+        type: 'app'
+    },
+
+];
+
+export const experienceData = [
+    {
+        id: 'tiket',
+        reflectionImage: '/assets/img/tiket.webp',
+        reflectionPosition: '50% 40%',
+        metrics: [
+            { value: '+4.8%', label: 'Relative conversion lift', detail: 'Payment recommendations · controlled experimentation' },
+            { value: '+2.3%', label: 'Booking conversion', detail: 'Computer vision (YOLOv10 with TensorRT inference) · quality across 15,000+ hotel listings' },
+            { value: '12K+', label: 'Properties processed', detail: 'Entity matching · 34% less duplicate inventory' },
+            { value: '$440K', label: 'Incremental GBV', detail: 'Personalized recommendations · traveller behaviour analysis' },
+        ],
+        role: "Associate Data Scientist",
+        company: "tiket.com",
+        location: "Jakarta, Indonesia",
+        date: "Oct 2022 - Jul 2024",
+        logo: "/assets/img/tiket-logo.webp",
+        focus: "Product ML, experimentation, marketplace quality",
+        description: "Product data science role across payments, hotel discovery, listing quality, and marketplace operations at one of Southeast Asia's largest online travel platforms.",
+        achievements: [
+            "Partnered with product, engineering, and commercial teams to translate experimentation, personalization, and ML systems into checkout, discovery, and marketplace-quality decisions.",
+            "Worked across marketplace-scale data including 15+ payment methods, 15,000+ hotel listings, four customer segments, and 12,000+ hotel properties.",
+            "Built and evaluated production-oriented ML workflows spanning recommendation systems, computer vision, entity matching, and NLP automation.",
+            "Improved operational decision-making through CatBoost-based hotel entity matching, reducing duplicate inventory by 34% and weekly manual review from 120 hours to 15 hours."
+        ],
+        image: "/assets/img/tiket.webp"
+    },
+    {
+        id: 'sayurbox',
+        reflectionImage: '/assets/img/sayurbox.webp',
+        reflectionKind: 'logo', // No Sayurbox photograph is supplied.
+        reflectionPosition: '50% 50%',
+        metrics: [],
+        role: "Junior Data Scientist",
+        company: "Sayurbox",
+        location: "Jakarta, Indonesia",
+        date: "May 2020 - Oct 2021",
+        logo: "/assets/img/sayurbox-logo.webp",
+        focus: "Forecasting, workforce planning, logistics",
+        description: "Earlier data science role in e-grocery operations, focused on demand forecasting, workforce planning, and logistics optimization.",
+        achievements: [
+            "Built weekly demand-forecasting workflows to support inventory and fulfillment planning.",
+            "Automated workforce scheduling inputs for order preparation operations.",
+            "Developed route-assignment logic to improve driver deployment decisions."
+        ],
+        image: "/assets/img/sayurbox.webp"
+    }
+];
+
+export const educationData = [
+    {
+        id: 'monash',
+        degree: "Master of Science",
+        school: "Monash University",
+        location: "Melbourne, Australia",
+        date: "2024 - 2026",
+        logo: "/assets/img/monash-logo.webp",
+        focus: "Data Science",
+        description: "Graduate study in data science with emphasis on statistical modelling, big data processing, applied analysis, and data visualization.",
+        details: ["Statistical Modelling", "Big Data Processing", "Applied Data Analysis", "Data Exploration & Visualization", "Data Wrangling", "Business Analysis"],
+        image: "/assets/img/monash.webp"
+    },
+    {
+        id: 'nottingham',
+        degree: "Bachelor of Science (Hons.)",
+        school: "University of Nottingham",
+        location: "Nottingham, United Kingdom",
+        date: "Sep 2019 - Sep 2020",
+        logo: "/assets/img/nottingham-logo.webp",
+        focus: "Computer Science with AI",
+        description: "Undergraduate double degree program in Computer Science with AI.",
+        details: ["First Class Honors", "Dissertation (76%): \"Common Chest X-ray Classification and Localization with Deep Learning\" | Supervisor: Dr. Chao Chen"],
+        image: "/assets/img/nottingham.webp"
+    },
+    {
+        id: 'binus',
+        degree: "Bachelor of Science",
+        school: "Bina Nusantara University",
+        location: "Jakarta, Indonesia",
+        date: "Sep 2016 - Sep 2020",
+        logo: "/assets/img/binus-logo.webp",
+        focus: "Computer Science foundation",
+        description: "Undergraduate studies in Computer Science.",
+        details: ["Teaching Assistant for 'Introduction to Database' unit", "International Program Mentor"],
+        image: "/assets/img/binus.webp"
+    }
+];
+
+// Facts remain in the canonical work/education records above.
+export const experienceEntries = [
+    ...experienceData.map(item => ({ ...item, kind: 'Work', indicator: item.metrics[0]?.value ?? 'Operations', indicatorLabel: item.metrics[0]?.label ?? 'Forecasting & logistics' })),
+    ...educationData.map(item => ({
+        ...item, kind: 'Education', company: item.school, role: item.degree,
+        reflectionImage: item.image, reflectionPosition: '50% 40%', metrics: [],
+        achievements: item.details,
+        indicator: item.id === 'nottingham' ? 'First class' : item.degree.split(' ')[0],
+        indicatorLabel: item.id === 'nottingham' ? 'Honours' : item.id === 'monash' ? 'Completed Jun 2026' : 'Computer Science',
+    })),
+];
